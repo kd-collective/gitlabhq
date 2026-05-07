@@ -321,20 +321,6 @@ RSpec.describe Ci::CreatePipelineService, feature_category: :pipeline_compositio
           )
         end
       end
-
-      context 'when ci_config_gitaly_timeout feature flag is disabled' do
-        before do
-          stub_feature_flags(ci_config_gitaly_timeout: false)
-        end
-
-        it 'creates a pipeline successfully' do
-          response = execute
-          pipeline = response.payload
-
-          expect(response).to be_success
-          expect(pipeline).to be_created_successfully
-        end
-      end
     end
   end
 end

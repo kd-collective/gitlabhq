@@ -232,3 +232,44 @@ export const MOCK_CI_STAGE = {
 };
 
 export const MOCK_LINK = { title: 'title', webUrl: 'url' };
+
+export const MOCK_AGGREGATED_FIELDS_ONE_DIM_ONE_METRIC = [
+  { key: 'language', label: 'Language', name: 'language', type: 'dimension' },
+  { key: 'totalCount', label: 'Total count', name: 'totalCount', type: 'metric' },
+];
+
+export const MOCK_AGGREGATED_FIELDS_ONE_DIM_TWO_METRICS = [
+  { key: 'language', label: 'Language', name: 'language', type: 'dimension' },
+  { key: 'totalCount', label: 'Total count', name: 'totalCount', type: 'metric' },
+  { key: 'acceptanceRate', label: 'Acceptance rate', name: 'acceptanceRate', type: 'metric' },
+];
+
+export const MOCK_AGGREGATED_FIELDS_TWO_DIMS_ONE_METRIC = [
+  { key: 'user', label: 'User', name: 'user', type: 'dimension' },
+  { key: 'language', label: 'Language', name: 'language', type: 'dimension' },
+  { key: 'totalCount', label: 'Total count', name: 'totalCount', type: 'metric' },
+];
+
+export const MOCK_AGGREGATED_FIELDS_TWO_DIMS_TWO_METRICS = [
+  { key: 'user', label: 'User', name: 'user', type: 'dimension' },
+  { key: 'language', label: 'Language', name: 'language', type: 'dimension' },
+  { key: 'totalCount', label: 'Total count', name: 'totalCount', type: 'metric' },
+  { key: 'acceptanceRate', label: 'Acceptance rate', name: 'acceptanceRate', type: 'metric' },
+];
+
+export const MOCK_AGGREGATED_DATA_ONE_DIM = {
+  nodes: [
+    { language: 'ruby', totalCount: 21, acceptanceRate: 0.625 },
+    { language: 'python', totalCount: 14, acceptanceRate: 0.333 },
+    { language: 'go', totalCount: 10, acceptanceRate: 0.2 },
+  ],
+};
+
+export const MOCK_AGGREGATED_DATA_TWO_DIMS = {
+  nodes: [
+    { user: 'user-0', language: 'ruby', totalCount: 12, acceptanceRate: 0.75 },
+    { user: 'user-0', language: 'python', totalCount: 6, acceptanceRate: 0.5 },
+    { user: 'user-2', language: 'ruby', totalCount: 6, acceptanceRate: 1 },
+    { user: 'user-2', language: 'python', totalCount: 5, acceptanceRate: 0 },
+  ],
+};

@@ -17284,6 +17284,9 @@ msgstr ""
 msgid "Code Coverage|No code coverage data"
 msgstr ""
 
+msgid "Code Intelligence"
+msgstr ""
+
 msgid "Code Owner"
 msgstr ""
 
@@ -41964,6 +41967,9 @@ msgstr ""
 msgid "Leave"
 msgstr ""
 
+msgid "Leave Feedback"
+msgstr ""
+
 msgid "Leave edit mode? All unsaved changes will be lost."
 msgstr ""
 
@@ -49935,6 +49941,9 @@ msgstr ""
 msgid "Orbit|Available groups"
 msgstr ""
 
+msgid "Orbit|Back to symbols"
+msgstr ""
+
 msgid "Orbit|Branch"
 msgstr ""
 
@@ -49948,6 +49957,9 @@ msgid "Orbit|CLI command"
 msgstr ""
 
 msgid "Orbit|CSV"
+msgstr ""
+
+msgid "Orbit|Calls"
 msgstr ""
 
 msgid "Orbit|Cancel"
@@ -49969,6 +49981,12 @@ msgid "Orbit|Click to select. Double-click to expand. Drag to move."
 msgstr ""
 
 msgid "Orbit|Close"
+msgstr ""
+
+msgid "Orbit|Close code intelligence panel"
+msgstr ""
+
+msgid "Orbit|Code Intelligence"
 msgstr ""
 
 msgid "Orbit|Code Review"
@@ -50079,6 +50097,9 @@ msgstr ""
 msgid "Orbit|Failed to expand node neighbors."
 msgstr ""
 
+msgid "Orbit|Failed to load code intelligence data."
+msgstr ""
+
 msgid "Orbit|Failed to load group. Please try again."
 msgstr ""
 
@@ -50089,6 +50110,9 @@ msgid "Orbit|Failed to load groups. Please try again."
 msgstr ""
 
 msgid "Orbit|Failed to load initial graph neighbors."
+msgstr ""
+
+msgid "Orbit|Failed to load references."
 msgstr ""
 
 msgid "Orbit|Failed to update group setting. Please try again."
@@ -50160,6 +50184,12 @@ msgstr ""
 msgid "Orbit|Job"
 msgstr ""
 
+msgid "Orbit|Jump to definition"
+msgstr ""
+
+msgid "Orbit|L%{line}"
+msgstr ""
+
 msgid "Orbit|Label"
 msgstr ""
 
@@ -50220,10 +50250,19 @@ msgstr ""
 msgid "Orbit|No groups match your search."
 msgstr ""
 
+msgid "Orbit|No indexed symbols in this file."
+msgstr ""
+
 msgid "Orbit|No indexing data available yet."
 msgstr ""
 
 msgid "Orbit|No namespaces have indexing enabled."
+msgstr ""
+
+msgid "Orbit|No outbound calls found."
+msgstr ""
+
+msgid "Orbit|No references found."
 msgstr ""
 
 msgid "Orbit|No results yet"
@@ -50299,6 +50338,9 @@ msgid "Orbit|Query Orbit directly, or power up your agents with GitLab context. 
 msgstr ""
 
 msgid "Orbit|Recently merged merge requests and the people who merged them"
+msgstr ""
+
+msgid "Orbit|References"
 msgstr ""
 
 msgid "Orbit|Related Entities"
@@ -50521,6 +50563,9 @@ msgid "Orbit|Zoom in"
 msgstr ""
 
 msgid "Orbit|Zoom out"
+msgstr ""
+
+msgid "Orbit|callers"
 msgstr ""
 
 msgid "Orbit|entities"
@@ -87715,6 +87760,18 @@ msgid "closed"
 msgstr ""
 
 msgid "closed %{timeago}"
+msgstr ""
+
+msgid "columnChart requires at least one dimension"
+msgstr ""
+
+msgid "columnChart requires at least one metric"
+msgstr ""
+
+msgid "columnChart supports a maximum of 2 dimensions"
+msgstr ""
+
+msgid "columnChart with 2 dimensions supports only a single metric"
 msgstr ""
 
 msgid "comment"

@@ -187,7 +187,6 @@ RSpec.describe Project, factory_default: :keep, feature_category: :groups_and_pr
     it { is_expected.to have_many(:ci_feature_usages).class_name('Projects::CiFeatureUsage') }
     it { is_expected.to have_many(:bulk_import_exports).class_name('BulkImports::Export') }
     it { is_expected.to have_many(:job_artifacts).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:build_trace_chunks).through(:builds).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:secure_files).class_name('Ci::SecureFile').dependent(:restrict_with_error) }
     it { is_expected.to have_one(:build_artifacts_size_refresh).class_name('Projects::BuildArtifactsSizeRefresh') }
     it { is_expected.to have_many(:project_callouts).class_name('Users::ProjectCallout').with_foreign_key(:project_id) }

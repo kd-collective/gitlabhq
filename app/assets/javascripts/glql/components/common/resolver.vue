@@ -174,6 +174,7 @@ export default {
       :data="data"
       :fields="fields"
       :display-type="config.display"
+      :display-config="config.displayConfig"
       :loading="loading"
       @error="handlePresenterError"
     />

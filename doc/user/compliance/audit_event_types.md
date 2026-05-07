@@ -730,6 +730,8 @@ Audit event types belong to the following product categories.
 | [`manually_trigger_housekeeping`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/112095) | Manually triggering housekeeping via API or admin UI | {{< yes >}} | GitLab [15.9](https://gitlab.com/gitlab-org/gitlab/-/issues/390761) | Project |
 | [`project_blobs_removal`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/152522) | Removing blobs by using the GraphQL API or project settings UI | {{< yes >}} | GitLab [17.0](https://gitlab.com/gitlab-org/gitlab/-/issues/450701) | Project |
 | [`project_text_replacement`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/152522) | Replacing text by using the GraphQL API or project settings UI | {{< yes >}} | GitLab [17.1](https://gitlab.com/gitlab-org/gitlab/-/issues/450701) | Project |
+| [`repository_file_accessed_api`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/234665) | Log an audit event when an authenticated user reads a repository file via the API. | {{< no >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/597263) | Project |
+| [`repository_file_accessed_web`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/234665) | Log an audit event when an authenticated user views a repository file via the Web UI. | {{< no >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/597263) | Project |
 
 ### System access
 

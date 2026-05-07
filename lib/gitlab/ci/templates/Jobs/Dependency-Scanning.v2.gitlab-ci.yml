@@ -183,7 +183,7 @@ variables:
       cyclonedx: "**/gl-sbom-*.cdx.json"
       dependency_scanning: 'gl-dependency-scanning-report.json'
   rules:
-      # The following 3 blocks of rules define whether the job runs in a an *MR pipeline* or a *branch pipeline*
+    # The following 3 blocks of rules define whether the job runs in a an *MR pipeline* or a *branch pipeline*
     # when an MR exists. If the job has additional rules to observe they should be added in the blocks 1 and 3
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
 
@@ -208,7 +208,7 @@ variables:
     DS_ANALYZER_IMAGE: $[[ inputs.analyzer_image_prefix ]]/$[[ inputs.analyzer_image_name ]]:$[[ inputs.analyzer_image_version ]]
     DS_MAVEN_RESOLUTION_IMAGE: $[[ inputs.maven_resolution_image ]]
     # List of variables exported to the service container (DS analyzer image) that are useful for dependency file detection and dependency resolution commands generation
-    DS_MAVEN_RESOLUTION_EXPORTED_VARS: ADDITIONAL_CA_CERT_BUNDLE DS_MAX_DEPTH DS_EXCLUDED_PATHS DS_INCLUDE_DEV_DEPENDENCIES SECURE_LOG_LEVEL DS_MAVEN_DEPENDENCY_PLUGIN_VERSION
+    DS_MAVEN_RESOLUTION_EXPORTED_VARS: ADDITIONAL_CA_CERT_BUNDLE DS_MAX_DEPTH DS_EXCLUDED_PATHS DS_INCLUDE_DEV_DEPENDENCIES SECURE_LOG_LEVEL DS_MAVEN_DEPENDENCY_PLUGIN_VERSION MAVEN_ARGS
   image: $DS_MAVEN_RESOLUTION_IMAGE
   stage: $[[ inputs.resolution_jobs_stage ]]
   allow_failure: $[[ inputs.resolution_jobs_allow_failure ]]
@@ -225,6 +225,8 @@ variables:
     - export DS_INCLUDE_DEV_DEPENDENCIES="${DS_INCLUDE_DEV_DEPENDENCIES:-$[[ inputs.include_dev_dependencies ]]}"
     - export SECURE_LOG_LEVEL="${SECURE_LOG_LEVEL:-$[[ inputs.analyzer_log_level ]]}"
     - export DS_MAVEN_DEPENDENCY_PLUGIN_VERSION="${DS_MAVEN_DEPENDENCY_PLUGIN_VERSION:-$[[ inputs.maven_dependency_plugin_version ]]}"
+    # MAVEN_ARGS fallback to MAVEN_CLI_OPTS which is a deprecated variable from the legacy Gemnasium analyzer.
+    - export MAVEN_ARGS="${MAVEN_ARGS:-$MAVEN_CLI_OPTS}"
 
     # Create the shared directory to communicate with service container.
     # World-write needed as main container and service container may run as different UIDs
@@ -373,7 +375,7 @@ variables:
     DS_ANALYZER_IMAGE: $[[ inputs.analyzer_image_prefix ]]/$[[ inputs.analyzer_image_name ]]:$[[ inputs.analyzer_image_version ]]
     DS_GRADLE_RESOLUTION_IMAGE: $[[ inputs.gradle_resolution_image ]]
     # List of variables exported to the service container (DS analyzer image) that are useful for dependency file detection and dependency resolution commands generation
-    DS_GRADLE_RESOLUTION_EXPORTED_VARS: ADDITIONAL_CA_CERT_BUNDLE DS_MAX_DEPTH DS_EXCLUDED_PATHS DS_INCLUDE_DEV_DEPENDENCIES SECURE_LOG_LEVEL
+    DS_GRADLE_RESOLUTION_EXPORTED_VARS: ADDITIONAL_CA_CERT_BUNDLE DS_MAX_DEPTH DS_EXCLUDED_PATHS DS_INCLUDE_DEV_DEPENDENCIES GRADLE_CLI_OPTS SECURE_LOG_LEVEL
   image: $DS_GRADLE_RESOLUTION_IMAGE
   stage: $[[ inputs.resolution_jobs_stage ]]
   allow_failure: $[[ inputs.resolution_jobs_allow_failure ]]
@@ -389,8 +391,6 @@ variables:
     - export DS_EXCLUDED_PATHS="${DS_EXCLUDED_PATHS:-$[[ inputs.excluded_paths ]]}"
     - export DS_INCLUDE_DEV_DEPENDENCIES="${DS_INCLUDE_DEV_DEPENDENCIES:-$[[ inputs.include_dev_dependencies ]]}"
     - export SECURE_LOG_LEVEL="${SECURE_LOG_LEVEL:-$[[ inputs.analyzer_log_level ]]}"
-    # GRADLE_OPTS fallback to GRADLE_CLI_OPTS which is a deprecated variable from the legacy Gemnasium analyzer.
-    - export GRADLE_OPTS="${GRADLE_OPTS:-$GRADLE_CLI_OPTS}"
 
     # Create the shared directory to communicate with service container.
     # World-write needed as main container and service container may run as different UIDs

@@ -1,5 +1,0 @@
----
-# API/SameAsDescription: grace period
-# See https://docs.gitlab.com/ee/development/rubocop_development_guide.html#cop-grace-period
-API/SameAsDescription:
-  Details: grace period

@@ -203,8 +203,7 @@ module Gitlab
         end
 
         initial_config = logger.instrument(:config_external_process, once: true) do
-          gitaly_timeout = Feature.enabled?(:ci_config_gitaly_timeout, @project) ? GITALY_TIMEOUT_SECONDS : nil
-          Config::GitalyTimeout.with_timeout(gitaly_timeout) do
+          Config::GitalyTimeout.with_timeout(GITALY_TIMEOUT_SECONDS) do
             Config::External::Processor.new(initial_config, @context).perform
           end
         end

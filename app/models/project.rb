@@ -467,7 +467,6 @@ class Project < ApplicationRecord
   has_many :builds, class_name: 'Ci::Build', inverse_of: :project
   has_many :bridges, class_name: 'Ci::Bridge', inverse_of: :project
   has_many :processables, class_name: 'Ci::Processable', inverse_of: :project
-  has_many :build_trace_chunks, class_name: 'Ci::BuildTraceChunk', through: :builds, source: :trace_chunks, dependent: :restrict_with_error
   has_many :build_report_results, class_name: 'Ci::BuildReportResult', inverse_of: :project
   has_many :job_artifacts, class_name: 'Ci::JobArtifact', dependent: :restrict_with_error
   has_many :pipeline_artifacts, class_name: 'Ci::PipelineArtifact', inverse_of: :project, dependent: :restrict_with_error

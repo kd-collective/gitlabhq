@@ -98,7 +98,7 @@ export default {
       // > https://gitlab.com/gitlab-org/gitlab/-/issues/214010
       const commitListElement = this.projectCommitsEl.querySelector('#commits-list');
 
-      // To mimick effect of "filter by commit message"
+      // To mimic effect of "filter by commit message"
       commitListElement.style.opacity = 0.5;
       commitListElement.style.transition = 'opacity 200ms';
 

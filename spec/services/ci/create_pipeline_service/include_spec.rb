@@ -213,14 +213,6 @@ RSpec.describe Ci::CreatePipelineService, feature_category: :pipeline_compositio
             'CI configuration fetch from Gitaly timed out. This may indicate Gitaly service slowness or an outage.'
           )
         end
-
-        context 'when ci_config_gitaly_timeout feature flag is disabled' do
-          before do
-            stub_feature_flags(ci_config_gitaly_timeout: false)
-          end
-
-          it_behaves_like 'including the file'
-        end
       end
 
       context 'when project include times out' do
@@ -255,14 +247,6 @@ RSpec.describe Ci::CreatePipelineService, feature_category: :pipeline_compositio
           expect(pipeline.error_messages.map(&:content)).to include(
             'CI configuration fetch from Gitaly timed out. This may indicate Gitaly service slowness or an outage.'
           )
-        end
-
-        context 'when ci_config_gitaly_timeout feature flag is disabled' do
-          before do
-            stub_feature_flags(ci_config_gitaly_timeout: false)
-          end
-
-          it_behaves_like 'including the file'
         end
       end
 
