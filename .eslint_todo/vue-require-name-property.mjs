@@ -614,7 +614,6 @@ export default {
     'app/assets/javascripts/pages/groups/new/components/app.vue',
     'app/assets/javascripts/pages/groups/new/components/create_group_description_details.vue',
     'app/assets/javascripts/pages/import/bitbucket_server/status/components/bitbucket_server_status_table.vue',
-    'app/assets/javascripts/pages/import/bulk_imports/history/components/bulk_imports_history_app.vue',
     'app/assets/javascripts/pages/import/fogbugz/new_user_map/components/user_select.vue',
     'app/assets/javascripts/pages/import/history/components/import_error_details.vue',
     'app/assets/javascripts/pages/import/history/components/import_history_app.vue',

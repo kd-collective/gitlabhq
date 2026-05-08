@@ -92,8 +92,6 @@ export default {
     'app/assets/javascripts/labels/components/promote_label_modal.vue',
     'app/assets/javascripts/merge_request_dashboard/components/app.vue',
     'app/assets/javascripts/merge_requests/list/components/merge_requests_list_app.vue',
-    'app/assets/javascripts/milestones/components/delete_milestone_modal.vue',
-    'app/assets/javascripts/milestones/components/promote_milestone_modal.vue',
     'app/assets/javascripts/namespaces/components/namespace_select.vue',
     'app/assets/javascripts/notes/components/comment_form.vue',
     'app/assets/javascripts/notes/components/discussion_actions.vue',

@@ -98,6 +98,7 @@ export const COMMANDS = {
   ITERATION: '/iteration',
   UNLINK: '/unlink',
   STATUS: '/status',
+  TYPE: '/type',
 };
 
 export const COMMANDS_WITH_LOCAL_DATA = [COMMANDS.UNASSIGN, COMMANDS.UNLABEL, COMMANDS.UNLINK];

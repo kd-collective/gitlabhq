@@ -25,6 +25,7 @@ import {
   currentAssignees,
   currentReviewers,
   appliedLabels,
+  supportedConversionTypes,
 } from '~/graphql_shared/issuable_client_state';
 import {
   eventlistenersMockDefaultMap,
@@ -42,6 +43,7 @@ jest.mock('~/graphql_shared/issuable_client_state', () => ({
   currentAssignees: jest.fn(),
   currentReviewers: jest.fn().mockReturnValue([]),
   appliedLabels: jest.fn(),
+  supportedConversionTypes: jest.fn().mockReturnValue({}),
 }));
 
 jest.mock('fuzzaldrin-plus', () => ({
@@ -1684,6 +1686,128 @@ describe('GfmAutoComplete', () => {
           expect(getDropdownItems()).toEqual([mockLabels[0]].map(labelMatcher));
           expect(appliedLabels).toHaveBeenCalled();
         });
+      });
+    });
+  });
+
+  describe('Types', () => {
+    const mockWorkItemFullPath = 'gitlab-org/gitlab-test';
+    const mockWorkItemTypeId = 'gid://gitlab/WorkItems::Type/1';
+    const mockTypes = [
+      {
+        id: 'gid://gitlab/WorkItems::Type/2',
+        name: 'Task',
+        iconName: 'issue-type-task',
+      },
+      {
+        id: 'gid://gitlab/WorkItems::Type/3',
+        name: 'Incident',
+        iconName: 'issue-type-incident',
+      },
+      {
+        id: 'gid://gitlab/WorkItems::Type/4',
+        name: 'Issue',
+        iconName: 'issue-type-issue',
+      },
+    ];
+
+    let autocomplete;
+    let $textarea;
+
+    beforeEach(() => {
+      document.body.dataset.page = 'projects:issues:show';
+      setHTMLFixture(`
+        <section>
+          <div class="js-gfm-wrapper"
+            data-work-item-full-path="${mockWorkItemFullPath}"
+            data-work-item-type-id="${mockWorkItemTypeId}">
+            <textarea></textarea>
+          </div>
+        </section>
+      `);
+      $textarea = $('textarea');
+      supportedConversionTypes.mockReturnValue({
+        [mockWorkItemFullPath]: { [mockWorkItemTypeId]: mockTypes },
+      });
+      autocomplete = new GfmAutoComplete({});
+      autocomplete.setup($textarea, { types: true });
+    });
+
+    afterEach(() => {
+      autocomplete.destroy();
+      resetHTMLFixture();
+    });
+
+    it('should list all types when `/type "` is typed', () => {
+      triggerDropdown($textarea, '/type "');
+
+      expect(supportedConversionTypes).toHaveBeenCalled();
+      expect(getAutocompleteDropdownItems('at-view-quotedCompletions')).toEqual([
+        'Task',
+        'Incident',
+        'Issue',
+      ]);
+    });
+
+    it('should call fuzzaldrin filter when `/type "ta` is typed', () => {
+      triggerDropdown($textarea, '/type "ta');
+
+      expect(supportedConversionTypes).toHaveBeenCalled();
+      expect(fuzzaldrinPlus.filter).toHaveBeenCalledWith(expect.any(Array), 'ta', {
+        key: 'name',
+      });
+    });
+
+    describe('templateFunction', () => {
+      const { templateFunction } = GfmAutoComplete.quotedCompletions['/type'];
+      const mockType = {
+        id: 'gid://gitlab/WorkItems::Type/2',
+        name: 'Task',
+        iconName: 'issue-type-task',
+      };
+
+      it('should return html with type icon and name', () => {
+        expect(templateFunction({ ...mockType })).toMatchInlineSnapshot(`
+          <li
+            data-id="gid://gitlab/WorkItems::Type/2"
+          >
+            <svg
+              class="gl-fill-current gl-mr-2 s12"
+            >
+              <use
+                xlink:href="/icons.svg#issue-type-task"
+              />
+            </svg>
+            <span>
+              Task
+            </span>
+          </li>
+        `);
+      });
+
+      it.each`
+        xssPayload                                           | escapedPayload
+        ${'<script>alert(1)</script>'}                       | ${'&lt;script&gt;alert(1)&lt;/script&gt;'}
+        ${'%3Cscript%3E alert(1) %3C%2Fscript%3E'}           | ${'&lt;script&gt; alert(1) &lt;/script&gt;'}
+        ${'%253Cscript%253E alert(1) %253C%252Fscript%253E'} | ${'&lt;script&gt; alert(1) &lt;/script&gt;'}
+      `('escapes name correctly for "$xssPayload"', ({ xssPayload, escapedPayload }) => {
+        // eslint-disable-next-line jest/no-interpolation-in-snapshots
+        expect(templateFunction({ ...mockType, name: xssPayload })).toMatchInlineSnapshot(`
+          <li
+            data-id="gid://gitlab/WorkItems::Type/2"
+          >
+            <svg
+              class="gl-fill-current gl-mr-2 s12"
+            >
+              <use
+                xlink:href="/icons.svg#issue-type-task"
+              />
+            </svg>
+            <span>
+              ${escapedPayload}
+            </span>
+          </li>
+        `);
       });
     });
   });

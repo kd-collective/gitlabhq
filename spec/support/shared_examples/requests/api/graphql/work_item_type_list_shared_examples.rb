@@ -95,6 +95,30 @@ RSpec.shared_examples 'graphql work item type list request spec' do |context_nam
     end
   end
 
+  describe 'enabled field' do
+    let(:work_item_type_fields) { 'name enabled' }
+
+    it 'returns enabled: false for non-group types (like Issue) in group context' do
+      skip 'Only applicable to group namespaces' unless parent.is_a?(Group)
+
+      post_graphql(query, current_user: current_user)
+
+      returned_types = graphql_data_at(parent_key, :workItemTypes, :nodes)
+      issue_data = returned_types.find { |t| t['name'] == 'Issue' }
+      expect(issue_data['enabled']).to be(false)
+    end
+
+    it 'returns enabled: true for non-group types (like Issue) in project context' do
+      skip 'Only applicable to project namespaces' unless parent.is_a?(Project)
+
+      post_graphql(query, current_user: current_user)
+
+      returned_types = graphql_data_at(parent_key, :workItemTypes, :nodes)
+      issue_data = returned_types.find { |t| t['name'] == 'Issue' }
+      expect(issue_data['enabled']).to be(true)
+    end
+  end
+
   def ids_from_response
     graphql_data_at(parent_key, :workItemTypes, :nodes, :id).map { |gid| GlobalID.new(gid).model_id.to_i }
   end

@@ -14,7 +14,6 @@ RSpec/RepeatedExampleGroupBody:
     - 'spec/controllers/projects/graphs_controller_spec.rb'
     - 'spec/controllers/projects/registry/repositories_controller_spec.rb'
     - 'spec/features/projects/commit/cherry_pick_spec.rb'
-    - 'spec/features/security/project/private_access_spec.rb'
     - 'spec/features/work_items/issues/new/spam_akismet_issue_creation_spec.rb'
     - 'spec/finders/packages/nuget/package_finder_spec.rb'
     - 'spec/helpers/gitlab_routing_helper_spec.rb'

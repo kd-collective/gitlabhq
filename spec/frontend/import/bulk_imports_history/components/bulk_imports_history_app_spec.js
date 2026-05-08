@@ -5,7 +5,7 @@ import axios from '~/lib/utils/axios_utils';
 import waitForPromises from 'helpers/wait_for_promises';
 import { HTTP_STATUS_OK } from '~/lib/utils/http_status';
 
-import BulkImportsHistoryApp from '~/pages/import/bulk_imports/history/components/bulk_imports_history_app.vue';
+import BulkImportsHistoryApp from '~/import/bulk_imports_history/components/bulk_imports_history_app.vue';
 import ImportStatus from '~/import_entities/import_groups/components/import_status.vue';
 import ImportStats from '~/import_entities/components/import_stats.vue';
 import PaginationBar from '~/vue_shared/components/pagination_bar/pagination_bar.vue';

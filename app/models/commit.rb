@@ -408,6 +408,12 @@ class Commit
     end
   end
 
+  def verified_committer
+    return unless signature&.verified_committer?
+
+    signature.signed_by_user
+  end
+
   def gpg_commit
     @gpg_commit ||= Gitlab::Gpg::Commit.new(self)
   end

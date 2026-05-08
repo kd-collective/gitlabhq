@@ -7,7 +7,7 @@ RSpec.describe Gitlab::Graphql::Authz::GranularTokenAuthorization, feature_categ
 
   let_it_be(:project) { create(:project) }
   let_it_be(:user) { create(:user, developer_of: project) }
-  let_it_be(:access_token) { create(:granular_pat) }
+  let_it_be(:access_token) { create(:granular_pat, user: user) }
 
   let(:object) { project }
   let(:arguments) { {} }

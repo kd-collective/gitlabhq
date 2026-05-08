@@ -12,6 +12,8 @@ import { pinia } from '~/pinia/instance';
 import ReviewDrawer from '~/batch_comments/components/review_drawer.vue';
 import { observable } from '~/lib/utils/observable';
 import { initRapidDiffsToggle } from '~/rapid_diffs/app/init_rapid_diffs_toggle';
+import { useMrNotes } from '~/mr_notes/store/legacy_mr_notes';
+import { useMergeRequestDiscussions } from '~/merge_request/stores/merge_request_discussions';
 import initShow from './init_merge_request_show';
 import getStateQuery from './queries/get_state.query.graphql';
 
@@ -21,7 +23,7 @@ const tabData = observable('mr_page_tab_data', {
   tabs: [],
 });
 
-const initMrStickyHeader = () => {
+const initMrStickyHeader = (store) => {
   const el = document.getElementById('js-merge-sticky-header');
 
   if (el && !CSS.supports('container-type: scroll-state')) {
@@ -69,6 +71,7 @@ const initMrStickyHeader = () => {
         isFluidLayout: parseBoolean(isFluidLayout),
         blocksMerge: parseBoolean(blocksMerge),
         sourceProjectPath,
+        store,
       },
       render(h) {
         return h('sticky-header', {
@@ -143,7 +146,10 @@ export function initMrPage(createRapidDiffsApp) {
   requestIdleCallback(() => {
     initRapidDiffsToggle();
     initSidebarBundle();
-    initMrStickyHeader();
+    const stickyHeaderStore = createRapidDiffsApp
+      ? useMergeRequestDiscussions(pinia)
+      : useMrNotes(pinia);
+    initMrStickyHeader(stickyHeaderStore);
     initReviewDrawer();
   });
 }

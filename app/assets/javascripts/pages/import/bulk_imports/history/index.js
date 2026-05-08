@@ -1,3 +1,3 @@
-import { initBulkImportHistory } from './init_bulk_import_history';
+import { initBulkImportHistory } from '~/import/bulk_imports_history';
 
 initBulkImportHistory();

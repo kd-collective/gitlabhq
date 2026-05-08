@@ -491,13 +491,14 @@ RSpec.shared_examples 'graphql issue list request spec' do
       include_examples 'N+1 query check'
     end
 
-    context 'when requesting `merge_requests_count`',
-      quarantine: 'https://gitlab.com/gitlab-org/gitlab/-/issues/448791' do
+    context 'when requesting `merge_requests_count`' do
       let(:requested_fields) { 'mergeRequestsCount' }
 
       before do
         create_list(:merge_requests_closing_issues, 2, issue: issue_a)
         create_list(:merge_requests_closing_issues, 3, issue: issue_b)
+        # Warm up sign-in side effects so they don't pollute control vs. test runs
+        post_graphql(query, current_user: current_user)
       end
 
       include_examples 'N+1 query check'

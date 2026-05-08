@@ -8,6 +8,7 @@ import {
   appliedLabels,
   linkedItems,
   availableStatuses,
+  supportedConversionTypes,
 } from '~/graphql_shared/issuable_client_state';
 import { REFERENCE_TYPES } from '~/content_editor/constants/reference_types';
 import { isCurrentViewWorkItem } from '~/work_items/utils';
@@ -229,6 +230,7 @@ export default class AutocompleteHelper {
       [REFERENCE_TYPES.EPIC_ALTERNATIVE]: ['iid', 'title'],
       iteration: ['id', 'title'],
       status: ['name'],
+      type: ['name'],
       vulnerability: ['id', 'title'],
       merge_request: ['iid', 'title'],
       milestone: ['title', 'iid'],
@@ -327,6 +329,18 @@ export default class AutocompleteHelper {
           if (workItemFullPath && workItemTypeId) {
             const statuses = availableStatuses()[workItemFullPath];
             return statuses?.[workItemTypeId] || [];
+          }
+        }
+        return [];
+      },
+      type: () => {
+        if (command === COMMANDS.TYPE) {
+          const { workItemFullPath, workItemTypeId } =
+            this.tiptapEditor?.view.dom.closest('.js-gfm-wrapper')?.dataset || {};
+
+          if (workItemFullPath && workItemTypeId) {
+            const types = supportedConversionTypes()[workItemFullPath];
+            return types?.[workItemTypeId] || [];
           }
         }
         return [];

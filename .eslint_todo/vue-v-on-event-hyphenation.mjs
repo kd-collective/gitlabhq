@@ -72,7 +72,7 @@ export default {
     'app/assets/javascripts/members/components/filter_sort/members_filtered_search_bar.vue',
     'app/assets/javascripts/members/components/filter_sort/sort_dropdown.vue',
     'app/assets/javascripts/members/placeholders/components/app.vue',
-    'app/assets/javascripts/milestones/components/more_actions_dropdown.vue',
+
     'app/assets/javascripts/notes/components/discussion_notes.vue',
     'app/assets/javascripts/notes/components/note_body.vue',
     'app/assets/javascripts/notes/components/note_form.vue',

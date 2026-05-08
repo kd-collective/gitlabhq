@@ -81,7 +81,7 @@ export default function initMrNotes(createRapidDiffsApp) {
     createRapidDiffsApp,
   });
 
-  initMrStateLazyLoad();
+  initMrStateLazyLoad(createRapidDiffsApp);
 
   document.addEventListener('merged:UpdateActions', () => {
     initRevertCommitModal('i_code_review_post_merge_submit_revert_modal');

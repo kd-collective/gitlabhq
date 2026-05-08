@@ -352,7 +352,6 @@ These files are expected to exist in the repo:
 
 These patterns must be in root `.gitignore` (non-rooted):
 
-- `AGENTS.local.md`
 - `CLAUDE.local.md`
 - `.ai/*`
 
@@ -373,13 +372,16 @@ These patterns must be in root `.gitignore` (non-rooted):
 - `.gitlab/duo/chat-rules.md`
 - `.gitlab/duo/mcp.json`
 
-`AGENTS.local.md` and `CLAUDE.local.md` (at any directory level) are
-personal local override files that must never be committed. They are
-gitignored by the patterns enforced in §3.2, but the forbidden check
-catches the case where someone force-adds them with `git add --force`.
-This closes the gap where both the gitignore check and the forbidden check
-would otherwise pass silently if the gitignore entry exists but the file
-is tracked.
+`CLAUDE.local.md` (at any directory level) is the personal local override
+file used by this repo. It is gitignored by the pattern enforced in §3.2,
+but the forbidden check catches the case where someone force-adds it with
+`git add --force`. This closes the gap where both the gitignore check and
+the forbidden check would otherwise pass silently if the gitignore entry
+exists but the file is tracked.
+
+`AGENTS.local.md` (at any directory level) is non-standard for this repo
+and is not required in `.gitignore`, but is included in the forbidden list
+so that any accidental commit (force-added or otherwise) is still caught.
 
 These files in a gitignored or `.git/info/exclude`'d state are acceptable.
 

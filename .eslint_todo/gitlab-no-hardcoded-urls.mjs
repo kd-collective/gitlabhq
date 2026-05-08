@@ -41,6 +41,7 @@ export default {
     'app/assets/javascripts/ide/lib/gitlab_web_ide/get_gitlab_url.js',
     'app/assets/javascripts/ide/lib/gitlab_web_ide/get_web_ide_workbench_config.js',
     'app/assets/javascripts/ide/lib/languages/hcl.js',
+    'app/assets/javascripts/import/bulk_imports_history/components/bulk_imports_history_app.vue',
     'app/assets/javascripts/import_entities/import_groups/components/import_source_cell.vue',
     'app/assets/javascripts/issues/show/services/index.js',
     'app/assets/javascripts/jira_connect/subscriptions/api.js',

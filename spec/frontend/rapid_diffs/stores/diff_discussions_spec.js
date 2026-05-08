@@ -28,6 +28,7 @@ describe('diffDiscussions store', () => {
     'updateDiscussion',
     'collapseDiscussion',
     'expandDiscussion',
+    'toggleAllDiffDiscussions',
   ])('exposes %s from base store', (action) => {
     expect(useDiffDiscussions()[action]).toEqual(expect.any(Function));
   });
@@ -188,6 +189,75 @@ describe('diffDiscussions store', () => {
       const discussion = { id: '1', hidden: true };
       useDiffDiscussions().expandDiscussion(discussion);
       expect(discussion.hidden).toBe(false);
+    });
+  });
+
+  describe('allDiffDiscussionsExpanded', () => {
+    it('is true when there are no diff discussions', () => {
+      useDiscussions().discussions = [];
+      expect(useDiffDiscussions().allDiffDiscussionsExpanded).toBe(true);
+    });
+
+    it('is true when every diff discussion is not hidden', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: false },
+        { id: '2', diff_discussion: true, hidden: false },
+        { id: '3', diff_discussion: false, hidden: true },
+      ];
+      expect(useDiffDiscussions().allDiffDiscussionsExpanded).toBe(true);
+    });
+
+    it('is false when any diff discussion is hidden', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: false },
+        { id: '2', diff_discussion: true, hidden: true },
+      ];
+      expect(useDiffDiscussions().allDiffDiscussionsExpanded).toBe(false);
+    });
+
+    it('ignores non-diff discussions when computing expanded state', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: false },
+        { id: '2', diff_discussion: false, hidden: true },
+      ];
+      expect(useDiffDiscussions().allDiffDiscussionsExpanded).toBe(true);
+    });
+  });
+
+  describe('toggleAllDiffDiscussions', () => {
+    it('hides every diff discussion when all are currently expanded', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: false },
+        { id: '2', diff_discussion: true, hidden: false },
+      ];
+
+      useDiffDiscussions().toggleAllDiffDiscussions();
+
+      expect(useDiscussions().discussions[0].hidden).toBe(true);
+      expect(useDiscussions().discussions[1].hidden).toBe(true);
+    });
+
+    it('shows every diff discussion when any is currently hidden', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: true },
+        { id: '2', diff_discussion: true, hidden: false },
+      ];
+
+      useDiffDiscussions().toggleAllDiffDiscussions();
+
+      expect(useDiscussions().discussions[0].hidden).toBe(false);
+      expect(useDiscussions().discussions[1].hidden).toBe(false);
+    });
+
+    it('leaves non-diff discussions untouched', () => {
+      useDiscussions().discussions = [
+        { id: '1', diff_discussion: true, hidden: false },
+        { id: '2', diff_discussion: false, hidden: false },
+      ];
+
+      useDiffDiscussions().toggleAllDiffDiscussions();
+
+      expect(useDiscussions().discussions[1].hidden).toBe(false);
     });
   });
 

@@ -486,11 +486,14 @@ export default {
           sortKey = this.state === STATUS_CLOSED ? UPDATED_DESC : CREATED_DESC;
         }
         if (!this.isSavedView) {
-          this.sortKey = sortKey;
-          // Sync default sort to URL on fresh load so the URL always reflects current state.
-          // Guard against overwriting existing params (e.g. sv_limit_id on redirect from saved view).
-          if (!Object.keys(this.$route.query).length) {
-            this.updateRouterQueryParams();
+          if (!planningViewAllItemsFilters.value) {
+            this.sortKey = sortKey;
+            // Sync default sort to URL on fresh load so the URL always reflects current state.
+            // Guard against overwriting existing params (e.g. sv_limit_id on redirect from saved view).
+            if (!Object.keys(this.$route.query).length) {
+              this.updateRouterQueryParams();
+            }
+            this.saveSessionFilters(this.filterTokens);
           }
         }
         this.isSortKeyInitialized = true;
@@ -1109,6 +1112,10 @@ export default {
       }
       if (newValue.fullPath !== oldValue.fullPath && !this.isSavedView) {
         this.updateData(getParameterByName(PARAM_SORT));
+
+        if (Object.keys(newValue.query).length === 0) {
+          this.addStateToken();
+        }
       }
       if (this.isSavedView) {
         this.restoreViewDraft();

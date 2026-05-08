@@ -99,7 +99,11 @@ module API
             boundaries: boundaries_for_endpoint, permissions: permissions_for_endpoint, token: token
           ).execute
 
-          raise Gitlab::Auth::GranularPermissionsError, result.message if result.error?
+          if result.error?
+            not_found! if result.reason == :resource_not_found
+
+            raise Gitlab::Auth::GranularPermissionsError, result.message
+          end
         end
       end
 

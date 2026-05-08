@@ -54199,22 +54199,29 @@ definitions:
         format: int32
         example: 2
       has_tasks:
-        type: string
+        type: boolean
+        example: true
       task_status:
         type: string
+        example: 2 of 4 tasks completed
       _links:
         type: object
         properties:
           self:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2
           notes:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2/notes
           award_emoji:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2/award_emoji
           project:
             type: string
+            example: http://example.com/api/v4/projects/1
           closed_as_duplicate_of:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/75
         required:
         - self
         - notes
@@ -54227,16 +54234,21 @@ definitions:
         type: string
         description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
       subscribed:
-        type: string
+        type: boolean
+        example: false
       moved_to_id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       imported:
-        type: string
+        type: boolean
+        example: false
       imported_from:
         type: string
         example: github
       service_desk_reply_to:
         type: string
+        example: user@example.com
       epic_iid:
         type: string
       epic:
@@ -63705,22 +63717,29 @@ definitions:
         format: int32
         example: 2
       has_tasks:
-        type: string
+        type: boolean
+        example: true
       task_status:
         type: string
+        example: 2 of 4 tasks completed
       _links:
         type: object
         properties:
           self:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2
           notes:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2/notes
           award_emoji:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/2/award_emoji
           project:
             type: string
+            example: http://example.com/api/v4/projects/1
           closed_as_duplicate_of:
             type: string
+            example: http://example.com/api/v4/projects/1/issues/75
         required:
         - self
         - notes
@@ -63733,16 +63752,21 @@ definitions:
         type: string
         description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
       subscribed:
-        type: string
+        type: boolean
+        example: false
       moved_to_id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       imported:
-        type: string
+        type: boolean
+        example: false
       imported_from:
         type: string
         example: github
       service_desk_reply_to:
         type: string
+        example: user@example.com
       epic_iid:
         type: string
       epic:
@@ -63752,13 +63776,20 @@ definitions:
       health_status:
         type: string
       issue_link_id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       link_type:
         type: string
+        example: relates_to
       link_created_at:
         type: string
+        format: date-time
+        example: '2022-01-31T15:10:44.988Z'
       link_updated_at:
         type: string
+        format: date-time
+        example: '2022-01-31T15:10:44.988Z'
     required:
     - id
     - iid
@@ -63836,6 +63867,7 @@ definitions:
         "$ref": "#/definitions/API_Entities_IssueBasic"
       link_type:
         type: string
+        example: relates_to
     required:
     - id
     - source_issue
@@ -65265,6 +65297,7 @@ definitions:
     properties:
       note:
         type: string
+        example: LGTM!
       author:
         "$ref": "#/definitions/API_Entities_UserBasic"
     required:
@@ -66382,52 +66415,76 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       type:
         type: string
+        example: DiscussionNote
       body:
         type: string
+        example: Note body.
       author:
         "$ref": "#/definitions/API_Entities_UserBasic"
       created_at:
         type: string
+        format: date-time
+        example: '2022-01-31T15:10:44.988Z'
       updated_at:
         type: string
+        format: date-time
+        example: '2022-01-31T15:10:44.988Z'
       system:
-        type: string
+        type: boolean
+        example: false
       noteable_id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       noteable_type:
         type: string
+        example: Issue
       project_id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       commit_id:
         type: string
+        example: 7b09ce7e6f80347baf0316c8c94cdba9a0a7e91d
       position:
-        type: string
+        type: object
       resolvable:
-        type: string
+        type: boolean
+        example: false
       resolved:
-        type: string
+        type: boolean
+        example: false
       resolved_by:
         "$ref": "#/definitions/API_Entities_UserBasic"
       resolved_at:
         type: string
+        format: date-time
+        example: '2022-01-31T15:10:44.988Z'
       suggestions:
         "$ref": "#/definitions/API_Entities_Suggestion"
       confidential:
-        type: string
+        type: boolean
+        example: false
       internal:
-        type: string
+        type: boolean
+        example: false
       imported:
-        type: string
+        type: boolean
+        example: false
       imported_from:
         type: string
         example: github
       noteable_iid:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       commands_changes:
-        type: string
+        type: object
     required:
     - id
     - type
@@ -66450,19 +66507,33 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       from_line:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       to_line:
-        type: string
+        type: integer
+        format: int32
+        example: 1
       appliable:
-        type: string
+        type: boolean
+        example: true
       applied:
-        type: string
+        type: boolean
+        example: false
       from_content:
         type: string
+        example: 'Original content
+
+          '
       to_content:
         type: string
+        example: 'New content
+
+          '
     required:
     - id
     - from_line

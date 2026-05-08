@@ -139,6 +139,17 @@ describe('Diffs list store', () => {
       });
     });
 
+    it('shows loading indicator while the fetch promise is still pending', async () => {
+      global.fetch.mockImplementation(() => new Promise(() => {}));
+
+      expect(findLoadingIndicator().hidden).toBe(true);
+
+      store.streamRemainingDiffs('/stream', findStreamContainer());
+      await waitForPromises();
+
+      expect(findLoadingIndicator().hidden).toBe(false);
+    });
+
     itCancelsRunningRequest(() => store.streamRemainingDiffs('/stream'));
     itSetsStatuses(() => store.streamRemainingDiffs('/stream'));
     itShowsLoadingIndicator(() => store.streamRemainingDiffs('/stream', findStreamContainer()));

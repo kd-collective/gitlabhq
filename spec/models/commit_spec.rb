@@ -1120,4 +1120,43 @@ TEXT
       let(:resource) { commit }
     end
   end
+
+  describe '#verified_committer' do
+    let_it_be(:gpg_key) { create(:gpg_key) }
+
+    context 'when there is no signature' do
+      it 'returns nil' do
+        allow(commit).to receive(:signature).and_return(nil)
+
+        expect(commit.verified_committer).to be_nil
+      end
+    end
+
+    context 'when the signature is verified' do
+      it 'returns the signed_by_user' do
+        signature = build(:gpg_signature, gpg_key: gpg_key, verification_status: :verified)
+        allow(commit).to receive(:signature).and_return(signature)
+
+        expect(commit.verified_committer).to eq(gpg_key.user)
+      end
+    end
+
+    context 'when the signature is verified_system' do
+      it 'returns the signed_by_user' do
+        signature = build(:gpg_signature, gpg_key: gpg_key, verification_status: :verified_system)
+        allow(commit).to receive(:signature).and_return(signature)
+
+        expect(commit.verified_committer).to eq(gpg_key.user)
+      end
+    end
+
+    context 'when the signature is unverified' do
+      it 'returns nil' do
+        signature = build(:gpg_signature, gpg_key: gpg_key, verification_status: :unverified)
+        allow(commit).to receive(:signature).and_return(signature)
+
+        expect(commit.verified_committer).to be_nil
+      end
+    end
+  end
 end

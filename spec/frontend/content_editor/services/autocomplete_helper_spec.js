@@ -136,6 +136,27 @@ jest.mock('~/graphql_shared/issuable_client_state', () => ({
       ],
     },
   }),
+  supportedConversionTypes: jest.fn().mockReturnValue({
+    'gitlab-org/gitlab-test': {
+      'gid://gitlab/WorkItems::Type/1': [
+        {
+          id: 'gid://gitlab/WorkItems::Type/2',
+          name: 'Task',
+          iconName: 'issue-type-task',
+        },
+        {
+          id: 'gid://gitlab/WorkItems::Type/3',
+          name: 'Incident',
+          iconName: 'issue-type-incident',
+        },
+        {
+          id: 'gid://gitlab/WorkItems::Type/4',
+          name: 'Issue',
+          iconName: 'issue-type-issue',
+        },
+      ],
+    },
+  }),
 }));
 
 describe('defaultSorter', () => {
@@ -452,6 +473,19 @@ describe('AutocompleteHelper', () => {
       'filters statuses using apollo cache for command "$command "$query"',
       async ({ command, query }) => {
         const dataSource = autocompleteHelper.getDataSource('status', { command });
+        const results = await dataSource.search(command, query);
+        expect(results.map(({ name }) => name)).toMatchSnapshot();
+      },
+    );
+
+    it.each`
+      command    | query
+      ${'/type'} | ${''}
+      ${'/type'} | ${'ta'}
+    `(
+      'filters types using apollo cache for command "$command "$query"',
+      async ({ command, query }) => {
+        const dataSource = autocompleteHelper.getDataSource('type', { command });
         const results = await dataSource.search(command, query);
         expect(results.map(({ name }) => name)).toMatchSnapshot();
       },

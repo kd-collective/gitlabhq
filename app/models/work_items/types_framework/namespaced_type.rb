@@ -56,11 +56,11 @@ module WorkItems
       end
 
       def can_user_create_items?
-        enabled? && !delegation_source.archived? && delegation_source.creatable? && visible_in_context?
+        enabled? && delegation_source.creatable?
       end
 
       def enabled?
-        enabled
+        enabled && !delegation_source.archived? && visible_in_context?
       end
 
       private

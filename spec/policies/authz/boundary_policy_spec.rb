@@ -61,4 +61,59 @@ RSpec.describe Authz::BoundaryPolicy, feature_category: :permissions do
       it { is_expected.to be_allowed(*permissions) }
     end
   end
+
+  describe ':read_boundary' do
+    subject(:visible) { policy.allowed?(:read_boundary) }
+
+    context 'when the user is a member of the boundary' do
+      it { is_expected.to be(true) }
+    end
+
+    context 'when the user is not a member' do
+      let_it_be(:user) { create(:user) }
+
+      context 'and the boundary is a private project' do
+        let_it_be(:boundary_object) { create(:project, :private) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context 'and the boundary is an internal project' do
+        let_it_be(:boundary_object) { create(:project, :internal) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'and the boundary is a public project' do
+        let_it_be(:boundary_object) { create(:project, :public) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'and the boundary is a private group' do
+        let_it_be(:boundary_object) { create(:group, :private) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context 'and the boundary is an internal group' do
+        let_it_be(:boundary_object) { create(:group, :internal) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'and the boundary is a public group' do
+        let_it_be(:boundary_object) { create(:group, :public) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'and the user is an admin', :enable_admin_mode do
+        let_it_be(:user) { create(:admin) }
+        let_it_be(:boundary_object) { create(:project, :private) }
+
+        it { is_expected.to be(true) }
+      end
+    end
+  end
 end

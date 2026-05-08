@@ -78,15 +78,13 @@ RSpec.describe ::Authz::Tokens::AuthorizeGranularScopesService, feature_category
     context 'when the boundary is missing' do
       let(:boundary) { nil }
 
-      it_behaves_like 'error response',
-        "Access denied: This operation doesn't support fine-grained personal access tokens."
+      it_behaves_like 'error response', '404 Not Found'
     end
 
     context 'when no valid boundaries are passed in' do
       let(:boundary) { [nil, ' '] }
 
-      it_behaves_like 'error response',
-        "Access denied: This operation doesn't support fine-grained personal access tokens."
+      it_behaves_like 'error response', '404 Not Found'
     end
 
     context 'when permissions are missing' do
@@ -134,6 +132,59 @@ RSpec.describe ::Authz::Tokens::AuthorizeGranularScopesService, feature_category
         'with the following instance permissions: [Project: Read, Work Item: Read].'
     end
 
+    context 'when the boundary is not visible to the user' do
+      let_it_be(:private_project) { create(:project, :private) }
+      let_it_be(:boundary) { Authz::Boundary.for(private_project) }
+      let_it_be(:permissions) { :read_code }
+      let_it_be(:granular_pat) { create(:granular_pat) }
+
+      it 'returns a resource_not_found error response' do
+        result = service.execute
+
+        expect(result).to be_error
+        expect(result.reason).to eq(:resource_not_found)
+        expect(result.message).to eq('404 Not Found')
+      end
+
+      context 'when the user is a member of the boundary' do
+        before_all do
+          private_project.add_developer(token.user)
+        end
+
+        it 'returns an access_denied error response' do
+          result = service.execute
+
+          expect(result).to be_error
+          expect(result.reason).to be_nil
+          expect(result.message).to start_with('Access denied:')
+        end
+      end
+
+      context 'when one of the multiple boundaries is hidden' do
+        let_it_be(:public_group) { create(:group, :public) }
+        let_it_be(:boundary) { [Authz::Boundary.for(private_project), Authz::Boundary.for(public_group)] }
+
+        it 'hides existence by returning resource_not_found' do
+          result = service.execute
+
+          expect(result).to be_error
+          expect(result.reason).to eq(:resource_not_found)
+        end
+      end
+    end
+
+    context 'when permissions are declared but no boundary resolves' do
+      let_it_be(:boundary) { nil }
+      let_it_be(:permissions) { :read_code }
+      let_it_be(:granular_pat) { create(:granular_pat) }
+
+      it_behaves_like 'error response', '404 Not Found'
+
+      it 'sets reason to :resource_not_found so callers can render a 404' do
+        expect(service.execute.reason).to eq(:resource_not_found)
+      end
+    end
+
     describe 'boundary prioritization' do
       def create_granular_scope(boundary, permissions)
         create(:granular_scope, boundary:, permissions:)
@@ -176,6 +227,7 @@ RSpec.describe ::Authz::Tokens::AuthorizeGranularScopesService, feature_category
         let_it_be(:permissions) { :delete_member_role }
 
         it 'authorizes based on boundary priority order' do
+          allow(token).to receive(:can?).with(:read_boundary, anything).and_call_original
           expect(token).to receive(:can?).with(:delete_member_role, project_boundary).and_call_original.ordered
           expect(token).to receive(:can?).with(:delete_member_role, group_boundary).and_call_original.ordered
           expect(token).to receive(:can?).with(:delete_member_role, user_boundary).and_call_original.ordered

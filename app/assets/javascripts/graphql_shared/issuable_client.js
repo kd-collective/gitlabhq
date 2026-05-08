@@ -29,6 +29,7 @@ import {
   currentAssignees,
   appliedLabels,
   availableStatuses,
+  supportedConversionTypes,
 } from './issuable_client_state';
 
 export const config = {
@@ -447,7 +448,38 @@ export const config = {
         // this prevents child and parent work item types from overriding each other
         fields: {
           supportedConversionTypes: {
-            merge(__, incoming) {
+            merge(existing, incoming, context) {
+              if (context.variables.fullPath) {
+                const existingSupportedConversionTypes = supportedConversionTypes();
+                const cacheNodes = context.cache.extract();
+
+                // Get available work item types for the namespace
+                const workItemTypes = Object.keys(cacheNodes).filter((cacheKey) =>
+                  cacheKey.includes('WorkItemType:'),
+                );
+
+                // Collect available supportedConversionTypes per work item type
+                const conversionTypes = workItemTypes.reduce((acc, currentType) => {
+                  const supportedConversionTypesForThisType =
+                    cacheNodes[currentType].supportedConversionTypes;
+                  if (supportedConversionTypesForThisType) {
+                    // Normalize type ID key name
+                    acc[currentType.split('WorkItemType:').pop()] =
+                      supportedConversionTypesForThisType.map(
+                        // eslint-disable-next-line no-underscore-dangle
+                        (type) => cacheNodes[type.__ref],
+                      );
+                  }
+                  return acc;
+                }, {});
+
+                // Set type-to-supportedConversionTypes map for this namespace in reactive prop
+                supportedConversionTypes({
+                  ...existingSupportedConversionTypes,
+                  [context.variables.fullPath]: conversionTypes,
+                });
+              }
+
               return incoming;
             },
           },

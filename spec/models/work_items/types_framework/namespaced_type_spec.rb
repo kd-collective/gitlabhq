@@ -50,14 +50,37 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
   end
 
   describe '#enabled?' do
-    it 'returns true when enabled' do
-      namespaced = described_class.new(system_type, enabled: true)
+    it 'returns true when enabled, not archived, and visible in context' do
+      allow(system_type).to receive_messages(archived?: false, only_for_group?: false)
+      namespaced = described_class.new(system_type, enabled: true, is_a_group: false)
 
       expect(namespaced.enabled?).to be(true)
     end
 
-    it 'returns false when not enabled' do
-      namespaced = described_class.new(system_type, enabled: false)
+    it 'returns false when the visibility toggle is off' do
+      allow(system_type).to receive_messages(archived?: false, only_for_group?: false)
+      namespaced = described_class.new(system_type, enabled: false, is_a_group: false)
+
+      expect(namespaced.enabled?).to be(false)
+    end
+
+    it 'returns false when the type is archived' do
+      allow(system_type).to receive_messages(archived?: true, only_for_group?: false)
+      namespaced = described_class.new(system_type, enabled: true, is_a_group: false)
+
+      expect(namespaced.enabled?).to be(false)
+    end
+
+    it 'returns false for a group-only type in a non-group namespace' do
+      allow(system_type).to receive_messages(archived?: false, only_for_group?: true)
+      namespaced = described_class.new(system_type, enabled: true, is_a_group: false)
+
+      expect(namespaced.enabled?).to be(false)
+    end
+
+    it 'returns false for a non-group type in a group namespace' do
+      allow(system_type).to receive_messages(archived?: false, only_for_group?: false)
+      namespaced = described_class.new(system_type, enabled: true, is_a_group: true)
 
       expect(namespaced.enabled?).to be(false)
     end

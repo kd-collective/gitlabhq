@@ -1457,6 +1457,33 @@ describe('planning-view', () => {
     });
   });
 
+  describe('breadcrumb navigation with filters', () => {
+    it('restores default State=Open filter when navigating to base route', async () => {
+      setWindowLocation('?state=closed&assignee_username=john');
+      getParameterByName.mockImplementation(
+        (param) => ({ state: 'closed', assignee_username: 'john' })[param] ?? null,
+      );
+
+      mountComponent();
+      await waitForPromises();
+
+      setWindowLocation('/work_items');
+      getParameterByName.mockReturnValue(null);
+      await router.push('/work_items');
+      await nextTick();
+      await waitForPromises();
+
+      expect(findListView().props('filterTokens')).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            type: TOKEN_TYPE_STATE,
+            value: expect.objectContaining({ data: STATUS_OPEN, operator: OPERATOR_IS }),
+          }),
+        ]),
+      );
+    });
+  });
+
   describe('when "sort" event is emitted by FilteredSearchBar', () => {
     it.each(Object.keys(urlSortParams))(
       'calls the workItems query event with the new sort when payload is `%s`',

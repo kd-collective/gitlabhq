@@ -5,7 +5,7 @@ For customization options, see .ai/README.md.
 
 ## Local Overrides
 
-Read @AGENTS.local.md
+Read @CLAUDE.local.md
 
 ## Project Notes
 

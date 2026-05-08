@@ -73360,20 +73360,29 @@ components:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
         action_name:
           type: string
+          example: assigned
         target_type:
           type: string
+          example: Issue
         target:
-          type: string
+          type: object
         target_url:
           type: string
+          example: http://example.com/foo/bar/-/issues/1
         body:
           type: string
+          example: Task description
         state:
           type: string
+          example: pending
         created_at:
           type: string
+          format: date-time
+          example: '2016-06-17T07:52:35.225Z'
         updated_at:
           type: string
+          format: date-time
+          example: '2016-06-17T07:52:35.225Z'
     APIEntitiesTemplate:
       type: object
       properties:
@@ -74638,38 +74647,52 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 142
         user:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
         created_at:
           type: string
+          format: date-time
+          example: '2018-08-20T13:38:20.077Z'
         resource_type:
           type: string
+          example: Issue
         resource_id:
-          type: string
+          type: integer
+          example: 253
         source_commit:
           type: string
+          example: 7b09ce7e6f80347baf0316c8c94cdba9a0a7e91d
         source_merge_request_id:
-          type: string
+          type: integer
+          example: 45
         state:
           type: string
+          example: opened
     APIEntitiesResourceLabelEvent:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 142
         user:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
         created_at:
           type: string
+          format: date-time
+          example: '2018-08-20T13:38:20.077Z'
         resource_type:
           type: string
+          example: Issue
         resource_id:
-          type: string
+          type: integer
+          example: 253
         label:
           "$ref": "#/components/schemas/APIEntitiesLabelBasic"
         action:
           type: string
+          example: add
     APIEntitiesBasicRepositoryStorageMove:
       type: object
       properties:
@@ -74704,8 +74727,10 @@ components:
       properties:
         id:
           type: string
+          example: 6a9c1750b37d513a43987b574953fceb50b03ce7
         individual_note:
-          type: string
+          type: boolean
+          example: false
         resolvable:
           type: boolean
         resolved:
@@ -74774,19 +74799,26 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         name:
           type: string
+          example: bug
         description:
           type: string
+          example: Bug reported by user
         text_color:
           type: string
+          example: "#FFFFFF"
         description_html:
           type: string
+          example: "<p>Bug reported by user</p>"
         color:
           type: string
+          example: "#FF0000"
         archived:
-          type: string
+          type: boolean
+          example: false
     APIEntitiesWikiAttachment:
       type: object
       properties:
@@ -76658,6 +76690,7 @@ components:
       properties:
         note:
           type: string
+          example: LGTM!
         author:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
     APIEntitiesMergeRequestReviewer:
@@ -76870,6 +76903,7 @@ components:
           "$ref": "#/components/schemas/APIEntitiesIssueBasic"
         link_type:
           type: string
+          example: relates_to
     APIEntitiesIteration:
       type: object
       properties:
@@ -78315,76 +78349,109 @@ components:
       type: object
       properties:
         commands_changes:
-          type: string
+          type: object
         summary:
-          type: string
+          type: array
+          items:
+            type: string
     APIEntitiesSuggestion:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         from_line:
-          type: string
+          type: integer
+          example: 1
         to_line:
-          type: string
+          type: integer
+          example: 1
         appliable:
-          type: string
+          type: boolean
+          example: true
         applied:
-          type: string
+          type: boolean
+          example: false
         from_content:
           type: string
+          example: 'Original content
+
+            '
         to_content:
           type: string
+          example: 'New content
+
+            '
     APIEntitiesNote:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         type:
           type: string
+          example: DiscussionNote
         body:
           type: string
+          example: Note body.
         author:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
         created_at:
           type: string
+          format: date-time
+          example: '2022-01-31T15:10:44.988Z'
         updated_at:
           type: string
+          format: date-time
+          example: '2022-01-31T15:10:44.988Z'
         system:
-          type: string
+          type: boolean
+          example: false
         noteable_id:
-          type: string
+          type: integer
+          example: 1
         noteable_type:
           type: string
+          example: Issue
         project_id:
-          type: string
+          type: integer
+          example: 1
         commit_id:
           type: string
+          example: 7b09ce7e6f80347baf0316c8c94cdba9a0a7e91d
         position:
-          type: string
+          type: object
         resolvable:
-          type: string
+          type: boolean
+          example: false
         resolved:
-          type: string
+          type: boolean
+          example: false
         resolved_by:
           "$ref": "#/components/schemas/APIEntitiesUserBasic"
         resolved_at:
           type: string
+          format: date-time
+          example: '2022-01-31T15:10:44.988Z'
         suggestions:
           "$ref": "#/components/schemas/APIEntitiesSuggestion"
         confidential:
-          type: string
+          type: boolean
+          example: false
         internal:
-          type: string
+          type: boolean
+          example: false
         imported:
-          type: string
+          type: boolean
+          example: false
         imported_from:
           type: string
           example: github
         noteable_iid:
-          type: string
+          type: integer
+          example: 1
         commands_changes:
-          type: string
+          type: object
     APIEntitiesEvent:
       type: object
       properties:
@@ -81147,77 +81214,110 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         name:
           type: string
+          example: bug
         description:
           type: string
+          example: Bug reported by user
         text_color:
           type: string
+          example: "#FFFFFF"
         description_html:
           type: string
+          example: "<p>Bug reported by user</p>"
         color:
           type: string
+          example: "#FF0000"
         archived:
-          type: string
+          type: boolean
+          example: false
         open_issues_count:
-          type: string
+          type: integer
+          example: 1
         closed_issues_count:
-          type: string
+          type: integer
+          example: 0
         open_merge_requests_count:
-          type: string
+          type: integer
+          example: 1
         subscribed:
-          type: string
+          type: boolean
+          example: false
     APIEntitiesGroupLabel:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         name:
           type: string
+          example: bug
         description:
           type: string
+          example: Bug reported by user
         text_color:
           type: string
+          example: "#FFFFFF"
         description_html:
           type: string
+          example: "<p>Bug reported by user</p>"
         color:
           type: string
+          example: "#FF0000"
         archived:
-          type: string
+          type: boolean
+          example: false
         open_issues_count:
-          type: string
+          type: integer
+          example: 1
         closed_issues_count:
-          type: string
+          type: integer
+          example: 0
         open_merge_requests_count:
-          type: string
+          type: integer
+          example: 1
         subscribed:
-          type: string
+          type: boolean
+          example: false
     APIEntitiesProjectLabel:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          example: 1
         name:
           type: string
+          example: bug
         description:
           type: string
+          example: Bug reported by user
         text_color:
           type: string
+          example: "#FFFFFF"
         description_html:
           type: string
+          example: "<p>Bug reported by user</p>"
         color:
           type: string
+          example: "#FF0000"
         archived:
-          type: string
+          type: boolean
+          example: false
         open_issues_count:
-          type: string
+          type: integer
+          example: 1
         closed_issues_count:
-          type: string
+          type: integer
+          example: 0
         open_merge_requests_count:
-          type: string
+          type: integer
+          example: 1
         subscribed:
-          type: string
+          type: boolean
+          example: false
         priority:
           type: integer
           example: 10
@@ -83190,27 +83290,33 @@ components:
           type: integer
           example: 2
         has_tasks:
-          type: string
+          type: boolean
+          example: true
         task_status:
           type: string
+          example: 2 of 4 tasks completed
         _links:
-          type: string
+          type: object
         references:
           "$ref": "#/components/schemas/APIEntitiesIssuableReferences"
         severity:
           type: string
           description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
         subscribed:
-          type: string
+          type: boolean
+          example: false
         moved_to_id:
-          type: string
+          type: integer
+          example: 1
         imported:
-          type: string
+          type: boolean
+          example: false
         imported_from:
           type: string
           example: github
         service_desk_reply_to:
           type: string
+          example: user@example.com
         epic_iid:
           type: string
         epic:
@@ -83310,27 +83416,33 @@ components:
           type: integer
           example: 2
         has_tasks:
-          type: string
+          type: boolean
+          example: true
         task_status:
           type: string
+          example: 2 of 4 tasks completed
         _links:
-          type: string
+          type: object
         references:
           "$ref": "#/components/schemas/APIEntitiesIssuableReferences"
         severity:
           type: string
           description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
         subscribed:
-          type: string
+          type: boolean
+          example: false
         moved_to_id:
-          type: string
+          type: integer
+          example: 1
         imported:
-          type: string
+          type: boolean
+          example: false
         imported_from:
           type: string
           example: github
         service_desk_reply_to:
           type: string
+          example: user@example.com
         epic_iid:
           type: string
         epic:
@@ -83438,27 +83550,33 @@ components:
           type: integer
           example: 2
         has_tasks:
-          type: string
+          type: boolean
+          example: true
         task_status:
           type: string
+          example: 2 of 4 tasks completed
         _links:
-          type: string
+          type: object
         references:
           "$ref": "#/components/schemas/APIEntitiesIssuableReferences"
         severity:
           type: string
           description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
         subscribed:
-          type: string
+          type: boolean
+          example: false
         moved_to_id:
-          type: string
+          type: integer
+          example: 1
         imported:
-          type: string
+          type: boolean
+          example: false
         imported_from:
           type: string
           example: github
         service_desk_reply_to:
           type: string
+          example: user@example.com
         epic_iid:
           type: string
         epic:
@@ -83558,27 +83676,33 @@ components:
           type: integer
           example: 2
         has_tasks:
-          type: string
+          type: boolean
+          example: true
         task_status:
           type: string
+          example: 2 of 4 tasks completed
         _links:
-          type: string
+          type: object
         references:
           "$ref": "#/components/schemas/APIEntitiesIssuableReferences"
         severity:
           type: string
           description: One of ["UNKNOWN", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
         subscribed:
-          type: string
+          type: boolean
+          example: false
         moved_to_id:
-          type: string
+          type: integer
+          example: 1
         imported:
-          type: string
+          type: boolean
+          example: false
         imported_from:
           type: string
           example: github
         service_desk_reply_to:
           type: string
+          example: user@example.com
         epic_iid:
           type: string
         epic:
@@ -83588,13 +83712,19 @@ components:
         health_status:
           type: string
         issue_link_id:
-          type: string
+          type: integer
+          example: 1
         link_type:
           type: string
+          example: relates_to
         link_created_at:
           type: string
+          format: date-time
+          example: '2022-01-31T15:10:44.988Z'
         link_updated_at:
           type: string
+          format: date-time
+          example: '2022-01-31T15:10:44.988Z'
     APIEntitiesMergeRequest:
       type: object
       properties:

@@ -5,6 +5,7 @@ import { useDiffDiscussions } from '~/rapid_diffs/stores/diff_discussions';
 import { useDiffsView } from '~/rapid_diffs/stores/diffs_view';
 import { useDiscussions } from '~/notes/store/discussions';
 import { useNotes } from '~/notes/store/legacy_notes';
+import { useMrNotes } from '~/mr_notes/store/legacy_mr_notes';
 import { useMergeRequestDraftNotes } from '~/merge_request/stores/merge_request_draft_notes';
 
 jest.mock('~/notes/store/legacy_notes');
@@ -52,6 +53,8 @@ describe('mergeRequestDiscussions store', () => {
       toggleResolveNote: jest.fn().mockResolvedValue(),
       submitSuggestion: jest.fn().mockResolvedValue(),
       submitSuggestionBatch: jest.fn().mockResolvedValue(),
+      toggleAllDiscussions: jest.fn(),
+      allDiscussionsExpanded: false,
       getSuggestionsFilePaths: jest.fn().mockResolvedValue(),
       addSuggestionInfoToBatch: jest.fn(),
       removeSuggestionInfoFromBatch: jest.fn(),
@@ -66,6 +69,7 @@ describe('mergeRequestDiscussions store', () => {
         can_receive_suggestion: true,
       },
       notesData: { draftsPath: '/drafts' },
+      getUserData: { id: 1 },
     };
     useNotes.mockReturnValue(mockNotesStore);
     useMergeRequestVersions().setVersions({
@@ -456,6 +460,48 @@ describe('mergeRequestDiscussions store', () => {
         discussion: true,
         discussionId: 'discussion-1',
       });
+    });
+  });
+
+  describe('toggleAllVisibleDiscussions', () => {
+    it('toggles diff discussions when on the diffs page', () => {
+      useMrNotes().setActiveTab('diffs');
+      useDiscussions().setInitialDiscussions([
+        { id: 'd1', diff_discussion: true, hidden: false, notes: [] },
+        { id: 'd2', diff_discussion: true, hidden: false, notes: [] },
+      ]);
+
+      store.toggleAllVisibleDiscussions();
+
+      expect(useDiscussions().discussions[0].hidden).toBe(true);
+      expect(useDiscussions().discussions[1].hidden).toBe(true);
+    });
+
+    it('delegates to legacy notes store toggleAllDiscussions when not on the diffs page', () => {
+      useMrNotes().setActiveTab('show');
+
+      store.toggleAllVisibleDiscussions();
+
+      expect(mockNotesStore.toggleAllDiscussions).toHaveBeenCalled();
+    });
+  });
+
+  describe('allVisibleDiscussionsExpanded', () => {
+    it('reflects diff discussions state on the diffs page', () => {
+      useMrNotes().setActiveTab('diffs');
+      useDiscussions().setInitialDiscussions([
+        { id: 'd1', diff_discussion: true, hidden: false, notes: [] },
+        { id: 'd2', diff_discussion: true, hidden: true, notes: [] },
+      ]);
+
+      expect(store.allVisibleDiscussionsExpanded).toBe(false);
+    });
+
+    it('reflects legacy notes allDiscussionsExpanded when not on the diffs page', () => {
+      useMrNotes().setActiveTab('show');
+      mockNotesStore.allDiscussionsExpanded = true;
+
+      expect(store.allVisibleDiscussionsExpanded).toBe(true);
     });
   });
 

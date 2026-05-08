@@ -28,7 +28,7 @@ within this file use the heading text (e.g., "same Given as
 - `AGENTS.md` and `CLAUDE.md` at root with identical content
 - `AGENTS.md` references `.ai/git.md` and `.ai/testing.md`
 - `.ai/git.md` and `.ai/testing.md` exist
-- `.gitignore` contains `AGENTS.local.md`, `CLAUDE.local.md`, and `.ai/*`
+- `.gitignore` contains `CLAUDE.local.md` and `.ai/*`
 - No forbidden files staged or committed
 
 **When:** `scripts/ai_harness/doctor`
@@ -271,18 +271,9 @@ repo root.
 
 ## 4. .gitignore Scenarios
 
-### gitignore: missing AGENTS.local.md entry
-
-**Given:** `.gitignore` has `.ai/*` but not `AGENTS.local.md`
-
-**When:** `scripts/ai_harness/doctor`
-
-**Then:** Gitignore check shows `FAIL` with "AGENTS.local.md", exit code 1
-
 ### gitignore: missing CLAUDE.local.md entry
 
-**Given:** `.gitignore` has `AGENTS.local.md` and `.ai/*` but not
-`CLAUDE.local.md`
+**Given:** `.gitignore` has `.ai/*` but not `CLAUDE.local.md`
 
 **When:** `scripts/ai_harness/doctor`
 
@@ -290,7 +281,7 @@ repo root.
 
 ### gitignore: missing .ai/* entry
 
-**Given:** `.gitignore` has `AGENTS.local.md` and `CLAUDE.local.md` but not `.ai/*`
+**Given:** `.gitignore` has `CLAUDE.local.md` but not `.ai/*`
 
 **When:** `scripts/ai_harness/doctor`
 
@@ -306,12 +297,12 @@ repo root.
 
 ### gitignore: rooted entries do not satisfy the check
 
-**Given:** `.gitignore` contains `/AGENTS.local.md` (rooted) instead of
-`AGENTS.local.md` (non-rooted)
+**Given:** `.gitignore` contains `/CLAUDE.local.md` (rooted) instead of
+`CLAUDE.local.md` (non-rooted)
 
 **When:** `scripts/ai_harness/doctor`
 
-**Then:** Gitignore check shows `FAIL` with "AGENTS.local.md", exit code 1.
+**Then:** Gitignore check shows `FAIL` with "CLAUDE.local.md", exit code 1.
 Rooted patterns only match at the repository root, but these entries must
 be non-rooted to match at all directory levels.
 
@@ -462,7 +453,7 @@ exit code 1
 
 ### combined: multiple failures reported
 
-**Given:** CLAUDE.md missing AND .gitignore missing `AGENTS.local.md` entry
+**Given:** CLAUDE.md missing AND .gitignore missing `CLAUDE.local.md` entry
 
 **When:** `scripts/ai_harness/doctor`
 

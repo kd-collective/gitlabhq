@@ -154,6 +154,21 @@ export const useDiffDiscussions = defineStore('diffDiscussions', () => {
     discussion.shouldFocus = value;
   }
 
+  const allDiffDiscussionsExpanded = computed(() => {
+    return discussions.discussions
+      .filter((discussion) => discussion.diff_discussion)
+      .every((discussion) => !discussion.hidden);
+  });
+
+  function toggleAllDiffDiscussions() {
+    const newHidden = allDiffDiscussionsExpanded.value;
+    discussions.discussions.forEach((discussion) => {
+      if (discussion.diff_discussion) {
+        discussion.hidden = newHidden;
+      }
+    });
+  }
+
   function expandFileDiscussions(oldPath, newPath) {
     discussions.discussions.forEach((discussion) => {
       if (
@@ -206,6 +221,8 @@ export const useDiffDiscussions = defineStore('diffDiscussions', () => {
     findAllImageDiscussionsForFile,
     collapseDiscussion: discussions.collapseDiscussion,
     expandDiscussion: discussions.expandDiscussion,
+    allDiffDiscussionsExpanded,
+    toggleAllDiffDiscussions,
     addNewLineDiscussionForm,
     replaceDiscussionForm,
     removeNewLineDiscussionForm,

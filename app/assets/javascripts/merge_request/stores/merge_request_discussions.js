@@ -2,6 +2,7 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useNotes } from '~/notes/store/legacy_notes';
 import { useDiscussions } from '~/notes/store/discussions';
+import { useMrNotes } from '~/mr_notes/store/legacy_mr_notes';
 import { useMergeRequestDraftNotes } from '~/merge_request/stores/merge_request_draft_notes';
 import { useDiffDiscussions } from '~/rapid_diffs/stores/diff_discussions';
 import { useDiffsView } from '~/rapid_diffs/stores/diffs_view';
@@ -26,7 +27,21 @@ export const useMergeRequestDiscussions = defineStore('mergeRequestDiscussions',
   const diffDiscussions = useDiffDiscussions();
   const versions = useMergeRequestVersions();
   const draftNotes = useMergeRequestDraftNotes();
+  const mrNotes = useMrNotes();
   const allCommentsReady = ref(false);
+
+  const allVisibleDiscussionsExpanded = computed(() => {
+    if (mrNotes.isDiffsPage) return diffDiscussions.allDiffDiscussionsExpanded;
+    return notes.allDiscussionsExpanded;
+  });
+
+  function toggleAllVisibleDiscussions() {
+    if (mrNotes.isDiffsPage) {
+      diffDiscussions.toggleAllDiffDiscussions();
+    } else {
+      notes.toggleAllDiscussions();
+    }
+  }
 
   function collapseResolvedDiscussions() {
     const discussionsStore = useDiscussions();
@@ -285,6 +300,8 @@ export const useMergeRequestDiscussions = defineStore('mergeRequestDiscussions',
   });
 
   return {
+    allVisibleDiscussionsExpanded,
+    toggleAllVisibleDiscussions,
     fetchNotes,
     fetchNotesAndDrafts,
     createNewDiscussion,

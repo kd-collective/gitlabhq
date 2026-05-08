@@ -44,6 +44,7 @@ const tableCell = (config) => ({
 });
 
 export default {
+  name: 'BulkImportsHistoryApp',
   components: {
     GlEmptyState,
     GlIcon,

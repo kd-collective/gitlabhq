@@ -733,20 +733,11 @@ describe('legacyDiffs actions', () => {
   describe('prefetchFileNeighbors', () => {
     it('dispatches two requests to prefetch the next/previous files', () => {
       store.prefetchSingleFile.mockReturnValue({});
-      useFileBrowser().treeEntries = {
-        abc: {
-          type: 'blob',
-          fileHash: 'abc',
-        },
-        ghi: {
-          type: 'blob',
-          fileHash: 'ghi',
-        },
-        def: {
-          type: 'blob',
-          fileHash: 'def',
-        },
-      };
+      useFileBrowser().tree = [
+        { type: 'blob', fileHash: 'abc' },
+        { type: 'blob', fileHash: 'ghi' },
+        { type: 'blob', fileHash: 'def' },
+      ];
       return testAction(
         store.prefetchFileNeighbors,
         {},

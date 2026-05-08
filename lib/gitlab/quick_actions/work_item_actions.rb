@@ -12,7 +12,7 @@ module Gitlab
           format(_("Converts item to %{type}. Widgets not supported in new type are removed."), type: target_type)
         end
         types WorkItem
-        params 'Task | Objective | Key Result | Issue'
+        params { _('"Type name"') }
         condition { type_change_allowed? }
         command :type do |type_name|
           @execution_message[:type] = update_type(type_name, :type)

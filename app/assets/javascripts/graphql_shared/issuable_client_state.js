@@ -11,3 +11,4 @@ export const currentAssignees = makeVar({});
 export const currentReviewers = makeVar([]);
 export const appliedLabels = makeVar([]);
 export const availableStatuses = makeVar({});
+export const supportedConversionTypes = makeVar({});
