@@ -977,6 +977,9 @@ Gitlab.ee do
   Settings.cron_jobs['users_create_statistics_worker'] ||= {}
   Settings.cron_jobs['users_create_statistics_worker']['cron'] ||= '2 15 * * *'
   Settings.cron_jobs['users_create_statistics_worker']['job_class'] = 'Users::CreateStatisticsWorker'
+  Settings.cron_jobs['merge_trains_unstick_stuck_merges_cron_worker'] ||= {}
+  Settings.cron_jobs['merge_trains_unstick_stuck_merges_cron_worker']['cron'] ||= '*/30 * * * *'
+  Settings.cron_jobs['merge_trains_unstick_stuck_merges_cron_worker']['job_class'] = 'MergeTrains::UnstickStuckMergesCronWorker'
   Settings.cron_jobs['iterations_update_status_worker'] ||= {}
   Settings.cron_jobs['iterations_update_status_worker']['cron'] ||= '5 0 * * *'
   Settings.cron_jobs['iterations_update_status_worker']['job_class'] = 'IterationsUpdateStatusWorker'

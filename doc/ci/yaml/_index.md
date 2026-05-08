@@ -535,22 +535,15 @@ include:
 
 #### `include:cache`
 
-{{< details >}}
-
-- Status: Experiment
-
-{{< /details >}}
-
 {{< history >}}
 
-- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/351252) in GitLab 18.9 as an [experiment](../../policy/development_stages_support.md#experiment) with a [feature flag](../../administration/feature_flags/_index.md) named `ci_cache_remote_includes`. Disabled by default.
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/351252) in GitLab 18.9 as an
+  [experiment](../../policy/development_stages_support.md#experiment) with a
+  [feature flag](../../administration/feature_flags/_index.md) named `ci_cache_remote_includes`.
+  Disabled by default.
+- [Generally available](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235028) in GitLab 19.0. Feature flag `ci_cache_remote_includes` removed.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of this feature is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Use `cache` with `include:remote` to cache the fetched remote file content and reduce HTTP requests.
 When enabled, the remote file is cached for a specified time-to-live (TTL), improving pipeline performance

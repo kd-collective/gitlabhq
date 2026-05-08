@@ -262,6 +262,11 @@ msgid_plural "%d contributors"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "%d control"
+msgid_plural "%d controls"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
@@ -444,6 +449,11 @@ msgstr[1] ""
 
 msgid "%d reply"
 msgid_plural "%d replies"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d requirement"
+msgid_plural "%d requirements"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -18713,16 +18723,25 @@ msgstr ""
 msgid "ComplianceFramework|After a framework is added to %{linkStart}%{groupName}%{linkEnd}, it will appear here."
 msgstr ""
 
+msgid "ComplianceFramework|Choose a template"
+msgstr ""
+
 msgid "ComplianceFramework|Create a new compliance framework from scratch to define your compliance requirements."
 msgstr ""
 
 msgid "ComplianceFramework|Create blank framework"
 msgstr ""
 
+msgid "ComplianceFramework|Create from template"
+msgstr ""
+
 msgid "ComplianceFramework|Edit compliance framework"
 msgstr ""
 
 msgid "ComplianceFramework|Failed to import framework file."
+msgstr ""
+
+msgid "ComplianceFramework|Failed to load compliance framework templates."
 msgstr ""
 
 msgid "ComplianceFramework|Framework imported successfully."
@@ -18740,10 +18759,16 @@ msgstr ""
 msgid "ComplianceFramework|New compliance framework"
 msgstr ""
 
+msgid "ComplianceFramework|No compliance framework templates are available."
+msgstr ""
+
 msgid "ComplianceFramework|No compliance frameworks are set up yet"
 msgstr ""
 
-msgid "ComplianceFramework|Template selection is coming soon. Continue with a blank framework for now."
+msgid "ComplianceFramework|Select a template to prefill basic information and requirements."
+msgstr ""
+
+msgid "ComplianceFramework|Start from a curated template (GDPR, SOC2, …) with prefilled requirements."
 msgstr ""
 
 msgid "ComplianceFramework|Unable to determine the correct upload URL. Please try again."
@@ -26985,6 +27010,9 @@ msgstr ""
 msgid "DuoAgenticChat|chat-rules.md was not found in this page"
 msgstr ""
 
+msgid "DuoAgentsPlatform|%{message} %{linkStart}View the agent session%{linkEnd} to track progress."
+msgstr ""
+
 msgid "DuoAgentsPlatform|AI"
 msgstr ""
 
@@ -27183,6 +27211,15 @@ msgstr ""
 msgid "DuoAgentsPlatform|Identify code improvements"
 msgstr ""
 
+msgid "DuoAgentsPlatform|Initialize context path not configured."
+msgstr ""
+
+msgid "DuoAgentsPlatform|Initialize project context"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Initialize your project context to help Duo Agent Platform understand your codebase. This creates an AGENTS.md file, sub-AGENTS.md files for key directories, and skill and rule stubs in a new merge request."
+msgstr ""
+
 msgid "DuoAgentsPlatform|List comments"
 msgstr ""
 
@@ -27213,6 +27250,9 @@ msgstr ""
 msgid "DuoAgentsPlatform|No triggers yet"
 msgstr ""
 
+msgid "DuoAgentsPlatform|Onboarding"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Owner"
 msgstr ""
 
@@ -27223,6 +27263,9 @@ msgid "DuoAgentsPlatform|Plan updated"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Planning Agent"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Project context has already been initialized."
 msgstr ""
 
 msgid "DuoAgentsPlatform|Read file"
@@ -27270,7 +27313,13 @@ msgstr ""
 msgid "DuoAgentsPlatform|Sessions"
 msgstr ""
 
+msgid "DuoAgentsPlatform|Set up your project for Duo Agent Platform"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Something went wrong while fetching Agent Flows"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Something went wrong while initializing project context."
 msgstr ""
 
 msgid "DuoAgentsPlatform|Start a Free Trial"
@@ -27316,6 +27365,9 @@ msgid "DuoAgentsPlatform|Who can grant you access"
 msgstr ""
 
 msgid "DuoAgentsPlatform|With a trial you can chat with AI agents tailored to your development workflow, such as the following agents:"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Workflow started. %{linkStart}View the agent session%{linkEnd} to track progress."
 msgstr ""
 
 msgid "DuoAgentsPlatform|Write file"
@@ -56525,9 +56577,6 @@ msgstr ""
 msgid "ProjectSettings|%{link_start}What variables can I use?%{link_end}"
 msgstr ""
 
-msgid "ProjectSettings|A default branch cannot be chosen for an empty project."
-msgstr ""
-
 msgid "ProjectSettings|Add additional webhook triggers for project access token expiration."
 msgstr ""
 
@@ -57146,6 +57195,9 @@ msgstr ""
 msgid "ProjectSettings|Work items"
 msgstr ""
 
+msgid "ProjectSettings|You cannot set a default branch for an empty project. Contact an Owner or administrator for help."
+msgstr ""
+
 msgid "ProjectSettings|Your project is set up. %{instructionsLinkStart}View instrumentation instructions%{instructionsLinkEnd} and %{dashboardsLinkStart}Analytics Dashboards%{dashboardsLinkEnd}."
 msgstr ""
 
@@ -57574,13 +57626,13 @@ msgstr ""
 msgid "ProjectsNew|You can always change your URL later"
 msgstr ""
 
+msgid "ProjectsNew|You cannot push the initial commit because the default branch is protected. Contact an Owner or administrator for help."
+msgstr ""
+
 msgid "ProjectsNew|You do not have permission to create projects."
 msgstr ""
 
 msgid "ProjectsNew|Your project will be created at:"
-msgstr ""
-
-msgid "ProjectsNew|Your role does not allow pushing to the default branch of new projects in this namespace."
 msgstr ""
 
 msgid "ProjectsNew|https://mycompany.fogbugz.com"
@@ -57904,7 +57956,7 @@ msgstr ""
 msgid "ProtectedBranch|Allow all users with push access to force push."
 msgstr ""
 
-msgid "ProtectedBranch|Allow developers to push to the initial commit"
+msgid "ProtectedBranch|Allow developers to push the initial commit"
 msgstr ""
 
 msgid "ProtectedBranch|Allowed to create"

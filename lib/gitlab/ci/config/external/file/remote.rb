@@ -78,7 +78,7 @@ module Gitlab
             end
 
             def cache_enabled?
-              Feature.enabled?(:ci_cache_remote_includes, context.project) && params[:cache].present?
+              params[:cache].present?
             end
 
             def cache_key

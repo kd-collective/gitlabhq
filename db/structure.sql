@@ -34225,11 +34225,13 @@ ALTER SEQUENCE work_item_type_visibilities_id_seq OWNED BY work_item_type_visibi
 
 CREATE TABLE work_item_type_visibility_defaults (
     id bigint NOT NULL,
-    namespace_id bigint NOT NULL,
+    namespace_id bigint,
     work_item_type_id bigint NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
-    enabled boolean DEFAULT true NOT NULL
+    enabled boolean DEFAULT true NOT NULL,
+    organization_id bigint,
+    CONSTRAINT check_work_item_type_visibility_defaults_org_or_namespace CHECK ((num_nonnulls(namespace_id, organization_id) = 1))
 );
 
 CREATE SEQUENCE work_item_type_visibility_defaults_id_seq
@@ -51061,7 +51063,9 @@ CREATE UNIQUE INDEX uniq_user_project_member_roles_user_project_shared_with_grou
 
 CREATE UNIQUE INDEX uniq_wi_type_visibilities_on_namespace_and_type ON work_item_type_visibilities USING btree (namespace_id, work_item_type_id);
 
-CREATE UNIQUE INDEX uniq_wi_type_visibility_defaults_on_namespace_and_type ON work_item_type_visibility_defaults USING btree (namespace_id, work_item_type_id);
+CREATE UNIQUE INDEX uniq_wi_type_visibility_defaults_on_namespace_and_type ON work_item_type_visibility_defaults USING btree (namespace_id, work_item_type_id) WHERE (namespace_id IS NOT NULL);
+
+CREATE UNIQUE INDEX uniq_wi_type_visibility_defaults_on_org_and_type ON work_item_type_visibility_defaults USING btree (organization_id, work_item_type_id) WHERE (organization_id IS NOT NULL);
 
 CREATE UNIQUE INDEX unique_activation_metric_user_id_namespace_id_and_metric ON activation_metrics USING btree (user_id, namespace_id, metric) NULLS NOT DISTINCT;
 
@@ -57974,6 +57978,9 @@ ALTER TABLE ONLY security_policy_dismissals
 
 ALTER TABLE ONLY wiki_page_meta_user_mentions
     ADD CONSTRAINT fk_bc155eba89 FOREIGN KEY (wiki_page_meta_id) REFERENCES wiki_page_meta(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY work_item_type_visibility_defaults
+    ADD CONSTRAINT fk_bcb828da61 FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY security_orchestration_policy_rule_schedules
     ADD CONSTRAINT fk_bcbb90477f FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;

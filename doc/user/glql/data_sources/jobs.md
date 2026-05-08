@@ -99,7 +99,7 @@ The following fields are required: [Project](#job-project)
 | Kind                   | `kind`                             | Display the job kind (`bridge` or `build`) |
 | Manual job             | `manualJob`                        | Display whether this is a manual job |
 | Name                   | `name`                             | Display the job name |
-| Pipeline               | `pipeline`                         | Display the pipeline the job belongs to (ID, IID, path, status) |
+| Pipeline               | `pipeline`                         | Display the pipeline the job belongs to |
 | Play path              | `playPath`                         | Display the path to play the job |
 | Playable               | `playable`                         | Display whether the job can be played |
 | Queued at              | `queued`, `queuedAt`               | Display when the job was queued |

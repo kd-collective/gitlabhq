@@ -95,6 +95,7 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       vulnerability_export_uploads
       work_item_custom_types
       work_item_settings
+      work_item_type_visibility_defaults
       zentao_tracker_data
     ]
   end

@@ -379,19 +379,21 @@ title: Merge requests
 
 | Field            | Name or alias                         | Description |
 | ---------------- | ------------------------------------- | ----------- |
+| Approved         | `approved`                            | Display `Yes` or `No` indicating whether the merge request has been approved |
 | Approved by user | `approver`, `approvers`, `approvedBy` | Display users who approved the merge request |
 | Assignees        | `assignee`, `assignees`               | Display users assigned to the merge request |
 | Author           | `author`                              | Display the author of the merge request |
 | Closed at        | `closed`, `closedAt`                  | Display time since the merge request was closed |
 | Created at       | `created`, `createdAt`                | Display time since the merge request was created |
-| Deployed at      | `deployed`, `deployedAt`              | Display time since the merge request was deployed |
 | Description      | `description`                         | Display the description of the merge request |
 | Draft            | `draft`                               | Display `Yes` or `No` indicating whether the merge request is in draft state |
 | ID               | `id`                                  | Display the ID of the merge request |
 | Labels           | `label`, `labels`                     | Display labels associated with the merge request |
 | Last comment     | `lastComment`                         | Display the last comment made on the merge request |
 | Merged at        | `merged`, `mergedAt`                  | Display time since the merge request was merged |
+| Merged by user   | `merger`, `mergedBy`                  | Display the user who merged the merge request |
 | Milestone        | `milestone`                           | Display the milestone associated with the merge request |
+| Project          | `project`                             | Display the project the merge request belongs to |
 | Reviewers        | `reviewer`, `reviewers`               | Display users assigned to review the merge request |
 | Source branch    | `sourceBranch`                        | Display the source branch of the merge request |
 | Source project   | `sourceProject`                       | Display the source project of the merge request |
@@ -399,7 +401,9 @@ title: Merge requests
 | Subscribed       | `subscribed`                          | Display `Yes` or `No` indicating whether the current user is subscribed |
 | Target branch    | `targetBranch`                        | Display the target branch of the merge request |
 | Target project   | `targetProject`                       | Display the target project of the merge request |
+| Time estimate    | `timeEstimate`                        | Display the estimated time for the merge request |
 | Title            | `title`                               | Display the title of the merge request |
+| Total time spent | `totalTimeSpent`                      | Display the total time spent on the merge request |
 | Updated at       | `updated`, `updatedAt`                | Display time since the merge request was last updated |
 
 ## Sort fields

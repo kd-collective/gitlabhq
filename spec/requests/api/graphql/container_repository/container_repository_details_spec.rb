@@ -47,6 +47,7 @@ RSpec.describe 'container repository details', feature_category: :container_regi
   before do
     stub_container_registry_config(enabled: true)
     stub_container_registry_tags(repository: container_repository.path, tags: tags, with_manifest: true)
+    stub_container_registry_gitlab_api_support(supported: false)
   end
 
   subject { post_graphql(query, current_user: user, variables: variables) }

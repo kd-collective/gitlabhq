@@ -520,9 +520,8 @@ Work items include the types:
 - Field `iteration` [introduced](https://gitlab.com/gitlab-org/gitlab-query-language/glql-haskell/-/issues/74) in GitLab 17.6.
 - Field `lastComment` [introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/512154) in GitLab 17.11.
 - Support for epics [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/192680) in GitLab 18.1.
-- Fields `status` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/197407) in GitLab 18.2.
+- Field `status` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/197407) in GitLab 18.2.
 - Fields `health` and `type` in epics [introduced](https://gitlab.com/gitlab-org/gitlab-query-language/glql-rust/-/merge_requests/222) in GitLab 18.3.
-- Field `subscribed` [introduced](https://gitlab.com/gitlab-org/gitlab-query-language/glql-rust/-/merge_requests/223) in GitLab 18.3.
 
 {{< /history >}}
 
@@ -531,6 +530,7 @@ Work items include the types:
 | Assignees        | `assignee`, `assignees`               | All             | Display users assigned to the object |
 | Author           | `author`                              | All             | Display the author of the object |
 | Closed at        | `closed`, `closedAt`                  | All             | Display time since the object was closed |
+| Color            | `color`                               | Epic only       | Display the color swatch associated with the epic |
 | Confidential     | `confidential`                        | All             | Display `Yes` or `No` indicating whether the object is confidential |
 | Created at       | `created`, `createdAt`                | All             | Display time since the object was created |
 | Description      | `description`                         | All             | Display the description of the object |
@@ -542,11 +542,16 @@ Work items include the types:
 | Labels           | `label`, `labels`                     | All             | Display labels. Can accept parameters to filter specific labels, for example `labels("workflow::*", "backend")` |
 | Last comment     | `lastComment`                         | All             | Display the last comment made on the object |
 | Milestone        | `milestone`                           | All             | Display the milestone associated with the object |
+| Parent           | `parent`                              | All             | Display a link to the parent work item or epic |
+| Progress         | `progress`                            | Objective and Key Result only | Display the progress percentage (0–100) of the work item |
+| Project          | `project`                             | All except Epic | Display the project the work item belongs to |
 | Start date       | `start`, `startDate`                  | Epic only       | Display the start date of the epic |
 | State            | `state`                               | All             | Display a badge indicating the state. Values are `Open` or `Closed` |
 | Status           | `status`                              | All except Epic | Display a badge indicating the status. For example, "To do" or "Complete". Available in the Premium and Ultimate tiers |
-| Subscribed       | `subscribed`                          | All             | Display `Yes` or `No` indicating whether the current user is subscribed |
+| Task completion status | `taskCompletionStatus`          | All             | Display task completion as a fraction (completed/total) |
+| Time estimate    | `timeEstimate`                        | All             | Display the estimated time for the work item |
 | Title            | `title`                               | All             | Display the title of the object |
+| Total time spent | `totalTimeSpent`                      | All             | Display the total time spent on the work item |
 | Type             | `type`                                | All             | Display the work item type, for example `Issue`, `Task`, or `Objective` |
 | Updated at       | `updated`, `updatedAt`                | All             | Display time since the object was last updated |
 | Weight           | `weight`                              | All except Epic | Display the weight. Available in the Premium and Ultimate tiers |

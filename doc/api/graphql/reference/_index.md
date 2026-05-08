@@ -1724,6 +1724,9 @@ four standard [pagination arguments](#pagination-arguments):
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | <a id="query-namespacesecurityprojects-attributefilters"></a>`attributeFilters` | [`[AttributeFilterInput!]`](#attributefilterinput) | Filter projects by security attributes. Up to 20 items. |
+| <a id="query-namespacesecurityprojects-hasfailedorwarning"></a>`hasFailedOrWarning` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 19.0. **Status**: Experiment. Filter projects by whether they have any failed security scans. Warnings have no effect on this filter. |
+| <a id="query-namespacesecurityprojects-hasscanners"></a>`hasScanners` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 19.0. **Status**: Experiment. Filter projects by whether they have any configured security scans. |
+| <a id="query-namespacesecurityprojects-hasstale"></a>`hasStale` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 19.0. **Status**: Experiment. Filter projects by whether they have any failed security scans. |
 | <a id="query-namespacesecurityprojects-includesubgroups"></a>`includeSubgroups` | [`Boolean`](#boolean) | Include also subgroup projects. |
 | <a id="query-namespacesecurityprojects-namespaceid"></a>`namespaceId` | [`NamespaceID!`](#namespaceid) | Global ID of the namespace. |
 | <a id="query-namespacesecurityprojects-search"></a>`search` | [`String`](#string) | Search projects by name. |
@@ -33269,6 +33272,18 @@ Returns [`String`](#string).
 | ---- | ---- | ----------- |
 | <a id="containerrepositorydetails-manifest-reference"></a>`reference` | [`String!`](#string) | Tag name or digest of the manifest. |
 
+##### `ContainerRepositoryDetails.tagDetails`
+
+Details for a specific tag in the container repository.
+
+Returns [`ContainerRepositoryTagDetails`](#containerrepositorytagdetails).
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="containerrepositorydetails-tagdetails-name"></a>`name` | [`String!`](#string) | Name of the tag. |
+
 ##### `ContainerRepositoryDetails.tags`
 
 Tags of the container repository.
@@ -33287,6 +33302,32 @@ four standard [pagination arguments](#pagination-arguments):
 | <a id="containerrepositorydetails-tags-referrertype"></a>`referrerType` | [`String`](#string) | Comma-separated list of artifact types used to filter referrers. Applies only when `referrers` is set to `true`. |
 | <a id="containerrepositorydetails-tags-referrers"></a>`referrers` | [`Boolean`](#boolean) | Include tag referrers. |
 | <a id="containerrepositorydetails-tags-sort"></a>`sort` | [`ContainerRepositoryTagSort`](#containerrepositorytagsort) | Sort tags by these criteria. |
+
+### `ContainerRepositoryImageManifest`
+
+A manifest describing a reference to an image.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="containerrepositoryimagemanifest-digest"></a>`digest` | [`String`](#string) | Digest of the manifest. |
+| <a id="containerrepositoryimagemanifest-mediatype"></a>`mediaType` | [`String`](#string) | Media type of the manifest. |
+| <a id="containerrepositoryimagemanifest-platform"></a>`platform` | [`ContainerRepositoryImagePlatform`](#containerrepositoryimageplatform) | Platform specifier for the image reference. |
+| <a id="containerrepositoryimagemanifest-size"></a>`size` | [`BigInt`](#bigint) | Size of the manifest in bytes. |
+
+### `ContainerRepositoryImagePlatform`
+
+Description of the target platform for an image.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="containerrepositoryimageplatform-architecture"></a>`architecture` | [`String`](#string) | CPU architecture of the platform. |
+| <a id="containerrepositoryimageplatform-os"></a>`os` | [`String`](#string) | Operating system of the platform. |
+| <a id="containerrepositoryimageplatform-osversion"></a>`osVersion` | [`String`](#string) | Operating system version, typically used for Windows images. |
+| <a id="containerrepositoryimageplatform-variant"></a>`variant` | [`String`](#string) | CPU variant of the platform. |
 
 ### `ContainerRepositoryPermissions`
 
@@ -33359,6 +33400,25 @@ A tag from a container repository.
 | <a id="containerrepositorytag-shortrevision"></a>`shortRevision` | [`String`](#string) | Short revision of the tag. |
 | <a id="containerrepositorytag-totalsize"></a>`totalSize` | [`BigInt`](#bigint) | Size of the tag. |
 | <a id="containerrepositorytag-userpermissions"></a>`userPermissions` | [`ContainerRepositoryTagPermissions!`](#containerrepositorytagpermissions) | Permissions for the current user on the resource. |
+
+### `ContainerRepositoryTagDetails`
+
+Details of a tag within a container repository.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="containerrepositorytagdetails-createdat"></a>`createdAt` | [`Time`](#time) | Timestamp when the tag was created. |
+| <a id="containerrepositorytagdetails-digest"></a>`digest` | [`String`](#string) | Digest of the tag. |
+| <a id="containerrepositorytagdetails-location"></a>`location` | [`String!`](#string) | URL of the tag. |
+| <a id="containerrepositorytagdetails-manifests"></a>`manifests` | [`[ContainerRepositoryImageManifest!]`](#containerrepositoryimagemanifest) | Manifests of the index tag. Null for non-index tags. |
+| <a id="containerrepositorytagdetails-mediatype"></a>`mediaType` | [`String`](#string) | Media type of the tag. |
+| <a id="containerrepositorytagdetails-name"></a>`name` | [`String!`](#string) | Name of the tag. |
+| <a id="containerrepositorytagdetails-path"></a>`path` | [`String!`](#string) | Path of the tag. |
+| <a id="containerrepositorytagdetails-platform"></a>`platform` | [`ContainerRepositoryImagePlatform`](#containerrepositoryimageplatform) | Platform of the image tag. Null for index tags. |
+| <a id="containerrepositorytagdetails-publishedat"></a>`publishedAt` | [`Time`](#time) | Timestamp when the tag was published. |
+| <a id="containerrepositorytagdetails-totalsize"></a>`totalSize` | [`BigInt`](#bigint) | Size of the tag. |
 
 ### `ContainerRepositoryTagPermissions`
 

@@ -2125,9 +2125,6 @@ ee/app/workers/ai/repository_xray/
 /ee/lib/arkose/
 /ee/lib/telesign/
 
-[Code Creation] @gitlab-org/code-creation/engineers
-/.gitlab/duo/mr-review-instructions.yaml
-
 ^[DiffMatchPatch gem]
 /vendor/gems/diff_match_patch @garyh
 

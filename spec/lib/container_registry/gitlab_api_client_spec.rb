@@ -175,6 +175,45 @@ RSpec.describe ContainerRegistry::GitlabApiClient, feature_category: :container_
     end
   end
 
+  describe '#tag_details' do
+    let(:path) { 'namespace/path/to/repository' }
+    let(:tag_name) { 'my-tag' }
+    let(:response) { { name: 'my-tag', created_at: '2024-01-01T00:00:00Z' } }
+
+    subject { client.tag_details(path, tag_name) }
+
+    context 'with a successful response' do
+      before do
+        stub_tag_details(path, tag_name, status_code: 200, respond_with: response)
+      end
+
+      it { is_expected.to eq(response.stringify_keys.deep_transform_values(&:to_s)) }
+    end
+
+    context 'with a non-successful response (404)' do
+      before do
+        stub_tag_details(path, tag_name, status_code: 404, respond_with: {})
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'with a non-successful response (500)' do
+      before do
+        stub_tag_details(path, tag_name, status_code: 500, respond_with: {})
+      end
+
+      it 'returns nil and logs the error' do
+        expect(Gitlab::ErrorTracking).to receive(:log_exception).with(
+          an_instance_of(described_class::UnsuccessfulResponseError),
+          hash_including(status_code: 500)
+        )
+
+        is_expected.to be_nil
+      end
+    end
+  end
+
   describe '#tags' do
     let(:path) { 'namespace/path/to/repository' }
     let(:page_size) { 100 }
@@ -1000,6 +1039,14 @@ RSpec.describe ContainerRegistry::GitlabApiClient, feature_category: :container_
   def stub_repository_details(path, sizing: nil, status_code: 200, respond_with: {})
     url = "#{registry_api_url}/gitlab/v1/repositories/#{path}/"
     url += "?size=#{sizing}" if sizing
+
+    stub_request(:get, url)
+      .with(headers: request_headers)
+      .to_return(status: status_code, body: respond_with.to_json, headers: headers_with_json_content_type)
+  end
+
+  def stub_tag_details(path, name, status_code: 200, respond_with: {})
+    url = "#{registry_api_url}/gitlab/v1/repositories/#{path}/tags/detail/#{name}/"
 
     stub_request(:get, url)
       .with(headers: request_headers)

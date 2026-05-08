@@ -148,6 +148,28 @@ module ContainerRegistry
       end
     end
 
+    def tag_details(path, name)
+      with_token_faraday do |faraday_client|
+        url = "#{GITLAB_REPOSITORIES_PATH}/#{path}/tags/detail/#{name}/"
+        req = faraday_client.get(url)
+
+        unless req.success?
+          unless req.status == 404
+            Gitlab::ErrorTracking.log_exception(
+              UnsuccessfulResponseError.new,
+              class: self.class.name,
+              url: url,
+              status_code: req.status
+            )
+          end
+
+          break nil
+        end
+
+        response_body(req)
+      end
+    end
+
     # https://gitlab.com/gitlab-org/container-registry/-/blob/master/docs/spec/gitlab/api.md#list-repository-tags
     def tags(path, page_size: 100, last: nil, before: nil, name: nil, sort: nil, referrers: nil, referrer_type: nil)
       limited_page_size = [page_size, MAX_TAGS_PAGE_SIZE].min
