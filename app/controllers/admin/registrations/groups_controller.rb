@@ -25,7 +25,8 @@ module Admin
           .execute
 
         if result.success?
-          redirect_to project_path(result.payload[:project])
+          session[:sm_welcome_project_id] = result.payload[:project].id
+          redirect_to new_admin_registrations_profile_path
         else
           @group = result.payload[:group]
           @project = result.payload[:project]

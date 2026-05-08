@@ -3,7 +3,9 @@
 namespace :admin do
   namespace :registrations do
     resources :groups, only: [:new, :create]
-    resource :profile, only: [:new]
+    resource :profile, only: [:new, :update] do
+      get :skip, on: :member
+    end
   end
 
   resources :users, constraints: { id: %r{[a-zA-Z./0-9_\-]+} } do

@@ -425,10 +425,10 @@ html:not(.application-chrome) .super-sidebar {
 }
 
 .global-search-modal {
-  padding: 3rem 0.5rem 0;
+  padding: var(--performance-bar-height) 0.5rem 0;
 
   .modal-content {
-    border-radius: 0.5rem !important;
+    @apply gl-rounded-[1rem] #{!important};
   }
 
   &.gl-modal .modal-dialog {
@@ -436,7 +436,7 @@ html:not(.application-chrome) .super-sidebar {
   }
 
   @include gl-media-breakpoint-up(sm) {
-    padding: 5rem 1rem 0;
+    padding: var(--performance-bar-height) 1rem 0;
   }
 
   .vertical-align-normalization {
@@ -467,7 +467,7 @@ html:not(.application-chrome) .super-sidebar {
   }
 
   .gl-search-box-by-type-input-borderless {
-    @apply gl-rounded-base;
+    @apply gl-rounded-[0.75rem];
   }
 
   .global-search-results {
@@ -492,6 +492,47 @@ html:not(.application-chrome) .super-sidebar {
     @apply gl-bg-strong;
     @apply gl-border-t;
     padding: $command-palette-spacing;
+  }
+
+  /* stylelint-disable scss/at-rule-no-unknown */
+  @media (prefers-reduced-motion: no-preference) {
+    transition-property: opacity;
+    transition-timing-function: $gl-easing-out-cubic;
+
+    &.show {
+      opacity: 1;
+      transition-duration: 0.2s;
+
+      .modal-dialog {
+        scale: 1;
+        transition-duration: 0.2s;
+      }
+    }
+
+    &:not(.show) {
+      opacity: 0;
+      transition-duration: 0.1s;
+
+      .modal-dialog {
+        scale: 0.8;
+        transition-duration: 0.1s;
+      }
+    }
+
+    @starting-style {
+      opacity: 0;
+    }
+
+    .modal-dialog {
+      transform-origin: top center;
+      transform: none !important;
+      transition-property: scale;
+      transition-timing-function: $gl-easing-out-cubic;
+
+      @starting-style {
+        scale: 0.8;
+      }
+    }
   }
 }
 

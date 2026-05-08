@@ -15,7 +15,7 @@ RSpec.describe 'admin/registrations/groups/new', feature_category: :onboarding d
     assign(:template_name, '')
     allow(view).to receive_messages(
       admin_registrations_groups_path: '/admin/sign_up/groups',
-      home_dashboard_path: '/dashboard'
+      new_admin_registrations_profile_path: '/admin/registrations/profile/new'
     )
   end
 
@@ -85,6 +85,6 @@ RSpec.describe 'admin/registrations/groups/new', feature_category: :onboarding d
   it 'renders a skip link to the dashboard' do
     render
 
-    expect(rendered).to have_link('Skip', href: '/dashboard')
+    expect(rendered).to have_link('Skip', href: '/dashboard/home')
   end
 end

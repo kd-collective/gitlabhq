@@ -1044,25 +1044,25 @@ RSpec.describe ::SystemNotes::IssuablesService, feature_category: :team_planning
     context 'with issue' do
       let_it_be_with_reload(:noteable) { create(:issue, project: project) }
 
-      subject { service.change_issue_type('incident') }
+      subject { service.change_issue_type }
 
       it_behaves_like 'a system note' do
         let(:action) { 'issue_type' }
       end
 
-      it { expect(subject.note).to eq "changed type from incident to issue" }
+      it { expect(subject.note).to eq "changed type to **Issue**" }
     end
 
     context 'with work item' do
       let_it_be_with_reload(:noteable) { create(:work_item, project: project) }
 
-      subject { service.change_issue_type('task') }
+      subject { service.change_issue_type }
 
       it_behaves_like 'a system note' do
         let(:action) { 'issue_type' }
       end
 
-      it { expect(subject.note).to eq "changed type from task to issue" }
+      it { expect(subject.note).to eq "changed type to **Issue**" }
     end
   end
 

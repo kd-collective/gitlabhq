@@ -81,7 +81,7 @@ module Gitlab
         types ::Issuable
         condition do
           current_user.can?(:"set_#{quick_action_target.to_ability_name}_metadata", quick_action_target) &&
-            find_labels.any?
+            has_labels?
         end
         command :label, :labels do |labels_param|
           run_label_command(labels: find_labels(labels_param), command: :label, updates_key: :add_label_ids)

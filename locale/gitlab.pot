@@ -40068,13 +40068,13 @@ msgstr ""
 msgid "JiraIntegration|The URL to the Jira project which is being linked to this GitLab project (for example, `https://jira.example.com`)."
 msgstr ""
 
-msgid "JiraIntegration|The authentication method to use with Jira. Use `0` for Basic Authentication, and `1` for Jira personal access token. Defaults to `0`."
+msgid "JiraIntegration|The authentication method to use with Jira. Use `0` for basic authentication, `1` for Jira personal access token, and `2` for Jira Cloud service accounts. Defaults to `0`."
 msgstr ""
 
 msgid "JiraIntegration|The base URL to the Jira instance API. Web URL value is used if not set (for example, `https://jira-api.example.com`)."
 msgstr ""
 
-msgid "JiraIntegration|The email or username to use with Jira. Use an email for Jira Cloud, and a username for Jira Data Center and Jira Server. Required when using Basic Authentication (`jira_auth_type` is `0`)."
+msgid "JiraIntegration|The email or username to use with Jira. Use an email for Jira Cloud, and a username for Jira Data Center and Jira Server. Required when using basic authentication (`jira_auth_type` is `0`)."
 msgstr ""
 
 msgid "JiraIntegration|Turn on Jira issue creation for GitLab vulnerabilities."
@@ -40137,6 +40137,9 @@ msgstr ""
 msgid "JiraService|API token for Jira Cloud or password for Jira Data Center and Jira Server"
 msgstr ""
 
+msgid "JiraService|API token for a Jira Cloud service account. The account must have sufficient permissions to manage Jira."
+msgstr ""
+
 msgid "JiraService|API token or password"
 msgstr ""
 
@@ -40156,6 +40159,9 @@ msgid "JiraService|Base URL of the Jira instance"
 msgstr ""
 
 msgid "JiraService|Basic"
+msgstr ""
+
+msgid "JiraService|Basic authentication"
 msgstr ""
 
 msgid "JiraService|Check assignee"
@@ -40215,7 +40221,10 @@ msgstr ""
 msgid "JiraService|Fetch issue types for this project key"
 msgstr ""
 
-msgid "JiraService|For Jira Cloud, the authentication type must be %{basic}"
+msgid "JiraService|For Jira Cloud service accounts, use https://api.atlassian.com/ex/jira/{cloudId}. %{linkStart}How to find your Cloud ID%{linkEnd}."
+msgstr ""
+
+msgid "JiraService|For Jira Cloud, the authentication type must be %{basic} or %{service_account}."
 msgstr ""
 
 msgid "JiraService|For example, 12, 24"
@@ -40227,6 +40236,9 @@ msgstr ""
 msgid "JiraService|If different from the Web URL"
 msgstr ""
 
+msgid "JiraService|If different from the web URL."
+msgstr ""
+
 msgid "JiraService|If you access Jira issues in GitLab, you might want to %{link_start}disable GitLab issues%{link_end}."
 msgstr ""
 
@@ -40234,6 +40246,9 @@ msgid "JiraService|Jira"
 msgstr ""
 
 msgid "JiraService|Jira API URL"
+msgstr ""
+
+msgid "JiraService|Jira Cloud service account"
 msgstr ""
 
 msgid "JiraService|Jira comments are created when an issue is referenced in a commit."
@@ -40272,6 +40287,12 @@ msgstr ""
 msgid "JiraService|Jira project keys"
 msgstr ""
 
+msgid "JiraService|Jira service account"
+msgstr ""
+
+msgid "JiraService|Jira service account (Jira Cloud only)"
+msgstr ""
+
 msgid "JiraService|Jira verification"
 msgstr ""
 
@@ -40290,19 +40311,25 @@ msgstr ""
 msgid "JiraService|New Jira personal access token"
 msgstr ""
 
+msgid "JiraService|New service account token"
+msgstr ""
+
 msgid "JiraService|Open Jira"
 msgstr ""
 
-msgid "JiraService|Ready, In Progress, Review"
+msgid "JiraService|Personal access token"
 msgstr ""
 
-msgid "JiraService|Recommended. Only available for Jira Data Center and Jira Server."
+msgid "JiraService|Ready, In Progress, Review"
 msgstr ""
 
 msgid "JiraService|See integration options"
 msgstr ""
 
 msgid "JiraService|Select issue type"
+msgstr ""
+
+msgid "JiraService|Service account token"
 msgstr ""
 
 msgid "JiraService|Set a custom final state by using transition IDs. %{linkStart}Learn about transition IDs%{linkEnd}"
@@ -40317,7 +40344,16 @@ msgstr ""
 msgid "JiraService|Use Jira as this project's issue tracker."
 msgstr ""
 
+msgid "JiraService|Use a Jira personal access token. Supported for Jira Data Center and Jira Server."
+msgstr ""
+
 msgid "JiraService|Use a prefix to match Jira issue keys."
+msgstr ""
+
+msgid "JiraService|Use a scoped API token for a Jira Cloud service account."
+msgstr ""
+
+msgid "JiraService|Use an email and API token for Jira Cloud, or a username and password for Jira Data Center or Jira Server."
 msgstr ""
 
 msgid "JiraService|Use custom transitions"
@@ -49561,7 +49597,16 @@ msgstr ""
 msgid "Onboarding|Continue"
 msgstr ""
 
+msgid "Onboarding|Country"
+msgstr ""
+
 msgid "Onboarding|Create your first project"
+msgstr ""
+
+msgid "Onboarding|Email"
+msgstr ""
+
+msgid "Onboarding|First name"
 msgstr ""
 
 msgid "Onboarding|Get started with one of our popular project templates"
@@ -49576,10 +49621,19 @@ msgstr ""
 msgid "Onboarding|Group name"
 msgstr ""
 
+msgid "Onboarding|I agree that GitLab can contact me by email about its product, services, or events."
+msgstr ""
+
 msgid "Onboarding|If you can't find your organization, request an invite from your company's GitLab administrator."
 msgstr ""
 
+msgid "Onboarding|Last name"
+msgstr ""
+
 msgid "Onboarding|Looking for your team?"
+msgstr ""
+
+msgid "Onboarding|Organization name"
 msgstr ""
 
 msgid "Onboarding|Project"
@@ -49592,6 +49646,9 @@ msgid "Onboarding|Project name"
 msgstr ""
 
 msgid "Onboarding|Projects help you organize your work. They contain your file repository, issues, merge requests, and so much more."
+msgstr ""
+
+msgid "Onboarding|Select a country or region"
 msgstr ""
 
 msgid "Onboarding|Select a template"
@@ -87392,6 +87449,9 @@ msgid "change"
 msgid_plural "changes"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "changed type to **%{new_type}**"
+msgstr ""
 
 msgid "changes"
 msgstr ""

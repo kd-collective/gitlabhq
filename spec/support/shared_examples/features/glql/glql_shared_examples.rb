@@ -107,6 +107,35 @@ RSpec.shared_examples 'embedded views (GLQL)' do
     end
   end
 
+  context 'with a query using aliased field names' do
+    before_all do
+      label = create(:label, project: project, name: 'alias-test')
+      create(:issue, project: project, title: 'Alias test issue', description: 'alias content', labels: [label])
+    end
+
+    before do
+      submit_glql_view(
+        title: 'GLQL alias test',
+        glql_lines: [
+          "query: type = Issue and project = \"#{project.full_path}\" and label = ~alias-test",
+          "fields: description, openedAt",
+          "display: table"
+        ]
+      )
+    end
+
+    it 'renders aliased column headers with non-empty cell values', :aggregate_failures do
+      table = find("[data-testid='glql-facade'] table")
+      expect(table).to have_css('th', text: 'Description')
+      expect(table).to have_css('th', text: 'Opened at')
+      expect(table).to have_no_css('th', text: 'Description html')
+      expect(table).to have_no_css('th', text: 'Created at')
+      # Verify aliased fields resolved to actual values, not nil (rendered as "None")
+      expect(table).to have_css('td', text: 'alias content')
+      expect(table).to have_no_css('td', text: 'None')
+    end
+  end
+
   context 'with a query displaying projects' do
     let_it_be(:group) { create(:group) }
     let_it_be(:group_project) { create(:project, namespace: group) }

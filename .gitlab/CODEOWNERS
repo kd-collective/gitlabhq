@@ -16,9 +16,6 @@
 # https://gitlab.com/gitlab-org/gitlab/-/work_items/594402#note_3249020797
 /scripts/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
 /tooling/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
-/.agents/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
-/.ai/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
-/.claude/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
 /.gitlab/ @gitlab-org/maintainers/frontend @gitlab-org/maintainers/database @gl-dx/maintainers @gl-dx/tooling-maintainers @gitlab-org/delivery @gitlab-org/maintainers/cicd-templates @gitlab-org/tw-leadership @gitlab-org/maintainers/kas-version-maintainers @gitlab-org/maintainers/rails-backend
 
 # Workhorse
@@ -142,6 +139,19 @@ yarn.lock @gitlab-org/maintainers/frontend
 /argo_translation.yml @gitlab-com/localization/maintainers/tech-docs
 /doc-locale/.markdownlint/ @gitlab-com/localization/maintainers/tech-docs
 /lib/gitlab/i18n.rb @gitlab-com/localization/maintainers/i18n @gitlab-org/maintainers/rails-backend
+
+## Monolith AI harness files that do not need `*` rule approval,
+## but require approval from an AI harness DRI for each file.
+## See https://gitlab.com/groups/gitlab-org/-/work_items/20880+s
+/.agents/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/.ai/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/.claude/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/AGENTS.md @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/CLAUDE.md @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/opencode.example.json @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/scripts/ai_harness/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/tooling/ai_harness/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
+/spec/tooling/ai_harness/ @dgruzd @pedropombeiro @ghavenga @cwoolley-gitlab @tkuah
 
 config/bounded_contexts.yml @fabiopitino @grzesiek @stanhu @cwoolley-gitlab @tkuah
 
@@ -714,6 +724,7 @@ Dangerfile
 /config/dependency_decisions.yml
 
 [Application Security] @gitlab-com/gl-security/appsec
+/.gitlab/duo/flows/appsec-review.yaml
 /doc/development/application_secrets.md
 /app/assets/javascripts/lib/dompurify.js
 /app/assets/javascripts/gfm_auto_complete.js

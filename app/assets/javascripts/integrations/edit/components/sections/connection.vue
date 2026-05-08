@@ -29,6 +29,11 @@ export default {
     },
   },
   emits: ['toggle-integration-active'],
+  data() {
+    return {
+      currentAuthType: null,
+    };
+  },
   computed: {
     ...mapGetters(['currentKey', 'propsSource']),
 
@@ -55,6 +60,11 @@ export default {
       );
     },
   },
+  methods: {
+    onChangeAuthType(value) {
+      this.currentAuthType = parseInt(value, 10);
+    },
+  },
 };
 </script>
 
@@ -65,17 +75,19 @@ export default {
       :key="`${currentKey}-active-checkbox`"
       @toggle-integration-active="$emit('toggle-integration-active', $event)"
     />
-    <dynamic-field
-      v-for="field in filteredFields"
-      :key="`${currentKey}-${field.name}`"
-      v-bind="field"
-      :is-validated="isValidated"
-    />
     <jira-auth-fields
       v-if="isJiraIntegration"
       :key="`${currentKey}-jira-auth-fields`"
       :is-validated="isValidated"
       :fields="jiraAuthFields"
+      :current-auth-type="currentAuthType"
+      @change-auth-type="onChangeAuthType"
+    />
+    <dynamic-field
+      v-for="field in filteredFields"
+      :key="`${currentKey}-${field.name}`"
+      v-bind="field"
+      :is-validated="isValidated"
     />
   </div>
 </template>

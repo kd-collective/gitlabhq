@@ -737,7 +737,7 @@ gem "gitlab-cloud-connector", "~> 1.45", require: 'gitlab/cloud_connector', feat
 
 gem "gvltools", "~> 0.4.0", feature_category: :shared # rubocop:todo Gemfile/MissingFeatureCategory -- https://gitlab.com/gitlab-org/gitlab/-/issues/581839
 
-gem 'gitlab_query_language', '~> 0.26.0', feature_category: :integrations
+gem 'gitlab_query_language', '~> 0.27.1', feature_category: :integrations
 
 # Gems required in omnibus-gitlab pipeline
 gem 'license_finder', '~> 7.0', require: false, feature_category: :shared # rubocop:todo Gemfile/MissingFeatureCategory -- https://gitlab.com/gitlab-org/gitlab/-/issues/581839

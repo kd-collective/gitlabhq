@@ -45420,7 +45420,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_629ab9562708"
+              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
   "/api/v4/projects/{id}/services/jira-cloud-app":
     put:
       operationId: putApiV4ProjectsIdServicesJiraCloudApp
@@ -47318,7 +47318,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_629ab9562708"
+              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
   "/api/v4/projects/{id}/integrations/jira-cloud-app":
     put:
       operationId: putApiV4ProjectsIdIntegrationsJiraCloudApp
@@ -49216,7 +49216,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_629ab9562708"
+              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
   "/api/v4/groups/{id}/integrations/jira-cloud-app":
     put:
       operationId: putApiV4GroupsIdIntegrationsJiraCloudApp
@@ -102836,7 +102836,7 @@ components:
       required:
       - jenkins_url
       - project_name
-    RequestBody_629ab9562708:
+    RequestBody_355dfbda9d0e:
       type: object
       properties:
         url:
@@ -102851,14 +102851,15 @@ components:
           nullable: true
         jira_auth_type:
           type: integer
-          description: The authentication method to use with Jira. Use `0` for Basic
-            Authentication, and `1` for Jira personal access token. Defaults to `0`.
+          description: The authentication method to use with Jira. Use `0` for basic
+            authentication, `1` for Jira personal access token, and `2` for Jira Cloud
+            service accounts. Defaults to `0`.
           nullable: true
         username:
           type: string
           description: The email or username to use with Jira. Use an email for Jira
             Cloud, and a username for Jira Data Center and Jira Server. Required when
-            using Basic Authentication (`jira_auth_type` is `0`).
+            using basic authentication (`jira_auth_type` is `0`).
           nullable: true
         password:
           type: string

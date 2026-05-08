@@ -353,6 +353,26 @@ RSpec.describe API::Glql, feature_category: :custom_dashboards_foundation do
       end
     end
 
+    context 'with aliased display fields' do
+      it 'uses the alias as the key in the fields metadata', :aggregate_failures do
+        yaml = "fields: description, openedAt\nquery: group = \"test-group\" AND state = opened"
+        post api(endpoint, user), params: { glql_yaml: yaml }
+
+        expect(response).to have_gitlab_http_status(:ok)
+        expect(json_response['fields'].pluck('key')).to eq(%w[description openedAt])
+      end
+
+      it 'returns non-nil values under the aliased keys in node data', :aggregate_failures do
+        yaml = "fields: description, openedAt\nquery: group = \"test-group\" AND state = opened"
+        post api(endpoint, user), params: { glql_yaml: yaml }
+
+        expect(response).to have_gitlab_http_status(:ok)
+        node = json_response['data']['nodes'].find { |n| n['title'] == 'Opened Issue' }
+        expect(node['description']).to include('This is opened')
+        expect(node['openedAt']).to be_present
+      end
+    end
+
     context 'with analytics mode for code suggestions' do
       let(:params) do
         { glql_yaml: <<~YAML }

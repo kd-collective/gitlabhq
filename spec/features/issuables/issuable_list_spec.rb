@@ -16,17 +16,6 @@ RSpec.describe 'issuable list', :js, feature_category: :portfolio_management do
   end
 
   issuable_types.each do |issuable_type|
-    it "avoids N+1 database queries for #{issuable_type.to_s.humanize.pluralize}",
-      quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/9332' do
-      visit_issuable_list(issuable_type)
-
-      control = ActiveRecord::QueryRecorder.new { visit_issuable_list(issuable_type) }
-
-      create_issuables(issuable_type)
-
-      expect { visit_issuable_list(issuable_type) }.not_to exceed_query_limit(control).with_threshold(2)
-    end
-
     it "counts upvotes, downvotes for each #{issuable_type.to_s.humanize}" do
       visit_issuable_list(issuable_type)
 

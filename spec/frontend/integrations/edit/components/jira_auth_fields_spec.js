@@ -3,7 +3,7 @@ import { nextTick } from 'vue';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 
 import JiraAuthFields from '~/integrations/edit/components/jira_auth_fields.vue';
-import { jiraAuthTypeFieldProps } from '~/integrations/constants';
+import { jiraAuthTypes, jiraAuthTypeFieldProps } from '~/integrations/constants';
 import { createStore } from '~/integrations/edit/store';
 
 import { mockJiraAuthFields } from '../mock_data';
@@ -29,7 +29,7 @@ describe('JiraAuthFields', () => {
   const findUsernameField = () => wrapper.findByTestId('jira-auth-username');
   const findPasswordField = () => wrapper.findByTestId('jira-auth-password');
 
-  const selectRadioOption = (index) => findAuthTypeRadio().vm.$emit('input', index);
+  const selectRadioOption = (authType) => findAuthTypeRadio().vm.$emit('input', authType);
 
   describe('template', () => {
     const mockFieldsWithPasswordValue = [
@@ -54,7 +54,7 @@ describe('JiraAuthFields', () => {
     });
 
     it('selects "Basic" authentication by default', () => {
-      expect(findAuthTypeRadio().attributes('checked')).toBe('0');
+      expect(findAuthTypeRadio().attributes('checked')).toBe(String(jiraAuthTypes.BASIC));
     });
 
     it('selects correct authentication when passed from backend', async () => {
@@ -79,7 +79,7 @@ describe('JiraAuthFields', () => {
       it('renders username field as required', () => {
         expect(findUsernameField().exists()).toBe(true);
         expect(findUsernameField().props()).toMatchObject({
-          title: jiraAuthTypeFieldProps[0].username,
+          title: jiraAuthTypeFieldProps[jiraAuthTypes.BASIC].username,
           required: true,
         });
       });
@@ -87,8 +87,8 @@ describe('JiraAuthFields', () => {
       it('renders password field with help', () => {
         expect(findPasswordField().exists()).toBe(true);
         expect(findPasswordField().props()).toMatchObject({
-          title: jiraAuthTypeFieldProps[0].password,
-          help: jiraAuthTypeFieldProps[0].passwordHelp,
+          title: jiraAuthTypeFieldProps[jiraAuthTypes.BASIC].password,
+          help: jiraAuthTypeFieldProps[jiraAuthTypes.BASIC].passwordHelp,
         });
       });
 
@@ -99,7 +99,9 @@ describe('JiraAuthFields', () => {
           },
         });
 
-        expect(findPasswordField().props('title')).toBe(jiraAuthTypeFieldProps[0].nonEmptyPassword);
+        expect(findPasswordField().props('title')).toBe(
+          jiraAuthTypeFieldProps[jiraAuthTypes.BASIC].nonEmptyPassword,
+        );
       });
     });
 
@@ -107,7 +109,7 @@ describe('JiraAuthFields', () => {
       beforeEach(() => {
         createComponent();
 
-        selectRadioOption(1);
+        selectRadioOption(jiraAuthTypes.PAT);
       });
 
       it('selects "Jira personal access token" authentication', () => {
@@ -121,7 +123,7 @@ describe('JiraAuthFields', () => {
       it('renders password field without help', () => {
         expect(findPasswordField().exists()).toBe(true);
         expect(findPasswordField().props()).toMatchObject({
-          title: jiraAuthTypeFieldProps[1].password,
+          title: jiraAuthTypeFieldProps[jiraAuthTypes.PAT].password,
           help: null,
         });
       });
@@ -133,9 +135,48 @@ describe('JiraAuthFields', () => {
           },
         });
 
-        await selectRadioOption(1);
+        await selectRadioOption(jiraAuthTypes.PAT);
 
-        expect(findPasswordField().props('title')).toBe(jiraAuthTypeFieldProps[1].nonEmptyPassword);
+        expect(findPasswordField().props('title')).toBe(
+          jiraAuthTypeFieldProps[jiraAuthTypes.PAT].nonEmptyPassword,
+        );
+      });
+    });
+
+    describe('when "Jira Cloud service account" authentication is selected', () => {
+      beforeEach(async () => {
+        createComponent();
+        await selectRadioOption(jiraAuthTypes.SERVICE_ACCOUNT);
+      });
+
+      it('selects "Jira Cloud service account" authentication', () => {
+        expect(findAuthTypeRadio().attributes('checked')).toBe(
+          String(jiraAuthTypes.SERVICE_ACCOUNT),
+        );
+      });
+
+      it('does not render username field', () => {
+        expect(findUsernameField().exists()).toBe(false);
+      });
+
+      it('renders password field with service account copy', () => {
+        expect(findPasswordField().exists()).toBe(true);
+        expect(findPasswordField().props()).toMatchObject({
+          title: jiraAuthTypeFieldProps[jiraAuthTypes.SERVICE_ACCOUNT].password,
+          help: jiraAuthTypeFieldProps[jiraAuthTypes.SERVICE_ACCOUNT].passwordHelp,
+        });
+      });
+
+      it('renders new password title when value is present (service account)', async () => {
+        createComponent({
+          props: { fields: mockFieldsWithPasswordValue },
+        });
+
+        await selectRadioOption(jiraAuthTypes.SERVICE_ACCOUNT);
+
+        expect(findPasswordField().props('title')).toBe(
+          jiraAuthTypeFieldProps[jiraAuthTypes.SERVICE_ACCOUNT].nonEmptyPassword,
+        );
       });
     });
   });

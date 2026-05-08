@@ -365,7 +365,7 @@ RSpec.describe Issues::UpdateService, :mailer, :request_store, feature_category:
           it 'creates system note about issue type' do
             update_issue(issue_type: 'incident')
 
-            note = find_note('changed type from issue to incident')
+            note = find_note('changed type to **Incident**')
 
             expect(note).not_to eq(nil)
           end
@@ -443,7 +443,7 @@ RSpec.describe Issues::UpdateService, :mailer, :request_store, feature_category:
           it 'creates a system note about the type change' do
             update_issue(work_item_type: incident_type)
 
-            expect(find_note('changed type from issue to incident')).not_to be_nil
+            expect(find_note('changed type to **Incident**')).not_to be_nil
           end
 
           it 'creates an escalation status when changing to incident' do
@@ -473,7 +473,7 @@ RSpec.describe Issues::UpdateService, :mailer, :request_store, feature_category:
             it 'does not create a system note about the type change' do
               update_issue(work_item_type: issue_type)
 
-              expect(find_note('changed type from')).to be_nil
+              expect(find_note('changed type to')).to be_nil
             end
           end
 

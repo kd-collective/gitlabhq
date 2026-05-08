@@ -72,6 +72,7 @@ describe('parse', () => {
         id
         iid
         title
+        titleHtml
         webUrl
         reference
         state
@@ -145,6 +146,7 @@ assignee = currentUser()`),
         id
         iid
         title
+        titleHtml
         webUrl
         reference
         state
@@ -239,6 +241,7 @@ query: assignee = currentUser()
         id
         iid
         title
+        titleHtml
         webUrl
         reference
         state
@@ -332,6 +335,7 @@ describe('parseQuery', () => {
         id
         iid
         title
+        titleHtml
         webUrl
         reference
         state
@@ -378,6 +382,7 @@ describe('parseQuery', () => {
         id
         iid
         title
+        titleHtml
         webUrl
         reference
         state

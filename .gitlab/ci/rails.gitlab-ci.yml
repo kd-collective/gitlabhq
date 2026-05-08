@@ -1178,8 +1178,7 @@ rspec-ee system pg17 duo_workflow_service:
   parallel: 4
   rules:
     - !reference [".rails:rules:triggered-by-aigw-project", rules]
-    - !reference [".rails:rules:only-run-system-if-medium-runners-available", rules]
-    - !reference [".allow-on-tier-2", rules]  # always run on tier-2; not included in predictive child pipeline
+    - !reference [".rails:rules:tier-2-with-test-env", rules]
     - !reference ['.rails:rules:ee-only-system', rules]
 
 # Integration tests with Elasticsearch and PG production versions

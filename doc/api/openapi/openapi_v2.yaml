@@ -52773,13 +52773,14 @@ definitions:
       jira_auth_type:
         type: integer
         format: int32
-        description: The authentication method to use with Jira. Use `0` for Basic
-          Authentication, and `1` for Jira personal access token. Defaults to `0`.
+        description: The authentication method to use with Jira. Use `0` for basic
+          authentication, `1` for Jira personal access token, and `2` for Jira Cloud
+          service accounts. Defaults to `0`.
       username:
         type: string
         description: The email or username to use with Jira. Use an email for Jira
           Cloud, and a username for Jira Data Center and Jira Server. Required when
-          using Basic Authentication (`jira_auth_type` is `0`).
+          using basic authentication (`jira_auth_type` is `0`).
       password:
         type: string
         description: The Jira API token, password, or personal access token to use
@@ -60453,13 +60454,14 @@ definitions:
       jira_auth_type:
         type: integer
         format: int32
-        description: The authentication method to use with Jira. Use `0` for Basic
-          Authentication, and `1` for Jira personal access token. Defaults to `0`.
+        description: The authentication method to use with Jira. Use `0` for basic
+          authentication, `1` for Jira personal access token, and `2` for Jira Cloud
+          service accounts. Defaults to `0`.
       username:
         type: string
         description: The email or username to use with Jira. Use an email for Jira
           Cloud, and a username for Jira Data Center and Jira Server. Required when
-          using Basic Authentication (`jira_auth_type` is `0`).
+          using basic authentication (`jira_auth_type` is `0`).
       password:
         type: string
         description: The Jira API token, password, or personal access token to use
@@ -62378,13 +62380,14 @@ definitions:
       jira_auth_type:
         type: integer
         format: int32
-        description: The authentication method to use with Jira. Use `0` for Basic
-          Authentication, and `1` for Jira personal access token. Defaults to `0`.
+        description: The authentication method to use with Jira. Use `0` for basic
+          authentication, `1` for Jira personal access token, and `2` for Jira Cloud
+          service accounts. Defaults to `0`.
       username:
         type: string
         description: The email or username to use with Jira. Use an email for Jira
           Cloud, and a username for Jira Data Center and Jira Server. Required when
-          using Basic Authentication (`jira_auth_type` is `0`).
+          using basic authentication (`jira_auth_type` is `0`).
       password:
         type: string
         description: The Jira API token, password, or personal access token to use

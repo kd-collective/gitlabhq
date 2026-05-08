@@ -24,7 +24,6 @@ RSpec.describe 'cross-database foreign keys', feature_category: :database do
   let!(:allowed_cross_database_foreign_keys) do
     keys = [
       'p_ci_build_tags.tag_id',                                     # https://gitlab.com/gitlab-org/gitlab/-/issues/470872
-      'user_broadcast_message_dismissals.broadcast_message_id',     # https://gitlab.com/gitlab-org/gitlab/-/issues/531358
       'term_agreements.term_id',                                    # https://gitlab.com/gitlab-org/gitlab/-/issues/531367
       # https://gitlab.com/gitlab-org/gitlab/-/issues/560435
       'dingtalk_tracker_data.integration_id',

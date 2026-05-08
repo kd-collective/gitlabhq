@@ -170,10 +170,16 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
           end
         end
 
-        it 'redirects to the created project' do
+        it 'redirects to the profile step' do
           post_create
 
-          expect(response).to redirect_to(project_path(Project.last))
+          expect(response).to redirect_to(new_admin_registrations_profile_path)
+        end
+
+        it 'stores the created project id in the session' do
+          post_create
+
+          expect(session[:sm_welcome_project_id]).to eq(Project.last.id)
         end
 
         it 'creates the group as PRIVATE regardless of params' do
