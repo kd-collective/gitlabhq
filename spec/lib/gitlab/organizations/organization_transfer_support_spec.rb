@@ -44,7 +44,6 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       group_upload_states
       import_failures
       import_offline_configurations
-      integrations
       issue_tracker_data
       jira_connect_installations
       jira_tracker_data
@@ -94,8 +93,6 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       vulnerability_export_part_uploads
       vulnerability_export_parts
       vulnerability_export_uploads
-      web_hooks
-      web_hook_logs_daily
       work_item_custom_types
       work_item_settings
       zentao_tracker_data
@@ -105,7 +102,10 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
   let(:allowed_no_work_needed_tables) do
     %w[
       enabled_foundational_flow_check_results
+      integrations
       labels
+      web_hooks
+      web_hook_logs_daily
     ]
   end
 

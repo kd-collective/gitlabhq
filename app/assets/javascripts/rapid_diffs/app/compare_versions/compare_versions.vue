@@ -1,12 +1,13 @@
 <script>
-import { GlSprintf } from '@gitlab/ui';
-import { s__, n__, sprintf } from '~/locale';
+import { GlSprintf, GlButton } from '@gitlab/ui';
+import { s__, n__, __, sprintf } from '~/locale';
 import CompareDropdownLayout from '~/diffs/components/compare_dropdown_layout.vue';
 
 export default {
   name: 'CompareVersions',
   components: {
     GlSprintf,
+    GlButton,
     CompareDropdownLayout,
   },
   props: {
@@ -27,9 +28,14 @@ export default {
         commitsText: this.formatCommitsText(v.commits_count),
       }));
     },
+    selectedSourceVersion() {
+      return this.sourceVersions.find((v) => v.selected);
+    },
+    selectedTargetVersion() {
+      return this.targetVersions.find((v) => v.selected);
+    },
     selectedTargetIsBranch() {
-      const selected = this.targetVersions.find((v) => v.selected);
-      return Boolean(selected?.branch);
+      return Boolean(this.selectedTargetVersion?.branch);
     },
     formattedTargetVersions() {
       return this.targetVersions.map((v) => {
@@ -47,6 +53,14 @@ export default {
           versionName: this.targetVersionName(v),
         };
       });
+    },
+    isViewingNonLatest() {
+      const sourceIsNonLatest = this.selectedSourceVersion && !this.selectedSourceVersion.latest;
+      const targetIsNonLatest = this.selectedTargetVersion?.version_index != null;
+      return sourceIsNonLatest || targetIsNonLatest;
+    },
+    latestVersionPath() {
+      return this.targetVersions.find((v) => v.version_index == null)?.href;
     },
   },
   methods: {
@@ -70,6 +84,7 @@ export default {
     compareMessage: s__(
       'MergeRequest|%{targetStart}Compare%{targetEnd} %{sourceStart}and%{sourceEnd}',
     ),
+    showLatestVersion: __('Show latest version'),
   },
 };
 </script>
@@ -102,5 +117,14 @@ export default {
         </span>
       </template>
     </gl-sprintf>
+    <gl-button
+      v-if="isViewingNonLatest"
+      :href="latestVersionPath"
+      size="small"
+      class="gl-ml-3 gl-shrink-0"
+      data-testid="show-latest-version-button"
+    >
+      {{ $options.i18n.showLatestVersion }}
+    </gl-button>
   </div>
 </template>

@@ -27,7 +27,6 @@ Layout/LineLength:
     - 'app/graphql/types/issue_type.rb'
     - 'app/graphql/types/member_interface.rb'
     - 'app/graphql/types/notes/diff_position_input_type.rb'
-    - 'app/graphql/types/query_type.rb'
     - 'app/graphql/types/repository/blob_type.rb'
     - 'app/graphql/types/repository_type.rb'
     - 'app/graphql/types/snippets/visibility_scopes_enum.rb'

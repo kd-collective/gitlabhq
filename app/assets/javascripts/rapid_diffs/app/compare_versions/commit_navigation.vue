@@ -33,7 +33,7 @@ export default {
       {{ $options.i18n.viewingCommit }}
       <gl-link :href="commit.commit_url" class="gl-font-monospace">{{ commit.short_id }}</gl-link>
     </div>
-    <gl-button :href="latestVersionUrl" size="small">
+    <gl-button :href="latestVersionUrl" size="small" class="gl-shrink-0">
       {{ $options.i18n.showLatestVersion }}
     </gl-button>
   </div>

@@ -21,9 +21,12 @@ module Gitlab
               strong_memoize(:content) { fetch_local_content }
             end
 
+            def include_type
+              :local
+            end
+
             def metadata
               super.merge(
-                type: :local,
                 location: masked_location,
                 blob: masked_blob,
                 raw: masked_raw,

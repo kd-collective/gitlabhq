@@ -7435,9 +7435,6 @@ msgstr ""
 msgid "AgentArtifacts|AI Item"
 msgstr ""
 
-msgid "AgentArtifacts|Agent artifacts"
-msgstr ""
-
 msgid "AgentArtifacts|Audit events"
 msgstr ""
 
@@ -7459,6 +7456,9 @@ msgstr ""
 msgid "AgentArtifacts|Failed to load agent artifacts."
 msgstr ""
 
+msgid "AgentArtifacts|Failed to load audit events."
+msgstr ""
+
 msgid "AgentArtifacts|Failed to load projects."
 msgstr ""
 
@@ -7468,10 +7468,10 @@ msgstr ""
 msgid "AgentArtifacts|Model used"
 msgstr ""
 
-msgid "AgentArtifacts|Monitor and observe AI agent behavior and activities across your group."
+msgid "AgentArtifacts|No agent artifacts found."
 msgstr ""
 
-msgid "AgentArtifacts|No agent artifacts found."
+msgid "AgentArtifacts|No audit events found."
 msgstr ""
 
 msgid "AgentArtifacts|Project"
@@ -7562,6 +7562,18 @@ msgid "AiFlowTriggers|❌ Could not start processing due to this error: %{error}
 msgstr ""
 
 msgid "AiFlowTriggers|🔄 Processing the request..."
+msgstr ""
+
+msgid "AiGovernance|AI Governance"
+msgstr ""
+
+msgid "AiGovernance|Agent artifacts"
+msgstr ""
+
+msgid "AiGovernance|Control how your AI-powered features are used."
+msgstr ""
+
+msgid "AiGovernance|Tool management"
 msgstr ""
 
 msgid "AiImpactAnalytics|Agent Platform chats"
@@ -15440,6 +15452,9 @@ msgstr ""
 msgid "CiCatalog|Private - This component project can only be viewed by project members."
 msgstr ""
 
+msgid "CiCatalog|Private project"
+msgstr ""
+
 msgid "CiCatalog|Project path"
 msgstr ""
 
@@ -15549,6 +15564,9 @@ msgid "CiCatalog|Unverified"
 msgstr ""
 
 msgid "CiCatalog|Up to date"
+msgstr ""
+
+msgid "CiCatalog|Usage"
 msgstr ""
 
 msgid "CiCatalog|Usage statistics"
@@ -37869,6 +37887,9 @@ msgstr ""
 msgid "InProductMarketing|Built-in security"
 msgstr ""
 
+msgid "InProductMarketing|Collaborate and accelerate in one place"
+msgstr ""
+
 msgid "InProductMarketing|Create a GitLab account to purchase the Premium tier of GitLab Self-Managed."
 msgstr ""
 
@@ -37885,6 +37906,9 @@ msgid "InProductMarketing|Invite unlimited colleagues"
 msgstr ""
 
 msgid "InProductMarketing|No credit card required."
+msgstr ""
+
+msgid "InProductMarketing|Ship software faster"
 msgstr ""
 
 msgid "InProductMarketing|Start a Self-Managed trial"
@@ -45925,6 +45949,9 @@ msgid "Monitor GitLab with Prometheus."
 msgstr ""
 
 msgid "Monitor Settings"
+msgstr ""
+
+msgid "Monitor and observe AI agent behavior and activities across your group."
 msgstr ""
 
 msgid "Monitor your errors directly in GitLab."

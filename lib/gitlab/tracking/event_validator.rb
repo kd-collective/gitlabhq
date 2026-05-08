@@ -47,7 +47,10 @@ module Gitlab
         return if hash[key].nil?
         return if class_names.include?(hash[key].class)
 
-        error = InvalidPropertyTypeError.new("#{key} should be an instance of #{class_names.join(', ')}")
+        error = InvalidPropertyTypeError.new(
+          "#{key} should be an instance of #{class_names.join(', ')}, got #{hash[key].class}"
+        )
+
         log_invalid_property(error)
       end
 

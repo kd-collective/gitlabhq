@@ -74,5 +74,39 @@ RSpec.describe Members::Projects::CreatorService, feature_category: :groups_and_
         ).to exist
       end
     end
+
+    context 'service account membership eligibility' do
+      let_it_be(:maintainer) { create(:user, maintainer_of: source) }
+
+      context 'when the service account is not eligible for membership' do
+        let_it_be(:other_project) { create(:project, namespace: source.namespace) }
+        let(:ineligible_sa) do
+          create(:user, :service_account).tap do |u|
+            u.user_detail.update!(provisioned_by_project_id: other_project.id)
+          end
+        end
+
+        it 'does not create the member when inviting cross-project' do
+          member = described_class.add_member(source, ineligible_sa, :developer, current_user: maintainer)
+
+          expect(member).not_to be_persisted
+          expect(member.errors.full_messages).to include(/not authorized to create member/)
+        end
+      end
+
+      context 'when the service account is eligible for membership' do
+        let(:eligible_sa) do
+          create(:user, :service_account).tap do |u|
+            u.user_detail.update!(provisioned_by_project_id: source.id)
+          end
+        end
+
+        it 'creates the member' do
+          member = described_class.add_member(source, eligible_sa, :developer, current_user: maintainer)
+
+          expect(member).to be_persisted
+        end
+      end
+    end
   end
 end

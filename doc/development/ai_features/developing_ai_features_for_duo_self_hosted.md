@@ -88,6 +88,7 @@ To use the hosted models, set the following environment variables on your AI Gat
    AWS_REGION=us-east-1
    FIREWORKS_AI_API_KEY=your-fireworks-api-key
    AIGW_CUSTOM_MODELS__ENABLED=true
+   DUO_WORKFLOW_AUTH__OIDC_CUSTOMER_PORTAL_URL=https://customers.staging.gitlab.com
    # useful for debugging
    AIGW_LOGGING__ENABLE_REQUEST_LOGGING=true
    AIGW_LOGGING__ENABLE_LITELLM_LOGGING=true

@@ -87,7 +87,6 @@ Gitlab/Authz/UsePolicyHelpers:
     - 'ee/spec/policies/vulnerabilities/scanner_policy_spec.rb'
     - 'ee/spec/policies/vulnerabilities/state_transition_policy_spec.rb'
     - 'ee/spec/policies/vulnerabilities/statistic_policy_spec.rb'
-    - 'ee/spec/policies/vulnerability_policy_spec.rb'
     - 'ee/spec/policies/work_item_policy_spec.rb'
     - 'ee/spec/policies/work_items/lifecycle_policy_spec.rb'
     - 'ee/spec/policies/work_items/status_policy_spec.rb'

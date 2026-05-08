@@ -4,6 +4,9 @@ import { renderHtmlStreams } from '~/streaming/render_html_streams';
 import { toPolyfillReadable } from '~/streaming/polyfills';
 import { DiffFile } from '~/rapid_diffs/web_components/diff_file';
 import { performanceMarkAndMeasure } from '~/performance/utils';
+import { createAlert } from '~/alert';
+import { __ } from '~/locale';
+import { HTTP_STATUS_INTERNAL_SERVER_ERROR } from '~/lib/utils/http_status';
 import {
   removeLinkedFileUrlParams,
   withLinkedFileUrlParams,
@@ -58,9 +61,18 @@ export const useDiffsList = defineStore('diffsList', {
       const loadingIndicator = document.querySelector('[data-rapid-diffs] [data-list-loading]');
       this.status = statuses.fetching;
       loadingIndicator.hidden = false;
-      const { body } = await requestPromise;
+      const response = await requestPromise;
+      if (response.status >= HTTP_STATUS_INTERNAL_SERVER_ERROR) {
+        createAlert({
+          message: __('Could not fetch all changes. Try reloading the page.'),
+          parent: document.querySelector('[data-rapid-diffs]'),
+          containerSelector: '[data-diffs-list-alert]',
+        });
+        this.status = statuses.error;
+        return;
+      }
       this.status = statuses.streaming;
-      await renderHtmlStreams([toPolyfillReadable(body)], container, { signal });
+      await renderHtmlStreams([toPolyfillReadable(response.body)], container, { signal });
       loadingIndicator.hidden = true;
       this.status = statuses.idle;
     },

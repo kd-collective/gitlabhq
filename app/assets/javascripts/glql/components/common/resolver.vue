@@ -2,6 +2,7 @@
 import { pick } from 'lodash-es';
 import { sha256 } from '~/lib/utils/text_utility';
 import { InternalEvents } from '~/tracking';
+import { MODE_ANALYTICS } from '~/glql/constants';
 import { parse } from '../../core/parser';
 import { execute } from '../../core/executor';
 import { transform } from '../../core/transformer';
@@ -110,10 +111,15 @@ export default {
         this.setVariable('limit', this.config.limit ?? DEFAULT_PAGE_SIZE);
 
         const executionResult = await execute(this.query, this.variables);
-        this.data = await transform(executionResult, {
-          fields: this.fields,
-          mode: this.mode,
-        });
+
+        if (this.mode === MODE_ANALYTICS) {
+          this.data = await transform(executionResult, {
+            fields: this.fields,
+            mode: this.mode,
+          });
+        } else {
+          this.data = await transform(executionResult, this.config);
+        }
 
         this.trackRender();
       } catch (error) {
@@ -133,10 +139,17 @@ export default {
         this.emitChange();
 
         const executionResult = await execute(this.query, this.variables);
-        const data = await transform(executionResult, {
-          fields: this.fields,
-          mode: this.mode,
-        });
+
+        let data;
+        if (this.mode === MODE_ANALYTICS) {
+          data = await transform(executionResult, {
+            fields: this.fields,
+            mode: this.mode,
+          });
+        } else {
+          data = await transform(executionResult, this.config);
+        }
+
         this.data = {
           ...this.data,
           pageInfo: data.pageInfo,

@@ -468,7 +468,7 @@ RSpec.describe 'Git LFS API and storage', feature_category: :source_code_managem
               it_behaves_like 'an authorized request', renew_authorization: false
             end
 
-            # TODO: We should fix this test case that causes flakyness by alternating the result of the above test cases.
+            # TODO: We should fix this test case that causes flakiness by alternating the result of the above test cases.
             context 'when Deploy Token is valid' do
               let(:deploy_token) { create(:deploy_token, projects: [project]) }
 

@@ -16,6 +16,8 @@ module API
     allow_ai_workflows_access
 
     MAXIMUM_QUERY_LIMIT = 100
+    MODE_ANALYTICS = 'analytics'
+    DEFAULT_FIELDS = 'title'
 
     before do
       set_current_organization
@@ -88,6 +90,9 @@ module API
 
       def compile_glql(parsed_glql)
         config = parsed_glql[:config]
+
+        config['fields'] ||= DEFAULT_FIELDS if config['mode'] != MODE_ANALYTICS
+
         compile_context = get_compile_context(**{
           user: current_user,
           mode: config['mode'],
@@ -171,8 +176,14 @@ module API
         error!(glql_result[:errors].first[:message], 429) if glql_result[:rate_limited]
         error!(glql_result[:errors].first[:message], 400) if glql_result[:errors]
 
-        transformed_result = transform_glql_result(glql_result, compiled_glql['fields'],
-          mode: compiled_glql['mode'])
+        config = parsed_glql[:config]
+        transformed_result = if compiled_glql['mode'] == MODE_ANALYTICS
+                               transform_glql_result(glql_result, compiled_glql['fields'],
+                                 mode: compiled_glql['mode'])
+                             else
+                               transform_glql_result(glql_result, config['fields'])
+                             end
+
         error!(transformed_result['error'], 400) unless transformed_result['success']
 
         status 200

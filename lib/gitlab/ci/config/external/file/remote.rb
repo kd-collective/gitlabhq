@@ -31,9 +31,12 @@ module Gitlab
             end
             strong_memoize_attr :content
 
+            def include_type
+              :remote
+            end
+
             def metadata
               super.merge(
-                type: :remote,
                 location: masked_location,
                 blob: nil,
                 raw: masked_location,

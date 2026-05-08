@@ -8,12 +8,21 @@ module Members
       private
 
       def can_create_new_member?
+        return false unless service_account_eligible_for_membership?
+
         # This access check(`admin_project_member`) will write to safe request store cache for the user being added.
         # This means any operations inside the same request will need to purge that safe request
         # store cache if operations are needed to be done inside the same request that checks max member access again on
         # that user.
         current_user.can?(:admin_project_member, member.project) || adding_the_creator_as_owner_in_a_personal_project?
       end
+
+      def service_account_eligible_for_membership?
+        return true unless member.user&.service_account?
+
+        ::Members::ServiceAccounts::EligibilityChecker.new(target_project: member.project).eligible?(member.user)
+      end
+      strong_memoize_attr :service_account_eligible_for_membership?
 
       def can_update_existing_member?
         current_user.can?(:update_project_member, member)

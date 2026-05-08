@@ -35,6 +35,7 @@
         = before_diffs_list
         -# performance optimization: using a sibling element to cover diffs list is faster than changing opacity on the parent
         .rd-app-diffs-list-loading-overlay{ data: { diffs_overlay: true } }
+        .flash-container{ data: { diffs_list_alert: true } }
         %div{ data: { diffs_list: true } }
           - unless lazy?
             = javascript_tag nonce: content_security_policy_nonce do

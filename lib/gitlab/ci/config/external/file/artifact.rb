@@ -34,9 +34,12 @@ module Gitlab
             end
             strong_memoize_attr :content
 
+            def include_type
+              :artifact
+            end
+
             def metadata
               super.merge(
-                type: :artifact,
                 location: masked_location,
                 extra: { job_name: masked_job_name }
               )

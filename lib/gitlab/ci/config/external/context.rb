@@ -149,7 +149,7 @@ module Gitlab
 
           def expandset_include_type_counts
             expandset.each_with_object(Hash.new(0)) do |file, counts|
-              counts[file.metadata[:type]] += 1
+              counts[file.include_type] += 1
             end
           end
 

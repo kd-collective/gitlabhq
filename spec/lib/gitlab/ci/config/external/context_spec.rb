@@ -222,16 +222,16 @@ RSpec.describe Gitlab::Ci::Config::External::Context, feature_category: :pipelin
       end
 
       context 'when expandset contains files of various types' do
-        let(:local_file) { instance_double(Gitlab::Ci::Config::External::File::Local, metadata: { type: :local }) }
-        let(:project_file) { instance_double(Gitlab::Ci::Config::External::File::Project, metadata: { type: :project }) }
-        let(:component_file) { instance_double(Gitlab::Ci::Config::External::File::Component, metadata: { type: :component }) }
+        let(:local_file) { instance_double(Gitlab::Ci::Config::External::File::Local, include_type: :local) }
+        let(:project_file) { instance_double(Gitlab::Ci::Config::External::File::Project, include_type: :file) }
+        let(:component_file) { instance_double(Gitlab::Ci::Config::External::File::Component, include_type: :component) }
 
         before do
           context.expandset.push(local_file, project_file, project_file, component_file)
         end
 
         it 'returns a count per include type' do
-          expect(include_type_counts).to eq({ local: 1, project: 2, component: 1 })
+          expect(include_type_counts).to eq({ local: 1, file: 2, component: 1 })
         end
       end
     end

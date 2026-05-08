@@ -3,8 +3,6 @@
  */
 export default {
   files: [
-    'app/assets/javascripts/access_tokens/components/token.vue',
-    'app/assets/javascripts/access_tokens/components/tokens_app.vue',
     'app/assets/javascripts/add_context_commits_modal/components/add_context_commits_modal_trigger.vue',
     'app/assets/javascripts/add_context_commits_modal/components/add_context_commits_modal_wrapper.vue',
     'app/assets/javascripts/add_context_commits_modal/components/date_option.vue',

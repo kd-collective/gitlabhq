@@ -47221,6 +47221,7 @@ Project-level settings for product analytics provider.
 | <a id="project-rootgroup"></a>`rootGroup` | [`Group`](#group) | Top-level group of the project. |
 | <a id="project-sastciconfiguration"></a>`sastCiConfiguration` | [`SastCiConfiguration`](#sastciconfiguration) | SAST CI configuration for the project. |
 | <a id="project-savedreplies"></a>`savedReplies` | [`ProjectSavedReplyConnection`](#projectsavedreplyconnection) | Saved replies available to the project. (see [Connections](#connections)) |
+| <a id="project-scanprofilestatuses"></a>`scanProfileStatuses` {{< icon name="warning-solid" >}} | [`[ScanProfileProjectStatus!]`](#scanprofileprojectstatus) | **Introduced** in GitLab 19.0. **Status**: Experiment. Scan profile statuses for the project. |
 | <a id="project-secretpushprotectionenabled"></a>`secretPushProtectionEnabled` | [`Boolean`](#boolean) | Indicates whether secret push protection is on or not for the project. |
 | <a id="project-securityattributes"></a>`securityAttributes` {{< icon name="warning-solid" >}} | [`SecurityAttributeConnection`](#securityattributeconnection) | **Introduced** in GitLab 18.5. **Status**: Experiment. Security attributes linked to the project. |
 | <a id="project-securitydashboardpath"></a>`securityDashboardPath` | [`String`](#string) | Path to project's security dashboard. |
@@ -51495,6 +51496,21 @@ Represents policy fields related to the scan execution policy.
 | ---- | ---- | ----------- |
 | <a id="scanexecutionpolicyattributestype-deprecatedproperties"></a>`deprecatedProperties` {{< icon name="warning-solid" >}} | [`[String!]`](#string) | **Introduced** in GitLab 17.3. **Status**: Experiment. All deprecated properties in the policy. |
 | <a id="scanexecutionpolicyattributestype-source"></a>`source` | [`SecurityPolicySource!`](#securitypolicysource) | Source of the policy. Its fields depend on the source type. |
+
+### `ScanProfileProjectStatus`
+
+Status of a scan profile for a project.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="scanprofileprojectstatus-buildid"></a>`buildId` | [`JobID`](#jobid) | ID of the last CI job that updated the status. |
+| <a id="scanprofileprojectstatus-consecutivefailurecount"></a>`consecutiveFailureCount` | [`Int!`](#int) | Number of consecutive failed scans. |
+| <a id="scanprofileprojectstatus-consecutivesuccesscount"></a>`consecutiveSuccessCount` | [`Int!`](#int) | Number of consecutive successful scans. |
+| <a id="scanprofileprojectstatus-lastscanat"></a>`lastScanAt` | [`Time`](#time) | Timestamp of the last profile-triggered scan. |
+| <a id="scanprofileprojectstatus-scanprofile"></a>`scanProfile` | [`ScanProfileType!`](#scanprofiletype) | Scan profile associated with the status. |
+| <a id="scanprofileprojectstatus-status"></a>`status` | [`ScanProfileStatus!`](#scanprofilestatus) | Computed display status: NOT_CONFIGURED, ACTIVE, WARNING, FAILED, or STALE. |
 
 ### `ScanProfileType`
 
@@ -60508,6 +60524,18 @@ Options for filtering by scan mode.
 | <a id="scanmodeenum-all"></a>`ALL` | Return results from all scans. |
 | <a id="scanmodeenum-full"></a>`FULL` | Return results from full scans. |
 | <a id="scanmodeenum-partial"></a>`PARTIAL` | Return results from partial scans. |
+
+### `ScanProfileStatus`
+
+Computed display status for a scan profile.
+
+| Value | Description |
+| ----- | ----------- |
+| <a id="scanprofilestatus-active"></a>`ACTIVE` | Scans succeeding and not stale. |
+| <a id="scanprofilestatus-failed"></a>`FAILED` | 3+ consecutive scan failures. |
+| <a id="scanprofilestatus-not_configured"></a>`NOT_CONFIGURED` | Profile is not applied for the scan type. |
+| <a id="scanprofilestatus-stale"></a>`STALE` | No scan activity in 90 days. |
+| <a id="scanprofilestatus-warning"></a>`WARNING` | Fewer than 3 consecutive scan failures. |
 
 ### `ScanProfileTriggerType`
 

@@ -913,10 +913,14 @@ Grants the ability to read knowledge graph data.
 | Action | Access | Method | Path |
 | ------ | ------ | ------ | ---- |
 | Read | User | `GET` | `/orbit/schema` |
+| Read | User | `GET` | `/orbit/schema/dsl` |
+| Read | User | `GET` | `/orbit/schema/format` |
 | Read | User | `GET` | `/orbit/status` |
 | Read | User | `GET` | `/orbit/graph_status` |
 | Read | User | `GET` | `/orbit/tools` |
+| Read | User | `GET` | `/orbit/agent/commands` |
 | Read | User | `POST` | `/orbit/query` |
+| Read | User | `POST` | `/orbit/agent/commands/:name` |
 
 ### Packages And Registry resources
 
