@@ -146,5 +146,16 @@ describe('Repository URL utilities', () => {
       expect(result.pathname).toBe('/-/commits/path/to/file.js');
       expect(result.searchParams.get('ref_type')).toBe('branch');
     });
+
+    it('returns URL without trailing slash when path is root (/)', () => {
+      const historyLink = '/-/commits';
+      const path = '/';
+      const refType = 'branch';
+
+      const result = generateHistoryUrl(historyLink, path, refType);
+
+      expect(result.pathname).toBe('/-/commits');
+      expect(result.searchParams.get('ref_type')).toBe('branch');
+    });
   });
 });

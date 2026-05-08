@@ -309,8 +309,14 @@ export default {
     addPermissionsDescription: s__(
       'AccessTokens|Add only the %{linkStart}minimum resource and permissions %{linkEnd} needed for your token. Permissions not included in your assigned role have no effect.',
     ),
+    publicAccessNote: s__(
+      'AccessTokens|Publicly visible resources are accessible without a permission. See the %{linkStart}list of publicly accessible endpoints%{linkEnd}.',
+    ),
   },
   fineGrainedTokensDocPath: helpPagePath('auth/tokens/fine_grained_access_tokens.md'),
+  publiclyAccessibleEndpointsDocPath: helpPagePath('auth/tokens/fine_grained_access_tokens.md', {
+    anchor: 'publicly-accessible-endpoints',
+  }),
   MAX_NAME_LENGTH,
   MAX_DESCRIPTION_LENGTH,
 };
@@ -395,6 +401,13 @@ export default {
             <gl-sprintf :message="$options.i18n.addPermissionsDescription">
               <template #link="{ content }">
                 <gl-link :href="$options.fineGrainedTokensDocPath" target="_blank">
+                  {{ content }}
+                </gl-link>
+              </template>
+            </gl-sprintf>
+            <gl-sprintf :message="$options.i18n.publicAccessNote">
+              <template #link="{ content }">
+                <gl-link :href="$options.publiclyAccessibleEndpointsDocPath" target="_blank">
                   {{ content }}
                 </gl-link>
               </template>

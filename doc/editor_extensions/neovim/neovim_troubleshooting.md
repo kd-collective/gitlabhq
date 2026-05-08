@@ -41,7 +41,7 @@ These checks help you identify and resolve configuration issues on your own.
 ## Enable debug logs
 
 Enable debug logs to capture more information about problems. Debug logs can
-contain sensitive workspace configuration, so review the output before sharing
+contain sensitive configuration details, so review the output before sharing
 it with others.
 
 To enable extra logging:
@@ -70,7 +70,7 @@ a problem with Code Suggestions:
 
    ```lua
    -- NOTE: Do not set this in your usual configuration, as this log level
-   -- could include sensitive workspace configuration.
+   -- could include sensitive configuration details.
    vim.lsp.set_log_level('debug')
 
    vim.opt.rtp:append('$HOME/.local/share/nvim/site/pack/gitlab/start/gitlab.vim')

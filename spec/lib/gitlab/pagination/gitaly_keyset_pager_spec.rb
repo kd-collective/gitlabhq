@@ -221,14 +221,12 @@ RSpec.describe Gitlab::Pagination::GitalyKeysetPager, feature_category: :source_
         context 'when first page is requested' do
           let(:branches) { [branch1, branch2, branch3] }
 
-          before do
-            allow(git_finder).to receive(:total).and_return(branches.size)
-          end
-
           it 'calls execute with gitaly_pagination: true and uses offset headers' do
             allow(request_context).to receive(:request).and_return(fake_request)
+            allow(project.repository).to receive(:branch_count).and_return(branches.size)
 
             expect(git_finder).to receive(:execute).with(gitaly_pagination: true).and_return(branches)
+            expect(git_finder).not_to receive(:total)
             expect(request_context).to receive(:header).with('X-Per-Page', '2')
             expect(request_context).to receive(:header).with('X-Page', '1')
             expect(request_context).to receive(:header).with('X-Next-Page', '2')

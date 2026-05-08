@@ -752,3 +752,5 @@ export function sortWorkItems(workItems, sortKey, resolveWorkItemSortValue) {
 export function getSortedWorkItems(workItems, sortKey) {
   return sortWorkItems(workItems, sortKey, getSortValue);
 }
+
+export const isWorkplanTemplate = (name) => Boolean(name?.endsWith('.plan'));

@@ -220,7 +220,7 @@ To open the Command Palette and run a command in the Web IDE:
 
 ### Edit settings
 
-You can use the settings editor to view and edit your user and workspace settings.
+You can use the settings editor to view and edit your user and Web IDE workspace settings.
 To open the settings editor in the Web IDE:
 
 - On the top menu bar, select **File** > **Preferences** > **Settings**,

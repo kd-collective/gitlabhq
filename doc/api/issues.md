@@ -1228,7 +1228,7 @@ Supported attributes:
 | `due_date`     | string  | No       | The due date. Date time string in the format `YYYY-MM-DD`, for example `2016-03-11`.                                           |
 | `epic_id`      | integer | No | ID of the epic to add the issue to. Valid values are greater than or equal to 0. Premium and Ultimate only. |
 | `epic_iid`     | integer | No | IID of the epic to add the issue to. Valid values are greater than or equal to 0. (deprecated, [scheduled for removal](https://gitlab.com/gitlab-org/gitlab/-/issues/35157) in API version 5). Premium and Ultimate only. |
-| `issue_type`   | string  | No       | Updates the type of issue. One of `issue`, `incident`, `test_case` or `task`. |
+| `issue_type`   | string  | No       | Updates the type of issue. One of `issue`, `incident`, or `test_case`. |
 | `labels`       | string  | No       | Comma-separated label names for an issue. Set to an empty string to unassign all labels. If a label does not already exist, this creates a new project label and assigns it to the issue. |
 | `milestone_id` | integer | No       | The global ID of a milestone to assign the issue to. Set to `0` or provide an empty value to unassign a milestone.|
 | `remove_labels`| string  | No       | Comma-separated label names to remove from an issue.                                                       |

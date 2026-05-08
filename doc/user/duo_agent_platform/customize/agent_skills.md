@@ -14,10 +14,10 @@ title: Agent Skills
 
 {{< history >}}
 
-- Support for workspace-level Agent Skills [added](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/merge_requests/2951) in GitLab 18.10.
+- Support for project-level Agent Skills [added](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/merge_requests/2951) in GitLab 18.10.
   - [Introduced](https://gitlab.com/gitlab-org/gitlab-vscode-extension/-/releases/v6.71.4) in GitLab for VS Code 6.71.4.
   - [Introduced](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/releases/v8.73.0) in GitLab Duo CLI 8.73.0.
-- Support for user-level Agent Skills [introduced](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/merge_requests/3140) in GitLab 19.0
+- Support for user-level Agent Skills [introduced](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/merge_requests/3140) in GitLab 19.0.
   - [Introduced](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/releases/v8.83.0) in GitLab Duo CLI 8.83.0 as an [experiment](../../../policy/development_stages_support.md#experiment).
 
 {{< /history >}}
@@ -51,13 +51,13 @@ GitLab Duo supports the following types of skills:
 
 | Level                                                              | GitLab UI | Editor extensions | GitLab Duo CLI |
 |--------------------------------------------------------------------|-------------------------------|-------------------|----------------|
-| User-level: Apply to all of your projects and IDE workspaces       | {{< no >}}                    | {{< no >}}        | {{< yes >}}    |
-| Workspace-level: Apply only to a specific project or IDE workspace | {{< yes >}} <sup>1</sup>                   | {{< yes >}}       | {{< yes >}}    |
+| User-level: Apply to all of your projects      | {{< no >}}                    | {{< no >}}        | {{< yes >}}    |
+| Project-level: Apply only to a specific project | {{< yes >}} <sup>1</sup>                   | {{< yes >}}       | {{< yes >}}    |
 
 **Footnotes**:
 
-1. In the GitLab UI, only foundational and custom flows, excluding Code Review, support workspace-level skills. 
-   GitLab Duo Chat in the GitLab UI does not support skills.
+1. In the GitLab UI, only foundational and custom flows, excluding Code Review, support project-level
+   skills. GitLab Duo Chat in the GitLab UI does not support skills.
 
 ## Use Agent Skills with GitLab Duo
 
@@ -69,12 +69,12 @@ GitLab Duo supports the following types of skills:
 
 - Meet the [Agent Platform prerequisites](../_index.md#prerequisites).
 - For GitLab Duo Chat in your local environment, install and configure one of the following:
-  - For workspace-level skills:
+  - For project-level skills:
     - [GitLab for VS Code](../../../editor_extensions/visual_studio_code/setup.md) 6.71.4 or later.
     - [GitLab Duo CLI](../../gitlab_duo_cli/_index.md#set-up-the-gitlab-duo-cli) 8.73.0 or later.
   - For user-level skills:
     - [GitLab Duo CLI](../../gitlab_duo_cli/_index.md#set-up-the-gitlab-duo-cli) 8.83.0 or later.
-- For workspace-level skills with custom flows, update the flow's configuration file to access the
+- For project-level skills with custom flows, update the flow's configuration file to access the
   `workspace_agent_skills` context passed from the executor:
 
   ```yaml
@@ -93,19 +93,25 @@ GitLab Duo supports the following types of skills:
 
 ### Create skills
 
-You can create skills at the workspace level or user level.
+You can create skills at the project level or user level.
 
-If a user-level skill and a workspace-level skill share the same name, the workspace-level skill
+If you use a multi-root workspace in your IDE, you can create project-level skills for each project
+in the workspace.
+
+If a user-level skill and a project-level skill share the same name, the project-level skill
 takes precedence. This allows you to override a user-level skill with a project-specific version.
 
-#### Create workspace-level skills
+In a multi-root workspace, if multiple projects define skills with the same name, GitLab Duo loads
+the first one it encounters.
 
-Workspace-level skills apply to a specific project or workspace. You define them in a `SKILL.md`
+#### Create project-level skills
+
+Project-level skills apply to a specific project. You define them in a `SKILL.md`
 file in a `skills/<skill-name>/` directory of your project.
 
-To create a workspace-level skill:
+To create a project-level skill:
 
-1. In the root of your project workspace, create a `skills` directory.
+1. In the root of your project, create a `skills` directory.
 1. In the new directory, create another directory for the specific skill. Use the skill name as the
    directory name.
 1. Create a `SKILL.md` file and include instructions using the following format.

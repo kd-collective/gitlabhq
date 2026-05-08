@@ -2602,6 +2602,154 @@ Fine-grained token scope checks are not applied to these endpoints.
 | `GET` | `/topics` |
 | `GET` | `/topics/:id` |
 
+## Publicly accessible endpoints
+
+A fine-grained personal access token can access these endpoints without an
+explicit scope when the target resource is publicly visible and the relevant
+feature is enabled.
+
+| Action | Method | Path |
+| ------ | ------ | ---- |
+| Package: Read | `GET` | `/group/:id/-/packages/composer/*package_name` |
+| Package: Read | `GET` | `/group/:id/-/packages/composer/p/:sha` |
+| Package: Read | `GET` | `/group/:id/-/packages/composer/p2/*package_name` |
+| Package: Read | `GET` | `/group/:id/-/packages/composer/packages` |
+| Group: Read | `GET` | `/groups/:id` |
+| Package: Read | `GET` | `/groups/:id/-/packages/maven/*path/:file_name` |
+| Package: Read | `GET` | `/groups/:id/-/packages/npm/-/package/*package_name/dist-tags` |
+| Avatar: Read | `GET` | `/groups/:id/avatar` |
+| Badge: Read | `GET` | `/groups/:id/badges` |
+| Badge: Read | `GET` | `/groups/:id/badges/:badge_id` |
+| Badge: Read | `GET` | `/groups/:id/badges/render` |
+| Group: Read | `GET` | `/groups/:id/descendant_groups` |
+| Work Item: Read | `GET` | `/groups/:id/epics/:epic_iid/award_emoji` |
+| Work Item: Read | `GET` | `/groups/:id/epics/:epic_iid/award_emoji/:award_id` |
+| Work Item: Read | `GET` | `/groups/:id/epics/:epic_iid/notes/:note_id/award_emoji` |
+| Work Item: Read | `GET` | `/groups/:id/epics/:epic_iid/notes/:note_id/award_emoji/:award_id` |
+| Work Item: Read | `GET` | `/groups/:id/issues_statistics` |
+| Merge Request: Read | `GET` | `/groups/:id/merge_requests` |
+| Work Item: Read | `GET` | `/groups/:id/milestones/:milestone_id/issues` |
+| Work Item: Read | `GET` | `/groups/:id/milestones/:milestone_id/merge_requests` |
+| Package: Read | `GET` | `/groups/:id/packages` |
+| Project: Read | `GET` | `/groups/:id/projects` |
+| Group: Read | `GET` | `/groups/:id/projects/shared` |
+| Group: Read | `GET` | `/groups/:id/subgroups` |
+| Markdown Upload: Read | `GET` | `/groups/:id/uploads` |
+| Markdown Upload: Read | `GET` | `/groups/:id/uploads/:secret/:filename` |
+| Markdown Upload: Read | `GET` | `/groups/:id/uploads/:upload_id` |
+| Package: Read | `GET` | `/packages/npm/-/package/*package_name/dist-tags` |
+| Project: Read | `GET` | `/projects/:id` |
+| Code: Read | `GET` | `/projects/:id/(-/)search/semantic` |
+| Avatar: Read | `GET` | `/projects/:id/avatar` |
+| Badge: Read | `GET` | `/projects/:id/badges` |
+| Badge: Read | `GET` | `/projects/:id/badges/:badge_id` |
+| Badge: Read | `GET` | `/projects/:id/badges/render` |
+| Work Item: Read | `GET` | `/projects/:id/boards` |
+| Work Item: Read | `GET` | `/projects/:id/boards/:board_id` |
+| Work Item: Read | `GET` | `/projects/:id/boards/:board_id/lists` |
+| Work Item: Read | `GET` | `/projects/:id/boards/:board_id/lists/:list_id` |
+| Deployment: Read | `GET` | `/projects/:id/deployments` |
+| Deployment: Read | `GET` | `/projects/:id/deployments/:deployment_id` |
+| Deployment: Read, Merge Request: Read | `GET` | `/projects/:id/deployments/:deployment_id/merge_requests` |
+| Environment: Read | `GET` | `/projects/:id/environments` |
+| Environment: Read | `GET` | `/projects/:id/environments/:environment_id` |
+| Project: Read | `GET` | `/projects/:id/forks` |
+| Work Item: Read | `GET` | `/projects/:id/issues` |
+| Work Item: Read | `GET` | `/projects/:id/issues/:issue_iid` |
+| Work Item: Read | `GET` | `/projects/:id/issues/:issue_iid/closed_by` |
+| Work Item: Read | `GET` | `/projects/:id/issues/:issue_iid/participants` |
+| Work Item: Read | `GET` | `/projects/:id/issues/:issue_iid/related_merge_requests` |
+| Work Item: Read | `GET` | `/projects/:id/issues/:issue_iid/time_stats` |
+| Work Item: Read | `GET` | `/projects/:id/issues_statistics` |
+| Label: Read | `GET` | `/projects/:id/labels` |
+| Label: Read | `GET` | `/projects/:id/labels/:name` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid` |
+| Merge Request Approval Rule: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approval_rules` |
+| Merge Request Approval Rule: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approval_state` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approvals` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/changes` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/closes_issues` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/commits` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/context_commits` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/diffs` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/draft_notes` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/draft_notes/:draft_note_id` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/merge_ref` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/participants` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/pipelines` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/raw_diffs` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/related_issues` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/reviewers` |
+| Work Item: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/time_stats` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/versions` |
+| Merge Request: Read | `GET` | `/projects/:id/merge_requests/:merge_request_iid/versions/:version_id` |
+| Work Item: Read | `GET` | `/projects/:id/milestones` |
+| Work Item: Read | `GET` | `/projects/:id/milestones/:milestone_id` |
+| Package: Read | `GET` | `/projects/:id/packages` |
+| Package: Read | `GET` | `/projects/:id/packages/:package_id` |
+| Package Pipeline: Read | `GET` | `/projects/:id/packages/:package_id/pipelines` |
+| Package: Read | `GET` | `/projects/:id/packages/composer/archives/*package_name` |
+| Package: Read | `GET` | `/projects/:id/packages/debian/pool/:distribution/:letter/:package_name/:package_version/:file_name` |
+| Package: Read | `GET` | `/projects/:id/packages/generic/:package_name/*package_version/(*path/):file_name` |
+| Package: Read | `GET` | `/projects/:id/packages/go/*module_name/@v/:module_version.info` |
+| Package: Read | `GET` | `/projects/:id/packages/go/*module_name/@v/:module_version.mod` |
+| Package: Read | `GET` | `/projects/:id/packages/go/*module_name/@v/:module_version.zip` |
+| Package: Read | `GET` | `/projects/:id/packages/go/*module_name/@v/list` |
+| Package: Read | `GET` | `/projects/:id/packages/helm/:channel/charts/:file_name.tgz` |
+| Package: Read | `GET` | `/projects/:id/packages/helm/:channel/index.yaml` |
+| Package: Read | `GET` | `/projects/:id/packages/maven/*path/:file_name` |
+| Package: Read | `GET` | `/projects/:id/packages/npm/*package_name` |
+| Package: Read | `GET` | `/projects/:id/packages/npm/*package_name/-/*file_name` |
+| Package: Read | `GET` | `/projects/:id/packages/npm/-/package/*package_name/dist-tags` |
+| Package: Read | `GET` | `/projects/:id/packages/nuget/download/*package_name/*package_version/*package_filename` |
+| Package: Read | `GET` | `/projects/:id/packages/nuget/download/*package_name/index` |
+| Package: Read | `GET` | `/projects/:id/packages/nuget/metadata/*package_name/*package_version` |
+| Package: Read | `GET` | `/projects/:id/packages/nuget/metadata/*package_name/index` |
+| Package: Read | `GET` | `/projects/:id/packages/pypi/files/:sha256/*file_identifier` |
+| Package: Read | `GET` | `/projects/:id/packages/pypi/simple` |
+| Package: Read | `GET` | `/projects/:id/packages/pypi/simple/*package_name` |
+| Pipeline: Read | `GET` | `/projects/:id/pipelines` |
+| Pipeline: Read | `GET` | `/projects/:id/pipelines/:pipeline_id` |
+| Pipeline: Read | `GET` | `/projects/:id/pipelines/latest` |
+| Release: Read | `GET` | `/projects/:id/releases` |
+| Release: Read | `GET` | `/projects/:id/releases/:tag_name` |
+| Release: Read | `GET` | `/projects/:id/releases/:tag_name/downloads/*direct_asset_path` |
+| Release: Read | `GET` | `/projects/:id/releases/permalink/latest(/)(*suffix_path)` |
+| Repository: Read | `GET` | `/projects/:id/repository/archive` |
+| Repository: Read | `GET` | `/projects/:id/repository/blobs/:sha` |
+| Repository: Read | `GET` | `/projects/:id/repository/blobs/:sha/raw` |
+| Branch: Read | `GET` | `/projects/:id/repository/branches` |
+| Branch: Read | `GET` | `/projects/:id/repository/branches/:branch` |
+| Branch: Read | `HEAD` | `/projects/:id/repository/branches/:branch` |
+| Repository: Read | `GET` | `/projects/:id/repository/changelog` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/comments` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/diff` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/merge_requests` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/refs` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/sequence` |
+| Commit: Read | `GET` | `/projects/:id/repository/commits/:sha/signature` |
+| Repository: Read | `GET` | `/projects/:id/repository/compare` |
+| Repository: Read | `GET` | `/projects/:id/repository/contributors` |
+| Repository: Read | `GET` | `/projects/:id/repository/files/:file_path` |
+| Repository: Read | `HEAD` | `/projects/:id/repository/files/:file_path` |
+| Repository: Read | `GET` | `/projects/:id/repository/files/:file_path/blame` |
+| Repository: Read | `HEAD` | `/projects/:id/repository/files/:file_path/blame` |
+| Repository: Read | `GET` | `/projects/:id/repository/files/:file_path/raw` |
+| Repository: Read | `GET` | `/projects/:id/repository/health` |
+| Repository: Read | `GET` | `/projects/:id/repository/merge_base` |
+| Repository Tag: Read | `GET` | `/projects/:id/repository/tags` |
+| Repository Tag: Read | `GET` | `/projects/:id/repository/tags/:tag_name` |
+| Repository Tag: Read | `GET` | `/projects/:id/repository/tags/:tag_name/signature` |
+| Repository: Read | `GET` | `/projects/:id/repository/tree` |
+| Project: Read | `GET` | `/projects/:id/starrers` |
+| Wiki: Read | `GET` | `/projects/:id/wikis` |
+| Wiki: Read | `GET` | `/projects/:id/wikis/:slug` |
+| Package: Read | `GET` | `/virtual_registries/packages/maven/:id/*path` |
+
 ## Unavailable endpoints
 
 The following endpoints cannot authenticate with fine-grained tokens.

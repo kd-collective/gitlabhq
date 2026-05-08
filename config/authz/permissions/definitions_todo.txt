@@ -152,7 +152,6 @@ block_pipl_user
 build_download_code
 build_push_code
 build_read_container_image
-build_read_project
 build_service_proxy_enabled
 bulk_admin_epic
 cache_blob

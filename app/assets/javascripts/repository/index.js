@@ -7,7 +7,8 @@ import PerformancePlugin from '~/performance/vue_performance_plugin';
 import createStore from '~/code_navigation/store';
 import HighlightWorker from '~/vue_shared/components/source_viewer/workers/highlight_worker?worker';
 import initFileTreeBrowser from '~/repository/file_tree_browser';
-
+import initHeaderApp from './init_header_app';
+import repositoryPathMixin from './mixins/repository_path';
 import RepositoryApp from './components/app.vue';
 import RepositoryBreadcrumbs from './components/header_area/breadcrumbs.vue';
 import ForkInfo from './components/fork_info.vue';
@@ -21,7 +22,6 @@ import refsQuery from './queries/ref.query.graphql';
 import createRouter from './router';
 import { updateFormAction } from './utils/dom';
 import { generateHistoryUrl } from './utils/url_utility';
-import initHeaderApp from './init_header_app';
 
 Vue.use(Vuex);
 Vue.use(PerformancePlugin, {
@@ -121,20 +121,28 @@ export default function setupVueRepositoryList() {
   const initLastCommitApp = () =>
     new Vue({
       el: lastCommitEl,
-      name: 'LastCommitRoot',
+      name: 'RepositoryLastCommitRoot',
       router,
       apolloProvider,
+      mixins: [repositoryPathMixin],
+      computed: {
+        refType() {
+          return this.$route.meta.refType || this.$route.query.ref_type;
+        },
+        historyUrl() {
+          return generateHistoryUrl(
+            lastCommitEl.dataset.historyLink,
+            this.computedPath,
+            this.refType,
+          );
+        },
+      },
       render(h) {
-        const historyUrl = generateHistoryUrl(
-          lastCommitEl.dataset.historyLink,
-          this.$route.params.path,
-          this.$route.meta.refType || this.$route.query.ref_type,
-        );
         return h(LastCommit, {
           props: {
-            currentPath: this.$route.params.path,
-            refType: this.$route.meta.refType || this.$route.query.ref_type,
-            historyUrl: historyUrl.href,
+            currentPath: this.computedPath,
+            refType: this.refType,
+            historyUrl: this.historyUrl.href,
           },
         });
       },
@@ -173,11 +181,17 @@ export default function setupVueRepositoryList() {
       name: 'RepositoryBreadcrumbsRoot',
       router,
       apolloProvider,
+      mixins: [repositoryPathMixin],
+      computed: {
+        currentRefType() {
+          return this.$route.query.ref_type;
+        },
+      },
       render(h) {
         return h(RepositoryBreadcrumbs, {
           props: {
-            currentPath: this.$route.params.path,
-            refType: this.$route.query.ref_type,
+            currentPath: this.computedPath,
+            refType: this.currentRefType,
             canCollaborate: parseBoolean(canCollaborate),
             canPushToBranch: parseBoolean(canPushToBranch),
             canEditTree: parseBoolean(canEditTree),

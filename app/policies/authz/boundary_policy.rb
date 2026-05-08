@@ -5,7 +5,7 @@ module Authz
     alias_method :token, :user
     alias_method :boundary, :subject
 
-    condition(:granular_pat) do
+    condition(:granular_pat, score: 0) do
       token.is_a?(::PersonalAccessToken) && token.granular?
     end
 
@@ -27,9 +27,16 @@ module Authz
         token.permitted_for_boundary?(boundary, permission)
       end
 
-      rule { granular_pat & try(permission) & member }.policy do
-        enable permission
+      desc "Anonymous caller would be granted #{permission} on the boundary's resource"
+      condition(:"anonymous_can_#{permission}") do
+        resource = boundary.boundary
+        next false unless resource.is_a?(::Project) || resource.is_a?(::Group)
+
+        ::Users::Anonymous.can?(permission, resource) # rubocop:disable Gitlab/Authz/DisallowAbilityAllowed -- querying anonymous access, not the token
       end
+
+      rule { granular_pat & cond(:"anonymous_can_#{permission}") }.enable permission
+      rule { granular_pat & cond(permission) & member }.enable permission
     end
   end
 end

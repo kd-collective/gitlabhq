@@ -96,6 +96,7 @@ describe('CreateGranularPersonalAccessTokenForm', () => {
   const findNamespaceSelector = () => wrapper.findComponent(PersonalAccessTokenNamespaceSelector);
 
   const findLink = () => wrapper.findComponent(GlLink);
+  const findLinks = () => wrapper.findAllComponents(GlLink);
   const findTabs = () => wrapper.findComponent(GlTabs);
 
   const findPermissionsSelectors = () =>
@@ -216,6 +217,21 @@ describe('CreateGranularPersonalAccessTokenForm', () => {
 
     it('opens the documentation link in a new tab', () => {
       expect(findLink().attributes('target')).toBe('_blank');
+    });
+
+    it('displays the public access note with a link to the publicly accessible endpoints docs', () => {
+      const text = wrapper.text().replace(/\s+/g, ' ');
+      expect(text).toContain(
+        'Publicly visible resources are accessible without a permission. See the list of publicly accessible endpoints',
+      );
+
+      const publicAccessLink = findLinks().at(1);
+      expect(publicAccessLink.attributes('href')).toBe(
+        helpPagePath('auth/tokens/fine_grained_access_tokens.md', {
+          anchor: 'publicly-accessible-endpoints',
+        }),
+      );
+      expect(publicAccessLink.attributes('target')).toBe('_blank');
     });
 
     it('renders permissions selectors for group and user scope', () => {

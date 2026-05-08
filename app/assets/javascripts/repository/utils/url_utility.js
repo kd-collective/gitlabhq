@@ -50,9 +50,12 @@ export function encodeRepositoryPath(path) {
 export function generateHistoryUrl(historyLink, path, refType) {
   const url = new URL(window.location.href);
 
+  // Normalize '/' to empty string for repository root to avoid trailing slash
+  const normalizedPath = path === '/' ? '' : path;
+
   url.pathname = joinPaths(
     removeParams(['ref_type'], historyLink),
-    path ? escapeFileUrl(path) : '',
+    normalizedPath ? escapeFileUrl(normalizedPath) : '',
   );
 
   if (refType && !url.searchParams.get('ref_type')) {

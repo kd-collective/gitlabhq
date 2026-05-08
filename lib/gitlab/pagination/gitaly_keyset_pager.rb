@@ -72,7 +72,7 @@ module Gitlab
       # Headers are added to immitate offset pagination, while it is the default option
       def paginate_first_page_via_gitaly(finder)
         finder.execute(gitaly_pagination: true).tap do |records|
-          total = finder.total
+          total = total_count(finder)
           per_page = params[:per_page].presence || Kaminari.config.default_per_page
           total_pages = (total / per_page.to_f).ceil
           next_page = total_pages > 1 ? 2 : nil
@@ -91,6 +91,15 @@ module Gitlab
             .add_next_page_header(
               query_params_for(next_cursor)
             )
+        end
+      end
+
+      def total_count(finder)
+        case finder
+        when Gitlab::Git::Finders::BranchesFinder
+          project.repository.branch_count
+        else
+          finder.total
         end
       end
 

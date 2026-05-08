@@ -9,7 +9,7 @@ Vue.use(Translate);
 
 const REF_SWITCH_HEADER = s__('FindFile|Switch branch/tag');
 
-export default () => {
+export function initFindFileRefSwitcher() {
   const el = document.getElementById('js-blob-ref-switcher');
   if (!el) return false;
 
@@ -37,4 +37,4 @@ export default () => {
       });
     },
   });
-};
+}

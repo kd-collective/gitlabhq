@@ -21734,7 +21734,7 @@ CREATE SEQUENCE group_upload_states_id_seq
 ALTER SEQUENCE group_upload_states_id_seq OWNED BY group_upload_states.id;
 
 CREATE TABLE group_wiki_repositories (
-    shard_id bigint NOT NULL,
+    shard_id bigint,
     group_id bigint NOT NULL,
     disk_path text NOT NULL,
     last_repository_updated_at timestamp with time zone,

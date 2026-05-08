@@ -2693,10 +2693,16 @@
     - <<: *if-default-refs
       changes: *code-backstage-patterns
 
-# Used by test jobs that need to run on tier-2 but require setup-test-env
+# Used by jobs that should run in tier-2, when changes match setup-test-env-patterns
 .rails:rules:tier-2-with-test-env:
   rules:
     - <<: *if-merge-request-tier-2
+      changes: *setup-test-env-patterns
+
+# Used by jobs that should run in tier-3, when changes match setup-test-env-patterns
+.rails:rules:tier-3-with-test-env:
+  rules:
+    - <<: *if-merge-request-tier-3
       changes: *setup-test-env-patterns
 
 .rails:rules:ee-and-foss-fast_spec_helper:

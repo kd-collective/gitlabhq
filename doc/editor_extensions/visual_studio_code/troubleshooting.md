@@ -151,7 +151,7 @@ To resolve these errors:
 
 If this is your first time working with Git in VS Code, see
 [source control in VS Code](https://code.visualstudio.com/docs/sourcecontrol/overview) for information
-on initializing repositories and workspaces, which occurs outside of the GitLab extension.
+on initializing repositories and VS Code workspaces, which occurs outside of the GitLab extension.
 
 #### Git remote with SSH custom alias
 

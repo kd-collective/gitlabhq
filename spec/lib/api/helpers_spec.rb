@@ -215,7 +215,6 @@ RSpec.describe API::Helpers, feature_category: :api do
         context 'and user does not have permissions to read project' do
           before do
             allow(helper).to receive(:can?).with(user, :read_project, outside_project).and_return(false)
-            allow(helper).to receive(:can?).with(user, :build_read_project, outside_project).and_return(false)
           end
 
           context 'with job token' do

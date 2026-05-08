@@ -4569,6 +4569,9 @@ msgstr ""
 msgid "AccessTokens|Personal access tokens"
 msgstr ""
 
+msgid "AccessTokens|Publicly visible resources are accessible without a permission. See the %{linkStart}list of publicly accessible endpoints%{linkEnd}."
+msgstr ""
+
 msgid "AccessTokens|Remove group %{name}"
 msgstr ""
 
@@ -7492,6 +7495,9 @@ msgstr ""
 msgid "AgentArtifacts|View full session details"
 msgstr ""
 
+msgid "AgentPlan|Choose a workplan template"
+msgstr ""
+
 msgid "AgentPlan|Describe your intent for Duo. A workplan structures context into an agent-ready input for autonomous execution."
 msgstr ""
 
@@ -7502,6 +7508,15 @@ msgid "AgentPlan|Generate workplan with Duo"
 msgstr ""
 
 msgid "AgentPlan|No workplan has been added yet. You don't have permission to edit the workplan."
+msgstr ""
+
+msgid "AgentPlan|Plan defined"
+msgstr ""
+
+msgid "AgentPlan|Plan defined based on %{templateName}"
+msgstr ""
+
+msgid "AgentPlan|Select workplan template"
 msgstr ""
 
 msgid "AgentPlan|Workplan"
@@ -84824,6 +84839,9 @@ msgid "WorkItem|Private: only you can see and edit this view."
 msgstr ""
 
 msgid "WorkItem|Progress"
+msgstr ""
+
+msgid "WorkItem|Project Workplan Templates"
 msgstr ""
 
 msgid "WorkItem|Promoted to objective."

@@ -212,7 +212,7 @@ Alternatively, you can use the Command Palette:
 #### Select a project
 
 The extension uses your Git repository remote to determine which GitLab project to associate with
-your workspace.
+your VS Code workspace.
 
 When your Git repository has multiple remotes that point to different GitLab projects, the extension
 cannot determine which one to use. For example:

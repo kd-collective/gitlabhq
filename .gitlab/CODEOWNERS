@@ -139,6 +139,7 @@ yarn.lock @gitlab-org/maintainers/frontend
 /argo_translation.yml @gitlab-com/localization/maintainers/tech-docs
 /doc-locale/.markdownlint/ @gitlab-com/localization/maintainers/tech-docs
 /lib/gitlab/i18n.rb @gitlab-com/localization/maintainers/i18n @gitlab-org/maintainers/rails-backend
+/doc/development/i18n @gitlab-com/localization/maintainers/i18n
 
 ## Monolith AI harness files that do not need `*` rule approval,
 ## but require approval from an AI harness DRI for each file.

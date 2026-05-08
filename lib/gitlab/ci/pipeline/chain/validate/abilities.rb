@@ -64,9 +64,9 @@ module Gitlab
               # We skip the check because MR refs are created internally and there is no ref protection rules
               # applicable to them.
               # Issue: https://gitlab.com/gitlab-org/gitlab/-/issues/378945
-              if @command.merge_request_ref? && @command.merge_request.for_fork?
+              if @command.merge_request_ref? && @command.merge_request&.for_fork?
                 true
-              elsif @command.merge_request_ref? && @command.merge_request.for_same_project?
+              elsif @command.merge_request_ref? && @command.merge_request&.for_same_project?
                 access.can_update_branch?(@command.merge_request.source_branch)
               elsif @command.branch?
                 access.can_update_branch?(@command.ref)

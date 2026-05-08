@@ -1,4 +1,4 @@
-import { generateRefDestinationPath } from '~/pages/projects/find_file/ref_switcher/ref_switcher_utils';
+import { generateRefDestinationPath } from '~/pages/projects/find_file/show/ref_switcher_utils';
 import setWindowLocation from 'helpers/set_window_location_helper';
 
 const projectRootPath = 'root/Project1';

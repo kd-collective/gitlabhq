@@ -34,9 +34,9 @@ If no issues match your problem, [create a new issue](https://gitlab.com/gitlab-
 1. Expand **Show View**, then select **Error Log**.
 1. Search for errors referencing the `gitlab-eclipse-plugin` plugins.
 
-## Locate the Workspace Log file
+## Locate the Eclipse workspace log file
 
-The Workspace log file, named `.log` is located in the directory `<your-eclipse-workspace>/.metadata`.
+The Eclipse workspace log file, named `.log` is located in the directory `<your-eclipse-workspace>/.metadata`.
 
 ## Enable GitLab Language Server debug logs
 
@@ -77,7 +77,7 @@ When creating a support request, provide the following information:
 1. Are you using a GitLab.com, GitLab Self-Managed, or GitLab Dedicated instance?
 1. Are you using a proxy?
 1. Are you using a self-signed certificate?
-1. The workspace logs.
+1. The Eclipse workspace logs.
 1. The Language Server debug logs.
 1. If applicable, a video or a screenshot of the issue.
 1. If applicable, the steps to reproduce the issue.

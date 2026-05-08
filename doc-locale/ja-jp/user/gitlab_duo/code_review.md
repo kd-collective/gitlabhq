@@ -34,7 +34,8 @@ title: GitLab Duoコードレビュー（非エージェント型）
 
 {{< /history >}}
 
-> [!note]アドオンに応じて、GitLabでは2つのコードレビュー機能のいずれかが実行されます:
+> [!note]
+> アドオンに応じて、GitLabでは2つのコードレビュー機能のいずれかが実行されます:
 >
 > - コードレビューフロー: エージェント型のGitLab Duo Agent Platformの一部です。
 > - GitLab Duoコードレビュー: 非エージェント型のバージョンで、GitLab Duo Enterpriseアドオンをご利用のユーザーのみが使用できます。

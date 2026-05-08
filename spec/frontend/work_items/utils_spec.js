@@ -74,6 +74,7 @@ import {
   combineWorkItemLists,
   isCurrentViewWorkItem,
   getSortValue,
+  isWorkplanTemplate,
 } from '~/work_items/utils';
 import { useLocalStorageSpy } from 'helpers/local_storage_helper';
 import { TYPE_EPIC } from '~/issues/constants';
@@ -1381,5 +1382,19 @@ describe('findOpenChildItemsCountsByType', () => {
 
   it('returns undefined when neither exists', () => {
     expect(findOpenChildItemsCountsByType({ widgets: [] })).toBeUndefined();
+  });
+});
+
+describe('isWorkplanTemplate', () => {
+  it.each([
+    ['feature.plan', true],
+    ['something.plan', true],
+    ['Bug', false],
+    ['plan', false],
+    ['', false],
+    [undefined, false],
+    [null, false],
+  ])('returns %p for "%s"', (input, expected) => {
+    expect(isWorkplanTemplate(input)).toBe(expected);
   });
 });

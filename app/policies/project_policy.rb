@@ -465,6 +465,23 @@ class ProjectPolicy < BasePolicy
     prevent :update_package
     prevent :admin_package
     prevent :destroy_package
+
+    prevent :read_composer_package
+    prevent :read_go_module
+    prevent :read_npm_package
+    prevent :read_npm_package_tag
+    prevent :read_nuget_package
+    prevent :read_package_pipeline
+    prevent :read_pypi_package
+
+    prevent :download_debian_package
+    prevent :download_generic_package
+    prevent :download_go_module
+    prevent :download_helm_chart
+    prevent :download_maven_package_file
+    prevent :download_npm_package
+    prevent :download_nuget_package
+    prevent :download_pypi_package
   end
 
   # We need this separate rule for job tokens in case the package registry is private
@@ -520,6 +537,21 @@ class ProjectPolicy < BasePolicy
     prevent :update_merge_request
     prevent :admin_merge_request
     prevent :destroy_merge_request
+
+    prevent :read_merge_request_approval_rule
+    prevent :read_merge_request_approval_state
+    prevent :read_merge_request_closes_issue
+    prevent :read_merge_request_commit
+    prevent :read_merge_request_context_commit
+    prevent :read_merge_request_diff
+    prevent :read_merge_request_draft_note
+    prevent :read_merge_request_merge_ref
+    prevent :read_merge_request_participant
+    prevent :read_merge_request_pipeline
+    prevent :read_merge_request_raw_diff
+    prevent :read_merge_request_related_issue
+    prevent :read_merge_request_reviewer
+    prevent :read_merge_request_time_statistic
   end
 
   rule { ~can?(:download_code) }.policy do
@@ -639,6 +671,31 @@ class ProjectPolicy < BasePolicy
     prevent :fork_project
     prevent :read_pipeline
     prevent :read_pipeline_schedule
+
+    prevent :read_branch
+    prevent :read_protected_branch
+    prevent :read_protected_tag
+
+    prevent :read_commit
+    prevent :read_commit_comment
+    prevent :read_commit_diff
+    prevent :read_commit_merge_request
+    prevent :read_commit_ref
+    prevent :read_commit_sequence
+    prevent :read_commit_signature
+
+    prevent :read_repository_archive
+    prevent :read_repository_blob
+    prevent :read_repository_changelog
+    prevent :read_repository_comparison
+    prevent :read_repository_contributor
+    prevent :read_repository_file
+    prevent :read_repository_file_blame
+    prevent :read_repository_health
+    prevent :read_repository_merge_base
+    prevent :read_repository_tag
+    prevent :read_repository_tag_signature
+    prevent :read_repository_tree
 
     prevent :read_feature_flag
     prevent :create_feature_flag

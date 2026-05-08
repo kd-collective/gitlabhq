@@ -597,7 +597,14 @@ RSpec.describe ProjectPolicy, feature_category: :system_access do
         :create_cluster, :read_cluster, :update_cluster, :admin_cluster,
         :create_deployment, :read_deployment, :update_deployment, :admin_deployment, :destroy_deployment,
         :download_code, :build_download_code, :read_code,
-        :read_resource_group, :update_resource_group
+        :read_resource_group, :update_resource_group,
+        :read_branch, :read_protected_branch, :read_protected_tag,
+        :read_commit, :read_commit_comment, :read_commit_diff, :read_commit_merge_request,
+        :read_commit_ref, :read_commit_sequence, :read_commit_signature,
+        :read_repository_archive, :read_repository_blob, :read_repository_changelog,
+        :read_repository_comparison, :read_repository_contributor, :read_repository_file,
+        :read_repository_file_blame, :read_repository_health, :read_repository_merge_base,
+        :read_repository_tag, :read_repository_tag_signature, :read_repository_tree
       ]
     end
 

@@ -56,7 +56,7 @@ Before upgrading to GitLab 18.10, review the following:
 - [18.10.0 - 18.10.3] - [SLES 12.5 RPM package installation failure](#sles-125-rpm-package-installation-failure) (Linux package)
 - [18.10.0 - 18.10.5] - [Geo blob sync failures with `log_error` NoMethodError on file storage](#geo-blob-sync-failures-with-log_error-nomethoderror-on-file-storage) (Geo)
 - [18.10.0 - 18.10.3] - [Geo site URL blocked when using outbound filtering](#geo-site-url-blocked-when-using-outbound-filtering) (Geo)
-- [18.10.0 - 18.10.3] - [Geo blob download failures on Ubuntu 24.04 with kernel 6.8+](#geo-blob-download-failures-on-ubuntu-2404-with-kernel-68) (Linux package, Geo)
+- [18.10.0 - 18.10.3] - [Geo blob download failures](#geo-blob-download-failures) (Linux package, Geo)
 - [18.10.0 - 18.10.3] - [Geo secondary throttled jobs not draining](#geo-secondary-throttled-jobs-not-draining) (Geo)
 - [18.10.0 - 18.10.3] - [Sidekiq concurrency limiter causes job backlogs on Helm chart and Operator deployments](#sidekiq-concurrency-limiter-causes-job-backlogs-on-helm-chart-and-operator-deployments) (Helm chart, Operator)
 
@@ -335,7 +335,7 @@ The current 8-hour (28,800 seconds) hardcoded Geo blob download timeout causes s
 - Default: `28800` (8 hours).
 - Maximum: `86400` (24 hours).
 
-### Geo blob download failures on Ubuntu 24.04 with kernel 6.8+
+### Geo blob download failures
 
 {{< details >}}
 
@@ -350,14 +350,16 @@ The current 8-hour (28,800 seconds) hardcoded Geo blob download timeout causes s
   | ------- | ----------------------- | ----------------- |
   | 18.10   |  18.10.0 - 18.10.3      | 18.10.4           |
 
-Linux package installations running Ubuntu 24.04 with kernel 6.8 or later may experience
-Geo blob sync failures (uploads, LFS objects, job artifacts). Affected secondaries
-show blobs stuck in "started" or "pending" state, and Sidekiq logs may contain
-segfaults or `HPE_USER Span callback error in on_header_field` errors.
+Linux package installations may experience Geo blob sync failures, including
+failed uploads, LFS objects, and job artifacts. Affected secondaries show blobs stuck in
+"started" or "pending" state, and Sidekiq logs may contain segfaults,
+`HPE_USER Span callback error in on_header_field` errors, or unexpected
+HTTP status codes (for example, `status_code: 32` or `status_code: 34`).
 
 The issue is caused by an interaction between rugged 1.9.0 (upgraded in GitLab 18.10) and the
 Linux package-bundled `libffi` 3.2.1, which corrupts FFI callbacks used by the `llhttp-ffi`
-HTTP parser on newer kernels with stricter memory protections.
+HTTP parser. While initially observed on Ubuntu 24.04 with kernel 6.8 or later, the issue
+has also been confirmed on other distributions and kernel versions.
 
 In GitLab 18.11.0 and GitLab 18.10.4, you can use a feature flag to work around this issue:
 
