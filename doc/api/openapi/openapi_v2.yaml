@@ -57477,7 +57477,7 @@ definitions:
         type: string
         format: date-time
         description: Timestamp of when the pipeline trigger token expires.
-        example: '2024-07-01'
+        example: '2024-07-01T00:00:00.000Z'
     required:
     - description
     description: Create a trigger token
@@ -59490,7 +59490,8 @@ definitions:
         type: array
         items:
           type: string
-        example: lorem ipsum
+        example:
+        - lorem ipsum
     required:
     - commit
     - lines
@@ -59505,7 +59506,8 @@ definitions:
         type: array
         items:
           type: string
-        example: 2a4b78934375d7f53875269ffd4f45fd83a84ebe
+        example:
+        - 2a4b78934375d7f53875269ffd4f45fd83a84ebe
       message:
         type: string
         example: Initial commit

@@ -437,7 +437,7 @@ RSpec.describe API::Invitations, feature_category: :user_profile do
 
       emails = 'email3@example.com,email4@example.com,email5@example.com,email6@example.com,email7@example.com'
 
-      unresolved_n_plus_ones = 40 # currently there are 10 queries added per email
+      unresolved_n_plus_ones = 42 # currently there are 10 queries added per email, preloading approval_policy_rules adds 2 queries
 
       expect do
         post invitations_url(project, maintainer), params: { email: emails, access_level: Member::DEVELOPER }
@@ -455,7 +455,7 @@ RSpec.describe API::Invitations, feature_category: :user_profile do
 
       users = create_list(:user, 5)
 
-      unresolved_n_plus_ones = 136 # 54 for 1 vs 190 for 5 - currently there are 34 queries added per user
+      unresolved_n_plus_ones = 138 # 54 for 1 vs 190 for 5 - currently there are 34 queries added per user, preloading approval_policy_rules adds 2 queries
 
       expect do
         post invitations_url(project, maintainer), params: { user_id: users.map(&:id).join(','), access_level: Member::DEVELOPER }
@@ -481,7 +481,7 @@ RSpec.describe API::Invitations, feature_category: :user_profile do
       emails = 'email3@example.com,email4@example.com,email5@example.com,email6@example.com,email7@example.com,' \
         'EMAIL8@EXamPle.com'
 
-      unresolved_n_plus_ones = 86 # currently there are 10 queries added per email, checking if we should dispatch AuthorizationsAddedEvent makes 1 query per event (3 events dispatched)
+      unresolved_n_plus_ones = 88 # currently there are 10 queries added per email, checking if we should dispatch AuthorizationsAddedEvent makes 1 query per event (3 events dispatched), preloading approval_policy_rules adds 2 queries
 
       expect do
         post invitations_url(project, maintainer), params: { email: emails, access_level: Member::DEVELOPER }

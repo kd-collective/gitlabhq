@@ -316,6 +316,30 @@ If `GITLAB_TOKEN`, `GITLAB_ACCESS_TOKEN`, or `OAUTH_TOKEN` are set,
 they take precedence over the stored credentials.
 ```
 
+## Deprecation messages
+
+When you deprecate a flag with `MarkDeprecated`, Cobra prepends a fixed prefix to your message:
+
+```plaintext
+Flag --<flag> has been deprecated, <your message>
+```
+
+Cobra's prefix ends in a comma. Start your message as a sentence continuation with
+a lowercase first letter and end with a period.
+For example, `use --output instead.` produces:
+
+```plaintext
+Flag --output-format has been deprecated, use --output instead.
+```
+
+When the deprecated flag has a direct replacement, end the message with `use --<replacement> instead.`.
+When there is no replacement, describe the resulting behavior. For example, `tracking is enabled by default.`.
+
+Avoid time-relative words like `now` or [`currently`](styleguide/word_list.md#currently) in deprecation messages.
+
+This convention parallels the [REST API deprecation guidance](restful_api_styleguide.md#deprecations),
+adapted for Cobra's wrapper.
+
 ## GitLab version support
 
 `glab` officially supports GitLab 16.0 and later. If a command or flag requires

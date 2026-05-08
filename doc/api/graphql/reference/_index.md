@@ -49352,6 +49352,27 @@ four standard [pagination arguments](#pagination-arguments):
 | <a id="project-securitypolicies-relationship"></a>`relationship` | [`SecurityPolicyRelationType`](#securitypolicyrelationtype) | Filter policies by the given policy relationship. |
 | <a id="project-securitypolicies-type"></a>`type` | [`PolicyType`](#policytype) | Filter policies by type. |
 
+##### `Project.securityPolicyEligibleProjects`
+
+{{< details >}}
+**Introduced** in GitLab 19.0.
+**Status**: Experiment.
+{{< /details >}}
+
+All projects eligible for policy scope selection when this project is used as a Security Policy Project. Includes projects from root ancestors of all linked groups.
+
+Returns [`ProjectConnection`](#projectconnection).
+
+This field returns a [connection](#connections). It accepts the
+four standard [pagination arguments](#pagination-arguments):
+`before: String`, `after: String`, `first: Int`, and `last: Int`.
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="project-securitypolicyeligibleprojects-search"></a>`search` | [`String`](#string) | Search query for project name or path. |
+
 ##### `Project.securityPolicyProjectLinkedGroups`
 
 Groups linked to the project, when used as Security Policy Project.

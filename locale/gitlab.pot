@@ -7495,10 +7495,16 @@ msgstr ""
 msgid "AgentPlan|Edit workplan"
 msgstr ""
 
+msgid "AgentPlan|Generate workplan with Duo"
+msgstr ""
+
 msgid "AgentPlan|No workplan has been added yet. You don't have permission to edit the workplan."
 msgstr ""
 
 msgid "AgentPlan|Workplan"
+msgstr ""
+
+msgid "AgentPlan|You are here to help refine a plan for the user from the Work Item context to a Markdown output with key information required for Agent to pick off the work. The template should have a Why, How, What format with key insights and list of steps. If the issue is lacking details, start by reading the comments. Then, ask clarifying questions to the users in Chat until you are confident. If there are pending questions, please preserve them inside the plan. Then, please proceed with updating the work item 'Workplan' widget with your output. You can erase everything was there before and add your new plan entirely. Don't preserve existing notes if they dont align with what you wrote. If there is enough information but the title or description is lacking, please propose to update it minimally with key insights. Try to preserve anything that is already present, just add on top and dont repeat the full plan. What is important is syncing up enough to preserve the intent and adding data where we had none before."
 msgstr ""
 
 msgid "Agents|Cannot be assigned"
@@ -26838,6 +26844,9 @@ msgstr ""
 msgid "DuoAgenticChat|No credits remain on your trial"
 msgstr ""
 
+msgid "DuoAgenticChat|No credits remaining"
+msgstr ""
+
 msgid "DuoAgenticChat|Optional. Turn on preview features"
 msgstr ""
 
@@ -26845,6 +26854,9 @@ msgid "DuoAgenticChat|Page context"
 msgstr ""
 
 msgid "DuoAgenticChat|Prompted to ignore it"
+msgstr ""
+
+msgid "DuoAgenticChat|Purchase credits"
 msgstr ""
 
 msgid "DuoAgenticChat|Purchase more credits"
@@ -26884,6 +26896,9 @@ msgid "DuoAgenticChat|This chat was deleted."
 msgstr ""
 
 msgid "DuoAgenticChat|This conversation has been archived"
+msgstr ""
+
+msgid "DuoAgenticChat|To continue collaborating with GitLab Duo Agent Platform, purchase more credits."
 msgstr ""
 
 msgid "DuoAgenticChat|To use Chat, select a default namespace in your %{preferencesLinkStart}user profile preferences%{preferencesLinkEnd}. Alternatively, turn off the %{agenticModeStart}Agentic toggle%{agenticModeEnd} to return to non-agentic Chat."
@@ -26940,6 +26955,9 @@ msgstr ""
 msgid "DuoAgentsPlatform|AI Catalog"
 msgstr ""
 
+msgid "DuoAgentsPlatform|API request"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Access required"
 msgstr ""
 
@@ -26988,6 +27006,15 @@ msgstr ""
 msgid "DuoAgentsPlatform|Chat with a specialized agent"
 msgstr ""
 
+msgid "DuoAgentsPlatform|Comment on issue"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Comment on merge request"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Comment on work item"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Complete multi-step tasks with flows"
 msgstr ""
 
@@ -27013,6 +27040,9 @@ msgid "DuoAgentsPlatform|Create a new trigger."
 msgstr ""
 
 msgid "DuoAgentsPlatform|Create commit"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Create directory"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Create file"
@@ -27087,6 +27117,9 @@ msgstr ""
 msgid "DuoAgentsPlatform|Failed to submit modification. Please try again."
 msgstr ""
 
+msgid "DuoAgentsPlatform|Find files"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Fix a failing pipeline"
 msgstr ""
 
@@ -27099,7 +27132,13 @@ msgstr ""
 msgid "DuoAgentsPlatform|Get access to GitLab Duo"
 msgstr ""
 
+msgid "DuoAgentsPlatform|Get comment"
+msgstr ""
+
 msgid "DuoAgentsPlatform|Get issue"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Get merge request"
 msgstr ""
 
 msgid "DuoAgentsPlatform|GitLab Duo can autonomously change code. Responses and changes can be inaccurate. Review carefully."
@@ -27154,6 +27193,9 @@ msgid "DuoAgentsPlatform|Read file"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Review a merge request"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Run command"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Save changes"
@@ -27229,6 +27271,9 @@ msgid "DuoAgentsPlatform|Try GitLab Duo Agent Platform"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Unknown"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Update merge request"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Who can grant you access"

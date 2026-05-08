@@ -6794,7 +6794,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_e494c8a76005"
+              "$ref": "#/components/schemas/RequestBody_9df7b2e0dd43"
     put:
       operationId: putApiV4ProjectsIdPushRule
       summary: Update an existing project push rule
@@ -6827,7 +6827,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_e494c8a76005"
+              "$ref": "#/components/schemas/RequestBody_9df7b2e0dd43"
     delete:
       operationId: deleteApiV4ProjectsIdPushRule
       summary: Deletes project push rule
@@ -26747,7 +26747,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_ce22a9667f5a"
+              "$ref": "#/components/schemas/RequestBody_becaee9a250d"
   "/api/v4/projects/{id}/access_tokens/{token_id}":
     get:
       operationId: getApiV4ProjectsIdAccessTokensTokenId
@@ -26990,7 +26990,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_8e01843bb896"
+              "$ref": "#/components/schemas/RequestBody_6e7faa13bb50"
   "/api/v4/groups/{id}/access_tokens/{token_id}":
     get:
       operationId: getApiV4GroupsIdAccessTokensTokenId
@@ -60951,7 +60951,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_eafd63dde372"
+              "$ref": "#/components/schemas/RequestBody_c9945380a188"
   "/api/v4/projects/{id}/triggers/{trigger_id}":
     get:
       operationId: getApiV4ProjectsIdTriggersTriggerId
@@ -70281,7 +70281,7 @@ components:
       properties:
         namespace_id:
           type: string
-          example: 123
+          example: '123'
         expires_at:
           type: string
           format: date
@@ -70320,7 +70320,7 @@ components:
           example: A-S00000001
         trial:
           type: boolean
-          example: 'false'
+          example: false
     APIEntitiesVirtualRegistriesPackagesNpmRegistryUpstream:
       type: object
       properties:
@@ -72896,9 +72896,7 @@ components:
           oneOf:
           - type: string
           - type: integer
-          example:
-          - abc123
-          - '123'
+          example: abc123
         model_class:
           type: string
           example: Project
@@ -78122,7 +78120,8 @@ components:
           example: 2695effb5807a22ff3d138d593fd856244e155e7
         parent_ids:
           type: array
-          example: 2a4b78934375d7f53875269ffd4f45fd83a84ebe
+          example:
+          - 2a4b78934375d7f53875269ffd4f45fd83a84ebe
           items:
             type: string
         message:
@@ -78155,7 +78154,8 @@ components:
           "$ref": "#/components/schemas/APIEntitiesBlameRangeCommit"
         lines:
           type: array
-          example: lorem ipsum
+          example:
+          - lorem ipsum
           items:
             type: string
     APIEntitiesFeatureDefinition:
@@ -89478,7 +89478,7 @@ components:
           description: Reject commit when it’s not DCO certified.
           example: true
           nullable: true
-    RequestBody_e494c8a76005:
+    RequestBody_9df7b2e0dd43:
       type: object
       properties:
         deny_delete_tag:
@@ -89524,7 +89524,7 @@ components:
         max_file_size:
           type: integer
           description: Maximum file size (MB)
-          example: '1024'
+          example: 1024
           nullable: true
         commit_committer_check:
           type: boolean
@@ -95600,7 +95600,7 @@ components:
             required:
             - action
           nullable: true
-    RequestBody_ce22a9667f5a:
+    RequestBody_becaee9a250d:
       type: object
       properties:
         name:
@@ -95619,7 +95619,7 @@ components:
           description: The expiration date of the token. If 'Require personal access
             token expiry' is enabled, you must provide a valid value, if not, the
             token will never expire.
-          example: '2026-02-14T17:26:19.810Z'
+          example: '2026-02-14'
           nullable: true
         scopes:
           type: array
@@ -95641,7 +95641,7 @@ components:
       required:
       - name
       - scopes
-    RequestBody_8e01843bb896:
+    RequestBody_6e7faa13bb50:
       type: object
       properties:
         name:
@@ -95660,7 +95660,7 @@ components:
           description: The expiration date of the token. If 'Require personal access
             token expiry' is enabled, you must provide a valid value, if not, the
             token will never expire.
-          example: '2026-02-14T17:26:19.810Z'
+          example: '2026-02-14'
           nullable: true
         scopes:
           type: array
@@ -106482,7 +106482,7 @@ components:
           nullable: true
       required:
       - token
-    RequestBody_eafd63dde372:
+    RequestBody_c9945380a188:
       type: object
       properties:
         description:
@@ -106494,7 +106494,7 @@ components:
           type: string
           format: date-time
           description: Timestamp of when the pipeline trigger token expires.
-          example: '2024-07-01'
+          example: '2024-07-01T00:00:00.000Z'
           nullable: true
       required:
       - description
