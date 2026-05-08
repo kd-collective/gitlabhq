@@ -57,6 +57,8 @@
   - 1
 - - ai_duo_workflows_code_review_timeout
   - 1
+- - ai_duo_workflows_generate_workflow_summary
+  - 1
 - - ai_duo_workflows_sync_session_artifact
   - 1
 - - ai_duo_workflows_update_workflow_status_event

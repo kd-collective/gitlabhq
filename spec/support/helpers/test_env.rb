@@ -463,12 +463,6 @@ module TestEnv
     "#{forked_repo_path}.bundle"
   end
 
-  def seed_db
-    # Adjust `deletion_except_tables` method to exclude seeded tables from
-    # record deletions.
-    Gitlab::DatabaseImporters::WorkItems::BaseTypeImporter.upsert_types
-  end
-
   private
 
   # These are directories that should be preserved at cleanup time

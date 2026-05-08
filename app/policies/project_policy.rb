@@ -940,6 +940,7 @@ class ProjectPolicy < BasePolicy
 
     @team_access_level ||= lookup_access_level!
   end
+  alias_method :access_level, :team_access_level
 
   def lookup_access_level!
     return ::Gitlab::Access::REPORTER if alert_bot? || support_bot?

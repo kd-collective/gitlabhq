@@ -72,6 +72,28 @@ module WorkItems
         all
       end
 
+      # Returns all types for the namespace with FF/license filters applied,
+      # but without the project-only OKR gating that `filtered_types` applies.
+      #
+      # Use this when callers need OKR types to be visible for both a group
+      # and its projects under the same FF state, instead of being hidden on
+      # groups by the `project_namespace?` guard in `filtered_types`. Typical
+      # use case: surfacing the full set of available types in UI/admin
+      # contexts where group and project should answer identically for OKR.
+      #
+      # Epic gating is unchanged from `filtered_types` (the project-level
+      # `project_epics_enabled?` check still applies on projects).
+      #
+      # In CE there is no FF/license filtering, so this is equivalent to
+      # `all`. The EE override applies the same disabled-workflow and epic
+      # rejects as `filtered_types`, but bypasses the `project_namespace?`
+      # guard for OKR.
+      #
+      # Override in EE
+      def available_types
+        all
+      end
+
       def available_system_defined_types_count
         filtered_types.count { |type| type.is_a?(::WorkItems::TypesFramework::SystemDefined::Type) }
       end

@@ -722,7 +722,6 @@ export default {
     'ee/app/assets/javascripts/compliance_dashboard/components/frameworks_report/edit_framework/components/delete_modal.vue',
     'ee/app/assets/javascripts/compliance_dashboard/components/frameworks_report/edit_framework/components/edit_section.vue',
     'ee/app/assets/javascripts/compliance_dashboard/components/frameworks_report/edit_framework/components/projects_section.vue',
-    'ee/app/assets/javascripts/compliance_dashboard/components/frameworks_report/edit_framework/edit_framework.vue',
     'ee/app/assets/javascripts/compliance_dashboard/components/frameworks_report/frameworks_table.vue',
     'ee/app/assets/javascripts/compliance_dashboard/components/projects_report/framework_selection_box.vue',
     'ee/app/assets/javascripts/compliance_dashboard/components/shared/filters.vue',

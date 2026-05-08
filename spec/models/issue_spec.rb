@@ -1754,13 +1754,15 @@ RSpec.describe Issue, feature_category: :team_planning do
   end
 
   describe '#supports_assignee?' do
-    Gitlab::DatabaseImporters::WorkItems::BaseTypeImporter::WIDGETS_FOR_TYPE.each_pair do |base_type, widgets|
+    WorkItems::Type::BASE_TYPES.each_key do |base_type|
       specify do
         skip if !Gitlab.ee? && [:epic, :requirement, :objective, :test_case, :key_result].include?(base_type)
 
         traits = base_type == :issue ? [] : [base_type]
         issue = build(:issue, *traits)
-        supports_assignee = widgets.include?(:assignees)
+        widgets = WorkItems::TypesFramework::SystemDefined::Definitions
+          .const_get(base_type.to_s.camelize, false).widgets
+        supports_assignee = widgets.include?('assignees')
 
         expect(issue.supports_assignee?).to eq(supports_assignee)
       end

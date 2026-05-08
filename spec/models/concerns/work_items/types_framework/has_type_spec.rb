@@ -4,7 +4,6 @@ require 'spec_helper'
 
 RSpec.describe WorkItems::TypesFramework::HasType, feature_category: :team_planning do
   let_it_be(:namespace) { create(:namespace) }
-  let_it_be(:work_item_type) { create(:work_item_type) }
   let_it_be(:system_defined_type) { build(:work_item_system_defined_type, :issue) }
 
   before do
@@ -13,9 +12,6 @@ RSpec.describe WorkItems::TypesFramework::HasType, feature_category: :team_plann
       include WorkItems::TypesFramework::HasType
 
       attr_accessor :namespace
-
-      # Simulate the typical ActiveRecord belongs_to association
-      belongs_to :work_item_type, class_name: 'WorkItems::Type'
 
       def initialize(attributes = {})
         @namespace = attributes.delete(:namespace)
@@ -95,58 +91,34 @@ RSpec.describe WorkItems::TypesFramework::HasType, feature_category: :team_plann
   end
 
   describe '#work_item_type=' do
-    context 'when we set a db work_item_type' do
+    context 'when we set a system_defined_type' do
       it 'sets the work_item_type_id' do
-        expect { work_item.work_item_type = work_item_type }
+        expect { work_item.work_item_type = system_defined_type }
           .to change { work_item.work_item_type_id }
           .from(nil)
           .to(system_defined_type.id)
-      end
-
-      it 'does not use the belongs_to setter' do
-        work_item.work_item_type = work_item_type
-
-        expect(work_item.association(:work_item_type).loaded?).to be false
-      end
-    end
-
-    context 'when we set a system_defined_type' do
-      it 'sets the work_item_type_id' do
-        expect { work_item.work_item_type_id = system_defined_type.id }
-          .to change { work_item.work_item_type }
-          .from(nil)
-          .to(system_defined_type)
       end
     end
 
     context 'when we set to nil' do
       before do
-        work_item.work_item_type_id = work_item_type.id
+        work_item.work_item_type_id = system_defined_type.id
       end
 
       it 'sets the work_item_type_id to nil' do
         expect { work_item.work_item_type = nil }
           .to change { work_item.work_item_type_id }
-          .from(work_item_type.id)
+          .from(system_defined_type.id)
           .to(nil)
       end
     end
 
     context 'when we set with an id' do
       it 'sets the work_item_type_id' do
-        expect { work_item.work_item_type = work_item_type.id }
+        expect { work_item.work_item_type = system_defined_type.id }
           .to change { work_item.work_item_type_id }
           .from(nil)
-          .to(work_item_type.id)
-      end
-
-      context 'when id corresponds to a system_defined_type' do
-        it 'fetches and sets the system_defined_type' do
-          expect { work_item.work_item_type = system_defined_type.id }
-            .to change { work_item.work_item_type_id }
-            .from(nil)
-            .to(system_defined_type.id)
-        end
+          .to(system_defined_type.id)
       end
     end
   end

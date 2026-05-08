@@ -27,7 +27,11 @@ module Authz
     end
 
     def role
-      Authz::Role.get_from_access_level(team_access_level)
+      Authz::Role.get_from_access_level(access_level)
+    end
+
+    def access_level
+      raise NotImplementedError, "#{self.class} must implement #access_level"
     end
   end
 end

@@ -1,3 +1,6 @@
+export const GFM_POPOVER_SELECTOR =
+  '.gfm-issue, .gfm-work_item, .gfm-merge_request, .gfm-epic, .gfm-milestone';
+
 export const unrestrictedPages = [
   // Group wiki
   'groups:wikis:show',

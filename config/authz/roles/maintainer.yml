@@ -7,6 +7,7 @@ inherits_from:
 project:
   permissions: []
   raw_permissions:
+  - _cancel_restricted_ci
   - _read_maintainer_job_artifact
   - add_cluster
   - admin_ai_catalog_item

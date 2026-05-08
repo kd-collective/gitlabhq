@@ -214,8 +214,6 @@ RSpec.configure do |config|
     # Enable all features by default for testing
     # Reset any changes in after hook.
     stub_all_feature_flags
-
-    TestEnv.seed_db
   end
 
   config.after(:all) do

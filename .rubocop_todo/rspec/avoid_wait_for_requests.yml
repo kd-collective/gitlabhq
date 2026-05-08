@@ -3,7 +3,6 @@ RSpec/AvoidWaitForRequests:
   Exclude:
     - 'ee/spec/features/admin/admin_audit_logs_spec.rb'
     - 'ee/spec/features/admin/admin_merge_requests_approvals_spec.rb'
-    - 'ee/spec/features/admin/admin_mode_spec.rb'
     - 'ee/spec/features/admin/admin_roles_spec.rb'
     - 'ee/spec/features/admin/geo/admin_geo_nodes_spec.rb'
     - 'ee/spec/features/admin/geo/admin_geo_sidebar_spec.rb'

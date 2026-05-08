@@ -968,6 +968,36 @@ BEGIN
 END
 $$;
 
+CREATE FUNCTION mark_geo_ci_job_artifact_verification_summary_dirty() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  v_bucket_number integer;
+  v_id bigint;
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    v_id := OLD.job_artifact_id;
+  ELSE
+    v_id := NEW.job_artifact_id;
+  END IF;
+
+  v_bucket_number := v_id % 100000;
+
+  INSERT INTO geo_ci_job_artifact_verification_summaries
+    (bucket_number, state, state_changed_at, created_at, updated_at)
+  VALUES
+    (v_bucket_number, 1, NOW(), NOW(), NOW())
+  ON CONFLICT (bucket_number)
+  DO UPDATE SET
+    state = 1,
+    state_changed_at = NOW(),
+    updated_at = NOW()
+  WHERE geo_ci_job_artifact_verification_summaries.state != 2;
+
+  RETURN NULL;
+END;
+$$;
+
 CREATE FUNCTION next_traversal_ids_sibling(traversal_ids bigint[]) RETURNS bigint[]
     LANGUAGE plpgsql IMMUTABLE STRICT
     AS $$
@@ -34211,22 +34241,6 @@ CREATE SEQUENCE work_item_type_visibility_defaults_id_seq
 
 ALTER SEQUENCE work_item_type_visibility_defaults_id_seq OWNED BY work_item_type_visibility_defaults.id;
 
-CREATE TABLE work_item_types (
-    id bigint NOT NULL,
-    base_type smallint DEFAULT 0 NOT NULL,
-    cached_markdown_version integer,
-    name text NOT NULL,
-    description text,
-    description_html text,
-    icon_name text,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
-    correct_id bigint DEFAULT 0 NOT NULL,
-    old_id bigint,
-    CONSTRAINT check_104d2410f6 CHECK ((char_length(name) <= 255)),
-    CONSTRAINT check_fecb3a98d1 CHECK ((char_length(icon_name) <= 255))
-);
-
 CREATE TABLE work_item_weights_sources (
     work_item_id bigint NOT NULL,
     namespace_id bigint NOT NULL,
@@ -41592,9 +41606,6 @@ ALTER TABLE ONLY work_item_type_visibilities
 ALTER TABLE ONLY work_item_type_visibility_defaults
     ADD CONSTRAINT work_item_type_visibility_defaults_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY work_item_types
-    ADD CONSTRAINT work_item_types_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY work_item_weights_sources
     ADD CONSTRAINT work_item_weights_sources_pkey PRIMARY KEY (work_item_id);
 
@@ -46116,6 +46127,8 @@ CREATE INDEX index_ci_instance_runner_monthly_usages_on_project_and_month ON ci_
 
 CREATE UNIQUE INDEX index_ci_instance_variables_on_key ON ci_instance_variables USING btree (key);
 
+CREATE INDEX index_ci_job_artifact_states_on_bucket_number ON ci_job_artifact_states USING btree (((job_artifact_id % (100000)::bigint)));
+
 CREATE INDEX index_ci_job_token_authorizations_on_origin_project_id ON ci_job_token_authorizations USING btree (origin_project_id);
 
 CREATE INDEX index_ci_job_token_group_scope_links_on_added_by_id ON ci_job_token_group_scope_links USING btree (added_by_id);
@@ -50503,10 +50516,6 @@ CREATE INDEX index_work_item_type_user_preferences_on_work_item_type_id ON work_
 CREATE INDEX index_work_item_type_visibilities_on_work_item_type_id ON work_item_type_visibilities USING btree (work_item_type_id);
 
 CREATE INDEX index_work_item_type_visibility_defaults_on_work_item_type_id ON work_item_type_visibility_defaults USING btree (work_item_type_id);
-
-CREATE INDEX index_work_item_types_on_base_type_and_id ON work_item_types USING btree (base_type, id);
-
-CREATE UNIQUE INDEX index_work_item_types_on_name_unique ON work_item_types USING btree (TRIM(BOTH FROM lower(name)));
 
 CREATE INDEX index_work_item_weights_sources_on_namespace_id ON work_item_weights_sources USING btree (namespace_id);
 
@@ -55713,6 +55722,8 @@ CREATE TRIGGER trigger_insert_or_update_vulnerability_reads_from_occurrences AFT
 CREATE TRIGGER trigger_insert_vulnerability_reads_from_vulnerability AFTER UPDATE ON vulnerabilities FOR EACH ROW WHEN (((old.present_on_default_branch IS NOT TRUE) AND (new.present_on_default_branch IS TRUE))) EXECUTE FUNCTION insert_vulnerability_reads_from_vulnerability();
 
 CREATE TRIGGER trigger_jira_tracker_data_sharding_key_on_insert BEFORE INSERT ON jira_tracker_data FOR EACH ROW WHEN (((new.project_id IS NULL) AND (new.group_id IS NULL) AND (new.organization_id IS NULL))) EXECUTE FUNCTION update_jira_tracker_data_sharding_key();
+
+CREATE TRIGGER trigger_mark_geo_ci_job_artifact_summary_dirty AFTER INSERT OR DELETE OR UPDATE OF verification_state ON ci_job_artifact_states FOR EACH ROW EXECUTE FUNCTION mark_geo_ci_job_artifact_verification_summary_dirty();
 
 CREATE TRIGGER trigger_namespaces_traversal_ids_on_update AFTER UPDATE ON namespaces FOR EACH ROW WHEN ((old.traversal_ids IS DISTINCT FROM new.traversal_ids)) EXECUTE FUNCTION insert_namespaces_sync_event();
 

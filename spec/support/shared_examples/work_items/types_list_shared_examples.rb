@@ -68,6 +68,18 @@ RSpec.shared_examples 'lists all work item type values' do
   end
 end
 
+RSpec.shared_examples 'lists generally available work item types' do
+  specify do
+    namespace_object = defined?(container) ? container : object
+
+    provider = WorkItems::TypesFramework::Provider.new(namespace_object)
+    expected_types = provider.available_types
+                             .sort_by { |type| type.name.downcase }
+                             .map(&:base_type)
+    expect(types_list).to eq(expected_types)
+  end
+end
+
 RSpec.shared_examples 'filtering work item types by existing name' do
   context 'when filtering by an existing type name' do
     specify { expect(types_list).to contain_exactly(name.downcase) }

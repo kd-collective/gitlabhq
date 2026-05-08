@@ -908,6 +908,9 @@ Gitlab.ee do
   Settings.cron_jobs['geo_secondary_registry_consistency_worker'] ||= {}
   Settings.cron_jobs['geo_secondary_registry_consistency_worker']['cron'] ||= '* * * * *'
   Settings.cron_jobs['geo_secondary_registry_consistency_worker']['job_class'] ||= 'Geo::Secondary::RegistryConsistencyWorker'
+  Settings.cron_jobs['geo_ci_job_artifact_verification_summary_calculator_worker'] ||= {}
+  Settings.cron_jobs['geo_ci_job_artifact_verification_summary_calculator_worker']['cron'] ||= '* * * * *'
+  Settings.cron_jobs['geo_ci_job_artifact_verification_summary_calculator_worker']['job_class'] ||= 'Geo::CiJobArtifactVerificationSummaryCalculatorWorker'
   Settings.cron_jobs['historical_data_worker'] ||= {}
   Settings.cron_jobs['historical_data_worker']['cron'] ||= '0 12 * * *'
   Settings.cron_jobs['historical_data_worker']['job_class'] = 'HistoricalDataWorker'

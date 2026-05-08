@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
-# DEPRECATED: This ActiveRecord model is retained only for:
-# 1. Database seeding via Gitlab::DatabaseImporters::WorkItems::BaseTypeImporter
-# 2. GraphQL GlobalID constant resolution (GlobalIDType[::WorkItems::Type])
+# DEPRECATED: This class is retained only as a constant marker for GraphQL
+# GlobalID resolution (GlobalIDType[::WorkItems::Type]).
 #
 # All type logic now lives in WorkItems::TypesFramework::SystemDefined::Type.
 # Use WorkItems::TypesFramework::Provider for type lookups.
-#
-# TODO: Remove once the work_item_types DB table is dropped and GID
-# resolution is migrated. See https://gitlab.com/gitlab-org/gitlab/-/work_items/581931
 module WorkItems
-  class Type < ApplicationRecord
-    self.table_name = 'work_item_types'
-
+  class Type
     TYPE_NAMES = {
       issue: 'Issue',
       incident: 'Incident',
@@ -25,7 +19,6 @@ module WorkItems
       ticket: 'Ticket'
     }.freeze
 
-    # Used by Gitlab::DatabaseImporters::WorkItems::BaseTypeImporter to seed the DB
     BASE_TYPES = {
       issue: { name: TYPE_NAMES[:issue], icon_name: 'work-item-issue', enum_value: 0, id: 1 },
       incident: { name: TYPE_NAMES[:incident], icon_name: 'work-item-incident', enum_value: 1, id: 2 },
@@ -37,9 +30,5 @@ module WorkItems
       epic: { name: TYPE_NAMES[:epic], icon_name: 'work-item-epic', enum_value: 7, id: 8 },
       ticket: { name: TYPE_NAMES[:ticket], icon_name: 'work-item-ticket', enum_value: 8, id: 9 }
     }.freeze
-
-    ignore_column :correct_id, remove_with: '18.1', remove_after: '2025-05-15'
-
-    enum :base_type, BASE_TYPES.transform_values { |value| value[:enum_value] }
   end
 end

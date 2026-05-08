@@ -72,7 +72,7 @@ RSpec.describe 'Admin mode menu', :js, feature_category: :system_access do
 
     context 'when in admin_mode' do
       before do
-        enable_admin_mode!(admin, use_ui: true)
+        enter_admin_mode(admin)
       end
 
       it 'can open pages not in admin scope' do

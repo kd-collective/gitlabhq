@@ -11,7 +11,7 @@ RSpec.describe 'Admin mode logout', :js, feature_category: :system_access do
 
   before do
     sign_in(user)
-    enable_admin_mode!(user, use_ui: true)
+    enter_admin_mode(user)
   end
 
   context 'when leaving the admin mode' do

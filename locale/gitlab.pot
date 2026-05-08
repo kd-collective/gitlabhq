@@ -18476,6 +18476,9 @@ msgstr ""
 msgid "ComplianceFrameworks|Invalid format"
 msgstr ""
 
+msgid "ComplianceFrameworks|Method"
+msgstr ""
+
 msgid "ComplianceFrameworks|Multiple frameworks"
 msgstr ""
 
@@ -18566,6 +18569,9 @@ msgstr ""
 msgid "ComplianceFrameworks|Requirements"
 msgstr ""
 
+msgid "ComplianceFrameworks|Requirements & Controls"
+msgstr ""
+
 msgid "ComplianceFrameworks|Requirements are only available on Ultimate plans"
 msgstr ""
 
@@ -18576,6 +18582,9 @@ msgid "ComplianceFrameworks|Save changes to the framework"
 msgstr ""
 
 msgid "ComplianceFrameworks|Saved changes to compliance framework"
+msgstr ""
+
+msgid "ComplianceFrameworks|Scoping"
 msgstr ""
 
 msgid "ComplianceFrameworks|Secret token is required"
@@ -18600,6 +18609,9 @@ msgid "ComplianceFrameworks|Subgroup"
 msgstr ""
 
 msgid "ComplianceFrameworks|Summary"
+msgstr ""
+
+msgid "ComplianceFrameworks|Template (Optional)"
 msgstr ""
 
 msgid "ComplianceFrameworks|The default framework can't be deleted"
@@ -18665,9 +18677,6 @@ msgstr ""
 msgid "ComplianceFramework|Create blank framework"
 msgstr ""
 
-msgid "ComplianceFramework|Create new framework"
-msgstr ""
-
 msgid "ComplianceFramework|Edit compliance framework"
 msgstr ""
 
@@ -18686,13 +18695,13 @@ msgstr ""
 msgid "ComplianceFramework|Instance level compliance framework"
 msgstr ""
 
-msgid "ComplianceFramework|Looking for a template? Need an example JSON schema? Look through our %{linkStart}examples here.%{linkEnd}"
-msgstr ""
-
 msgid "ComplianceFramework|New compliance framework"
 msgstr ""
 
 msgid "ComplianceFramework|No compliance frameworks are set up yet"
+msgstr ""
+
+msgid "ComplianceFramework|Template selection is coming soon. Continue with a blank framework for now."
 msgstr ""
 
 msgid "ComplianceFramework|Unable to determine the correct upload URL. Please try again."
@@ -27133,6 +27142,9 @@ msgid "DuoAgentsPlatform|Owner"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Path to configuration file"
+msgstr ""
+
+msgid "DuoAgentsPlatform|Plan updated"
 msgstr ""
 
 msgid "DuoAgentsPlatform|Planning Agent"
@@ -64946,6 +64958,9 @@ msgstr ""
 msgid "SecurityOrchestration|Apply recommended selections"
 msgstr ""
 
+msgid "SecurityOrchestration|Apply this policy to %{projectScopeType}"
+msgstr ""
+
 msgid "SecurityOrchestration|Apply this policy to %{projectScopeType} %{projectSelector}"
 msgstr ""
 
@@ -68103,6 +68118,9 @@ msgstr ""
 msgid "SecurityOrchestration|projects with compliance frameworks"
 msgstr ""
 
+msgid "SecurityOrchestration|projects with security categories"
+msgstr ""
+
 msgid "SecurityOrchestration|scanner finds"
 msgstr ""
 
@@ -69488,7 +69506,13 @@ msgstr ""
 msgid "Semantic search"
 msgstr ""
 
+msgid "SemanticSearch|%{collection} embeddings"
+msgstr ""
+
 msgid "SemanticSearch|Advanced Search cluster"
+msgstr ""
+
+msgid "SemanticSearch|Change model"
 msgstr ""
 
 msgid "SemanticSearch|Changing the embeddings model or dimensions results in a backfill"
@@ -69516,6 +69540,15 @@ msgid "SemanticSearch|Disable"
 msgstr ""
 
 msgid "SemanticSearch|Disabled"
+msgstr ""
+
+msgid "SemanticSearch|Embedding model configuration is unavailable - Collection record not present"
+msgstr ""
+
+msgid "SemanticSearch|Embedding model configuration is unavailable - Connection not configured"
+msgstr ""
+
+msgid "SemanticSearch|Embedding model not yet configured"
 msgstr ""
 
 msgid "SemanticSearch|Enabled"
@@ -69561,6 +69594,9 @@ msgid "SemanticSearch|Semantic search will be disabled soon."
 msgstr ""
 
 msgid "SemanticSearch|Set embeddings"
+msgstr ""
+
+msgid "SemanticSearch|Set model"
 msgstr ""
 
 msgid "SemanticSearch|Set or update the embedding model and dimensions for the collection"

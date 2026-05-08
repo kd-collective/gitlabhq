@@ -50,16 +50,6 @@ RSpec.describe WorkItems::TypesFramework::Provider, feature_category: :team_plan
   end
 
   describe '#fetch_work_item_type' do
-    context 'when given a WorkItems::Type object' do
-      let_it_be(:issue_type_from_db) { create(:work_item_type, :issue) }
-
-      it 'returns the work item type' do
-        result = provider.fetch_work_item_type(issue_type_from_db)
-
-        expect(result).to eq(issue_type)
-      end
-    end
-
     context 'when given a WorkItems::TypesFramework::SystemDefined::Type object' do
       it 'returns the work item type' do
         result = provider.fetch_work_item_type(issue_type)

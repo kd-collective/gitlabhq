@@ -71,13 +71,6 @@ module LoginHelpers
     expect(page).to have_button(_('Sign in'))
   end
 
-  # Requires Javascript driver.
-  def leave_admin_mode
-    find_by_testid('user-menu-toggle').click
-    click_link(s_('CurrentUser|Leave Admin Mode'), href: destroy_admin_session_path)
-    expect(page).to have_selector('[data-testid="alert-info"]', text: _('Admin mode is inactive.'))
-  end
-
   # Submit the login form as the specified user
   # When using this helper, make sure to assert on the expected page state after signing in,
   # e.g., that the user is redirected to the dashboard or an error is shown.

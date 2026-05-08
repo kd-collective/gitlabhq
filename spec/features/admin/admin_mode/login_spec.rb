@@ -36,8 +36,7 @@ RSpec.describe 'Admin mode login', :with_current_organization, feature_category:
         before do
           submit_sign_in_form_for(user, remember: true) # This test checks that even when the user is remembered for sign-in, the user still needs to sign in for Admin mode.
           expect_main_sign_in_success(user.current_otp)
-
-          enable_admin_mode!(user, use_ui: true, with_2fa: true)
+          enter_admin_mode(user, with_2fa: true)
         end
 
         it 'blocks login if we reuse the same code immediately', :freeze_time do

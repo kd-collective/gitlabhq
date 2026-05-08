@@ -6,7 +6,7 @@ RSpec.describe 'Organization.workItemTypes', :with_current_organization, feature
   include GraphqlHelpers
 
   let_it_be(:current_user) { create(:user, organizations: [current_organization]) }
-  let_it_be(:all_system_defined_types) { ::WorkItems::TypesFramework::Provider.new.all }
+  let_it_be(:all_system_defined_types) { ::WorkItems::TypesFramework::Provider.new(current_organization).available_types }
   let_it_be(:all_system_defined_type_names) { all_system_defined_types.map(&:name) }
 
   let(:query_param) { { 'id' => current_organization.to_gid } }

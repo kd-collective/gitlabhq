@@ -30,22 +30,6 @@ This does not mitigate the problem on GitLab.com. New GraphQL fields still need 
 
 You can use the `@gl_introduced` directive on any field, for example:
 
-<table>
-<thead>
-  <tr>
-    <td>
-      Query
-    </td>
-    <td>
-      Response
-    </td>
-  </tr>
-</thead>
-
-<tbody>
-<tr>
-<td>
-
 ```graphql
 fragment otherFieldsWithFuture on Namespace {
   webUrl
@@ -62,8 +46,7 @@ query namespaceWithFutureFields {
 }
 ```
 
-</td>
-<td>
+Response:
 
 ```json
 {
@@ -79,32 +62,11 @@ query namespaceWithFutureFields {
 }
 ```
 
-</td>
-</tr>
-</tbody>
-</table>
-
 You shouldn't use the directive with:
 
 - Arguments: Executable directives don't support arguments.
 - Fragments: Instead, use the directive in the fragment nodes.
-- Single future fields, in the query or in objects:
-
-<table>
-<thead>
-  <tr>
-    <td>
-      Query
-    </td>
-    <td>
-      Response
-    </td>
-  </tr>
-</thead>
-
-<tbody>
-<tr>
-<td>
+- Single future fields, in the query or in objects, for example:
 
   ```graphql
   query fetchData {
@@ -112,8 +74,7 @@ You shouldn't use the directive with:
   }
   ```
 
-</td>
-<td>
+  Response:
 
   ```json
   {
@@ -147,11 +108,7 @@ You shouldn't use the directive with:
   }
   ```
 
-</td>
-</tr>
-
-<tr>
-<td>
+  Query:
 
   ```graphql
   query fetchData {
@@ -161,8 +118,7 @@ You shouldn't use the directive with:
   }
   ```
 
-</td>
-<td>
+  Response:
 
   ```json
   {
@@ -195,12 +151,8 @@ You shouldn't use the directive with:
     ]
   }
   ```
-
-</td>
-</tr>
-
-<tr>
-<td>
+  
+  Query:
 
   ```graphql
   query fetchData {
@@ -210,8 +162,7 @@ You shouldn't use the directive with:
   }
   ```
 
-</td>
-<td>
+  Response:
 
   ```json
   {
@@ -245,12 +196,6 @@ You shouldn't use the directive with:
     ]
   }
   ```
-
-</td>
-</tr>
-
-</tbody>
-</table>
 
 ##### Non-nullable fields
 

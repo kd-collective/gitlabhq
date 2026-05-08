@@ -5590,6 +5590,52 @@ RSpec.describe API::Projects, :aggregate_failures, feature_category: :groups_and
         end
       end
     end
+
+    context 'when project has container registry tags' do
+      before do
+        stub_container_registry_config(enabled: true)
+        stub_container_registry_tags(repository: /image/, tags: %w[rc1])
+        create(:container_repository, project: project, name: :image)
+      end
+
+      context 'when GitLab container registry API is not supported' do
+        before do
+          allow(ContainerRegistry::GitlabApiClient).to receive(:supports_gitlab_api?).and_return(false)
+        end
+
+        it 'returns 422 with an error message when trying to change path' do
+          put api("/projects/#{project.id}", user), params: { path: 'new-path' }
+
+          expect(response).to have_gitlab_http_status(:unprocessable_entity)
+          expect(json_response['message']).to match(/contains container registry tags/)
+        end
+
+        it 'does not silently apply other params when path change fails' do
+          original_description = project.description
+
+          put api("/projects/#{project.id}", user), params: { path: 'new-path', description: 'updated' }
+
+          expect(response).to have_gitlab_http_status(:unprocessable_entity)
+          expect(project.reload.description).to eq(original_description)
+        end
+      end
+
+      context 'when GitLab container registry API is supported' do
+        before do
+          allow(ContainerRegistry::GitlabApiClient).to receive(:supports_gitlab_api?).and_return(true)
+          allow(ContainerRegistry::GitlabApiClient)
+            .to receive(:rename_base_repository_path).and_return(:accepted, :ok)
+        end
+
+        it 'successfully changes the project path' do
+          put api("/projects/#{project.id}", user), params: { path: 'new-path' }
+
+          expect(response).to have_gitlab_http_status(:ok)
+          expect(json_response['path']).to eq('new-path')
+          expect(project.reload.path).to eq('new-path')
+        end
+      end
+    end
   end
 
   describe 'POST /projects/:id/archive' do

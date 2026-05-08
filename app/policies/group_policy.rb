@@ -2,6 +2,9 @@
 
 class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
   include FindGroupProjects
+  include ::Authz::RolePermissions
+
+  define_role_permissions(:group)
 
   desc "Group is public"
   with_options scope: :subject, score: 0
@@ -148,38 +151,8 @@ class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
     enable(*Authz::Role.get(:public_anonymous).direct_permissions(:group))
   end
 
-  # Role permissions are maintained in yaml in config/authz/roles/
-  rule { guest }.policy do
-    enable(*Authz::Role.get(:guest).direct_permissions(:group))
-  end
-
-  rule { planner }.policy do
-    enable(*Authz::Role.get(:planner).direct_permissions(:group))
-  end
-
-  rule { reporter }.policy do
-    enable(*Authz::Role.get(:reporter).direct_permissions(:group))
-  end
-
-  rule { security_manager }.policy do
-    enable(*Authz::Role.get(:security_manager).direct_permissions(:group))
-  end
-
-  rule { developer }.policy do
-    enable(*Authz::Role.get(:developer).direct_permissions(:group))
-  end
-
-  rule { maintainer }.policy do
-    enable :maintainer_access
-
-    enable(*Authz::Role.get(:maintainer).direct_permissions(:group))
-  end
-
-  rule { owner }.policy do
-    enable :owner_access
-
-    enable(*Authz::Role.get(:owner).direct_permissions(:group))
-  end
+  rule { maintainer }.enable :maintainer_access
+  rule { owner }.enable :owner_access
 
   rule { admin }.policy do
     enable :update_max_artifacts_size
