@@ -491,7 +491,7 @@ RSpec.describe Atlassian::JiraConnect::Client, feature_category: :integrations d
         expect(result[:pipeline]).to eq({ id: 'pipeline-9' })
       end
 
-      it 'tracks an exception with the dropped count' do
+      it 'tracks an exception with the dropped count and Sentry tags' do
         expect(Gitlab::ErrorTracking).to receive(:track_exception).with(
           instance_of(Atlassian::JiraConnect::Client::AssociationsTruncatedError),
           extra: {
@@ -499,10 +499,48 @@ RSpec.describe Atlassian::JiraConnect::Client, feature_category: :integrations d
             pipeline_id: 'pipeline-9',
             total_values: 700,
             dropped_values: 200
-          }
+          },
+          tags: { dropped_bucket: '100-499', truncation_severity: 'normal' }
         )
 
         client.send(:truncate_associations_if_needed, deployment_hash)
+      end
+    end
+
+    context 'when bucketing dropped values into Sentry tags' do
+      using RSpec::Parameterized::TableSyntax
+
+      where(:dropped, :expected_bucket, :expected_severity) do
+        1    | '<100'    | 'normal'
+        99   | '<100'    | 'normal'
+        100  | '100-499' | 'normal'
+        499  | '100-499' | 'normal'
+        500  | '500-999' | 'normal'
+        799  | '500-999' | 'normal'
+        800  | '500-999' | 'high'
+        999  | '500-999' | 'high'
+        1000 | '>=1000'  | 'high'
+        1500 | '>=1000'  | 'high'
+      end
+
+      with_them do
+        let(:deployment_hash) do
+          {
+            associations: [
+              { associationType: :issueKeys, values: (1..(500 + dropped)).map { |i| "JIRA-#{i}" } }
+            ],
+            deploymentSequenceNumber: 1
+          }
+        end
+
+        it 'maps dropped count to the expected tags' do
+          expect(Gitlab::ErrorTracking).to receive(:track_exception).with(
+            instance_of(Atlassian::JiraConnect::Client::AssociationsTruncatedError),
+            hash_including(tags: { dropped_bucket: expected_bucket, truncation_severity: expected_severity })
+          )
+
+          client.send(:truncate_associations_if_needed, deployment_hash)
+        end
       end
     end
 

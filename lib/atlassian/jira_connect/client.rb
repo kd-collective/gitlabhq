@@ -229,6 +229,8 @@ module Atlassian
 
         return deployment_hash if total_values <= ASSOCIATION_VALUES_LIMIT
 
+        dropped_values = total_values - ASSOCIATION_VALUES_LIMIT
+
         Gitlab::ErrorTracking.track_exception(
           AssociationsTruncatedError.new(
             "Deployment associations truncated: #{total_values} -> #{ASSOCIATION_VALUES_LIMIT}"
@@ -237,8 +239,9 @@ module Atlassian
             deployment_sequence_number: deployment_hash[:deploymentSequenceNumber],
             pipeline_id: deployment_hash.dig(:pipeline, :id),
             total_values: total_values,
-            dropped_values: total_values - ASSOCIATION_VALUES_LIMIT
-          }
+            dropped_values: dropped_values
+          },
+          tags: truncation_tags(dropped_values)
         )
 
         # Prioritise issueKeys in the truncated payload: those are the primary
@@ -264,6 +267,25 @@ module Atlassian
         end
 
         deployment_hash.merge(associations: truncated)
+      end
+
+      # Coarse, low-cardinality tags so Sentry can aggregate the truncation
+      # distribution. `extra:` data is not aggregatable in Discover.
+      def truncation_tags(dropped_values)
+        bucket = if dropped_values < 100
+                   '<100'
+                 elsif dropped_values < 500
+                   '100-499'
+                 elsif dropped_values < 1000
+                   '500-999'
+                 else
+                   '>=1000'
+                 end
+
+        {
+          dropped_bucket: bucket,
+          truncation_severity: dropped_values >= 800 ? 'high' : 'normal'
+        }
       end
 
       def jwt_token(http_method, uri)

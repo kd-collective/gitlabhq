@@ -83,7 +83,8 @@ PUT /projects/:id/security_settings
 ```shell
 curl --request PUT \
   --header "PRIVATE-TOKEN: <your_access_token>" \
-  --url "https://gitlab.example.com/api/v4/projects/7/security_settings?secret_push_protection_enabled=false"
+  --data "secret_push_protection_enabled=false" \
+  --url "https://gitlab.example.com/api/v4/projects/7/security_settings"
 ```
 
 Example response:

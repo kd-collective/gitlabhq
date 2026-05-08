@@ -277,6 +277,9 @@ The component supports the following slots:
 For the full list of options, see its
 [source](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/components/layouts/index_layout.rb).
 
+For Vue usage and a full guide including the dynamic panel and panel actions,
+see [Page layouts and panels](page_layouts.md).
+
 #### Detail layout
 
 A layout that establishes spacing between heading, alerts, and content areas. It provides a consistent structure for detail pages with optional page heading, alerts, sidebar, and main content sections.
@@ -291,6 +294,8 @@ A layout that establishes spacing between heading, alerts, and content areas. It
     = render 'sidebar'
 
   = render 'items_table'
+```
+
 The component supports the following slots:
 
 - `heading`: Custom heading markup (uses `PageHeadingComponent` internally)
@@ -301,6 +306,9 @@ The component supports the following slots:
 
 For the full list of options, see its
 [source](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/components/layouts/detail_layout.rb).
+
+For Vue usage and a full guide including the dynamic panel and panel actions,
+see [Page layouts and panels](page_layouts.md).
 
 #### CRUD component
 

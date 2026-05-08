@@ -24,20 +24,19 @@
 module InternalRedirect
   extend ActiveSupport::Concern
 
+  # Combined entry point: tries the input as a relative path first, then
+  # as a full URL. Always returns a bare path or nil -never a full URL.
+  def sanitize_redirect(url_or_path)
+    safe_redirect_path(url_or_path) || safe_redirect_path_for_url(url_or_path)
+  end
+
   # Validates a relative path for use as a redirect target.
   #
-  # Layer 1 (regex): Ensures the path starts with `/` followed by a hyphen,
+  # Regex pre-filter ensures the path starts with `/` followed by a hyphen,
   # question mark, or word character. This blocks protocol-relative URLs
   # (//evil.com), backslash escapes (/\evil.com), bare words, and control
-  # characters before they reach the URI parser.
-  #
-  # Layer 2 (URI parse): Extracts only path + query + fragment via
-  # full_path_for_uri. Any scheme or host is discarded, so the result is
-  # always a bare path.
-  #
-  # Host/port enforcement for full URLs happens in safe_redirect_path_for_url
-  # via host_allowed?; this method is strictly about validating and
-  # normalizing relative paths.
+  # characters before they reach the URI parser. The URI parser then
+  # extracts only path + query + fragment, discarding any scheme or host.
   def safe_redirect_path(path)
     return unless path
     return unless %r{\A/[-?\w]}.match?(path)
@@ -61,12 +60,6 @@ module InternalRedirect
     nil
   end
 
-  # Combined entry point: tries the input as a relative path first, then
-  # as a full URL. Always returns a bare path or nil -never a full URL.
-  def sanitize_redirect(url_or_path)
-    safe_redirect_path(url_or_path) || safe_redirect_path_for_url(url_or_path)
-  end
-
   # Returns true if the URI's host and port match the current request.
   # Overridden in EE to also allow redirects to registered Geo nodes.
   def host_allowed?(uri)
@@ -74,17 +67,19 @@ module InternalRedirect
       uri.port == request.port
   end
 
+  def referer_path(request)
+    return unless request.referer.presence
+
+    URI(request.referer).path
+  end
+
+  private
+
   # Extracts path + query + fragment from a parsed URI, discarding scheme
   # and host so the result is always a bare relative path.
   def full_path_for_uri(uri)
     path_with_query = [uri.path, uri.query].compact.join('?')
     [path_with_query, uri.fragment].compact.join("#")
-  end
-
-  def referer_path(request)
-    return unless request.referer.presence
-
-    URI(request.referer).path
   end
 end
 
