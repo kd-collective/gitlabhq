@@ -2,10 +2,10 @@
 name: code_suggestion_events_daily
 engine: SummingMergeTree
 engine_full: SummingMergeTree PARTITION BY toYear(date) ORDER BY (namespace_path,
-  date, user_id, event, language) SETTINGS index_granularity = 64
+  date, user_id, event, ide_name, language) SETTINGS index_granularity = 64
 partition_key: toYear(date)
-primary_key: namespace_path, date, user_id, event, language
-sorting_key: namespace_path, date, user_id, event, language
+primary_key: namespace_path, date, user_id, event, ide_name, language
+sorting_key: namespace_path, date, user_id, event, ide_name, language
 settings:
   index_granularity: '64'
 columns:
@@ -34,8 +34,14 @@ columns:
   default_expression: '0'
   is_in_sorting_key: true
   is_in_primary_key: true
+- name: ide_name
+  type: LowCardinality(String)
+  default_kind: DEFAULT
+  default_expression: "''"
+  is_in_sorting_key: true
+  is_in_primary_key: true
 - name: language
-  type: String
+  type: LowCardinality(String)
   default_kind: DEFAULT
   default_expression: "''"
   is_in_sorting_key: true
