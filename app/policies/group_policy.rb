@@ -172,11 +172,6 @@ class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
 
   rule { logged_in_viewable }.enable :read_group
 
-  rule { guest | can?(:admin_issue) }.policy do
-    enable :set_new_issue_metadata
-    enable :set_new_work_item_metadata
-  end
-
   rule { admin | organization_owner }.policy do
     enable :read_group
   end

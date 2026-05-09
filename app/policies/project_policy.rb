@@ -365,11 +365,6 @@ class ProjectPolicy < BasePolicy
 
   rule { ~can?(:read_environment) }.prevent :read_freeze_period
 
-  rule { guest | can?(:admin_issue) }.policy do
-    enable :set_new_issue_metadata
-    enable :set_new_work_item_metadata
-  end
-
   rule { guest & can?(:download_code) }.enable :build_download_code
   rule { guest & can?(:read_container_image) }.enable :build_read_container_image
 

@@ -2,7 +2,6 @@
 RSpec/FeatureSpecMaxExamples:
   Details: grace period
   Exclude:
-    - 'ee/spec/features/admin/admin_settings_spec.rb'
     - 'ee/spec/features/boards/scoped_issue_board_spec.rb'
     - 'ee/spec/features/groups/group_settings_spec.rb'
     - 'ee/spec/features/groups/saml_providers_spec.rb'
