@@ -3,7 +3,6 @@ Gitlab/Authz/RoleCheckInRule:
   Details: grace period
   Exclude:
     - 'app/policies/ci/pipeline_policy.rb'
-    - 'app/policies/deploy_token_policy.rb'
     - 'app/policies/group_policy.rb'
     - 'app/policies/namespaces/user_namespace_policy.rb'
     - 'app/policies/project_policy.rb'

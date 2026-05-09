@@ -7787,6 +7787,9 @@ msgstr ""
 msgid "AiPowered|An error occurred while loading GitLab Duo settings. Please try again."
 msgstr ""
 
+msgid "AiPowered|An error occurred. Please try again."
+msgstr ""
+
 msgid "AiPowered|Assign models to AI-native features."
 msgstr ""
 
@@ -7893,6 +7896,9 @@ msgid "AiPowered|Direct connections"
 msgstr ""
 
 msgid "AiPowered|Domain added."
+msgstr ""
+
+msgid "AiPowered|Domain cannot be empty."
 msgstr ""
 
 msgid "AiPowered|Domain removed."
@@ -12865,6 +12871,16 @@ msgstr ""
 
 msgid "Block user"
 msgstr ""
+
+msgid "BlockSeatsOverages|%{count} user assigned the Minimal Access role"
+msgid_plural "BlockSeatsOverages|%{count} users assigned the Minimal Access role"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "BlockSeatsOverages|%{count} user provisioned through LDAP or SAML/SCIM has been assigned the Minimal Access role because %{linkStart}restricted access%{linkEnd} is on and no seats are available."
+msgid_plural "BlockSeatsOverages|%{count} users provisioned through LDAP or SAML/SCIM have been assigned the Minimal Access role because %{linkStart}restricted access%{linkEnd} is on and no seats are available."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Blocked"
 msgstr ""
@@ -85485,6 +85501,9 @@ msgid "WorkItem|attention"
 msgstr ""
 
 msgid "WorkItem|blocks"
+msgstr ""
+
+msgid "WorkItem|could not be found or is not accessible."
 msgstr ""
 
 msgid "WorkItem|is blocked by"

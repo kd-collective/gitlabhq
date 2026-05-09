@@ -1247,7 +1247,6 @@ Gitlab/BoundedContexts:
     - 'app/policies/custom_emoji_policy.rb'
     - 'app/policies/deploy_key_policy.rb'
     - 'app/policies/deploy_keys_project_policy.rb'
-    - 'app/policies/deploy_token_policy.rb'
     - 'app/policies/deployment_policy.rb'
     - 'app/policies/description_version_policy.rb'
     - 'app/policies/draft_note_policy.rb'

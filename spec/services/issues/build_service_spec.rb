@@ -220,6 +220,40 @@ RSpec.describe Issues::BuildService, :request_store, feature_category: :team_pla
           end
         end
       end
+
+      context 'when an explicit work_item_type_id is provided but cannot be resolved' do
+        it 'adds an error to the issue instead of falling back to issue type' do
+          issue = build_issue(work_item_type_id: non_existing_record_id)
+
+          expect(issue.errors[:work_item_type]).to include(
+            s_('WorkItem|could not be found or is not accessible.')
+          )
+        end
+      end
+
+      context 'when an explicit work_item_type is provided but cannot be resolved' do
+        it 'adds an error to the issue instead of falling back to issue type' do
+          issue = build_issue(work_item_type: non_existing_record_id)
+
+          expect(issue.errors[:work_item_type]).to include(
+            s_('WorkItem|could not be found or is not accessible.')
+          )
+        end
+      end
+
+      context 'when an explicit work_item_type_id is resolved but creation is not allowed' do
+        let(:user) { guest }
+
+        it 'adds an error instead of silently falling back to issue type' do
+          incident_type = build(:work_item_system_defined_type, :incident)
+          issue = build_issue(work_item_type_id: incident_type.id)
+
+          expect(issue.work_item_type).to eq(WorkItems::TypesFramework::Provider.new.default_issue_type)
+          expect(issue.errors[:work_item_type]).to include(
+            s_('WorkItem|could not be found or is not accessible.')
+          )
+        end
+      end
     end
 
     context 'when a service account with composite identity is in use' do

@@ -214,7 +214,6 @@ group:
   - destroy_upload
   - enable_secret_push_protection
   - import_projects
-  - maintainer_access
   - provision_ai_catalog
   - provision_cloud_runner
   - provision_gke_runner

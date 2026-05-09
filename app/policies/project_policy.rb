@@ -332,7 +332,6 @@ class ProjectPolicy < BasePolicy
   # Ability.users_that_can_read_project method
   rule { guest }.enable :read_project
 
-  rule { maintainer }.enable :maintainer_access
   rule { owner | admin | organization_owner }.enable :owner_access
 
   rule { admin }.policy do

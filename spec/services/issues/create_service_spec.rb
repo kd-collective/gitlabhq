@@ -143,6 +143,19 @@ RSpec.describe Issues::CreateService, feature_category: :team_planning do
         end
       end
 
+      context 'when an explicit work_item_type_id cannot be resolved' do
+        let(:opts) { { title: 'Title', work_item_type_id: non_existing_record_id } }
+
+        it 'returns an error instead of creating an issue', :aggregate_failures do
+          expect(result).to be_error
+          expect(result.http_status).to eq(422)
+          expect(result.message).to include(
+            'Work item type could not be found or is not accessible.'
+          )
+          expect(result[:issue]).not_to be_persisted
+        end
+      end
+
       it 'calls NewIssueWorker with correct arguments' do
         expect(NewIssueWorker).to receive(:perform_async).with(Integer, user.id, 'Issue')
 

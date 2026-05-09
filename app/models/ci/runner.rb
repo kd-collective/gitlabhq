@@ -258,7 +258,7 @@ module Ci
     validate :no_groups, unless: :group_type?
     validate :any_project, if: :project_type?
     validate :exactly_one_group, if: :group_type?
-    validate :no_allowed_plan_ids, unless: :instance_type?
+    validate :no_allowed_plan_name_uids, unless: :instance_type?
 
     scope :with_version_prefix, ->(value) { joins(:runner_managers).merge(RunnerManager.with_version_prefix(value)) }
     scope :with_runner_type, ->(runner_type) do
@@ -342,7 +342,7 @@ module Ci
         :run_untagged,
         :access_level,
         Arel.sql("(#{arel_tag_names_array.to_sql})"),
-        :allowed_plan_ids
+        :allowed_plan_name_uids
       ]
 
       group(*unique_params).pluck('array_agg(ci_runners.id)', *unique_params).map do |values|
@@ -354,7 +354,7 @@ module Ci
           run_untagged: values[4],
           access_level: values[5],
           tag_list: values[6],
-          allowed_plan_ids: values[7]
+          allowed_plan_name_uids: values[7]
         })
       end
     end
@@ -395,7 +395,7 @@ module Ci
         run_untagged: run_untagged,
         access_level: access_level,
         tag_list: tag_list,
-        allowed_plan_ids: allowed_plan_ids
+        allowed_plan_name_uids: allowed_plan_name_uids
       })
     end
     strong_memoize_attr :runner_matcher
@@ -693,8 +693,8 @@ module Ci
       errors.add(:runner, 'needs to be assigned to exactly one group') unless runner_namespaces.size == 1
     end
 
-    def no_allowed_plan_ids
-      errors.add(:runner, 'cannot have allowed plans assigned') unless allowed_plan_ids.empty?
+    def no_allowed_plan_name_uids
+      errors.add(:runner, 'cannot have allowed plans assigned') unless allowed_plan_name_uids.empty?
     end
 
     def organization_id_matches_owner
