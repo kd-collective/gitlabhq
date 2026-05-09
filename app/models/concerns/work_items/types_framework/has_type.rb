@@ -30,14 +30,11 @@ module WorkItems
 
       def validate_work_item_type_id
         return unless work_item_type_id
+        return unless will_save_change_to_work_item_type_id?
 
-        return if valid_work_item_type_id?
+        return if work_items_types_provider.find_by_id(work_item_type_id).present?
 
-        errors.add(:work_item_type, 'must use a valid work item type ID')
-      end
-
-      def valid_work_item_type_id?
-        work_items_types_provider.find_by_id(work_item_type_id).present?
+        errors.add(:work_item_type, 'is not a recognized work item type')
       end
 
       # Overridden on EE

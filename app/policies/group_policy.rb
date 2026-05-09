@@ -154,11 +154,7 @@ class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
   rule { owner }.enable :owner_access
 
   rule { admin }.policy do
-    enable :update_max_artifacts_size
-    enable :create_projects
-    enable :read_custom_attribute
-    enable :delete_custom_attribute
-    enable :update_custom_attribute
+    enable(*Authz::Role.get(:admin).permissions(:group))
   end
 
   rule { archived & ~group_scheduled_for_deletion }.policy do

@@ -335,11 +335,7 @@ class ProjectPolicy < BasePolicy
   rule { owner | admin | organization_owner }.enable :owner_access
 
   rule { admin }.policy do
-    enable :delete_custom_attribute
-    enable :read_custom_attribute
-    enable :read_storage_disk_path
-    enable :update_custom_attribute
-    enable :update_max_artifacts_size
+    enable(*Authz::Role.get(:admin).permissions(:project))
   end
 
   rule { project_pipeline_override_role_privileged & ~can?(:_update_privileged_pipeline_variable_override_setting) }
