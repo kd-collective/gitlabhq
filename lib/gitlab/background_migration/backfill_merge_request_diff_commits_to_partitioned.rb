@@ -27,19 +27,23 @@ module Gitlab
         return super unless Gitlab.com_except_jh?
 
         base_class = Gitlab::Database.application_record_for_connection(connection)
-        model_class = define_batchable_model(batch_table, connection: connection, base_class: base_class)
+        # Use the underlying table directly rather than batch_table (the view on .com) to avoid
+        # PostgreSQL failing to collapse row-style index conditions through views.
+        # The cursor bounds are replicated from base_relation against the underlying table so the scope stays consistent
+        model_class = define_batchable_model('merge_request_diff_commits', connection: connection,
+          base_class: base_class)
 
-        keyset_order = Gitlab::Pagination::Keyset::Order.build(
-          cursor_columns.map do |col|
-            Gitlab::Pagination::Keyset::ColumnOrderDefinition.new(
-              attribute_name: col.to_s,
-              order_expression: model_class.arel_table[col].asc,
-              nullable: :not_nullable
-            )
-          end
+        cursor_expression = Arel::Nodes::Grouping.new(
+          cursor_columns.map { |col| model_class.arel_table[col] }
+        )
+        underlying_relation = model_class.where(
+          Arel::Nodes::And.new([
+            cursor_expression.gteq(arel_for_cursor(start_cursor, model_class.arel_table)),
+            cursor_expression.lteq(arel_for_cursor(end_cursor, model_class.arel_table))
+          ])
         )
 
-        Gitlab::Pagination::Keyset::Iterator.new(scope: base_relation.order(keyset_order))
+        Gitlab::Pagination::Keyset::Iterator.new(scope: underlying_relation.order(cursor_columns))
       end
       # rubocop:enable Gitlab/AvoidGitlabInstanceChecks
 
@@ -95,6 +99,8 @@ module Gitlab
       end
 
       # Excludes commits from merge requests in the excluded_merge_requests table.
+      # Also excludes rows where columns required by merge_request_commits_metadata are NULL
+      # in the source table - these are legacy rows that cannot be migrated.
       def filtered_diff_commits_cte
         <<~SQL
           filtered_diff_commits AS MATERIALIZED (
@@ -105,6 +111,9 @@ module Gitlab
               FROM excluded_merge_requests AS excluded_mrs
               WHERE excluded_mrs.merge_request_id = diff_commits.merge_request_id
             )
+            AND diff_commits.commit_author_id IS NOT NULL
+            AND diff_commits.committer_id IS NOT NULL
+            AND diff_commits.sha IS NOT NULL
             LIMIT #{sub_batch_size}
           ),
         SQL

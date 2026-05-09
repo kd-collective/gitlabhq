@@ -255,10 +255,21 @@ RSpec.describe Gitlab::BackgroundMigration::BackfillMergeRequestDiffCommitsToPar
     let(:view_name) { 'merge_request_diff_commits_views_1' }
     let!(:commit) { create_commit(diff_id: merge_request_diff.id, order: 0, sha: 'view_sha') }
 
+    # A diff and commit with an ID outside the cursor end bound - simulates a row that belongs
+    # to a different parallel worker's range and must not be touched by this job.
+    let!(:out_of_range_diff) do
+      merge_request_diffs.create!(merge_request_id: merge_request.id, project_id: project.id)
+    end
+
+    let!(:out_of_range_commit) do
+      create_commit(diff_id: out_of_range_diff.id, order: 0, sha: 'out_of_range_sha',
+        project_id: project.id)
+    end
+
     let(:job_params) do
       {
         start_cursor: [0, 0],
-        end_cursor: [merge_request_diff.id + 10, 10],
+        end_cursor: [merge_request_diff.id, 10],
         batch_table: view_name,
         batch_column: :merge_request_diff_id,
         pause_ms: 0,
@@ -270,17 +281,6 @@ RSpec.describe Gitlab::BackgroundMigration::BackfillMergeRequestDiffCommitsToPar
 
     before do
       allow(Gitlab).to receive(:com_except_jh?).and_return(true)
-
-      connection.execute(<<~SQL)
-        CREATE OR REPLACE VIEW #{view_name} AS
-        SELECT merge_request_diff_id, relative_order
-        FROM merge_request_diff_commits
-        WHERE merge_request_diff_id >= 0
-      SQL
-    end
-
-    after do
-      connection.execute("DROP VIEW IF EXISTS #{view_name}")
     end
 
     it 'migrates commits correctly when iterating via a view' do
@@ -298,6 +298,15 @@ RSpec.describe Gitlab::BackgroundMigration::BackfillMergeRequestDiffCommitsToPar
       expect { perform_migration }
         .to change { merge_request_commits_metadata.exists?(project_id: project.id, sha: 'view_sha') }
               .from(false).to(true)
+    end
+
+    it 'does not migrate commits outside the cursor bounds even though the view includes them' do
+      perform_migration
+
+      expect(merge_request_diff_commits_b5377a7a34.exists?(
+        merge_request_diff_id: out_of_range_diff.id,
+        relative_order: 0
+      )).to be(false)
     end
   end
 
@@ -392,6 +401,73 @@ RSpec.describe Gitlab::BackgroundMigration::BackfillMergeRequestDiffCommitsToPar
 
       expect(migrated_1.merge_request_commits_metadata_id).to eq(metadata_1[:id])
       expect(migrated_2.merge_request_commits_metadata_id).to eq(metadata_2[:id])
+    end
+  end
+
+  context 'when commits have NULL values in NOT NULL columns of the destination table' do
+    let!(:valid_commit) { create_commit(diff_id: merge_request_diff.id, order: 0, sha: 'valid_sha') }
+
+    let!(:null_author_commit) do
+      merge_request_diff_commits.create!(
+        merge_request_diff_id: merge_request_diff.id,
+        relative_order: 1,
+        sha: 'null_author_sha',
+        commit_author_id: nil,
+        committer_id: 1,
+        authored_date: Time.current,
+        committed_date: Time.current,
+        message: 'Commit with null author',
+        trailers: {},
+        project_id: project.id
+      )
+    end
+
+    let!(:null_committer_commit) do
+      merge_request_diff_commits.create!(
+        merge_request_diff_id: merge_request_diff.id,
+        relative_order: 2,
+        sha: 'null_committer_sha',
+        commit_author_id: 1,
+        committer_id: nil,
+        authored_date: Time.current,
+        committed_date: Time.current,
+        message: 'Commit with null committer',
+        trailers: {},
+        project_id: project.id
+      )
+    end
+
+    it 'does not raise and skips commits with null commit_author_id or committer_id' do
+      expect { perform_migration }.not_to raise_error
+    end
+
+    it 'does not migrate commits with null commit_author_id' do
+      perform_migration
+
+      expect(merge_request_diff_commits_b5377a7a34.exists?(
+        merge_request_diff_id: merge_request_diff.id,
+        relative_order: 1
+      )).to be(false)
+    end
+
+    it 'does not migrate commits with null committer_id' do
+      perform_migration
+
+      expect(merge_request_diff_commits_b5377a7a34.exists?(
+        merge_request_diff_id: merge_request_diff.id,
+        relative_order: 2
+      )).to be(false)
+    end
+
+    it 'still migrates valid commits in the same batch' do
+      expect { perform_migration }
+        .to change {
+          merge_request_diff_commits_b5377a7a34.exists?(
+            merge_request_diff_id: merge_request_diff.id,
+            relative_order: 0,
+            project_id: project.id
+          )
+        }.from(false).to(true)
     end
   end
 end
