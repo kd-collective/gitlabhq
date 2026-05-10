@@ -59116,6 +59116,7 @@ Licensed features that can be checked for availability on a namespace or project
 | <a id="licensedfeature-board_milestone_lists"></a>`BOARD_MILESTONE_LISTS` | Board milestone lists feature. |
 | <a id="licensedfeature-board_status_lists"></a>`BOARD_STATUS_LISTS` | Board status lists feature. |
 | <a id="licensedfeature-branch_rule_squash_options"></a>`BRANCH_RULE_SQUASH_OPTIONS` | Branch rule squash options feature. |
+| <a id="licensedfeature-built_in_project_templates_enabled"></a>`BUILT_IN_PROJECT_TEMPLATES_ENABLED` | Built in project templates enabled feature. |
 | <a id="licensedfeature-ci_cd_catalog_publish_restriction"></a>`CI_CD_CATALOG_PUBLISH_RESTRICTION` | Ci cd catalog publish restriction feature. |
 | <a id="licensedfeature-ci_cd_projects"></a>`CI_CD_PROJECTS` | Ci cd projects feature. |
 | <a id="licensedfeature-ci_component_usages_in_projects"></a>`CI_COMPONENT_USAGES_IN_PROJECTS` | Ci component usages in projects feature. |
