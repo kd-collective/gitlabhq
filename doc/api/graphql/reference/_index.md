@@ -29109,8 +29109,21 @@ An MCP tool dynamically discovered from the GitLab MCP server.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | <a id="aicatalogmcptool-description"></a>`description` | [`String`](#string) | Description of the MCP tool. |
+| <a id="aicatalogmcptool-icons"></a>`icons` | [`[AiCatalogMcpToolIcon!]!`](#aicatalogmcptoolicon) | Icons advertised for the MCP tool, per the MCP spec icons field. |
 | <a id="aicatalogmcptool-name"></a>`name` | [`ID!`](#id) | Machine-readable name of the MCP tool. |
 | <a id="aicatalogmcptool-title"></a>`title` | [`String!`](#string) | Human-readable title of the MCP tool. |
+
+### `AiCatalogMcpToolIcon`
+
+An icon advertised for an MCP tool, per the MCP spec icons field.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="aicatalogmcptoolicon-mimetype"></a>`mimeType` | [`String!`](#string) | MIME type of the icon image. |
+| <a id="aicatalogmcptoolicon-src"></a>`src` | [`String!`](#string) | URL to the icon image. |
+| <a id="aicatalogmcptoolicon-theme"></a>`theme` | [`String`](#string) | Theme the icon is intended for: "light" or "dark". |
 
 ### `AiCatalogThirdPartyFlow`
 
