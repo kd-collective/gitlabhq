@@ -1,5 +1,6 @@
 import produce from 'immer';
 import { camelCase, capitalize } from 'lodash-es';
+import { createAlert, VARIANT_INFO } from '~/alert';
 import {
   TYPENAME_ITERATIONS_CADENCE,
   TYPENAME_WORK_ITEM,
@@ -7,7 +8,7 @@ import {
 } from '~/graphql_shared/constants';
 import { getIdFromGraphQLId, convertToGraphQLId } from '~/graphql_shared/utils';
 import { isPositiveInteger } from '~/lib/utils/number_utils';
-import { convertEachWordToTitleCase } from '~/lib/utils/text_utility';
+import { capitalizeFirstCharacter, convertEachWordToTitleCase } from '~/lib/utils/text_utility';
 import { getParameterByName } from '~/lib/utils/url_utility';
 import { __, s__ } from '~/locale';
 import {
@@ -362,6 +363,78 @@ export const getFilterTokens = (locationSearch, options = {}) => {
   }
 
   return tokens;
+};
+
+/**
+ * Converts `type` URL param old enum value to new gid value
+ * i.e. `type[]=KEY_RESULT`/`type[]=epic` to `type[]=1`
+ *
+ * @param {Object[]} tokens - Array of filter tokens
+ * @param {Object} workItemTypesConfiguration - Work item types configuration
+ * @returns {Object[]} Array of filter tokens, with the type token value converted
+ */
+export const convertOldTypeTokenEnumToGid = (tokens, workItemTypesConfiguration) => {
+  const isTypeEnum = /^[a-zA-Z_]+$/;
+
+  const getGidFromTypeTokenEnum = (typeEnum) => {
+    // typeEnum can either be lowercase (epic) or screaming snake case (KEY_RESULT).
+    // The system type name is in title case (Key Result)
+    const typeName = typeEnum.toLowerCase().split('_').map(capitalizeFirstCharacter).join(' ');
+    const typeConfig = workItemTypesConfiguration.find((type) => type.name === typeName);
+    if (typeConfig) {
+      createAlert({
+        message: s__(
+          'WorkItems|The Type filter URL has been changed. Please update any bookmarks or links that reference the old URL.',
+        ),
+        variant: VARIANT_INFO,
+      });
+      return String(getIdFromGraphQLId(typeConfig.id));
+    }
+    return undefined;
+  };
+
+  return tokens
+    .map((token) => {
+      // Only process TYPE tokens and return early
+      if (token.type !== TOKEN_TYPE_TYPE) {
+        return token;
+      }
+
+      const { data } = token.value;
+
+      // Handle array of type values
+      if (Array.isArray(data)) {
+        const convertedData = data
+          .map((item) => (isTypeEnum.test(item) ? getGidFromTypeTokenEnum(item) : item))
+          .filter((item) => item !== undefined);
+
+        return {
+          ...token,
+          value: {
+            ...token.value,
+            data: convertedData.length > 0 ? convertedData : undefined,
+          },
+        };
+      }
+
+      if (isTypeEnum.test(data)) {
+        return {
+          ...token,
+          value: {
+            ...token.value,
+            data: getGidFromTypeTokenEnum(data),
+          },
+        };
+      }
+
+      // Return unchanged if already in correct format (numeric ID)
+      return token;
+    })
+    .filter((token) => {
+      // Only filter out TYPE tokens with undefined data
+      // Preserve all other token types
+      return token.type !== TOKEN_TYPE_TYPE || token.value.data !== undefined;
+    });
 };
 
 const trueYesFalseNo = (value) => {

@@ -17,6 +17,7 @@ import { isMetaEnterKeyPair, parseBoolean } from '~/lib/utils/common_utils';
 import { getParameterByName } from '~/lib/utils/url_utility';
 import { convertToGraphQLId } from '~/graphql_shared/utils';
 import { s__, sprintf, __ } from '~/locale';
+import { fetchPolicies } from '~/lib/graphql';
 import * as Sentry from '~/sentry/sentry_browser_wrapper';
 import { addHierarchyChild, setNewWorkItemCache } from '~/work_items/graphql/cache_utils';
 import { findWidget } from '~/work_items/list/utils';
@@ -37,7 +38,11 @@ import {
   getLastUsedWorkItemTypeIdForNamespace,
   setLastUsedWorkItemTypeIdForNamespace,
 } from '~/work_items/utils';
-import { TYPENAME_MERGE_REQUEST, TYPENAME_VULNERABILITY } from '~/graphql_shared/constants';
+import {
+  TYPENAME_MERGE_REQUEST,
+  TYPENAME_VULNERABILITY,
+  TYPENAME_WORK_ITEMS_TYPE,
+} from '~/graphql_shared/constants';
 import {
   I18N_WORK_ITEM_ERROR_CREATING,
   i18n,
@@ -71,6 +76,7 @@ import {
 import { TITLE_LENGTH_MAX } from '../../issues/constants';
 import createWorkItemMutation from '../graphql/create_work_item.mutation.graphql';
 import namespaceWorkItemTypesQuery from '../graphql/namespace_work_item_types.query.graphql';
+import workItemTypesConfigurationQuery from '../graphql/work_item_types_configuration.query.graphql';
 import workItemByIidQuery from '../graphql/work_item_by_iid.query.graphql';
 import updateNewWorkItemMutation from '../graphql/update_new_work_item.mutation.graphql';
 import TitleSuggestions from './title_suggestions.vue';
@@ -243,11 +249,13 @@ export default {
       error: null,
       workItem: {},
       namespace: null,
+      workItemTypesConfiguration: {},
       selectedProjectFullPath: this.initialSelectedProject(),
       selectedWorkItemTypeId: null,
       loading: false,
       initialLoadingWorkItem: true,
       initialLoadingWorkItemTypes: true,
+      initialLoadingWorkItemTypesConfiguration: true,
       selectedNamespacePath: this.initialSelectedProject(),
       selectedNamespaceObject: null,
       showWorkItemTypeSelect: false,
@@ -288,92 +296,45 @@ export default {
       variables() {
         return {
           fullPath: this.inputNamespacePath,
-          onlyAvailable: true,
         };
       },
       update(data) {
         return data.namespace;
       },
-      async result() {
+      skip() {
+        return this.initialLoadingWorkItemTypesConfiguration;
+      },
+      result() {
         this.initialLoadingWorkItemTypes = false;
-        if (!this.workItemTypes?.length) {
-          return;
-        }
-
-        // The follow up title and description can come from the backend for the following three use cases except for
-        // when Work Item is being created from contexts like; super-sidebar, related-item or description checklist
-        // 1. when resolving a discussion in the MR and we have the merge request id in the query param
-        // 2. when the issue and title are added in the query param . read https://docs.gitlab.com/user/project/issues/create_issues/#using-a-url-with-prefilled-values
-        // 3. when following up a work item with a vulnerability, where we have the vulnerability id in the query param
-        let workItemTitle = '';
-        let workItemDescription = '';
-        if (
-          ![
-            CREATION_CONTEXT_SUPER_SIDEBAR,
-            CREATION_CONTEXT_RELATED_ITEM,
-            CREATION_CONTEXT_DESCRIPTION_CHECKLIST,
-          ].includes(this.creationContext)
-        ) {
-          workItemTitle = document.querySelector('.params-title')?.textContent.trim();
-          workItemDescription = document.querySelector('.params-description')?.textContent.trim();
-        }
-
-        for (const workItemType of this.workItemTypes) {
-          setNewWorkItemCache({
-            fullPath: this.inputNamespacePath,
-            context: this.creationContext,
-            widgetDefinitions: workItemType?.widgetDefinitions,
-            workItemType: workItemType.name,
-            workItemTypeId: workItemType.id,
-            workItemTypeIconName: workItemType.iconName,
-            relatedItemId: this.relatedItemId,
-            workItemTitle,
-            workItemDescription,
-            confidential: this.isConfidential,
-            useWorkItemFeatures: this.useWorkItemFeatures,
-          });
-        }
-
-        const persistedTypeId = getLastUsedWorkItemTypeIdForNamespace(this.inputNamespacePath);
-
-        /**
-         * Override to use the preselected work item type when using creation context descriptiion checklist
-         * https://gitlab.com/gitlab-org/gitlab/-/work_items/585444
-         * We do not want the last work item type/ draft work item type overriding the valid
-         * child work item item in the task list
-         */
-        const selectedWorkItemType =
-          persistedTypeId && this.creationContext !== CREATION_CONTEXT_DESCRIPTION_CHECKLIST
-            ? this.findWorkItemTypeById(persistedTypeId)
-            : this.findWorkItemType(this.preselectedWorkItemType);
-
-        if (selectedWorkItemType) {
-          updateDraftWorkItemType({
-            fullPath: this.inputNamespacePath,
-            context: this.creationContext,
-            relatedItemId: this.relatedItemId,
-            workItemType: {
-              id: selectedWorkItemType.id,
-              name: selectedWorkItemType.name,
-              iconName: selectedWorkItemType.iconName,
-            },
-          });
-        }
-
-        if (selectedWorkItemType) {
-          this.selectedWorkItemTypeId = selectedWorkItemType?.id;
-          this.$emit('changeType', selectedWorkItemType.name);
-        } else {
-          this.showWorkItemTypeSelect = true;
-          const defaultSelectedWorkItemType =
-            this.findWorkItemType(WORK_ITEM_TYPE_NAME_ISSUE) || this.workItemTypes?.at(0);
-          this.selectedWorkItemTypeId = defaultSelectedWorkItemType?.id;
-          this.$emit('changeType', defaultSelectedWorkItemType?.name);
-        }
+        this.processWorkItemTypes();
       },
       error() {
         this.error = s__(
           'WorkItem|Something went wrong when fetching work item types. Please try again',
+        );
+      },
+    },
+    workItemTypesConfiguration: {
+      query: workItemTypesConfigurationQuery,
+      fetchPolicy: fetchPolicies.NETWORK_ONLY,
+      variables() {
+        return {
+          fullPath: this.inputNamespacePath,
+        };
+      },
+      update(data) {
+        const nodes = data?.namespace?.workItemTypes?.nodes || [];
+        // Transform array to hash keyed by type id
+        return nodes.reduce((acc, type) => {
+          return { ...acc, [type.id]: type };
+        }, {});
+      },
+      result() {
+        this.initialLoadingWorkItemTypesConfiguration = false;
+      },
+      error() {
+        this.error = s__(
+          'WorkItem|Something went wrong when fetching work item types configuration. Please try again',
         );
       },
     },
@@ -400,6 +361,12 @@ export default {
     workItemTypes() {
       return this.namespace?.workItemTypes?.nodes ?? [];
     },
+    creatableWorkItemTypes() {
+      return this.workItemTypes.filter((type) => {
+        const config = this.workItemTypesConfiguration[type.id];
+        return config?.canUserCreateItems ?? false;
+      });
+    },
     newWorkItemPath() {
       return newWorkItemFullPath(this.inputNamespacePath, this.selectedWorkItemTypeName);
     },
@@ -417,7 +384,10 @@ export default {
       );
     },
     isWorkItemTypesLoading() {
-      return this.$apollo.queries.namespace.loading;
+      return (
+        this.$apollo.queries.namespace.loading ||
+        this.$apollo.queries.workItemTypesConfiguration.loading
+      );
     },
     skipWorkItemQuery() {
       return !this.selectedProjectFullPath || !this.selectedWorkItemTypeName;
@@ -483,7 +453,7 @@ export default {
       return findCrmContactsWidget(this.workItem);
     },
     workItemTypesForSelect() {
-      return this.workItemTypes
+      return this.creatableWorkItemTypes
         .filter((workItemType) => workItemType.name !== WORK_ITEM_TYPE_NAME_TICKET)
         .map((workItemType) => ({
           value: workItemType.id,
@@ -705,6 +675,11 @@ export default {
     },
   },
   watch: {
+    inputNamespacePath() {
+      // Reset configuration and types when namespace changes to prevent showing cached data from previous namespace
+      this.workItemTypesConfiguration = {};
+      this.initialLoadingWorkItemTypesConfiguration = true;
+    },
     shouldDiscardDraft: {
       immediate: true,
       handler(shouldDiscardDraft) {
@@ -754,11 +729,105 @@ export default {
     document.removeEventListener('keydown', this.handleKeydown);
   },
   methods: {
-    findWorkItemType(workItemTypeName) {
-      return this.workItemTypes?.find((workItemType) => workItemType.name === workItemTypeName);
-    },
     findWorkItemTypeById(workItemTypeId) {
       return this.workItemTypes?.find((workItemType) => workItemType.id === workItemTypeId);
+    },
+    findCreatableWorkItemType(workItemTypeName) {
+      return this.creatableWorkItemTypes?.find(
+        (workItemType) => workItemType.name === workItemTypeName,
+      );
+    },
+    findCreatableWorkItemTypeById(workItemTypeId) {
+      return this.creatableWorkItemTypes?.find(
+        (workItemType) => workItemType.id === workItemTypeId,
+      );
+    },
+    setDefaultWorkItemType() {
+      const issueTypeGid = convertToGraphQLId(TYPENAME_WORK_ITEMS_TYPE, 1);
+      const defaultSelectedWorkItemType =
+        this.creatableWorkItemTypes.find(
+          (type) => type?.name === WORK_ITEM_TYPE_NAME_ISSUE || type?.id === issueTypeGid,
+        ) || this.creatableWorkItemTypes.at(0);
+      this.selectedWorkItemTypeId = defaultSelectedWorkItemType?.id;
+      this.$emit('changeType', defaultSelectedWorkItemType?.name);
+    },
+    processWorkItemTypes() {
+      // Only process if both queries have completed
+      if (this.initialLoadingWorkItemTypes || this.initialLoadingWorkItemTypesConfiguration) {
+        return;
+      }
+
+      if (!this.workItemTypes?.length) {
+        return;
+      }
+
+      // The follow up title and description can come from the backend for the following three use cases except for
+      // when Work Item is being created from contexts like; super-sidebar, related-item or description checklist
+      // 1. when resolving a discussion in the MR and we have the merge request id in the query param
+      // 2. when the issue and title are added in the query param . read https://docs.gitlab.com/user/project/issues/create_issues/#using-a-url-with-prefilled-values
+      // 3. when following up a work item with a vulnerability, where we have the vulnerability id in the query param
+      let workItemTitle = '';
+      let workItemDescription = '';
+      if (
+        ![
+          CREATION_CONTEXT_SUPER_SIDEBAR,
+          CREATION_CONTEXT_RELATED_ITEM,
+          CREATION_CONTEXT_DESCRIPTION_CHECKLIST,
+        ].includes(this.creationContext)
+      ) {
+        workItemTitle = document.querySelector('.params-title')?.textContent.trim();
+        workItemDescription = document.querySelector('.params-description')?.textContent.trim();
+      }
+
+      for (const workItemType of this.workItemTypes) {
+        setNewWorkItemCache({
+          fullPath: this.inputNamespacePath,
+          context: this.creationContext,
+          widgetDefinitions: workItemType?.widgetDefinitions,
+          workItemType: workItemType.name,
+          workItemTypeId: workItemType.id,
+          workItemTypeIconName: workItemType.iconName,
+          relatedItemId: this.relatedItemId,
+          workItemTitle,
+          workItemDescription,
+          confidential: this.isConfidential,
+          useWorkItemFeatures: this.useWorkItemFeatures,
+        });
+      }
+
+      const persistedTypeId = getLastUsedWorkItemTypeIdForNamespace(this.inputNamespacePath);
+
+      /**
+       * Override to use the preselected work item type when using creation context descriptiion checklist
+       * https://gitlab.com/gitlab-org/gitlab/-/work_items/585444
+       * We do not want the last work item type/ draft work item type overriding the valid
+       * child work item item in the task list
+       */
+      const selectedWorkItemType =
+        persistedTypeId && this.creationContext !== CREATION_CONTEXT_DESCRIPTION_CHECKLIST
+          ? this.findCreatableWorkItemTypeById(persistedTypeId)
+          : this.findCreatableWorkItemType(this.preselectedWorkItemType);
+
+      if (selectedWorkItemType) {
+        updateDraftWorkItemType({
+          fullPath: this.inputNamespacePath,
+          context: this.creationContext,
+          relatedItemId: this.relatedItemId,
+          workItemType: {
+            id: selectedWorkItemType.id,
+            name: selectedWorkItemType.name,
+            iconName: selectedWorkItemType.iconName,
+          },
+        });
+      }
+
+      if (selectedWorkItemType) {
+        this.selectedWorkItemTypeId = selectedWorkItemType?.id;
+        this.$emit('changeType', selectedWorkItemType.name);
+      } else {
+        this.showWorkItemTypeSelect = true;
+        this.setDefaultWorkItemType();
+      }
     },
     initialSelectedProject() {
       if (this.relatedItem) {
@@ -804,7 +873,9 @@ export default {
         workItemType: this.selectedWorkItemTypeName,
         relatedItemId: this.relatedItemId,
       });
-      clearDraft(fullDraftAutosaveKey);
+      if (fullDraftAutosaveKey) {
+        clearDraft(fullDraftAutosaveKey);
+      }
       clearDraft(this.workItemWidgetsAutoSaveKey);
     },
     handleNamespaceSelect(_, namespaceObject) {

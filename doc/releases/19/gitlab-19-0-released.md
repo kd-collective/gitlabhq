@@ -55,9 +55,130 @@ without having to go to individual projects.
 For example, searching for `def authenticate repo:my-group/my-project` returns results
 only from that repository. You can also use partial paths or patterns to match multiple repositories.
 
-<!-- ## Scale and Deployments
+## Scale and Deployments
 
-The first person to add a feature in this area, please make the title visible and delete this comment -->
+### PostgreSQL 17 minimum requirement
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../administration/package_information/postgresql_versions.md), [Related issue](https://gitlab.com/gitlab-org/omnibus-gitlab/-/work_items/9792)
+
+{{< /details >}}
+
+The minimum supported version of PostgreSQL is now version 17. If you use the packaged PostgreSQL 16,
+[upgrade the packaged PostgreSQL server](https://docs.gitlab.com/omnibus/settings/database.html#upgrade-packaged-postgresql-server)
+before installing GitLab 19.0.
+
+### Linux package support for Ubuntu 20.04 discontinued
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../install/package/_index.md#supported-platforms), [Related issue](https://gitlab.com/gitlab-org/omnibus-gitlab/-/issues/8915)
+
+{{< /details >}}
+
+Ubuntu 20.04 reached end of standard support in May 2025. From GitLab 19.0, Linux packages are no
+longer provided for Ubuntu 20.04. GitLab 18.11 is the last release with packages for this
+distribution. Before upgrading to GitLab 19.0, migrate to Ubuntu 22.04 or another
+[supported operating system](../../install/package/_index.md#supported-platforms).
+
+### Redis 6 support removed
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../install/requirements.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/585839)
+
+{{< /details >}}
+
+Support for Redis 6 is removed in GitLab 19.0. If you use an external Redis 6 deployment, migrate
+to Redis 7.2 or Valkey 7.2 before upgrading. The bundled Redis included with the Linux package has
+used Redis 7 since GitLab 16.2 and is not affected.
+
+### Mattermost removed from the Linux package
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](https://docs.mattermost.com/administration-guide/onboard/migrate-gitlab-omnibus.html), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/590798)
+
+{{< /details >}}
+
+Bundled Mattermost is removed from the Linux package in GitLab 19.0. If you currently use the
+bundled Mattermost, refer to
+[Migrating from the Linux package to Mattermost Standalone](https://docs.mattermost.com/administration-guide/onboard/migrate-gitlab-omnibus.html)
+for migration instructions. Customers not using the bundled Mattermost are not impacted.
+
+### Linux package support for SUSE distributions discontinued
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../install/docker/installation.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/590801)
+
+{{< /details >}}
+
+Linux package support for SUSE distributions ends in GitLab 19.0, which affects openSUSE Leap 15.6,
+SUSE Linux Enterprise Server 12.5, and SUSE Linux Enterprise Server 15.6. GitLab 18.11 is the last
+version with Linux packages for these distributions. To continue to use SUSE distributions, migrate
+to a [Docker deployment of GitLab](../../install/docker/installation.md).
+
+### Spamcheck removed from Linux package and GitLab Helm chart
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../administration/reporting/spamcheck.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/590796)
+
+{{< /details >}}
+
+[Spamcheck](../../administration/reporting/spamcheck.md) is removed from the Linux package and
+GitLab Helm chart in GitLab 19.0. Customers not currently using Spamcheck are not impacted. If you
+use the bundled Spamcheck, you can deploy it separately using
+[Docker](https://gitlab.com/gitlab-org/gl-security/security-engineering/security-automation/spam/spamcheck).
+No data migration is required.
+
+### NGINX Ingress replaced by Gateway API with Envoy Gateway
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](https://docs.gitlab.com/charts/), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/590800)
+
+{{< /details >}}
+
+Gateway API with Envoy Gateway becomes the default networking configuration in the GitLab Helm chart
+in GitLab 19.0, replacing NGINX Ingress which reached end-of-life in March 2026. If migration to
+Envoy Gateway is not immediately feasible, you can explicitly re-enable the bundled NGINX Ingress,
+which remains available until its planned removal in GitLab 20.0. This change does not impact the
+NGINX used in the Linux package, or Helm chart instances using an externally managed Ingress or
+Gateway API controller.
+
+### Bundled PostgreSQL, Redis, and MinIO removed from GitLab Helm chart
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/590797)
+
+{{< /details >}}
+
+The bundled Bitnami PostgreSQL, Bitnami Redis, and MinIO charts are removed from the GitLab Helm
+chart and GitLab Operator in GitLab 19.0 with no replacement. These components were intended only
+for proof-of-concept and test environments and are not recommended for production use. If you run an
+instance with any of these bundled services, follow the
+[migration guide](https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/)
+to configure external services before upgrading to GitLab 19.0.
 
 ## Unified DevOps and Security
 

@@ -56,7 +56,7 @@ RSpec.describe 'User creates work items', :js, feature_category: :team_planning 
         first(:link, 'New item').click
       end
 
-      it_behaves_like 'creates work item with widgets from a modal', 'issue', %w[
+      it_behaves_like 'creates work item with widgets from a modal', 'Issue', %w[
         work-item-title-input
         work-item-description-wrapper
         work-item-assignees

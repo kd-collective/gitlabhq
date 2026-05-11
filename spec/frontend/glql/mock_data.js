@@ -14,6 +14,7 @@ export const MOCK_ISSUE = {
   __typename: 'Issue',
   webUrl: 'https://gitlab.com/gitlab-org/gitlab-test/-/issues/1',
   title: 'Issue 1',
+  titleHtml: 'Issue 1',
   state: 'opened',
   reference: '#1',
 };
@@ -27,6 +28,7 @@ export const MOCK_EPIC = {
   __typename: 'Epic',
   webUrl: 'https://gitlab.com/groups/gitlab-org/-/epics/1',
   title: 'Epic 1',
+  titleHtml: 'Epic 1',
   state: 'opened',
   reference: '&1',
 };
@@ -35,6 +37,7 @@ export const MOCK_MERGE_REQUEST = {
   __typename: 'MergeRequest',
   webUrl: 'https://gitlab.com/gitlab-org/gitlab-test/-/merge_requests/1',
   title: 'Merge request 1',
+  titleHtml: 'Merge request 1',
   state: 'opened',
   reference: '!1',
 };
@@ -113,6 +116,7 @@ export const MOCK_ISSUES = {
       id: 'gid://gitlab/Issue/1',
       iid: '1',
       title: 'Issue 1',
+      titleHtml: 'Issue 1',
       reference: '#1',
       author: { __typename: 'UserCore', username: 'foobar', webUrl: 'https://gitlab.com/foobar' },
       webUrl: 'https://gitlab.com/gitlab-org/gitlab-test/-/issues/1',
@@ -124,6 +128,7 @@ export const MOCK_ISSUES = {
       id: 'gid://gitlab/Issue/2',
       iid: '2',
       title: 'Issue 2',
+      titleHtml: 'Issue 2',
       reference: '#2',
       author: { __typename: 'UserCore', username: 'janedoe', webUrl: 'https://gitlab.com/janedoe' },
       webUrl: 'https://gitlab.com/gitlab-org/gitlab-test/-/issues/2',
@@ -140,6 +145,7 @@ export const MOCK_ISSUES_PAGE_2 = {
       id: 'gid://gitlab/Issue/3',
       iid: '3',
       title: 'Issue 3',
+      titleHtml: 'Issue 3',
       reference: '#3',
       author: { __typename: 'UserCore', username: 'janedoe', webUrl: 'https://gitlab.com/janedoe' },
       webUrl: 'https://gitlab.com/gitlab-org/gitlab-test/-/issues/3',

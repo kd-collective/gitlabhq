@@ -83898,6 +83898,9 @@ msgstr ""
 msgid "WorkItems|Sort order rebalancing in progress. Reordering is temporarily disabled."
 msgstr ""
 
+msgid "WorkItems|The Type filter URL has been changed. Please update any bookmarks or links that reference the old URL."
+msgstr ""
+
 msgid "WorkItems|Your preferences"
 msgstr ""
 
@@ -83939,7 +83942,19 @@ msgstr ""
 msgid "WorkItem|%{workItemType} deleted"
 msgstr ""
 
+msgid "WorkItem|%{workItemType} disabled for all projects."
+msgstr ""
+
+msgid "WorkItem|%{workItemType} disabled."
+msgstr ""
+
 msgid "WorkItem|%{workItemType} does not support the %{childItemType} child item types. Remove child items to change type."
+msgstr ""
+
+msgid "WorkItem|%{workItemType} enabled for all projects."
+msgstr ""
+
+msgid "WorkItem|%{workItemType} enabled."
 msgstr ""
 
 msgid "WorkItem|%{workItemType} has 1 linked item"
@@ -85110,6 +85125,9 @@ msgstr ""
 msgid "WorkItem|Something went wrong when fetching user permissions"
 msgstr ""
 
+msgid "WorkItem|Something went wrong when fetching work item types configuration. Please try again"
+msgstr ""
+
 msgid "WorkItem|Something went wrong when fetching work item types. Please try again"
 msgstr ""
 
@@ -85423,12 +85441,6 @@ msgid "WorkItem|Work item settings"
 msgstr ""
 
 msgid "WorkItem|Work item type created."
-msgstr ""
-
-msgid "WorkItem|Work item type disabled for all projects."
-msgstr ""
-
-msgid "WorkItem|Work item type enabled for all projects."
 msgstr ""
 
 msgid "WorkItem|Work item type updated."

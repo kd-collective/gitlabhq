@@ -33,10 +33,12 @@ import {
   savedViewFiltersWithMultipleSearchTokens,
   savedViewFilterTokensWithMultipleSearchTokens,
 } from 'jest/work_items/list/mock_data';
+import { createAlert } from '~/alert';
 import { STATUS_CLOSED } from '~/issues/constants';
 import { CREATED_DESC, UPDATED_DESC, urlSortParams } from '~/work_items/list/constants';
 import getSubscribedSavedViewsQuery from '~/work_items/list/graphql/work_item_saved_views_namespace.query.graphql';
 import {
+  convertOldTypeTokenEnumToGid,
   convertToApiParams,
   convertToSearchQuery,
   convertToUrlParams,
@@ -53,7 +55,84 @@ import {
   convertNumberToGid,
   convertLegacyTypeFormat,
 } from 'ee_else_ce/work_items/list/utils';
+import {
+  TOKEN_TYPE_AUTHOR,
+  TOKEN_TYPE_TYPE,
+} from '~/vue_shared/components/filtered_search_bar/constants';
 import { DEFAULT_PAGE_SIZE } from '~/vue_shared/issuable/list/constants';
+
+jest.mock('~/alert');
+
+describe('convertOldTypeTokenEnumToGid', () => {
+  const workItemTypesConfiguration = [
+    { id: 'gid://gitlab/WorkItems::Type/1', name: 'Issue' },
+    { id: 'gid://gitlab/WorkItems::Type/2', name: 'Incident' },
+    { id: 'gid://gitlab/WorkItems::Type/3', name: 'Test Case' },
+    { id: 'gid://gitlab/WorkItems::Type/4', name: 'Requirement' },
+    { id: 'gid://gitlab/WorkItems::Type/5', name: 'Task' },
+    { id: 'gid://gitlab/WorkItems::Type/6', name: 'Objective' },
+    { id: 'gid://gitlab/WorkItems::Type/7', name: 'Key Result' },
+    { id: 'gid://gitlab/WorkItems::Type/8', name: 'Epic' },
+    { id: 'gid://gitlab/WorkItems::Type/9', name: 'Ticket' },
+  ];
+
+  it('converts lowercase epic to 6, and shows alert telling user to update their bookmarks', () => {
+    const tokens = [
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: 'epic' } },
+    ];
+    expect(convertOldTypeTokenEnumToGid(tokens, workItemTypesConfiguration)).toEqual([
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: '8' } },
+    ]);
+    expect(createAlert).toHaveBeenCalledWith({
+      message:
+        'The Type filter URL has been changed. Please update any bookmarks or links that reference the old URL.',
+      variant: 'info',
+    });
+  });
+
+  it('converts screaming snake case KEY_RESULT to 7', () => {
+    const tokens = [
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: 'KEY_RESULT' } },
+    ];
+    expect(convertOldTypeTokenEnumToGid(tokens, workItemTypesConfiguration)).toEqual([
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: '7' } },
+    ]);
+  });
+
+  it('converts multiSelect values', () => {
+    const tokens = [
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '!=', data: ['ISSUE', 'INCIDENT'] } },
+    ];
+    expect(convertOldTypeTokenEnumToGid(tokens, workItemTypesConfiguration)).toEqual([
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '!=', data: ['1', '2'] } },
+    ]);
+  });
+
+  it('removes type token when enum value does not exist', () => {
+    const tokens = [
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: 'NON_EXISTENT_TYPE' } },
+    ];
+    expect(convertOldTypeTokenEnumToGid(tokens, workItemTypesConfiguration)).toEqual([
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+    ]);
+  });
+
+  it('makes no changes when type token is already number, and does not show alert', () => {
+    const tokens = [
+      { type: TOKEN_TYPE_AUTHOR, value: { operator: '=', data: 'root' } },
+      { type: TOKEN_TYPE_TYPE, value: { operator: '=', data: '8' } },
+    ];
+    expect(convertOldTypeTokenEnumToGid(tokens, workItemTypesConfiguration)).toEqual(tokens);
+    expect(createAlert).not.toHaveBeenCalled();
+  });
+});
 
 describe('getInitialPageParams', () => {
   it('returns page params with a default page size when no arguments are given', () => {

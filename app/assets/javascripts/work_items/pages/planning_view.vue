@@ -93,6 +93,7 @@ import ListView from 'ee_else_ce/work_items/list/list_view.vue';
 
 import {
   convertLegacyTypeFormat,
+  convertOldTypeTokenEnumToGid,
   convertNumberToGid,
   getSortOptions,
   getInitialPageParams,
@@ -1160,14 +1161,21 @@ export default {
         }
       },
     },
-    workItemTypesConfiguration: {
-      handler(newValue) {
-        // When workItemTypesConfiguration becomes available and isSortKeyInitialized is still false,
-        // set it to true to prevent the loading indicator from showing indefinitely
-        if (newValue && newValue.length > 0 && !this.isSortKeyInitialized && this.isLoggedIn) {
-          this.isSortKeyInitialized = true;
-        }
-      },
+    workItemTypesConfiguration(workItemTypesConfiguration) {
+      // When workItemTypesConfiguration becomes available and isSortKeyInitialized is still false,
+      // set it to true to prevent the loading indicator from showing indefinitely
+      if (workItemTypesConfiguration?.length > 0 && !this.isSortKeyInitialized && this.isLoggedIn) {
+        this.isSortKeyInitialized = true;
+      }
+
+      // TODO remove when we no longer need to convert old type[]=ISSUE params to new type[]=1 params
+      if (
+        this.glFeatures.workItemConfigurableTypes &&
+        this.filterTokens.some((token) => token.type === TOKEN_TYPE_TYPE)
+      ) {
+        const tokens = convertOldTypeTokenEnumToGid(this.filterTokens, workItemTypesConfiguration);
+        this.handleFilter(tokens);
+      }
     },
   },
 

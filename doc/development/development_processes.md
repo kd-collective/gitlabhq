@@ -11,6 +11,8 @@ Consult these topics for information on development processes for contributing t
 
 Must-reads:
 
+- [Cells](cells/_index.md) for understanding the Cells architecture and how to
+  write Cells-compatible code
 - [Guide on adapting existing and introducing new components](architecture.md#adapting-existing-and-introducing-new-components)
 - [Code review guidelines](code_review.md) for reviewing code and having code
   reviewed

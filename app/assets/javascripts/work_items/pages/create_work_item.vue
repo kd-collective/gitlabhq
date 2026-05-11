@@ -108,7 +108,7 @@ export default {
         const { cache } = this.$apollo.provider.defaultClient;
         const cachedData = cache.readQuery({
           query: namespaceWorkItemTypesQuery,
-          variables: { fullPath: this.rootPageFullPath, onlyAvailable: true },
+          variables: { fullPath: this.rootPageFullPath },
         });
 
         if (cachedData?.namespace?.id) {
