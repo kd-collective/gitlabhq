@@ -387,11 +387,13 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
       end
 
       context "with a current project" do
+        let(:project) { create(:project, :repository) }
+
         before do
-          @project = create(:project, :repository)
+          @project = project
 
           allow(self).to receive(:can?).and_return(true)
-          allow(self).to receive(:can?).with(user, :read_feature_flag, @project).and_return(false)
+          allow(self).to receive(:can?).with(user, :read_feature_flag, project).and_return(false)
         end
 
         it 'returns repository related labels based on users abilities', :aggregate_failures do
@@ -400,12 +402,12 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
           expect(search_autocomplete_opts("Network").size).to eq(1)
           expect(search_autocomplete_opts("Graph").size).to eq(1)
 
-          allow(self).to receive(:can?).with(user, :read_code, @project).and_return(false)
+          allow(self).to receive(:can?).with(user, :read_code, project).and_return(false)
 
           expect(search_autocomplete_opts("Files").size).to eq(0)
           expect(search_autocomplete_opts("Commits").size).to eq(0)
 
-          allow(self).to receive(:can?).with(user, :read_repository_graphs, @project).and_return(false)
+          allow(self).to receive(:can?).with(user, :read_repository_graphs, project).and_return(false)
 
           expect(search_autocomplete_opts("Network").size).to eq(0)
           expect(search_autocomplete_opts("Graph").size).to eq(0)
@@ -413,7 +415,7 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
         context 'when user does not have access to project' do
           it 'does not include issues by iid' do
-            issue = build_stubbed(:issue, project: @project)
+            issue = build_stubbed(:issue, project: project)
             results = search_autocomplete_opts("\##{issue.iid}")
 
             expect(results.count).to eq(0)
@@ -421,13 +423,15 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
         end
 
         context 'when user has project access' do
+          let(:project) { create(:project, :repository, namespace: user.namespace) }
+
           before do
-            @project = create(:project, :repository, namespace: user.namespace)
-            allow(self).to receive(:can?).with(user, :read_feature_flag, @project).and_return(true)
+            @project = project
+            allow(self).to receive(:can?).with(user, :read_feature_flag, project).and_return(true)
           end
 
           it 'includes issues by iid', :aggregate_failures do
-            issue = create(:issue, project: @project, title: 'test title')
+            issue = create(:issue, project: project, title: 'test title')
             results = search_autocomplete_opts("\##{issue.iid}")
 
             expect(results.count).to eq(1)
@@ -739,8 +743,8 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
   end
 
   describe 'search_entries_empty_message' do
-    let!(:group) { build(:group) }
-    let!(:project) { build(:project, group: group) }
+    let(:group) { build_stubbed(:group) }
+    let(:project) { build_stubbed(:project, group: group) }
 
     context 'for global search' do
       let(:message) { helper.search_entries_empty_message('projects', '<h1>foo</h1>', nil, nil) }
@@ -772,8 +776,10 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
   describe 'search_filter_input_options' do
     context 'for project' do
+      let(:project) { build_stubbed(:project) }
+
       before do
-        @project = build_stubbed(:project)
+        @project = project
       end
 
       it 'includes id with type' do
@@ -781,13 +787,13 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
       end
 
       it 'includes project-id' do
-        expect(search_filter_input_options('')[:data]['project-id']).to eq(@project.id)
+        expect(search_filter_input_options('')[:data]['project-id']).to eq(project.id)
       end
 
       it 'includes project endpoints' do
-        expect(search_filter_input_options('')[:data]['labels-endpoint']).to eq(project_labels_path(@project))
-        expect(search_filter_input_options('')[:data]['milestones-endpoint']).to eq(project_milestones_path(@project))
-        expect(search_filter_input_options('')[:data]['releases-endpoint']).to eq(project_releases_path(@project))
+        expect(search_filter_input_options('')[:data]['labels-endpoint']).to eq(project_labels_path(project))
+        expect(search_filter_input_options('')[:data]['milestones-endpoint']).to eq(project_milestones_path(project))
+        expect(search_filter_input_options('')[:data]['releases-endpoint']).to eq(project_releases_path(project))
       end
 
       it 'includes autocomplete=off flag' do
@@ -796,8 +802,10 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
     end
 
     context 'for group' do
+      let(:group) { build_stubbed(:group, name: 'group') }
+
       before do
-        @group = build_stubbed(:group, name: 'group')
+        @group = group
       end
 
       it 'does not includes project-id' do
@@ -805,8 +813,8 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
       end
 
       it 'includes group endpoints' do
-        expect(search_filter_input_options('')[:data]['labels-endpoint']).to eq(group_labels_path(@group))
-        expect(search_filter_input_options('')[:data]['milestones-endpoint']).to eq(group_milestones_path(@group))
+        expect(search_filter_input_options('')[:data]['labels-endpoint']).to eq(group_labels_path(group))
+        expect(search_filter_input_options('')[:data]['milestones-endpoint']).to eq(group_milestones_path(group))
       end
     end
 
@@ -825,18 +833,26 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
   describe 'search_history_storage_prefix' do
     context 'for project' do
-      it 'returns project full_path' do
-        @project = build_stubbed(:project)
+      let(:project) { build_stubbed(:project) }
 
-        expect(search_history_storage_prefix).to eq(@project.full_path)
+      before do
+        @project = project
+      end
+
+      it 'returns project full_path' do
+        expect(search_history_storage_prefix).to eq(project.full_path)
       end
     end
 
     context 'for group' do
-      it 'returns group full_path' do
-        @group = build_stubbed(:group, :nested, name: 'group-name')
+      let(:group) { build_stubbed(:group, :nested, name: 'group-name') }
 
-        expect(search_history_storage_prefix).to eq(@group.full_path)
+      before do
+        @group = group
+      end
+
+      it 'returns group full_path' do
+        expect(search_history_storage_prefix).to eq(group.full_path)
       end
     end
 
@@ -848,13 +864,17 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
   end
 
   describe 'search_md_sanitize' do
-    it 'does not do extra sql queries for partial markdown rendering' do
-      @project = create(:project)
+    let(:project) { create(:project) }
 
+    before do
+      @project = project
+    end
+
+    it 'does not do extra sql queries for partial markdown rendering' do
       description = FFaker::Lorem.characters(210)
       control = ActiveRecord::QueryRecorder.new(skip_cached: false) { search_md_sanitize(description) }
 
-      issues = create_list(:issue, 4, project: @project)
+      issues = create_list(:issue, 4, project: project)
 
       description_with_issues = "#{description} #{issues.map { |issue| "##{issue.iid}" }.join(' ')}"
       expect { search_md_sanitize(description_with_issues) }.not_to exceed_all_query_limit(control)
@@ -889,7 +909,7 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
     let(:highlight_and_truncate) { highlight_and_truncate_issuable(issue, 'test', {}) }
 
     before do
-      allow(self).to receive(:current_user).and_return(build(:user))
+      allow(self).to receive(:current_user).and_return(build_stubbed(:user))
     end
 
     it 'calls simple_search_highlight_and_truncate' do
@@ -943,16 +963,16 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
   describe '#issuable_state_to_badge_class' do
     context 'with merge request' do
       it 'returns correct badge based on status' do
-        expect(issuable_state_to_badge_class(build(:merge_request, :merged))).to eq(:info)
-        expect(issuable_state_to_badge_class(build(:merge_request, :closed))).to eq(:danger)
-        expect(issuable_state_to_badge_class(build(:merge_request, :opened))).to eq(:success)
+        expect(issuable_state_to_badge_class(build_stubbed(:merge_request, :merged))).to eq(:info)
+        expect(issuable_state_to_badge_class(build_stubbed(:merge_request, :closed))).to eq(:danger)
+        expect(issuable_state_to_badge_class(build_stubbed(:merge_request, :opened))).to eq(:success)
       end
     end
 
     context 'with an issue' do
       it 'returns correct badge based on status' do
-        expect(issuable_state_to_badge_class(build(:issue, :closed))).to eq(:info)
-        expect(issuable_state_to_badge_class(build(:issue, :opened))).to eq(:success)
+        expect(issuable_state_to_badge_class(build_stubbed(:issue, :closed))).to eq(:info)
+        expect(issuable_state_to_badge_class(build_stubbed(:issue, :opened))).to eq(:success)
       end
     end
   end
@@ -960,16 +980,16 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
   describe '#issuable_state_text' do
     context 'with merge request' do
       it 'returns correct badge based on status' do
-        expect(issuable_state_text(build(:merge_request, :merged))).to eq(_('Merged'))
-        expect(issuable_state_text(build(:merge_request, :closed))).to eq(_('Closed'))
-        expect(issuable_state_text(build(:merge_request, :opened))).to eq(_('Open'))
+        expect(issuable_state_text(build_stubbed(:merge_request, :merged))).to eq(_('Merged'))
+        expect(issuable_state_text(build_stubbed(:merge_request, :closed))).to eq(_('Closed'))
+        expect(issuable_state_text(build_stubbed(:merge_request, :opened))).to eq(_('Open'))
       end
     end
 
     context 'with an issue' do
       it 'returns correct badge based on status' do
-        expect(issuable_state_text(build(:issue, :closed))).to eq(_('Closed'))
-        expect(issuable_state_text(build(:issue, :opened))).to eq(_('Open'))
+        expect(issuable_state_text(build_stubbed(:issue, :closed))).to eq(_('Closed'))
+        expect(issuable_state_text(build_stubbed(:issue, :opened))).to eq(_('Open'))
       end
     end
   end
@@ -1191,7 +1211,7 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
       with_them do
         it 'renders data correctly' do
-          allow(self).to receive(:current_user).and_return(build(:user))
+          allow(self).to receive(:current_user).and_return(build_stubbed(:user))
           allow_next_instance_of(Search::Navigation) do |search_nav|
             allow(search_nav).to receive(:tabs).and_return(data)
           end
@@ -1203,7 +1223,7 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
     context 'when all options enabled' do
       before do
-        allow(self).to receive(:current_user).and_return(build(:user))
+        allow(self).to receive(:current_user).and_return(build_stubbed(:user))
         allow(search_service).to receive(:show_snippets?).and_return(true)
         allow_next_instance_of(Search::Navigation) do |search_nav|
           allow(search_nav).to receive_messages(tab_enabled_for_project?: true)
@@ -1232,13 +1252,14 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
       with_them do
         it 'converts correctly' do
+          search_results = double
           @timeout = false
           @scope = active_scope
-          @search_results = double
+          @search_results = search_results
           dummy_count = 1000
           allow(self).to receive(:search_path).with(any_args).and_return("link test")
 
-          allow(@search_results).to receive(:formatted_count).with(scope).and_return(dummy_count)
+          allow(search_results).to receive(:formatted_count).with(scope).and_return(dummy_count)
           allow(self).to receive(:search_count_path).with(any_args).and_return("test count link")
 
           current_scope = scope == active_scope
@@ -1283,31 +1304,41 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
   end
 
   describe '#formatted_count' do
-    context 'when @timeout is set' do
-      it 'returns "0"' do
-        @timeout = true
-        @scope = 'projects'
+    let(:scope) { 'projects' }
 
-        expect(formatted_count(@scope)).to eq("0")
+    context 'when @timeout is set' do
+      before do
+        @timeout = true
+        @scope = scope
+      end
+
+      it 'returns "0"' do
+        expect(formatted_count(scope)).to eq("0")
       end
     end
 
     context 'when @search_results is defined' do
+      let(:search_results) { double }
+
+      before do
+        @scope = scope
+        @search_results = search_results
+      end
+
       it 'delegates formatted_count to @search_results' do
-        @scope = 'projects'
-        @search_results = double
+        expect(search_results).to receive(:formatted_count).with(scope)
 
-        allow(@search_results).to receive(:formatted_count).with(@scope)
-        expect(@search_results).to receive(:formatted_count).with(@scope)
-
-        formatted_count(@scope)
+        formatted_count(scope)
       end
     end
 
     context 'when @search_results is not defined' do
+      before do
+        @scope = scope
+      end
+
       it 'returns "0"' do
-        @scope = 'projects'
-        expect(formatted_count(@scope)).to eq("0")
+        expect(formatted_count(scope)).to eq("0")
       end
     end
   end

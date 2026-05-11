@@ -3277,7 +3277,7 @@ This feature is in [beta](../../policy/development_stages_support.md).
 
 Use `identity` to authenticate with third party services using identity federation.
 
-**Keyword type**: Job keyword. You can use it only as part of a job or in the [`default:` section](#default).
+**Keyword type**: Job keyword. You can use it only as part of a job.
 
 **Supported values**: An identifier. Supported providers:
 

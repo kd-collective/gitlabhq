@@ -100,7 +100,7 @@ registry.gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/mo
    ```shell
    docker run -d -p 5052:5052 -p 50052:50052 \
     -e AIGW_GITLAB_URL=<your_gitlab_instance> \
-    -e AIGW_GITLAB_API_URL=https://<your_gitlab_domain>/api/v4/ \
+    -e AIGW_GITLAB_API_URL=<your_gitlab_instance>/api/v4/ \
     -e AIGW_SELF_SIGNED_JWT__SIGNING_KEY="$(cat aigw_signing.key)" \
     -e AIGW_SELF_SIGNED_JWT__VALIDATION_KEY="$(cat aigw_validation.key)" \
     -e DUO_WORKFLOW_AUTH__ENABLED="true" \
@@ -112,7 +112,6 @@ registry.gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/mo
    Replace the following placeholders:
 
    - `<your_gitlab_instance>`: Your GitLab instance URL (for example, `https://gitlab.example.com`).
-   - `<your_gitlab_domain>`: Your domain (for example, `gitlab.example.com`).
    - `<ai-gateway-tag>`: Version matching your GitLab instance. If your GitLab version is `vX.Y.0`, use `self-hosted-vX.Y.0-ee`.
 
    From the container host, accessing `http://localhost:5052` should return `{"error":"No authorization header presented"}`.
@@ -121,7 +120,7 @@ registry.gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/mo
    Port `5052` handles HTTP communication for the AI Gateway. Port `50052` handles gRPC
    communication for the GitLab Duo Agent Platform Service.
 1. For GitLab instances that use an offline license, in the AIGW container,
-   set `-e DUO_WORKFLOW_AUTH__OIDC_CUSTOMER_PORTAL_URL=` (empty string).
+   set `-e DUO_WORKFLOW_AUTH__OIDC_CUSTOMER_PORTAL_URL=<your_gitlab_instance>` and `-e AIGW_CUSTOMER_PORTAL_URL=<your_gitlab_instance>`.
    This configuration:
    - Forces the GitLab Duo Workflow Service to authenticate
      exclusively against the local GitLab instance.

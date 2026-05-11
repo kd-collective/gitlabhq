@@ -1407,7 +1407,7 @@ The time required to perform garbage collection is proportional to the container
 Consider the following example, where you first build the image:
 
 ```shell
-# This builds a image with content of sha256:<111111...>
+# This builds an image with content of sha256:<111111...>
 docker build -t <my.registry.com>/<my.group>/<my.project>:latest .
 docker push <my.registry.com>/<my.group>/<my.project>:latest
 ```

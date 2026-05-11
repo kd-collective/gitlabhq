@@ -88,8 +88,8 @@ or GitLab Duo Pro when GitLab hosts and connects to those models through the clo
 
 The following billing metadata is sent to GitLab for usage billing in a JSON object:
 
-- Anonymized instance ID
-- Anonymized user ID
+- Instance ID
+- User ID
 - Call count
 - Timestamp
 

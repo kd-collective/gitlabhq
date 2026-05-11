@@ -30,9 +30,9 @@ conventions on Go files.
 GitLab Duo appends your custom review instructions to its standard review criteria,
 instead of replacing them.
 
-Code Review Flow supports custom review instructions.
+Code Review Flow supports custom review instructions set for a specific project or for all projects within a group.
 
-## Configure custom review instructions
+## Configure custom review instructions for a project
 
 To configure custom merge request review instructions:
 
@@ -147,6 +147,37 @@ To configure custom merge request review instructions:
 1. Optional:
    - Review the feedback and refine your instructions as needed.
    - Test the patterns to ensure they match the intended files.
+
+## Configure custom review instructions for a group
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/230090) in GitLab 19.0 [with a flag](../../../administration/feature_flags/_index.md) named `duo_code_review_group_level_instructions`. Disabled by default.
+
+{{< /history >}}
+
+> [!flag]
+> The availability of this feature is controlled by a feature flag.
+> For more information, see the history.
+> This feature is available for testing, but not ready for production use.
+
+You can define custom review instructions for a group by specifying a project to use as a template.
+The template project must contain a `.gitlab/duo/mr-review-instructions.yaml` file with review
+instructions that apply to all projects in the group and its subgroups.
+
+When GitLab Duo performs a code review, it combines instructions from the top-level group with instructions defined in the individual project.
+
+Prerequisites:
+
+- The Owner role for the top-level group.
+- A project in the group contains the custom review instructions that you want to use as a template.
+
+To configure custom review instructions for a group:
+
+1. In the top bar, select **Search or go to** and find your top-level group.
+1. In the left sidebar, select **Settings** > **GitLab Duo**.
+1. Under **Select a project to store shared custom instructions for Duo Code Review**, select a project within your group.
+1. Select **Save changes**.
 
 ## Best practices
 

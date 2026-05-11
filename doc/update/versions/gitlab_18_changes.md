@@ -56,7 +56,7 @@ Before upgrading to GitLab 18.10, review the following:
 - [18.10.0 - 18.10.3] - [SLES 12.5 RPM package installation failure](#sles-125-rpm-package-installation-failure) (Linux package)
 - [18.10.0 - 18.10.5] - [Geo blob sync failures with `log_error` NoMethodError on file storage](#geo-blob-sync-failures-with-log_error-nomethoderror-on-file-storage) (Geo)
 - [18.10.0 - 18.10.3] - [Geo site URL blocked when using outbound filtering](#geo-site-url-blocked-when-using-outbound-filtering) (Geo)
-- [18.10.0 - 18.10.3] - [Geo blob download failures](#geo-blob-download-failures) (Linux package, Geo)
+- [18.10.0 - 18.10.4] - [Geo blob download failures](#geo-blob-download-failures) (Geo)
 - [18.10.0 - 18.10.3] - [Geo secondary throttled jobs not draining](#geo-secondary-throttled-jobs-not-draining) (Geo)
 - [18.10.0 - 18.10.3] - [Sidekiq concurrency limiter causes job backlogs on Helm chart and Operator deployments](#sidekiq-concurrency-limiter-causes-job-backlogs-on-helm-chart-and-operator-deployments) (Helm chart, Operator)
 
@@ -343,29 +343,38 @@ The current 8-hour (28,800 seconds) hardcoded Geo blob download timeout causes s
 
 {{< /details >}}
 
-- Affects: Linux package, Geo
+- Affects: Geo
 - Affected versions:
 
   | Release | Affected patch releases | Fixed patch level |
   | ------- | ----------------------- | ----------------- |
-  | 18.10   |  18.10.0 - 18.10.3      | 18.10.4           |
+  | 18.10   |  18.10.0 - 18.10.4      | 18.10.5           |
 
-Linux package installations may experience Geo blob sync failures, including
-failed uploads, LFS objects, and job artifacts. Affected secondaries show blobs stuck in
-"started" or "pending" state, and Sidekiq logs may contain segfaults,
-`HPE_USER Span callback error in on_header_field` errors, or unexpected
-HTTP status codes (for example, `status_code: 32` or `status_code: 34`).
+All Geo blob types (uploads, LFS objects, job artifacts, and others) may
+persistently fail to sync on secondaries. Unlike transient network errors,
+these failures affect all blob records and do not recover on retry.
+Affected secondaries show blobs in "failed" state, and Sidekiq logs may
+contain segfaults, `HPE_USER Span callback error in on_header_field`
+errors, or unexpected HTTP status codes (for example, `status_code: 32`
+or `status_code: 34`).
 
-The issue is caused by an interaction between rugged 1.9.0 (upgraded in GitLab 18.10) and the
-Linux package-bundled `libffi` 3.2.1, which corrupts FFI callbacks used by the `llhttp-ffi`
-HTTP parser. While initially observed on Ubuntu 24.04 with kernel 6.8 or later, the issue
-has also been confirmed on other distributions and kernel versions.
+The root cause is a symbol collision between `rugged` 1.9.0 (upgraded in
+GitLab 18.10) and the `llhttp-ffi` gem. The statically linked `llhttp`
+symbols in `rugged.so` override `llhttp-ffi` callbacks, corrupting HTTP
+response parsing. For more information, see
+[issue 598564](https://gitlab.com/gitlab-org/gitlab/-/issues/598564).
 
-In GitLab 18.11.0 and GitLab 18.10.4, you can use a feature flag to work around this issue:
+In GitLab 18.10.5, `rugged` is downgraded to 1.7.2, which does not
+contain the conflicting symbols. No action is required after upgrading.
 
-1. Enable the `geo_blob_download_with_gitlab_http` feature
-   flag, which switches blob downloads to use `Gitlab::HTTP` (`Net::HTTP`) instead of
-   the FFI-dependent `http` gem:
+#### Feature flag workaround for GitLab 18.10.4
+
+If you are on GitLab 18.10.4 and cannot upgrade to GitLab 18.10.5, enable
+the `geo_blob_download_with_gitlab_http` feature flag. This flag switches
+blob downloads to use `Gitlab::HTTP` (`Net::HTTP`) instead of the
+FFI-dependent `http` gem:
+
+1. Enable the feature flag:
 
    ```shell
    sudo gitlab-rails console
@@ -378,6 +387,16 @@ In GitLab 18.11.0 and GitLab 18.10.4, you can use a feature flag to work around 
    ```shell
    sudo gitlab-ctl restart sidekiq
    ```
+
+> [!note]
+> The feature flag workaround has known limitations:
+>
+> - Large blob transfers that exceed 60 seconds may time out
+>   ([issue 598020](https://gitlab.com/gitlab-org/gitlab/-/issues/598020)).
+> - Container registry replication is not covered by this flag.
+> - Environments with outbound request filtering (`deny_all_requests_except_allowed`)
+>   may require additional configuration
+>   ([issue 598514](https://gitlab.com/gitlab-org/gitlab/-/issues/598514)).
 
 For more information, see [issue 595139](https://gitlab.com/gitlab-org/gitlab/-/issues/595139).
 

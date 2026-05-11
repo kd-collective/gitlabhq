@@ -34,7 +34,7 @@ card "Kubernetes via Helm Charts" as kubernetes {
 
   collections "**Gitaly Pods**\n//StatefulSets//" as gitaly #FF8C00
 
-  collections "**Supporting Pods**\n//NGINX, Toolbox//" as support #e76a9b
+  collections "**Supporting Pods**\n//Gateway API / Ingress, Toolbox//" as support #e76a9b
 }
 
 card "External Services" as external {
@@ -67,7 +67,7 @@ sidekiq -[#ff8dd1,norank]--> database
 - **Webservice** - Handles web requests
 - **Sidekiq** - Processes background jobs
 - **Gitaly** - Manages Git repositories using StatefulSets with persistent volumes
-- **Supporting services** - NGINX Ingress, Toolbox, and monitoring components
+- **Supporting services** - Gateway API / Ingress, Toolbox, and monitoring components
 
 > [!note]
 > When deploying Gitaly on Kubernetes, Gitaly only supports sharded (non-cluster) configurations. You can upgrade Gitaly without downtime through
