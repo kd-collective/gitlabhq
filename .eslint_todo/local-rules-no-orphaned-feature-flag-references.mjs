@@ -4,6 +4,7 @@
 export default {
   files: [
     'app/assets/javascripts/boards/components/board_app.vue',
+    'app/assets/javascripts/boards/components/board_filtered_search.vue',
     'app/assets/javascripts/issues/dashboard/components/issues_dashboard_app.vue',
     'app/assets/javascripts/pages/projects/shared/permissions/components/gitlab_duo_settings.vue',
     'app/assets/javascripts/search/sidebar/components/scope_sidebar_navigation.vue',

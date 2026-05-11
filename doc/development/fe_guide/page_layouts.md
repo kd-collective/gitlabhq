@@ -12,9 +12,9 @@ Pages are divided into three panels:
 - The **dynamic panel** (optional) is for displaying detailed information in
   the context of the static panel.
   Individual features mount Vue applications into it to display contextual content.
-- The **AI panel** (collapsible): for intelligent features
+- The **AI panel** (collapsible) is for intelligent features.
 
-See the [Design System documentation](https://design.gitlab.com/product-foundations/layout)
+See the [Design System documentation](https://design.gitlab.com/product-foundations/layout/#panel-based-layout)
 for more information about page structure.
 
 Within the static panel, the index and detail layout components provide consistent
