@@ -14,6 +14,7 @@ module Gitlab
       include Migrations::TriggerHelpers
       include Migrations::ForeignKeyHelpers
       include Migrations::IndexHelpers
+      include Migrations::DynamicHelpers
       include DynamicModelHelpers
       include FeatureFlagMigratorHelpers
       include RenameTableHelpers

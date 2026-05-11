@@ -68,16 +68,6 @@ RSpec.describe MergeRequests::ReloadDiffsService, :use_clean_rails_memory_store_
       it 'does not create a new diff' do
         expect { subject.execute }.not_to change { merge_request.merge_request_diffs.count }
       end
-
-      context 'when "merge_requests_diff_commits_limit" feature flag is disabled' do
-        before do
-          stub_feature_flags(merge_requests_diff_commits_limit: false)
-        end
-
-        it 'creates new merge request diff' do
-          expect { subject.execute }.to change { merge_request.merge_request_diffs.count }.by(1)
-        end
-      end
     end
 
     context 'cache clearing' do

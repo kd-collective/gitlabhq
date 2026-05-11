@@ -4,7 +4,10 @@ import { InternalEvents } from '~/tracking';
 import { isValidDate, localeDateFormat, newDate } from '~/lib/utils/datetime_utility';
 import { createAlert } from '~/alert';
 import { s__ } from '~/locale';
-import { FILTERED_SEARCH_TERM } from '~/vue_shared/components/filtered_search_bar/constants';
+import {
+  FILTERED_SEARCH_TERM,
+  OPERATOR_IS,
+} from '~/vue_shared/components/filtered_search_bar/constants';
 import {
   filterToQueryObject,
   processFilters,
@@ -102,20 +105,7 @@ export default {
         this.committedBeforeFilter !== committedBefore ||
         this.pageSize !== pageSize
       ) {
-        this.authorFilter = author;
-        this.messageFilter = message;
-        this.committedAfterFilter = committedAfter;
-        this.committedBeforeFilter = committedBefore;
-        this.pageSize = pageSize;
-        // Map URL param names to token type names for the filtered search bar
-        const tokenFilters = {
-          ...filters,
-          'committed-after': filters.committed_after,
-          'committed-before': filters.committed_before,
-        };
-        delete tokenFilters.committed_after;
-        delete tokenFilters.committed_before;
-        this.initialFilterTokens = prepareTokens(tokenFilters);
+        this.applyFiltersFromRoute(filters, newRoute.query);
         this.resetPagination();
       }
     },
@@ -197,20 +187,7 @@ export default {
     const filters = urlQueryToFilter(this.$route.query, {
       filterNamesAllowList: ['author', 'message', 'committed_after', 'committed_before'],
     });
-    this.authorFilter = filters.author?.value || null;
-    this.messageFilter = filters.message?.value || null;
-    this.committedAfterFilter = filters.committed_after?.value || null;
-    this.committedBeforeFilter = filters.committed_before?.value || null;
-    this.pageSize = parseInt(this.$route.query.page_size, 10) || DEFAULT_PAGE_SIZE;
-    // Map URL param names to token type names for the filtered search bar
-    const tokenFilters = {
-      ...filters,
-      'committed-after': filters.committed_after,
-      'committed-before': filters.committed_before,
-    };
-    delete tokenFilters.committed_after;
-    delete tokenFilters.committed_before;
-    this.initialFilterTokens = prepareTokens(tokenFilters);
+    this.applyFiltersFromRoute(filters, this.$route.query);
   },
   mounted() {
     performanceMarkAndMeasure({
@@ -230,6 +207,22 @@ export default {
     handleRefChange(newRef) {
       this.currentRef = newRef;
       this.resetPagination();
+    },
+    applyFiltersFromRoute(filters, query) {
+      this.authorFilter = filters.author?.value || null;
+      this.messageFilter = filters.message?.value || null;
+      this.committedAfterFilter = filters.committed_after?.value || null;
+      this.committedBeforeFilter = filters.committed_before?.value || null;
+      this.pageSize = parseInt(query.page_size, 10) || DEFAULT_PAGE_SIZE;
+      // Map URL param names to token type names for the filtered search bar
+      const tokenFilters = {
+        ...filters,
+        'committed-after': filters.committed_after,
+        'committed-before': filters.committed_before,
+      };
+      delete tokenFilters.committed_after;
+      delete tokenFilters.committed_before;
+      this.initialFilterTokens = prepareTokens(tokenFilters);
     },
     handleFilter(filters) {
       const processed = processFilters(filters);
@@ -267,12 +260,13 @@ export default {
     },
     updateUrl() {
       const filterObj = {};
-      if (this.authorFilter) filterObj.author = { value: this.authorFilter, operator: '=' };
-      if (this.messageFilter) filterObj.message = { value: this.messageFilter, operator: '=' };
+      if (this.authorFilter) filterObj.author = { value: this.authorFilter, operator: OPERATOR_IS };
+      if (this.messageFilter)
+        filterObj.message = { value: this.messageFilter, operator: OPERATOR_IS };
       if (this.committedAfterFilter)
-        filterObj.committed_after = { value: this.committedAfterFilter, operator: '=' };
+        filterObj.committed_after = { value: this.committedAfterFilter, operator: OPERATOR_IS };
       if (this.committedBeforeFilter)
-        filterObj.committed_before = { value: this.committedBeforeFilter, operator: '=' };
+        filterObj.committed_before = { value: this.committedBeforeFilter, operator: OPERATOR_IS };
       const query = {
         ...filterToQueryObject(filterObj, { shouldExcludeEmpty: true }),
         ...(this.pageSize !== DEFAULT_PAGE_SIZE ? { page_size: String(this.pageSize) } : {}),

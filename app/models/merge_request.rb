@@ -2832,8 +2832,6 @@ class MergeRequest < ApplicationRecord
   end
 
   def reached_diff_commits_limit?
-    return false if Feature.disabled?(:merge_requests_diff_commits_limit, target_project)
-
     total_commits_count = MergeRequestDiff
       .from(merge_request_diffs.limit(1000), :limited_diffs)
       .pick('SUM(commits_count)')

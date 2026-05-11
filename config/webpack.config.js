@@ -474,6 +474,24 @@ module.exports = {
         },
       },
       {
+        test: /swagger-client\/.*\.m?js$/,
+        include: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          plugins: ['@babel/plugin-transform-class-properties'],
+          ...defaultJsOptions,
+        },
+      },
+      {
+        test: /@swaggerexpert\/json-pointer\/.*\.[mc]?js$/,
+        include: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          plugins: ['@babel/plugin-transform-class-properties'],
+          ...defaultJsOptions,
+        },
+      },
+      {
         test: /\.(js|cjs)$/,
         exclude: shouldExcludeFromCompiling,
         use: [
@@ -800,7 +818,11 @@ module.exports = {
      Webpack 4 doesn't have support for it, while vite does.
      See also: https://github.com/webpack/webpack/issues/9509
      */
-    ...['@swagger-api/apidom-reference'].map((packageName) => {
+    ...[
+      '@swagger-api/apidom-reference',
+      '@swagger-api/apidom-json-pointer',
+      '@swaggerexpert/json-pointer',
+    ].map((packageName) => {
       const packageJSON = fs.readFileSync(
         path.join(ROOT_PATH, 'node_modules', packageName, 'package.json'),
         'utf-8',
@@ -816,6 +838,14 @@ module.exports = {
               packageName,
               exports[relative]?.browser?.import || exports[relative]?.import,
             );
+            console.log(`[exports-replacer]: ${request} => ${newRequest}`);
+            // eslint-disable-next-line no-param-reassign
+            resource.request = newRequest;
+          } else if (
+            packageName === '@swaggerexpert/json-pointer' &&
+            relative === './evaluate/realms/apidom'
+          ) {
+            const newRequest = path.join(packageName, 'es/evaluate/realms/apidom/index.mjs');
             console.log(`[exports-replacer]: ${request} => ${newRequest}`);
             // eslint-disable-next-line no-param-reassign
             resource.request = newRequest;

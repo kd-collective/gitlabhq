@@ -106,18 +106,6 @@ RSpec.describe Projects::MergeRequestsController, feature_category: :source_code
         expect(flash[:alert]).to include("diff commits")
       end
 
-      context 'when "merge_requests_diff_commits_limit" feature flag is disabled' do
-        before do
-          stub_feature_flags(merge_requests_diff_commits_limit: false)
-        end
-
-        it 'does not display a warning' do
-          get project_merge_request_path(project, merge_request)
-
-          expect(flash[:alert]).to be_blank
-        end
-      end
-
       context 'when diff version limit is also reached' do
         before do
           stub_application_setting(diff_max_versions: 1)

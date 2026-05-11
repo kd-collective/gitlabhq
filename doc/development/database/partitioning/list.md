@@ -378,4 +378,31 @@ Also update the following:
 The first partition lives in the `public` schema. Move it into the
 `gitlab_partitions_dynamic` schema so all partitions are managed consistently.
 
-For an example, see [merge request 191330](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/191330).
+For example, in a Rails post-deployment migration:
+
+```ruby
+class MoveCiBuildNeedsToDynamicSchema < Gitlab::Database::Migration[2.3]
+  include Gitlab::Database::MigrationHelpers::WraparoundAutovacuum
+
+  milestone '19.0'
+  skip_require_disable_ddl_transactions!
+
+  TABLE_NAME = :ci_build_needs
+  PARENT_TABLE_NAME = :p_ci_build_needs
+  PARTITION_VALUES = (100..111)
+
+  def up
+    return unless can_execute_on?(TABLE_NAME)
+
+    move_table_to_dynamic_schema(TABLE_NAME)
+  end
+
+  def down
+    return unless can_execute_on?(TABLE_NAME)
+
+    move_table_from_dynamic_schema(
+      TABLE_NAME, partition_values: PARTITION_VALUES, parent_table_name: PARENT_TABLE_NAME
+    )
+  end
+end
+```

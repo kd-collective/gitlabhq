@@ -97,11 +97,17 @@ instructions:
             - Group fixed-width columns together in descending size order (8-byte types first, then 4-byte, etc.)
             - Place variable-width columns (text, varchar, arrays, json, jsonb) at the end
           - Ask: "Have you ordered the columns to minimize space usage by grouping fixed-width columns together and placing variable-width columns at the end?"
+          - Ask: "What is the expected data retention policy for this table? (e.g., time_decay, user_lifecycle, indefinite_with_justification, transient)"
+          - Ask: "What is the growth driver for this table? (e.g., per-user, per-project, per-pipeline, per-event)"
           - Remind: "Proper column ordering can significantly reduce storage requirements at scale. See: https://docs.gitlab.com/development/database/ordering_table_columns/"
       14. For migrations that drop or replace an index:
           - Remind: "Before removing an index, verify queries can use other existing indexes efficiently. Confirm the index is unused on GitLab.com and Self-Managed."
           - Suggest: "For investigating index usage you can start by gathering all the metadata available for the index. For GitLab.com, you can view index usage data in [Grafana](https://dashboards.gitlab.net/goto/TsYVxcBHR?orgId=1)"
           - Ask: "Are you following the guidelines for dropping unused indexes? See: https://docs.gitlab.com/development/database/adding_database_indexes/#dropping-unused-indexes"
+      15. For migrations that add indexes:
+          - Ask: "Have you reviewed existing indexes on this table for redundancy or consolidation opportunities before adding a new one?"
+          - If the index is temporary (e.g., to support a backfill or data migration), ask: "Do you have a plan for removing this index after the backfill or when the migration is complete? Include a follow-up issue or post-migration to drop it."
+          - Remind: "Redundant and orphaned indexes increase storage overhead, degrade write performance, and contribute to LockManager LWLock contention: a known bottleneck on high-traffic tables where PostgreSQL's fast-path lock slots (limited to 16 per backend) are exhausted, forcing expensive shared-memory lock table lookups. See: https://gitlab.com/groups/gitlab-org/-/epics/11543 and https://docs.gitlab.com/development/database/adding_database_indexes/#some-tables-should-not-have-any-more-indexes"
 
   - name: Test Coverage
     fileFilters:
