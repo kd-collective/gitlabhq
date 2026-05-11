@@ -512,44 +512,11 @@ RSpec.describe Gitlab::Ci::Pipeline::Chain::Create, feature_category: :pipeline_
     end
 
     context 'with more than 500 builds' do
-      let(:pipeline) { build(:ci_empty_pipeline, project: project, ref: 'master', user: user) }
-      let(:stage) { build(:ci_stage, pipeline: pipeline, project: project) }
-
-      before do
-        builds = Array.new(550) do |i|
-          build(:ci_build,
-            :without_job_definition,
-            ci_stage: stage,
-            pipeline: pipeline,
-            project: project,
-            name: "job#{i}",
-            options: { script: ['echo test'] }
-          ).tap do |b|
-            b.needs = []
-            b.association(:job_source).target = nil
-            b.association(:job_source).loaded!
-          end
-        end
-
-        pipeline.stages = [stage]
-        stage.statuses = builds
-
-        builds.each do |job|
-          config = { options: { script: ['echo test'] } }
-          job_def = Ci::JobDefinition.fabricate(
-            config: config,
-            project_id: project.id,
-            partition_id: pipeline.partition_id
-          )
-          job.temp_job_definition = job_def
-        end
-      end
-
-      def create_test_pipeline
+      def create_large_pipeline(build_count: 550)
         test_pipeline = build(:ci_empty_pipeline, project: project, ref: 'master', user: user)
         test_stage = build(:ci_stage, pipeline: test_pipeline, project: project)
 
-        test_builds = Array.new(550) do |i|
+        test_builds = Array.new(build_count) do |i|
           build(:ci_build,
             :without_job_definition,
             ci_stage: test_stage,
@@ -580,35 +547,22 @@ RSpec.describe Gitlab::Ci::Pipeline::Chain::Create, feature_category: :pipeline_
         [test_pipeline, command]
       end
 
-      it 'batches inserts and persists all builds' do
-        step.perform!
-
-        expect(pipeline).to be_persisted
-        expect(pipeline.reload.builds.count).to eq(550)
-      end
-
-      it 'does not cause N+1 queries' do
-        control = ActiveRecord::QueryRecorder.new { step.perform! }
-
-        expect(pipeline).to be_persisted
-        expect(control.count).to be < 100
-        expect(pipeline.reload.builds.count).to eq(550)
-      end
-
-      it 'keeps queries under 100 with bulk insert enabled', :allowed_to_be_slow do
-        test_pipeline, test_command = create_test_pipeline
+      it 'batches inserts efficiently and persists all builds', :allowed_to_be_slow do
+        test_pipeline, test_command = create_large_pipeline
 
         query_count = ActiveRecord::QueryRecorder.new do
           described_class.new(test_pipeline, test_command).perform!
         end.count
 
+        expect(test_pipeline).to be_persisted
+        expect(test_pipeline.reload.builds.count).to eq(550)
         expect(query_count).to be < 100
       end
 
       # TODO: Remove this test once ci_bulk_insert_pipeline_records FF is removed
       it 'executes many queries without bulk insert', :allowed_to_be_slow do
         stub_feature_flags(ci_bulk_insert_pipeline_records: false)
-        test_pipeline, test_command = create_test_pipeline
+        test_pipeline, test_command = create_large_pipeline
 
         query_count = ActiveRecord::QueryRecorder.new do
           described_class.new(test_pipeline, test_command).perform!
