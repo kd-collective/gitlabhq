@@ -387,7 +387,6 @@ class GroupsController < Groups::ApplicationController
     result = service.schedule_async_transfer(parent_group)
 
     if result.success?
-      flash[:notice] = result.message
       redirect_to group_path(@group)
     else
       flash[:alert] = result.message

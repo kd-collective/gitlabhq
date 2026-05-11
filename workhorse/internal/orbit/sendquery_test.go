@@ -404,21 +404,21 @@ func TestBuildQueryResponse(t *testing.T) {
 		require.Equal(t, `"not valid json"`, string(resp.Result))
 	})
 
-	t.Run("LLM format passes formatted text through as raw JSON", func(t *testing.T) {
+	t.Run("LLM format does not populate Result; goon body is written separately", func(t *testing.T) {
 		result := &gkgpb.ExecuteQueryResult{
 			Content: &gkgpb.ExecuteQueryResult_FormattedText{
-				FormattedText: `{"nodes":[{"id":1,"name":"test"}],"edges":[]}`,
+				FormattedText: "@header\nnodes:1\n@nodes\nUser(1):username=alice\n",
 			},
 			Metadata: &gkgpb.QueryMetadata{
-				QueryType: "search",
+				QueryType: "traversal",
 				RowCount:  3,
 			},
 		}
 
 		resp := buildQueryResponse(result, gkgpb.ResponseFormat_RESPONSE_FORMAT_LLM)
-		require.Equal(t, "search", resp.QueryType)
+		require.Equal(t, "traversal", resp.QueryType)
 		require.Equal(t, int32(3), resp.RowCount)
-		require.JSONEq(t, `{"nodes":[{"id":1,"name":"test"}],"edges":[]}`, string(resp.Result))
+		require.Empty(t, resp.Result, "LLM format must leave Result nil; raw goon is emitted by writeLLMResultResponse")
 	})
 
 	t.Run("nil metadata produces zero-value fields", func(t *testing.T) {
@@ -431,6 +431,74 @@ func TestBuildQueryResponse(t *testing.T) {
 		resp := buildQueryResponse(result, gkgpb.ResponseFormat_RESPONSE_FORMAT_RAW)
 		require.Empty(t, resp.QueryType)
 		require.Equal(t, int32(0), resp.RowCount)
+		require.Nil(t, resp.RawQueryStrings, "nil metadata must leave RawQueryStrings nil so it is omitted from JSON")
+	})
+
+	t.Run("nil RawQueryStrings is dropped from RAW envelope JSON", func(t *testing.T) {
+		result := &gkgpb.ExecuteQueryResult{
+			Content: &gkgpb.ExecuteQueryResult_ResultJson{
+				ResultJson: `{}`,
+			},
+			Metadata: &gkgpb.QueryMetadata{
+				QueryType: "traversal",
+				RowCount:  0,
+			},
+		}
+
+		resp := buildQueryResponse(result, gkgpb.ResponseFormat_RESPONSE_FORMAT_RAW)
+		body, err := json.Marshal(resp)
+		require.NoError(t, err)
+		require.NotContains(t, string(body), "raw_query_strings",
+			"omitempty must drop raw_query_strings when nil; got %s", string(body))
+	})
+}
+
+func TestWriteLLMResultResponse(t *testing.T) {
+	const goonBody = "@header\nquery_type:traversal\ngoon_version:1.0.0\nnodes:1\n@nodes\nUser(1):username=alice\n"
+
+	t.Run("non-MCP writes raw goon as text/plain with no envelope", func(t *testing.T) {
+		result := &gkgpb.ExecuteQueryResult{
+			Content: &gkgpb.ExecuteQueryResult_FormattedText{FormattedText: goonBody},
+			Metadata: &gkgpb.QueryMetadata{
+				QueryType: "traversal",
+				RowCount:  1,
+			},
+		}
+		recorder := httptest.NewRecorder()
+		req := httptest.NewRequest(http.MethodPost, "/api/v4/orbit/query?response_format=llm", nil)
+
+		writeLLMResultResponse(recorder, req, result, nil)
+
+		require.Equal(t, http.StatusOK, recorder.Code)
+		require.Equal(t, "text/plain; charset=utf-8", recorder.Header().Get("Content-Type"))
+		require.Equal(t, goonBody, recorder.Body.String(),
+			"raw goon body must be written verbatim with no JSON envelope")
+	})
+
+	t.Run("MCP wraps raw goon in JSON-RPC text content", func(t *testing.T) {
+		result := &gkgpb.ExecuteQueryResult{
+			Content: &gkgpb.ExecuteQueryResult_FormattedText{FormattedText: goonBody},
+		}
+		recorder := httptest.NewRecorder()
+		req := httptest.NewRequest(http.MethodPost, "/api/v4/orbit/query", nil)
+
+		writeLLMResultResponse(recorder, req, result, "req-1")
+
+		require.Equal(t, http.StatusOK, recorder.Code)
+		require.Equal(t, "application/json", recorder.Header().Get("Content-Type"))
+		var resp mcpResponse
+		require.NoError(t, json.Unmarshal(recorder.Body.Bytes(), &resp))
+		require.Equal(t, "2.0", resp.JSONRPC)
+		require.Equal(t, "req-1", resp.ID)
+		tr, ok := resp.Result.(map[string]any)
+		require.True(t, ok, "MCP Result must decode as object")
+		content, ok := tr["content"].([]any)
+		require.True(t, ok)
+		require.Len(t, content, 1)
+		first := content[0].(map[string]any)
+		require.Equal(t, "text", first["type"])
+		require.Equal(t, goonBody, first["text"],
+			"MCP text content must be the raw goon body, not a JSON-encoded envelope")
 	})
 }
 

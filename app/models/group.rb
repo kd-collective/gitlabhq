@@ -147,6 +147,9 @@ class Group < Namespace
 
   has_one :deletion_schedule, class_name: 'GroupDeletionSchedule'
   delegate :deleting_user, :marked_for_deletion_on, to: :deletion_schedule, allow_nil: true
+  delegate :mcp_server_enabled, :mcp_server_enabled=, to: :namespace_settings, allow_nil: true
+
+  scope :with_mcp_server_enabled, -> { joins(:namespace_settings).where(namespace_settings: { mcp_server_enabled: true }) }
 
   scope :aimed_for_deletion, -> { where.associated(:deletion_schedule) }
   scope :self_or_ancestors_aimed_for_deletion, -> { where(self_or_ancestors_deletion_schedule_subquery.exists) }
@@ -1187,6 +1190,15 @@ class Group < Namespace
   # overridden in EE
   def enterprise_user_settings_available?(user = nil)
     false
+  end
+
+  # SaaS only feature, overridden in EE
+  def mcp_server_setting_available?
+    false
+  end
+
+  def mcp_server_enabled?
+    root? && !!namespace_settings&.mcp_server_enabled?
   end
 
   def supports_lock_on_merge?

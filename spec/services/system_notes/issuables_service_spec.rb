@@ -1084,8 +1084,8 @@ RSpec.describe ::SystemNotes::IssuablesService, feature_category: :team_planning
 
       it 'sets the correct note text' do
         expect { subject }.to change { Note.system.count }.by(2)
-        expect(work_item.notes.last.note).to eq("added ##{task.iid} as child task")
-        expect(task.notes.last.note).to eq("added ##{work_item.iid} as parent issue")
+        expect(work_item.notes.last.note).to eq("added ##{task.iid} as child item")
+        expect(task.notes.last.note).to eq("added ##{work_item.iid} as parent item")
       end
 
       context 'when the parent belongs to a different namespace' do
@@ -1093,8 +1093,8 @@ RSpec.describe ::SystemNotes::IssuablesService, feature_category: :team_planning
 
         it 'uses full references on the system notes' do
           expect { subject }.to change { Note.system.count }.by(2)
-          expect(work_item.notes.last.note).to eq("added #{task.namespace.full_path}##{task.iid} as child task")
-          expect(task.notes.last.note).to eq("added #{work_item.namespace.full_path}##{work_item.iid} as parent issue")
+          expect(work_item.notes.last.note).to eq("added #{task.namespace.full_path}##{task.iid} as child item")
+          expect(task.notes.last.note).to eq("added #{work_item.namespace.full_path}##{work_item.iid} as parent item")
         end
       end
     end
@@ -1109,8 +1109,8 @@ RSpec.describe ::SystemNotes::IssuablesService, feature_category: :team_planning
 
       it 'sets the correct note text' do
         expect { subject }.to change { Note.system.count }.by(2)
-        expect(work_item.notes.last.note).to eq("removed child task ##{task.iid}")
-        expect(task.notes.last.note).to eq("removed parent issue ##{work_item.iid}")
+        expect(work_item.notes.last.note).to eq("removed child item ##{task.iid}")
+        expect(task.notes.last.note).to eq("removed parent item ##{work_item.iid}")
       end
 
       context 'when the parent belongs to a different namespace' do
@@ -1118,8 +1118,8 @@ RSpec.describe ::SystemNotes::IssuablesService, feature_category: :team_planning
 
         it 'uses full references on the system notes' do
           expect { subject }.to change { Note.system.count }.by(2)
-          expect(work_item.notes.last.note).to eq("removed child task #{task.namespace.full_path}##{task.iid}")
-          expect(task.notes.last.note).to eq("removed parent issue #{work_item.namespace.full_path}##{work_item.iid}")
+          expect(work_item.notes.last.note).to eq("removed child item #{task.namespace.full_path}##{task.iid}")
+          expect(task.notes.last.note).to eq("removed parent item #{work_item.namespace.full_path}##{work_item.iid}")
         end
       end
     end

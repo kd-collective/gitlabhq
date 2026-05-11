@@ -35489,6 +35489,9 @@ msgstr ""
 msgid "GroupSettings|Add additional webhook triggers for group access token expiration"
 msgstr ""
 
+msgid "GroupSettings|Allow connection to GitLab"
+msgstr ""
+
 msgid "GroupSettings|Allow members of projects and groups to create runners with runner registration tokens"
 msgstr ""
 
@@ -35681,6 +35684,9 @@ msgstr ""
 msgid "GroupSettings|Include diff previews"
 msgstr ""
 
+msgid "GroupSettings|MCP client access"
+msgstr ""
+
 msgid "GroupSettings|Members cannot invite groups outside of %{group} and its subgroups"
 msgstr ""
 
@@ -35802,6 +35808,9 @@ msgid "GroupSettings|When enabled, enterprise users in this group can create per
 msgstr ""
 
 msgid "GroupSettings|When selected, built-in templates appear in the template selector."
+msgstr ""
+
+msgid "GroupSettings|When you turn on this setting, the GitLab Duo Agent Platform and external applications can access your data through MCP clients."
 msgstr ""
 
 msgid "GroupSettings|You must have the Owner role in the target group"
@@ -77384,6 +77393,9 @@ msgstr ""
 msgid "TransferGroup|The parent group already has a subgroup or a project with the same path."
 msgstr ""
 
+msgid "TransferGroup|This group is scheduled for transfer. Users with the Maintainer or Owner role will be notified when the transfer succeeds or fails."
+msgstr ""
+
 msgid "TransferGroup|Transfer failed: %{error_message}"
 msgstr ""
 
@@ -77445,6 +77457,9 @@ msgid "TransferProject|Project with same name or path in target namespace alread
 msgstr ""
 
 msgid "TransferProject|Root namespace can't be updated if the project has NPM packages scoped to the current root level namespace."
+msgstr ""
+
+msgid "TransferProject|This project is scheduled for transfer. Users with the Maintainer or Owner role will be notified when the transfer succeeds or fails."
 msgstr ""
 
 msgid "TransferProject|Unable to initiate transfer. The project may already have a transfer in progress."

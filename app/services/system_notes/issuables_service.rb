@@ -199,7 +199,7 @@ module SystemNotes
     #
     # Example Note text:
     #
-    #   "added #1 as child Task"
+    #   "added #1 as child item"
     #
     # Returns the created Note object
     def hierarchy_changed(work_item, action)
@@ -550,8 +550,6 @@ module SystemNotes
     def hierarchy_note_params(action, parent, child)
       return {} unless child && parent
 
-      child_type = child.issue_type.humanize(capitalize: false)
-      parent_type = parent.issue_type.humanize(capitalize: false)
       child_reference, parent_reference = if child.namespace_id == parent.namespace_id
                                             [child.to_reference, parent.to_reference]
                                           else
@@ -560,15 +558,15 @@ module SystemNotes
 
       if action == 'relate'
         {
-          parent_note_body: "added #{child_reference} as child #{child_type}",
-          child_note_body: "added #{parent_reference} as parent #{parent_type}",
+          parent_note_body: "added #{child_reference} as child item",
+          child_note_body: "added #{parent_reference} as parent item",
           parent_action: 'relate_to_child',
           child_action: 'relate_to_parent'
         }
       else
         {
-          parent_note_body: "removed child #{child_type} #{child_reference}",
-          child_note_body: "removed parent #{parent_type} #{parent_reference}",
+          parent_note_body: "removed child item #{child_reference}",
+          child_note_body: "removed parent item #{parent_reference}",
           parent_action: 'unrelate_from_child',
           child_action: 'unrelate_from_parent'
         }

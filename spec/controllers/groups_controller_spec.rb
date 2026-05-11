@@ -1298,7 +1298,6 @@ RSpec.describe GroupsController, factory_default: :keep, feature_category: :code
               new_parent_group_id: new_parent_group.id
             }
 
-          expect(flash[:notice]).to eq("Group transfer has been queued. You will be notified when it completes.")
           expect(response).to redirect_to(group_path(group))
         end
 
@@ -1346,7 +1345,6 @@ RSpec.describe GroupsController, factory_default: :keep, feature_category: :code
               new_parent_group_id: ''
             }
 
-          expect(flash[:notice]).to eq("Group transfer has been queued. You will be notified when it completes.")
           expect(response).to redirect_to(group_path(group))
         end
 

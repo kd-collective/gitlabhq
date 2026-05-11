@@ -4770,4 +4770,71 @@ RSpec.describe Group, feature_category: :groups_and_projects do
       it { is_expected.to handle_events :cancel_deletion, when: :ancestor_inherited }
     end
   end
+
+  describe '#mcp_server_setting_available?', feature_category: :mcp_server do
+    it 'returns false in FOSS' do
+      expect(create(:group).mcp_server_setting_available?).to be(false)
+    end
+  end
+
+  describe '#mcp_server_enabled?', feature_category: :mcp_server do
+    context 'when group is root' do
+      let_it_be_with_reload(:group) { create(:group) }
+
+      it 'returns true when namespace_settings has mcp_server_enabled set to true' do
+        group.namespace_settings.update!(mcp_server_enabled: true)
+
+        expect(group.mcp_server_enabled?).to be true
+      end
+
+      it 'returns false when namespace_settings has mcp_server_enabled set to false' do
+        group.namespace_settings.update!(mcp_server_enabled: false)
+
+        expect(group.mcp_server_enabled?).to be false
+      end
+    end
+
+    context 'when group is a subgroup' do
+      let(:group) { build(:group, parent: build(:group)) }
+
+      it { expect(group.mcp_server_enabled?).to be false }
+    end
+
+    context 'when namespace_settings is nil' do
+      let(:group) { build(:group) }
+
+      before do
+        allow(group).to receive(:namespace_settings).and_return(nil)
+      end
+
+      it { expect(group.mcp_server_enabled?).to be false }
+    end
+  end
+
+  describe '#mcp_server_enabled', feature_category: :mcp_server do
+    let_it_be(:group) { create(:group) }
+
+    it 'delegates to namespace_settings' do
+      group.namespace_settings.update!(mcp_server_enabled: true)
+      expect(group.mcp_server_enabled).to be true
+    end
+  end
+
+  describe '.with_mcp_server_enabled', feature_category: :mcp_server do
+    let_it_be(:group_on) { create(:group) }
+    let_it_be(:group_off) { create(:group) }
+    let_it_be(:group_nil) { create(:group) }
+
+    before do
+      group_on.namespace_settings.update!(mcp_server_enabled: true)
+      group_off.namespace_settings.update!(mcp_server_enabled: false)
+    end
+
+    it 'returns only groups with mcp_server_enabled = true' do
+      result = described_class.with_mcp_server_enabled
+      expect(result).to include(group_on)
+      expect(result).not_to include(group_off)
+      expect(result).not_to include(group_nil)
+    end
+  end
 end

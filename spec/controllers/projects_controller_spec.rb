@@ -1229,7 +1229,6 @@ RSpec.describe ProjectsController, feature_category: :groups_and_projects do
           namespace_id: project.namespace.path, new_namespace_id: new_namespace.id, id: project.path
         }, format: :js
 
-        expect(flash[:notice]).to eq("Project transfer has been queued. You will be notified when it completes.")
         expect(response).to redirect_to(edit_project_path(project))
       end
     end
@@ -1251,7 +1250,6 @@ RSpec.describe ProjectsController, feature_category: :groups_and_projects do
           namespace_id: project.namespace.path, new_namespace_id: new_namespace.id, id: project.path
         }, format: :js
 
-        expect(flash[:notice]).to eq("Project transfer has been queued. You will be notified when it completes.")
         expect(response).to redirect_to(edit_project_path(project))
       end
 

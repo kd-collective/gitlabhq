@@ -158,6 +158,7 @@ module Cells
 
           if matched_ts_records.nil?
             creates.concat(local_record.cells_claims_metadata)
+            log_drift(:missing_record_in_topology_service, local_record, nil, nil, nil)
           else
             # exists in both - compare individual claim attributes
             create, destroy = diff_record(local_record, matched_ts_records)
@@ -208,9 +209,10 @@ module Cells
         end
 
         # remaining TS records have no matching local claim attribute
-        ts_records_by_bucket.each_value do |ts_record|
-          # TODO: log_drift once we have enabled claiming and backfilled
-          destroys << metadata_from_ts_record(ts_record)
+        ts_records_by_bucket.each do |bucket_type, ts_record|
+          ts_meta = metadata_from_ts_record(ts_record)
+          log_drift(:missing_attribute_in_local, local_record, bucket_type, nil, ts_meta)
+          destroys << ts_meta
         end
 
         [creates, destroys]
@@ -230,7 +232,7 @@ module Cells
           record_id: local_record&.read_attribute(model.primary_key),
           bucket_type: bucket_type,
           local_value: local_meta&.dig(:bucket, :value),
-          ts_value: ts_meta.dig(:bucket, :value),
+          ts_value: ts_meta&.dig(:bucket, :value),
           feature_category: :cell
         }
 

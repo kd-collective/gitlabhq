@@ -48,9 +48,9 @@ type sendQueryParams struct {
 }
 
 type queryResponse struct {
-	Result          json.RawMessage `json:"result"`
+	Result          json.RawMessage `json:"result,omitempty"`
 	QueryType       string          `json:"query_type"`
-	RawQueryStrings []string        `json:"raw_query_strings"`
+	RawQueryStrings []string        `json:"raw_query_strings,omitempty"`
 	RowCount        int32           `json:"row_count"`
 }
 
@@ -229,6 +229,11 @@ func (sq *SendQuery) handleRedaction(
 }
 
 func writeResultResponse(w http.ResponseWriter, r *http.Request, result *gkgpb.ExecuteQueryResult, format gkgpb.ResponseFormat, mcpID any) {
+	if format == gkgpb.ResponseFormat_RESPONSE_FORMAT_LLM {
+		writeLLMResultResponse(w, r, result, mcpID)
+		return
+	}
+
 	resp := buildQueryResponse(result, format)
 
 	w.Header().Del("Content-Length")
@@ -245,6 +250,37 @@ func writeResultResponse(w http.ResponseWriter, r *http.Request, result *gkgpb.E
 	}
 	if err := json.NewEncoder(w).Encode(out); err != nil {
 		log.WithRequest(r).WithError(fmt.Errorf("orbit.SendQuery: write response: %v", err)).Error()
+	}
+}
+
+// writeLLMResultResponse writes the raw goon body directly: text/plain for
+// REST callers, MCP text content for MCP callers. The JSON envelope is skipped
+// because goon is not JSON; wrapping it would escape every newline.
+func writeLLMResultResponse(w http.ResponseWriter, r *http.Request, result *gkgpb.ExecuteQueryResult, mcpID any) {
+	body := result.GetFormattedText()
+
+	w.Header().Del("Content-Length")
+	if mcpID != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		out := mcpResponse{
+			JSONRPC: "2.0",
+			Result: mcpToolResult{
+				Content: []mcpContent{{Type: "text", Text: body}},
+				IsError: false,
+			},
+			ID: mcpID,
+		}
+		if err := json.NewEncoder(w).Encode(out); err != nil {
+			log.WithRequest(r).WithError(fmt.Errorf("orbit.SendQuery: write LLM MCP response: %v", err)).Error()
+		}
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	if _, err := io.WriteString(w, body); err != nil {
+		log.WithRequest(r).WithError(fmt.Errorf("orbit.SendQuery: write LLM response: %v", err)).Error()
 	}
 }
 
@@ -287,7 +323,7 @@ func wrapMCPSuccess(resultJSON []byte, mcpID any) mcpResponse {
 }
 
 func buildQueryResponse(result *gkgpb.ExecuteQueryResult, format gkgpb.ResponseFormat) queryResponse {
-	resp := queryResponse{RawQueryStrings: []string{}}
+	var resp queryResponse
 
 	if md := result.GetMetadata(); md != nil {
 		resp.QueryType = md.GetQueryType()
@@ -295,16 +331,17 @@ func buildQueryResponse(result *gkgpb.ExecuteQueryResult, format gkgpb.ResponseF
 		resp.RowCount = md.GetRowCount()
 	}
 
-	switch format {
-	case gkgpb.ResponseFormat_RESPONSE_FORMAT_LLM:
-		resp.Result = json.RawMessage(result.GetFormattedText())
-	default:
-		raw := result.GetResultJson()
-		if json.Valid([]byte(raw)) {
-			resp.Result = json.RawMessage(raw)
-		} else {
-			resp.Result, _ = json.Marshal(raw)
-		}
+	if format == gkgpb.ResponseFormat_RESPONSE_FORMAT_LLM {
+		// LLM responses are written by writeLLMResultResponse with no envelope.
+		// Leave Result nil; callers should not consume it for LLM format.
+		return resp
+	}
+
+	raw := result.GetResultJson()
+	if json.Valid([]byte(raw)) {
+		resp.Result = json.RawMessage(raw)
+	} else {
+		resp.Result, _ = json.Marshal(raw)
 	}
 
 	return resp

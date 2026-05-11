@@ -465,6 +465,12 @@ Audit event types belong to the following product categories.
 | [`incident_created_by_project_bot`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/121485) | An incident is created using a project access token | {{< yes >}} | GitLab [16.1](https://gitlab.com/gitlab-org/gitlab/-/issues/323299) | Project |
 | [`incident_reopened_by_project_bot`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/121485) | An incident is reopened using a project access token | {{< yes >}} | GitLab [16.1](https://gitlab.com/gitlab-org/gitlab/-/issues/323299) | Project |
 
+### Mcp server
+
+| Type name | Event triggered when | Saved to database | Introduced in | Scope |
+|:----------|:---------------------|:------------------|:--------------|:------|
+| [`mcp_server_enabled_updated`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/230311) | MCP server enabled setting on group changed | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/work_items/590729) | Group |
+
 ### Merge trains
 
 | Type name | Event triggered when | Saved to database | Introduced in | Scope |

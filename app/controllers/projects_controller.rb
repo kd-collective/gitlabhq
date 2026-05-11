@@ -420,11 +420,9 @@ class ProjectsController < Projects::ApplicationController
     service = ::Projects::TransferService.new(@project, current_user)
     result = service.schedule_async_transfer(namespace)
 
-    if result.success?
-      flash[:notice] = result.message
-    else
-      flash[:alert] = result.message
-    end
+    return if result.success?
+
+    flash[:alert] = result.message
   end
 
   def execute_sync_transfer(namespace)
