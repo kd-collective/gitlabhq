@@ -26,11 +26,7 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       analytics_cycle_analytics_stage_event_hashes
       background_operation_jobs
       background_operation_workers
-      bulk_import_batch_trackers
       bulk_import_configurations
-      bulk_import_entities
-      bulk_import_failures
-      bulk_import_trackers
       cluster_platforms_kubernetes
       cluster_providers_gcp
       clusters
@@ -102,6 +98,10 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
 
   let(:allowed_no_work_needed_tables) do
     %w[
+      bulk_import_batch_trackers
+      bulk_import_entities
+      bulk_import_failures
+      bulk_import_trackers
       enabled_foundational_flow_check_results
       integrations
       labels
