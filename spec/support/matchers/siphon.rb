@@ -98,7 +98,8 @@ RSpec::Matchers.define :have_correct_reconcile_config do
     end
 
     doc = YAML.safe_load_file(doc_path)
-    expected_columns = doc['sharding_key']&.keys&.sort || []
+    sharding_keys = doc['sharding_key'] || doc['desired_sharding_key']
+    expected_columns = sharding_keys.keys&.sort || []
 
     if expected_columns.empty?
       @errors << "no sharding_key found in db/docs/#{content['table']}.yml"

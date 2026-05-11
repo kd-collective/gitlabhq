@@ -107,6 +107,84 @@ Or for a Node.js project:
 image: node:20-alpine
 ```
 
+#### Hardened UBI 9 Minimal image
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/duo-workflow/default-docker-image/-/merge_requests/12) in GitLab 19.0.
+
+{{< /history >}}
+
+GitLab also provides a hardened, minimal image variant based on Red Hat Universal Base Image (UBI) 9 Minimal.
+This image is designed for network-restricted, FedRAMP-style, or otherwise security-sensitive environments
+where a smaller attack surface, non-root execution, and a Red Hat UBI base are required.
+
+The hardened image is published at:
+`registry.gitlab.com/gitlab-org/duo-workflow/default-docker-image/workflow-generic-image-hardened`
+
+It is built for both `linux/amd64` and `linux/arm64`, and uses the same tag scheme as the default image:
+
+- `:<short-sha>` per build
+- `:<git-tag>` per release
+
+##### Use the hardened image
+
+Prerequisites:
+
+- GitLab 18.10 or later
+
+To use the hardened image, set it in your `agent-config.yml`:
+
+```yaml
+image: registry.gitlab.com/gitlab-org/duo-workflow/default-docker-image/workflow-generic-image-hardened:<tag>
+```
+
+##### Image contents
+
+| Component           | Version                           |
+|---------------------|-----------------------------------|
+| Base image          | Red Hat UBI 9 Minimal             |
+| `git`               | UBI 9 stock                       |
+| `git-lfs`           | UBI 9 stock                       |
+| Node.js             | 20 (UBI 9 module stream)          |
+| `npm`               | Bundled with Node.js 20           |
+| `@gitlab/duo-cli`   | Pre-installed                     |
+| `glab` (GitLab CLI) | Pre-installed                     |
+| Runtime user        | Non-root, UID 1001 (`duo-runner`) |
+
+The image includes `@gitlab/duo-cli` and `glab`, so outbound access to `registry.npmjs.org` or `registry.gitlab.com` is not needed at flow execution time.
+
+##### Extend the image with additional packages
+
+The hardened image runs as UID 1001 (`duo-runner`). The `setup_script` in your `agent-config.yml`
+also runs as this non-root user, so it cannot install system packages with `microdnf`.
+
+To add language runtimes or system packages:
+
+1. Extend the image with your own `FROM` layer:
+
+   ```dockerfile
+   FROM registry.gitlab.com/gitlab-org/duo-workflow/default-docker-image/workflow-generic-image-hardened:<tag>
+
+   USER root
+   RUN microdnf install -y python3.12 python3.12-pip && microdnf clean all
+   USER 1001
+   ```
+
+1. Use `setup_script` for project dependencies that do not require root access. For example, `pip install --user` or `npm install`.
+
+##### When to use the hardened image
+
+Use the hardened image when your environment requires:
+
+- A Red Hat UBI base image. For example, for FedRAMP or enterprise compliance.
+- Non-root container execution by default.
+- A minimal attack surface with no language runtimes beyond what the Agent Platform itself needs.
+- No outbound internet access at flow execution time (all Agent Platform dependencies are pre-installed).
+
+Use the [default image](#change-the-default-docker-image) for general-purpose flows on connected
+environments that need multiple language runtimes out of the box.
+
 #### Custom image requirements
 
 If you use a custom Docker image, ensure that the following commands are available for the agent to function correctly:
@@ -149,6 +227,7 @@ and [configure a network policy](../environment_sandbox.md#configure-a-network-p
 
 To reduce job startup time by approximately 15-20 seconds, include the
 `@gitlab-org/duo-cli` npm package and the `glab` CLI in your custom image. This skips the download steps for these during flow startup.
+The hardened image pre-installs both tools.
 
 ### Configure setup scripts
 
@@ -339,7 +418,8 @@ This requirement applies when you use either the default GitLab-provided image o
 If you use a custom Docker image without SRT, privileged mode is not required because the sandbox cannot be applied.
 
 | Configuration | Privileged mode required | Sandbox active |
-|---------------|------------------------|----------------|
+|---------------|-------------------------|----------------|
 | Default image | Yes | Yes |
 | [Custom image with SRT](../environment_sandbox.md#install-anthropic-sandbox-runtime-srt-on-a-custom-image) | Yes | Yes |
 | Custom image without SRT | No | No |
+| [Hardened UBI 9 Minimal image](#hardened-ubi-9-minimal-image) | No | No |
