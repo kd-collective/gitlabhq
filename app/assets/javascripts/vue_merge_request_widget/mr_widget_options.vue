@@ -577,8 +577,6 @@ export default {
     <mr-widget-suggest-pipeline
       v-if="shouldSuggestPipelines"
       :human-access="formattedHumanAccess"
-      :user-callouts-path="mr.userCalloutsPath"
-      :user-callout-feature-id="mr.suggestPipelineFeatureId"
     />
     <mr-widget-pipeline-container
       v-if="shouldRenderPipelines"

@@ -3,6 +3,7 @@
 class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
   include FindGroupProjects
   include ::Authz::RolePermissions
+  include ::Authn::SubgroupProvisionedServiceAccountRestriction
 
   define_role_permissions(:group)
 

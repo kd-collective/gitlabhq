@@ -163,13 +163,13 @@ module Gitlab
 
             override :expand_context_attrs
             def expand_context_attrs
-              {
+              super.merge(
                 project: project,
                 sha: sha.to_s, # we need to use `.to_s` to load the value from the BatchLoader
                 user: context.user,
                 parent_pipeline: context.parent_pipeline,
                 variables: context.variables
-              }
+              )
             end
 
             def masked_project_name

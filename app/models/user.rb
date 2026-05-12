@@ -2943,6 +2943,20 @@ class User < ApplicationRecord
     service_account? && composite_identity_enforced?
   end
 
+  def sa_provisioned_by_project?
+    return false unless service_account?
+
+    provisioned_by_project_id.present?
+  end
+
+  def sa_provisioned_by_subgroup?
+    return false unless service_account?
+
+    return false if provisioned_by_group_id.blank?
+
+    !!provisioned_by_group&.has_parent?
+  end
+
   def composite_identity_enforced?
     return !!@composite_identity_enforced_override if defined?(@composite_identity_enforced_override)
 

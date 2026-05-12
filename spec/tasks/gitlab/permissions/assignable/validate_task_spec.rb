@@ -17,7 +17,8 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
         name: permission_name,
         description: 'Update a wiki',
         permissions: raw_permissions,
-        boundaries: ['project']
+        boundaries: ['project'],
+        available_for: ['granular_access_token']
       }
     end
 
@@ -67,6 +68,7 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
           description: 'Manage user widgets',
           permissions: %w[update_wiki],
           boundaries: ['user'],
+          available_for: ['granular_access_token'],
           deprecated: true
         }
       end
@@ -135,7 +137,8 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
           name: permission_name,
           description: 'Grants the ability to read user SSH keys',
           permissions: %w[read_user_ssh_key],
-          boundaries: ['user']
+          boundaries: ['user'],
+          available_for: ['granular_access_token']
         }
       end
 
@@ -176,7 +179,7 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
             #
             #    - update_wiki (config/authz/permission_groups/assignable_permissions/wiki_category/wiki/update.yml)
             #        - property '/key' is invalid: error_type=schema
-            #        - root is missing required keys: description, permissions, boundaries
+            #        - root is missing required keys: description, permissions, boundaries, available_for
             #
             #######################################################################
           OUTPUT
@@ -269,7 +272,8 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
             name: 'update_zebra',
             description: 'Zebra assignable',
             permissions: %w[beta_permission alpha_permission unique_one],
-            boundaries: ['project']
+            boundaries: ['project'],
+            available_for: ['granular_access_token']
           },
           Rails.root.join(zebra_source_file).to_s
         )
@@ -281,7 +285,8 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
             name: 'update_apple',
             description: 'Apple assignable',
             permissions: %w[beta_permission alpha_permission unique_two],
-            boundaries: ['project']
+            boundaries: ['project'],
+            available_for: ['granular_access_token']
           },
           Rails.root.join(apple_source_file).to_s
         )
@@ -317,6 +322,7 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
               description: 'Apple assignable',
               permissions: %w[beta_permission alpha_permission unique_two],
               boundaries: ['project'],
+              available_for: ['granular_access_token'],
               deprecated: true
             },
             Rails.root.join(apple_source_file).to_s

@@ -155,7 +155,7 @@ To add additional text to deactivation emails:
 In GitLab 17.7 and later, the following inherited group and project members can receive emails about group and project access tokens that are expiring soon, in addition to direct group and project members:
 
 - For groups, members who inherit the Owner role for those groups.
-- For projects, project members who inherit the Owner or Maintainer role for projects that belong to those groups.
+- For projects, project members who inherit the Maintainer or Owner role for projects that belong to those groups.
 
 To enable token expiration emails to inherited group and project members:
 

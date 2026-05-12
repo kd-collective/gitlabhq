@@ -1,7 +1,9 @@
 ---
 name: create_feature_flag
 description: Grants the ability to create feature flags
-permissions:
-  - create_feature_flag
 boundaries:
   - project
+available_for:
+  - granular_access_token
+permissions:
+  - create_feature_flag

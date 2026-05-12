@@ -35,6 +35,76 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ResponseConverter do
       end
     end
 
+    context 'when only :success is set (declared via the success DSL)' do
+      let(:http_codes) { [] }
+
+      shared_examples 'emits the entity ref in the success response' do
+        it 'falls back to :success and emits the entity $ref' do
+          converter = described_class.new(route, schema_registry)
+          result = converter.convert
+
+          success_results = result.select { |k, _| k.to_i.between?(200, 299) }
+          expect(success_results.each_value.first[:content]['application/json'][:schema]).to eq(
+            { '$ref' => '#/components/schemas/TestEntitiesUserEntity' }
+          )
+        end
+      end
+
+      context 'with Class shape' do
+        let(:options) { { method: 'GET', success: entity_class } }
+
+        include_examples 'emits the entity ref in the success response'
+      end
+
+      context 'with Hash shape' do
+        let(:options) { { method: 'POST', success: { code: 201, model: entity_class } } }
+
+        include_examples 'emits the entity ref in the success response'
+      end
+
+      context 'with Array shape' do
+        let(:options) { { method: 'POST', success: [{ code: 201, model: entity_class, message: 'Created' }] } }
+
+        include_examples 'emits the entity ref in the success response'
+      end
+    end
+
+    context 'when http_codes includes a success code that overlaps with the entity response' do
+      let(:options) { { method: 'POST', entity: entity_class } }
+      let(:http_codes) { [[201, 'Created via runner']] }
+
+      it 'preserves the entity ref on the success response and updates only the description' do
+        result = described_class.new(route, schema_registry).convert
+
+        expect(result['201']).to eq(
+          description: 'Created via runner',
+          content: {
+            'application/json' => {
+              schema: { '$ref' => '#/components/schemas/TestEntitiesUserEntity' }
+            }
+          }
+        )
+      end
+    end
+
+    context 'when both :entity and :success are set' do
+      let(:options) do
+        { method: 'GET', entity: entity_class, success: TestEntities::User::PersonEntity }
+      end
+
+      let(:http_codes) { [] }
+
+      it 'prefers :entity (preserving existing precedence)' do
+        converter = described_class.new(route, schema_registry)
+        result = converter.convert
+
+        success_results = result.select { |k, _| k.to_i.between?(200, 299) }
+        expect(success_results.each_value.first[:content]['application/json'][:schema]).to eq(
+          { '$ref' => '#/components/schemas/TestEntitiesUserEntity' }
+        )
+      end
+    end
+
     context 'with entity as Hash with code and model' do
       let(:options) { { method: 'POST', entity: { code: 201, model: entity_class } } }
       let(:http_codes) { [] }

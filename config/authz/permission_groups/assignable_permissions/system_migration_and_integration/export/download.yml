@@ -4,6 +4,8 @@ description: Grants the ability to download exports
 boundaries:
   - project
   - group
+available_for:
+  - granular_access_token
 permissions:
   - download_group_export
   - download_project_export

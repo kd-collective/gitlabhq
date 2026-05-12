@@ -159,6 +159,7 @@ RSpec.describe Gitlab::Ci::Config::External::File::Artifact, feature_category: :
 
                   it 'propagates parent_pipeline to nested includes' do
                     expected_attrs = {
+                      parent_file: external_file,
                       parent_pipeline: parent_pipeline,
                       project: anything,
                       sha: anything,

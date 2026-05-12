@@ -1783,6 +1783,87 @@ RSpec.describe User, :with_current_organization, feature_category: :user_profile
     end
   end
 
+  describe '#sa_provisioned_by_project?' do
+    context 'when user is not a service account' do
+      let_it_be(:user) { create(:user) }
+
+      it { expect(user.sa_provisioned_by_project?).to eq(false) }
+    end
+
+    context 'when service account has no provisioning source' do
+      let_it_be(:service_account) { create(:user, :service_account) }
+
+      it { expect(service_account.sa_provisioned_by_project?).to eq(false) }
+    end
+
+    context 'when service account is provisioned by a group' do
+      let_it_be(:group) { create(:group) }
+      let_it_be(:service_account) { create(:user, :service_account, provisioned_by_group: group) }
+
+      it { expect(service_account.sa_provisioned_by_project?).to eq(false) }
+    end
+
+    context 'when service account is provisioned by a project' do
+      let_it_be(:project) { create(:project) }
+      let_it_be(:service_account) do
+        create(:user, :service_account).tap do |sa|
+          sa.update!(provisioned_by_project: project)
+        end
+      end
+
+      it { expect(service_account.sa_provisioned_by_project?).to eq(true) }
+    end
+  end
+
+  describe '#sa_provisioned_by_subgroup?' do
+    context 'when user is not a service account' do
+      let_it_be(:user) { create(:user) }
+
+      it { expect(user.sa_provisioned_by_subgroup?).to eq(false) }
+    end
+
+    context 'when service account has no provisioning source' do
+      let_it_be(:service_account) { create(:user, :service_account) }
+
+      it { expect(service_account.sa_provisioned_by_subgroup?).to eq(false) }
+    end
+
+    context 'when service account is provisioned by a root group' do
+      let_it_be(:root_group) { create(:group) }
+      let_it_be(:service_account) { create(:user, :service_account, provisioned_by_group: root_group) }
+
+      it { expect(service_account.sa_provisioned_by_subgroup?).to eq(false) }
+    end
+
+    context 'when service account is provisioned by a subgroup' do
+      let_it_be(:root_group) { create(:group) }
+      let_it_be(:subgroup) { create(:group, parent: root_group) }
+      let_it_be(:service_account) { create(:user, :service_account, provisioned_by_group: subgroup) }
+
+      it { expect(service_account.sa_provisioned_by_subgroup?).to eq(true) }
+    end
+
+    context 'when service account is provisioned by a deeply nested subgroup' do
+      let_it_be(:root_group) { create(:group) }
+      let_it_be(:subgroup) { create(:group, parent: root_group) }
+      let_it_be(:nested_subgroup) { create(:group, parent: subgroup) }
+      let_it_be(:service_account) { create(:user, :service_account, provisioned_by_group: nested_subgroup) }
+
+      it { expect(service_account.sa_provisioned_by_subgroup?).to eq(true) }
+    end
+
+    context 'when provisioning group has been deleted' do
+      let_it_be(:group) { create(:group) }
+      let_it_be(:service_account) { create(:user, :service_account, provisioned_by_group: group) }
+
+      before do
+        allow(service_account).to receive(:provisioned_by_group).and_return(nil)
+      end
+
+      it { expect(service_account.sa_provisioned_by_subgroup?).to eq(false) }
+    end
+  end
+
   describe '#composite_identity_enforced!' do
     it 'sets the @composite_identity_enforced_override instance variable to true' do
       user = build(:user)

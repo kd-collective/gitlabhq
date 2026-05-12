@@ -657,7 +657,7 @@ We’re actively seeking community feedback on this feature. If you have questio
 
 You can create custom roles with the [Manage protected environments](https://gitlab.com/gitlab-org/gitlab/-/issues/471385) permission.
 Custom roles allow you to grant only the specific permissions users need to complete their tasks.
-This helps you define roles that are tailored to the needs of your group, and can reduce the number of users who need the Owner or Maintainer role.
+This helps you define roles that are tailored to the needs of your group, and can reduce the number of users who need the Maintainer or Owner role.
 
 ### New CI/CD analytics view for projects in limited availability
 

@@ -1,8 +1,10 @@
 ---
 name: cancel_bulk_import
-deprecated: true
 description: Grants the ability to cancel a GitLab Migration (bulk import)
-permissions:
-  - cancel_bulk_import
+deprecated: true
 boundaries:
   - instance
+available_for:
+  - granular_access_token
+permissions:
+  - cancel_bulk_import

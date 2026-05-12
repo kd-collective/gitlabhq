@@ -101,6 +101,8 @@
   - 1
 - - approve_blocked_pending_approval_users
   - 1
+- - audit_events_ai_audit_event_streaming
+  - 1
 - - audit_events_audit_event_streaming
   - 1
 - - audit_events_user_impersonation_event_create
@@ -769,6 +771,8 @@
   - 1
 - - namespaces_groups_transfer
   - 1
+- - namespaces_invalidate_descendants_cache
+  - 1
 - - namespaces_process_sync_events
   - 1
 - - namespaces_remove_dormant_members
@@ -974,6 +978,8 @@
 - - search_elastic_group_archived_event
   - 1
 - - search_elastic_group_association_deletion
+  - 1
+- - search_elastic_project_archived_event
   - 1
 - - search_elastic_trigger_indexing
   - 1

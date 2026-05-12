@@ -308,7 +308,7 @@ The following group and project members receive notification emails about access
   - In GitLab 17.7 and later, members who inherit the Owner role for the group, if that group or its parent group has the appropriate setting configured.
 - For project access tokens:
   - Members of the project with the Maintainer or Owner role.
-  - In GitLab 17.7 and later, project members who have inherited the Owner or Maintainer role due to the project belonging to a group, if that group or its parent group has the appropriate setting configured.
+  - In GitLab 17.7 and later, project members who have inherited the Maintainer or Owner role due to the project belonging to a group, if that group or its parent group has the appropriate setting configured.
 
 You can enable notifications to inherited members of a group:
 

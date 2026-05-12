@@ -140,7 +140,7 @@ In GitLab 17.4 to 18.1, follow these instructions to turn GitLab Duo on or off f
 
 Prerequisites:
 
-- You must have the Owner or Maintainer role for the project.
+- You must have the Maintainer or Owner role for the project.
 
 To turn GitLab Duo on or off for a project:
 

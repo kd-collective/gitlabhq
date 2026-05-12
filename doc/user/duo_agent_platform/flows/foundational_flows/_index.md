@@ -107,7 +107,7 @@ their default GitLab Duo namespace cannot access foundational flows in any names
 
 Prerequisites:
 
-- The Owner or Maintainer role for the project.
+- The Maintainer or Owner role for the project.
 - Flow execution and foundational flows turned on for the top-level group.
 
 1. In the top bar, select **Search or go to** and find your project.
@@ -172,7 +172,7 @@ When turned on for the group, foundational flows are available to all subgroups 
 
 Prerequisites:
 
-- The Owner or Maintainer role for the project.
+- The Maintainer or Owner role for the project.
 - Flow execution and foundational flows turned on for the instance and group.
 
 1. In the top bar, select **Search or go to** and find your project.

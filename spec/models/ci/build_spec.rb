@@ -3228,11 +3228,10 @@ RSpec.describe Ci::Build, feature_category: :continuous_integration, factory_def
 
         context 'when build has environment and user-provided variables' do
           let(:expected_variables) do
-            predefined_variables.map { |variable| variable.fetch(:key) }
+            predefined_variables.filter_map { |variable| variable.fetch(:key) if variable.fetch(:value) }
           end
 
           before do
-            stub_feature_flags(ci_lazy_predefined_variables: false)
             environment = create(:environment, project: build.project, name: 'staging')
 
             stub_ci_job_definition(build, yaml_variables: [{ key: 'YAML_VARIABLE', value: 'var', public: true }])
@@ -3258,7 +3257,7 @@ RSpec.describe Ci::Build, feature_category: :continuous_integration, factory_def
           end
 
           it 'matches explicit variables ordering' do
-            received_variables = subject.map { |variable| variable[:key] }
+            received_variables = subject.filter_map { |variable| variable[:key] if variable[:value] }
 
             expect(received_variables).to eq(expected_variables)
           end

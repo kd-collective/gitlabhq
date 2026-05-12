@@ -75,13 +75,13 @@ module Gitlab
 
             override :expand_context_attrs
             def expand_context_attrs
-              {
+              super.merge(
                 project: context.project,
                 sha: context.sha,
                 user: context.user,
                 parent_pipeline: context.parent_pipeline,
                 variables: context.variables
-              }
+              )
             end
 
             def masked_job_name

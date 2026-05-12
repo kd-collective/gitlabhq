@@ -3,5 +3,7 @@ name: update_status
 description: Grants the ability to update status
 boundaries:
   - user
+available_for:
+  - granular_access_token
 permissions:
   - update_user_status

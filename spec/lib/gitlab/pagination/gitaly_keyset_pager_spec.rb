@@ -241,10 +241,11 @@ RSpec.describe Gitlab::Pagination::GitalyKeysetPager, feature_category: :source_
 
         context 'when second page is requested' do
           let(:base_query) { { per_page: 2, page: 2 } }
+          let(:branch4) { double 'branch', name: 'branch4' }
+          let(:branches) { [branch1, branch2, branch3, branch4] }
           let(:paginated_array) { double 'paginated array' }
-          let(:branches) { [] }
 
-          it 'uses offset pagination' do
+          it 'uses offset pagination with enough records for Kaminari to slice' do
             expect(git_finder).to receive(:execute).and_return(branches)
             expect(Kaminari).to receive(:paginate_array).with(branches).and_return(paginated_array)
             expect_next_instance_of(Gitlab::Pagination::OffsetPagination) do |offset_pagination|

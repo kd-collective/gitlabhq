@@ -43,7 +43,7 @@ immediately push code to branches in your private fork to help fix the confident
 
 Prerequisites:
 
-- You have the Owner or Maintainer role for the public repository, as you need one
+- You have the Maintainer or Owner role for the public repository, as you need one
   of these roles to [create a subgroup](../../group/subgroups/_index.md).
 - You have [forked](../repository/forking_workflow.md) the public repository.
 - Your fork has a **Visibility level** of **Private**.

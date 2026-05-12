@@ -466,6 +466,21 @@ RSpec.describe API::Branches, feature_category: :source_code_management do
       expect(response).to have_gitlab_http_status(:ok)
     end
 
+    context 'when requesting page 2 with the new branches finder' do
+      it 'returns correct branches for the second page' do
+        get api(route, user), params: { per_page: 5, page: 1 }
+        first_page_names = json_response.map { |b| b['name'] }
+
+        get api(route, user), params: { per_page: 5, page: 2 }
+        second_page_names = json_response.map { |b| b['name'] }
+
+        expect(response).to have_gitlab_http_status(:ok)
+        expect(second_page_names).not_to be_empty
+        expect(second_page_names).not_to include(*first_page_names)
+        expect(response.headers['X-Page']).to eq('2')
+      end
+    end
+
     context 'when search parameter is passed with new branches finder' do
       it 'returns correct branches' do
         get api(route, user), params: { per_page: 100, search: branch_name }

@@ -99,7 +99,7 @@ class GenerateRspecPipeline
     :job_tags, :generated_pipeline_path
 
   def info(text)
-    $stdout.puts "[#{self.class.name}] #{text}"
+    puts "[#{self.class.name}] #{text}"
   end
 
   def all_rspec_files

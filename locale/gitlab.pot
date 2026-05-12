@@ -78605,7 +78605,13 @@ msgstr ""
 msgid "UsageBillingFlowType|AI Catalog based Agent or Flow"
 msgstr ""
 
+msgid "UsageBillingFlowType|AI Gateway Proxy"
+msgstr ""
+
 msgid "UsageBillingFlowType|Agentic Chat"
+msgstr ""
+
+msgid "UsageBillingFlowType|Analytics Agent"
 msgstr ""
 
 msgid "UsageBillingFlowType|Code Review Flow"
@@ -78623,10 +78629,16 @@ msgstr ""
 msgid "UsageBillingFlowType|Developer Flow"
 msgstr ""
 
-msgid "UsageBillingFlowType|Fix Pipeline Flow"
+msgid "UsageBillingFlowType|Duo Chat (Classic)"
 msgstr ""
 
-msgid "UsageBillingFlowType|Foundational Agents"
+msgid "UsageBillingFlowType|Duo Planner"
+msgstr ""
+
+msgid "UsageBillingFlowType|Duo with Amazon Q"
+msgstr ""
+
+msgid "UsageBillingFlowType|Fix Pipeline Flow"
 msgstr ""
 
 msgid "UsageBillingFlowType|Issue to Merge Request Flow"
@@ -78639,6 +78651,12 @@ msgid "UsageBillingFlowType|SAST FP Detection Flow"
 msgstr ""
 
 msgid "UsageBillingFlowType|SAST Vulnerability Resolution Flow"
+msgstr ""
+
+msgid "UsageBillingFlowType|Secrets FP Detection"
+msgstr ""
+
+msgid "UsageBillingFlowType|Security Analyst Agent"
 msgstr ""
 
 msgid "UsageBillingFlowType|Software Development Flow"

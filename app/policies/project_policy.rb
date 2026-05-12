@@ -3,6 +3,7 @@
 class ProjectPolicy < BasePolicy
   include ::Ci::JobAbilities
   include ::Authz::RolePermissions
+  include ::Authn::SubgroupProvisionedServiceAccountRestriction
 
   define_role_permissions(:project)
 

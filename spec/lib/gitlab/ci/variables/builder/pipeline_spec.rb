@@ -618,10 +618,6 @@ RSpec.describe Gitlab::Ci::Variables::Builder::Pipeline, feature_category: :pipe
           merge_request: merge_request)
       end
 
-      before do
-        stub_feature_flags(ci_lazy_predefined_variables: true)
-      end
-
       it 'does not call expensive Gitaly operations during collection building' do
         allow(pipeline).to receive(:git_commit_message).and_call_original
         allow(pipeline).to receive(:git_commit_full_title).and_call_original
@@ -690,22 +686,6 @@ RSpec.describe Gitlab::Ci::Variables::Builder::Pipeline, feature_category: :pipe
           'CI_COMMIT_TIMESTAMP' => a_kind_of(String),
           'CI_COMMIT_AUTHOR' => a_kind_of(String)
         )
-      end
-
-      context 'when lazy variables are disabled' do
-        before do
-          stub_feature_flags(ci_lazy_predefined_variables: false)
-        end
-
-        it 'calls expensive operations immediately during collection building' do
-          allow(pipeline).to receive(:git_commit_message).and_call_original
-          allow(pipeline).to receive(:open_merge_requests_refs).and_call_original
-
-          subject
-
-          expect(pipeline).to have_received(:git_commit_message).once
-          expect(pipeline).to have_received(:open_merge_requests_refs).once
-        end
       end
 
       context 'for tag pipelines' do

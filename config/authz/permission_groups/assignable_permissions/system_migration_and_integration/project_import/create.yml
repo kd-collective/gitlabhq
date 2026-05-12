@@ -1,10 +1,12 @@
 ---
 name: create_project_import
-deprecated: true
 description: Grants the ability to import projects
-permissions:
-  - create_project_import
+deprecated: true
 boundaries:
   - project
   - group
   - user
+available_for:
+  - granular_access_token
+permissions:
+  - create_project_import

@@ -129,7 +129,7 @@ GitLab Duo availability changes for all subgroups and projects.
 
 Prerequisites:
 
-- The Owner or Maintainer role for the project.
+- The Maintainer or Owner role for the project.
 
 To change GitLab Duo availability for a project:
 
@@ -175,7 +175,7 @@ GitLab Duo availability changes for all subgroups and projects.
 
 Prerequisites:
 
-- The Owner or Maintainer role for the project.
+- The Maintainer or Owner role for the project.
 
 To change GitLab Duo availability for a project:
 

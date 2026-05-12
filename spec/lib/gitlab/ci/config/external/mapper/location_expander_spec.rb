@@ -158,5 +158,31 @@ RSpec.describe Gitlab::Ci::Config::External::Mapper::LocationExpander, feature_c
         expect(process).to eq([{ local: 'helpers/file1.yml' }])
       end
     end
+
+    context 'when the same wildcard pattern is expanded multiple times' do
+      let(:locations) do
+        [
+          { local: 'templates/nested/*.yml' },
+          { local: 'templates/nested/*.yml' }
+        ]
+      end
+
+      let(:project_files) do
+        { 'templates/nested/z.yml' => 'job: { script: echo "z" }' }
+      end
+
+      around do |example|
+        create_and_delete_files(project, project_files) do
+          example.run
+        end
+      end
+
+      it 'expands the pattern each time it is encountered' do
+        expect(process).to eq([
+          { local: 'templates/nested/z.yml' },
+          { local: 'templates/nested/z.yml' }
+        ])
+      end
+    end
   end
 end

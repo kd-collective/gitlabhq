@@ -4394,6 +4394,16 @@ RSpec.describe ProjectPolicy, feature_category: :system_access do
     end
   end
 
+  describe 'subgroup/project-provisioned service account restrictions' do
+    let_it_be(:service_account) { create(:user, :service_account, maintainer_of: public_project_in_group) }
+
+    let(:project) { public_project_in_group }
+
+    subject { described_class.new(service_account, project) }
+
+    it_behaves_like 'subgroup/project-provisioned service account restriction', :create_service_account
+  end
+
   private
 
   def project_subject(project_type)

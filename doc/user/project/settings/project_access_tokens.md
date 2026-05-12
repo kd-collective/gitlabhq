@@ -228,10 +228,10 @@ see [non-expiring access tokens](../../../update/deprecations.md#non-expiring-ac
 {{< /history >}}
 
 GitLab runs a daily check at 1:00 AM UTC to identify project access tokens that expire soon.
-Direct members with the Owner or Maintainer role are notified by email seven days before a token
+Direct members with the Maintainer or Owner role are notified by email seven days before a token
 expires. In GitLab 17.6 and later, notifications are also sent 30 and 60 days before a token expires.
 
-In GitLab 17.7 and later, members with an inherited Owner or Maintainer role can also receive
+In GitLab 17.7 and later, members with an inherited Maintainer or Owner role can also receive
 these emails. You can configure this for every group and project on the
 [GitLab instance](../../../administration/settings/email.md#group-and-project-access-token-expiry-emails-to-inherited-members)
 or a [specific parent group](../../group/manage.md#expiry-emails-for-group-and-project-access-tokens).

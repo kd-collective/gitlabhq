@@ -5,6 +5,8 @@ boundaries:
   - group
   - project
   - user
+available_for:
+  - granular_access_token
 permissions:
   - read_merge_request
   - read_merge_request_approval_state

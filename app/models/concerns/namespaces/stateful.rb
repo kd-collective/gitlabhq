@@ -111,6 +111,8 @@ module Namespaces
         end
 
         after_transition :log_transition
+        after_transition to: :archived, do: :invalidate_namespace_descendants_cache
+        after_transition from: :archived, do: :invalidate_namespace_descendants_cache
 
         after_failure :update_state_metadata_on_failure
         after_failure :log_transition_failure
@@ -124,6 +126,16 @@ module Namespaces
 
       def stateful_detail
         namespace_details
+      end
+
+      def invalidate_namespace_descendants_cache
+        return if is_a?(Namespaces::UserNamespace)
+
+        if is_a?(Namespaces::ProjectNamespace)
+          Namespaces::Descendants.expire_for([parent_id])
+        else
+          Namespaces::Descendants.expire_recursive_for(self)
+        end
       end
 
       def stateful_log_metadata

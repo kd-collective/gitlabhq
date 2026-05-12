@@ -5,6 +5,8 @@ boundaries:
   - group
   - project
   - instance
+available_for:
+  - granular_access_token
 permissions:
   - delete_webhook_custom_header
   - delete_webhook_url_variable

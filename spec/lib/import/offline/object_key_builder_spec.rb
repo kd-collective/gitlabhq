@@ -13,6 +13,48 @@ RSpec.describe Import::Offline::ObjectKeyBuilder, feature_category: :importers d
     end
   end
 
+  describe '#upload_object_key' do
+    let(:portable) { build_stubbed(:project) }
+
+    context 'when batch_number is not present' do
+      it 'returns a non-batched object key' do
+        upload_object_key = builder.upload_object_key(
+          portable: portable, relation: 'issues', extension: '.ndjson.gz'
+        )
+
+        expect(upload_object_key).to eq(
+          "#{configuration.export_prefix}/project_#{portable.id}/issues.ndjson.gz"
+        )
+      end
+    end
+
+    context 'when batch_number is present' do
+      it 'returns a batched object key' do
+        upload_object_key = builder.upload_object_key(
+          portable: portable, relation: 'issues', extension: '.ndjson.gz', batch_number: 1
+        )
+
+        expect(upload_object_key).to eq(
+          "#{configuration.export_prefix}/project_#{portable.id}/issues/batch_1.ndjson.gz"
+        )
+      end
+    end
+
+    context 'when portable is a group' do
+      let(:portable) { build_stubbed(:group) }
+
+      it 'returns a key with the group entity prefix' do
+        upload_object_key = builder.upload_object_key(
+          portable: portable, relation: 'labels', extension: '.ndjson.gz'
+        )
+
+        expect(upload_object_key).to eq(
+          "#{configuration.export_prefix}/group_#{portable.id}/labels.ndjson.gz"
+        )
+      end
+    end
+  end
+
   describe '#download_object_key' do
     let(:entity_source_full_path) { 'group/subgroup/project' }
     let(:entity_prefix) { 'group_123' }

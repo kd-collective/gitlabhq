@@ -1,6 +1,11 @@
 ---
 name: update_work_item
 description: Grants the ability to update work items
+boundaries:
+  - group
+  - project
+available_for:
+  - granular_access_token
 permissions:
   - add_issue_spent_time
   - add_merge_request_spent_time
@@ -31,6 +36,3 @@ permissions:
   - update_snippet_discussion_note
   - update_snippet_note
   - update_wiki_page_meta_note
-boundaries:
-  - group
-  - project

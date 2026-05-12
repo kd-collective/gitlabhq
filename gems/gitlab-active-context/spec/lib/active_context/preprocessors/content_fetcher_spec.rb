@@ -90,5 +90,43 @@ RSpec.describe ActiveContext::Preprocessors::ContentFetcher do
         expect(result[:failed]).to eq([reference_2])
       end
     end
+
+    context 'when skip_missing_content is true' do
+      let(:reference_class) do
+        Class.new(Test::References::Mock) do
+          include ::ActiveContext::Preprocessors::ContentFetcher
+
+          add_preprocessor :fetch_content do |refs, skip_missing_content: false, **|
+            fetch_content(refs: refs, query: '*', collection: 'mock_collection',
+              skip_missing_content: skip_missing_content)
+          end
+        end
+      end
+
+      let(:search_results) do
+        [
+          { 'id' => 'id1', 'content' => 'Content for document 1' }
+        ]
+      end
+
+      subject(:process_refs) do
+        ActiveContext::Reference.preprocess_references(
+          [reference_1, reference_2],
+          skip_missing_content: true
+        )
+      end
+
+      it 'skips missing refs instead of failing them', :aggregate_failures do
+        expect(ActiveContext::Logger).to receive(:skippable_exception) do |e, kwargs|
+          expect(e).to be_a(ActiveContext::Preprocessors::ContentFetcher::ContentNotFoundError)
+          expect(kwargs[:reference_id]).to eq("id2")
+        end
+
+        result = process_refs
+
+        expect(result[:successful]).to eq([reference_1])
+        expect(result[:failed]).to be_empty
+      end
+    end
   end
 end

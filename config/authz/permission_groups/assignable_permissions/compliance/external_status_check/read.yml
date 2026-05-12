@@ -3,5 +3,7 @@ name: read_external_status_check
 description: Grants the ability to read external status checks
 boundaries:
   - project
+available_for:
+  - granular_access_token
 permissions:
   - read_external_status_check

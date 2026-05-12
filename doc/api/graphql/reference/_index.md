@@ -3776,7 +3776,7 @@ Input type: `AiSelfHostedModelConnectionCheckInput`
 | <a id="mutation-aiselfhostedmodelconnectioncheck-identifier"></a>`identifier` | [`String`](#string) | Identifier for 3rd party model provider. |
 | <a id="mutation-aiselfhostedmodelconnectioncheck-model"></a>`model` | [`AiAcceptedSelfHostedModels!`](#aiacceptedselfhostedmodels) | AI model deployed. |
 | <a id="mutation-aiselfhostedmodelconnectioncheck-name"></a>`name` | [`String!`](#string) | Deployment name of the self-hosted model. |
-| <a id="mutation-aiselfhostedmodelconnectioncheck-provider"></a>`provider` | [`AiSelfHostedModelProvider`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
+| <a id="mutation-aiselfhostedmodelconnectioncheck-provider"></a>`provider` | [`AiSelfHostedModelProvider!`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
 
 #### Fields
 
@@ -3805,7 +3805,7 @@ Input type: `AiSelfHostedModelCreateInput`
 | <a id="mutation-aiselfhostedmodelcreate-identifier"></a>`identifier` | [`String`](#string) | Identifier for 3rd party model provider. |
 | <a id="mutation-aiselfhostedmodelcreate-model"></a>`model` | [`AiAcceptedSelfHostedModels!`](#aiacceptedselfhostedmodels) | AI model deployed. |
 | <a id="mutation-aiselfhostedmodelcreate-name"></a>`name` | [`String!`](#string) | Deployment name of the self-hosted model. |
-| <a id="mutation-aiselfhostedmodelcreate-provider"></a>`provider` | [`AiSelfHostedModelProvider`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
+| <a id="mutation-aiselfhostedmodelcreate-provider"></a>`provider` | [`AiSelfHostedModelProvider!`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
 
 #### Fields
 
@@ -3862,7 +3862,7 @@ Input type: `AiSelfHostedModelUpdateInput`
 | <a id="mutation-aiselfhostedmodelupdate-identifier"></a>`identifier` | [`String`](#string) | Identifier for 3rd party model provider. |
 | <a id="mutation-aiselfhostedmodelupdate-model"></a>`model` | [`AiAcceptedSelfHostedModels!`](#aiacceptedselfhostedmodels) | AI model deployed. |
 | <a id="mutation-aiselfhostedmodelupdate-name"></a>`name` | [`String!`](#string) | Deployment name of the self-hosted model. |
-| <a id="mutation-aiselfhostedmodelupdate-provider"></a>`provider` | [`AiSelfHostedModelProvider`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
+| <a id="mutation-aiselfhostedmodelupdate-provider"></a>`provider` | [`AiSelfHostedModelProvider!`](#aiselfhostedmodelprovider) | Provider for the self-hosted model. |
 
 #### Fields
 
@@ -29864,7 +29864,7 @@ Counts for each analyzer status in the group and subgroups.
 | <a id="analyzergroupstatustype-failure"></a>`failure` | [`Int!`](#int) | Number of projects where `analyzer_type` failed to execute. |
 | <a id="analyzergroupstatustype-namespaceid"></a>`namespaceId` | [`Int!`](#int) | Namespace ID. |
 | <a id="analyzergroupstatustype-notconfigured"></a>`notConfigured` | [`Int!`](#int) | Number of projects where `analyzer_type` is not configured. |
-| <a id="analyzergroupstatustype-stale"></a>`stale` {{< icon name="warning-solid" >}} | [`Int`](#int) | **Introduced** in GitLab 19.0. **Status**: Experiment. Number of projects where `analyzer_type` has not run in three consecutive pipelines in the default branch. |
+| <a id="analyzergroupstatustype-stale"></a>`stale` | [`Int!`](#int) | Number of projects where `analyzer_type` has not run in three consecutive pipelines in the default branch. |
 | <a id="analyzergroupstatustype-success"></a>`success` | [`Int!`](#int) | Number of projects where `analyzer_type` completed successfully. |
 | <a id="analyzergroupstatustype-totalprojectscount"></a>`totalProjectsCount` | [`Int!`](#int) | Total number of projects descending from the group. |
 | <a id="analyzergroupstatustype-updatedat"></a>`updatedAt` | [`ISO8601DateTime!`](#iso8601datetime) | Timestamp of when the status was last updated. |
@@ -36032,6 +36032,7 @@ Events that describe the history and progress of a GitLab Duo Agent Platform ses
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | <a id="duoworkflowevent-checkpoint"></a>`checkpoint` {{< icon name="warning-solid" >}} | [`JsonString`](#jsonstring) | **Deprecated** in GitLab 18.7. Checkpoints are big & contain internal langgraph details. |
+| <a id="duoworkflowevent-compressedcheckpoint"></a>`compressedCheckpoint` | [`String`](#string) | Checkpoint of the event, zlib-compressed and Base64-encoded. |
 | <a id="duoworkflowevent-duomessages"></a>`duoMessages` | [`[DuoMessage!]`](#duomessage) | Messages from the ui_chat_log for the checkpoint. |
 | <a id="duoworkflowevent-errors"></a>`errors` | [`[String!]`](#string) | Message errors. |
 | <a id="duoworkflowevent-executionstatus"></a>`executionStatus` {{< icon name="warning-solid" >}} | [`String!`](#string) | **Introduced** in GitLab 17.10. **Status**: Experiment. Granular status of the session's execution. |
@@ -57078,7 +57079,7 @@ Enum for types of analyzers.
 | ----- | ----------- |
 | <a id="analyzerstatusenum-failed"></a>`FAILED` | Last analyzer execution failed. |
 | <a id="analyzerstatusenum-not_configured"></a>`NOT_CONFIGURED` | Analyzer is not configured. |
-| <a id="analyzerstatusenum-stale"></a>`STALE` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 19.0. **Status**: Experiment. Analyzer is configured, but has not run in any recent pipelines. |
+| <a id="analyzerstatusenum-stale"></a>`STALE` | Analyzer is configured, but has not run in any recent pipelines. |
 | <a id="analyzerstatusenum-success"></a>`SUCCESS` | Last analyzer execution finished successfully. |
 
 ### `AnalyzerTypeEnum`

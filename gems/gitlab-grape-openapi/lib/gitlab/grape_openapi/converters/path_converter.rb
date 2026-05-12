@@ -4,6 +4,12 @@ module Gitlab
   module GrapeOpenapi
     module Converters
       class PathConverter
+        # Grape stores response-entity declarations under :entity (when declared
+        # via `entity:` on the route) and :success (when declared via the `success`
+        # DSL inside a `desc` block, in any of its forms). EntityConverter.register
+        # handles all three shapes (Class, Hash with :model, Array of those).
+        RESPONSE_DECLARATIONS = %i[entity success].freeze
+
         def self.convert(routes, schema_registry, request_body_registry)
           new(routes, schema_registry, request_body_registry).convert
         end
@@ -33,12 +39,28 @@ module Gitlab
           routes.each do |route|
             next if skip_route?(route)
 
+            register_route_entities(route)
+
             key = grouping_key(route)
             groups[key] ||= []
             groups[key] << route
           end
 
           groups.transform_keys { |key| normalize_path(groups[key].first) }
+        end
+
+        # Register entities declared on the route's response so they appear in
+        # `components.schemas` only for routes that are actually emitted.
+        # Running this after `skip_route?` keeps registration in sync with the
+        # final spec and avoids `no-unused-components` orphans for entities
+        # that belong only to hidden routes or wildcard catch-alls.
+        def register_route_entities(route)
+          RESPONSE_DECLARATIONS.each do |key|
+            definition = route.options[key]
+            next unless definition
+
+            EntityConverter.register(definition, @schema_registry)
+          end
         end
 
         def skip_route?(route)

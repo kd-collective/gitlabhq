@@ -6,6 +6,8 @@ boundaries:
   - group
   - user
   - instance
+available_for:
+  - granular_access_token
 permissions:
   - create_bitbucket_import
   - create_bitbucket_server_import

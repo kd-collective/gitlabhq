@@ -4,6 +4,8 @@ description: Grants the ability to read import status
 boundaries:
   - instance
   - project
+available_for:
+  - granular_access_token
 permissions:
   - read_bulk_import
   - read_bulk_import_entity

@@ -67,6 +67,10 @@ You can customize how flows are executed in CI/CD by creating an agent configura
 
 The configuration is applied when flows run in CI/CD for your project.
 
+> [!note]
+> The configuration file is read only from the project's default branch.
+> Files committed to other branches are ignored, even when a flow runs from those branches.
+
 ### Change the default Docker image
 
 By default, all flows executed with CI/CD use a standard Docker image provided by GitLab.

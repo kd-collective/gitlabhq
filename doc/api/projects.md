@@ -30,7 +30,7 @@ The Projects API contains endpoints that:
 ## Prerequisites
 
 - Any [default role](../user/permissions.md#roles) on a project to read the project's properties.
-- The Owner or Maintainer role on a project to edit the project's properties.
+- The Maintainer or Owner role on a project to edit the project's properties.
 
 ## Project visibility level
 

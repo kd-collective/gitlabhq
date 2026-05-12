@@ -1,8 +1,10 @@
 ---
 name: create_user_email
-deprecated: true
 description: Grants the ability to create user email addresses
+deprecated: true
 boundaries:
   - user
+available_for:
+  - granular_access_token
 permissions:
   - create_user_email

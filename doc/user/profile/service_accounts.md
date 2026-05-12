@@ -105,10 +105,10 @@ They cannot create top-level groups or service accounts.
 
 Prerequisites:
 
-- On GitLab.com, you must have the Owner or Maintainer role for the project.
+- On GitLab.com, you must have the Maintainer or Owner role for the project.
 - On GitLab Self-Managed or GitLab Dedicated, you must either:
   - Be an administrator for the instance.
-  - Have the Owner or Maintainer role in a project.
+  - Have the Maintainer or Owner role in a project.
 
 {{< /tab >}}
 

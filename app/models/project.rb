@@ -178,8 +178,6 @@ class Project < ApplicationRecord
 
   after_save :reload_project_namespace_details
 
-  after_save :invalidate_namespace_cache, if: :saved_change_to_archived?
-
   has_many :project_topics, -> { order(:id) }, class_name: 'Projects::ProjectTopic'
   has_many :topics, through: :project_topics, class_name: 'Projects::Topic'
 
@@ -902,7 +900,7 @@ class Project < ApplicationRecord
 
   # NOTE: This scope must always be chained with a namespace filter (e.g. .in_namespace()).
   # It has no namespace constraint and will scan all projects if used standalone.
-  # See: Integrations::PropagateService#create_integration_for_projects_without_integration_belonging_to_group
+  # See: Integrations::PropagateService#propagate_integration_to_descendant_projects
   scope :without_integration_excluding_ancestor_archived_check, ->(integration) {
     integrations = Integration
       .select('1')
@@ -4057,10 +4055,6 @@ class Project < ApplicationRecord
     return unless (previous_changes.keys & %w[description description_html cached_markdown_version]).any? && project_namespace.namespace_details.present?
 
     project_namespace.namespace_details.reset
-  end
-
-  def invalidate_namespace_cache
-    Namespaces::Descendants.expire_for([namespace_id])
   end
 
   # SyncEvents are created by PG triggers (with the function `insert_projects_sync_event`)

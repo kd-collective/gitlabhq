@@ -12,7 +12,7 @@ module Gitlab
 
           attr_reader :project, :sha, :user, :parent_pipeline, :variables, :pipeline_config, :parallel_requests,
             :pipeline, :expandset, :execution_deadline, :logger, :max_includes, :max_total_yaml_size_bytes,
-            :pipeline_policy_context, :component_data
+            :pipeline_policy_context, :component_data, :parent_file
 
           attr_accessor :total_file_size_in_bytes
 
@@ -24,7 +24,7 @@ module Gitlab
           # rubocop:disable Metrics/ParameterLists -- all arguments needed
           def initialize(
             project: nil, pipeline: nil, sha: nil, user: nil, parent_pipeline: nil, variables: nil,
-            pipeline_config: nil, logger: nil, pipeline_policy_context: nil, component_data: nil
+            pipeline_config: nil, logger: nil, pipeline_policy_context: nil, component_data: nil, parent_file: nil
           )
             @project = project
             @pipeline = pipeline
@@ -35,6 +35,7 @@ module Gitlab
             @pipeline_config = pipeline_config
             @pipeline_policy_context = pipeline_policy_context
             @component_data = component_data || {}
+            @parent_file = parent_file
             @expandset = []
             @parallel_requests = []
             @execution_deadline = 0

@@ -3,5 +3,7 @@ name: update_saml_identity
 description: Grants the ability to update SAML user identity
 boundaries:
   - group
+available_for:
+  - granular_access_token
 permissions:
   - update_saml_identity

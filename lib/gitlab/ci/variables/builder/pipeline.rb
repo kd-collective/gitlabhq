@@ -110,8 +110,6 @@ module Gitlab
           strong_memoize_attr :git_tag
 
           def predefined_merge_request_variables
-            Preloader::MergeRequest.new(pipeline.merge_request).preload unless lazy_variables_enabled?
-
             Gitlab::Ci::Variables::Collection.new.tap do |variables|
               variables.append(key: 'CI_MERGE_REQUEST_EVENT_TYPE', value: pipeline.merge_request_event_type.to_s)
               variables.append(key: 'CI_MERGE_REQUEST_SOURCE_BRANCH_SHA', value: pipeline.source_sha.to_s)
@@ -183,19 +181,8 @@ module Gitlab
             text.byteslice(0, max_size)
           end
 
-          def lazy_variables_enabled?
-            project = pipeline.merge_request&.target_project || pipeline.project
-            ::Feature.enabled?(:ci_lazy_predefined_variables, project)
-          end
-          strong_memoize_attr :lazy_variables_enabled?
-
           def append_variable(variables, key:, &block)
-            if lazy_variables_enabled?
-              variables.append(key: key, lazy: true, value: block)
-            else
-              value = yield
-              variables.append(key: key, value: value) if value
-            end
+            variables.append(key: key, lazy: true, value: block)
           end
         end
       end

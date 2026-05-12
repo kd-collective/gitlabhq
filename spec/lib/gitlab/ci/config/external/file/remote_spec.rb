@@ -467,8 +467,8 @@ RSpec.describe Gitlab::Ci::Config::External::File::Remote, feature_category: :pi
 
     subject { remote_file.send(:expand_context_attrs) }
 
-    it 'drops all parameters' do
-      is_expected.to be_empty
+    it 'includes parent_file' do
+      is_expected.to eq({ parent_file: remote_file })
     end
   end
 

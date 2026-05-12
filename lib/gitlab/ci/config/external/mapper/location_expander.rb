@@ -35,12 +35,14 @@ module Gitlab
               normalized_path = Gitlab::Utils.remove_leading_slashes(location[:local])
               paths = context.project.repository.search_files_by_wildcard_path(normalized_path, context.sha)
 
+              parent_file = context.parent_file
+
               paths.filter_map do |path|
-                next if context.expandset.any? do |f|
-                  f.location == path &&
-                    f.class.name.demodulize == 'Local' &&
-                    f.context.project == context.project
-                end
+                # Prevent self-inclusion: skip paths matching the parent file that triggered this wildcard expansion.
+                next if parent_file &&
+                  parent_file.is_a?(Gitlab::Ci::Config::External::File::Local) &&
+                  parent_file.location == path &&
+                  parent_file.context.project == context.project
 
                 location.merge(local: path)
               end

@@ -1,6 +1,11 @@
 ---
 name: create_work_item
 description: Grants the ability to create work items
+boundaries:
+  - group
+  - project
+available_for:
+  - granular_access_token
 permissions:
   - clone_issue
   - create_work_item
@@ -32,6 +37,3 @@ permissions:
   - create_snippet_note
   - create_snippet_note_award_emoji
   - create_wiki_page_meta_note
-boundaries:
-  - group
-  - project

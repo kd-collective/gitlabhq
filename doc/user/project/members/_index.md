@@ -122,7 +122,7 @@ to perform actions.
 
 Prerequisites:
 
-- You must have the Owner or Maintainer role.
+- You must have the Maintainer or Owner role.
 - [Group membership lock](../../group/access_and_permissions.md#prevent-members-from-being-added-to-projects-in-a-group) must be disabled.
 - For GitLab Self-Managed instances:
   - If [new user accounts are disabled](../../../administration/settings/sign_up_restrictions.md#disable-new-user-account-creation), an administrator must add the user.
@@ -160,7 +160,7 @@ To add a user to a project:
 
 ### Which roles you can assign
 
-The maximum role you can assign depends on whether you have the Owner or Maintainer
+The maximum role you can assign depends on whether you have the Maintainer or Owner
 role for the group. For example, the maximum role you can set is:
 
 - Owner (`50`), if you have the Owner role for the project.
@@ -333,7 +333,7 @@ GitLab users can request to become a member of a project.
 
 An email is sent to the most recently active project Maintainers or Owners.
 Up to ten project Maintainers or Owners are notified.
-Any project Owner or Maintainer can approve or decline the request.
+Any project Maintainer or Owner can approve or decline the request.
 Project Maintainers cannot approve Owner role access requests.
 
 If a project does not have any direct Owners or Maintainers, the most recently active Owners of the project's parent group receive the notification.

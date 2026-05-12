@@ -212,6 +212,80 @@ RSpec.describe Namespaces::Stateful, feature_category: :groups_and_projects do
       end
     end
 
+    describe 'cache invalidation on archive transitions' do
+      context 'when namespace is a group' do
+        let_it_be_with_reload(:group) { create(:group) }
+
+        it 'expires namespace descendants cache when archiving' do
+          expect(Namespaces::Descendants).to receive(:expire_recursive_for).with(group)
+
+          group.archive(transition_user: user)
+        end
+
+        it 'expires namespace descendants cache when unarchiving' do
+          group.update!(state: :archived)
+
+          expect(Namespaces::Descendants).to receive(:expire_recursive_for).with(group)
+
+          group.unarchive(transition_user: user)
+        end
+      end
+
+      context 'when namespace is a project namespace' do
+        let_it_be_with_reload(:project) { create(:project) }
+        let_it_be(:project_namespace) { project.project_namespace }
+
+        it 'expires namespace descendants cache for the parent when archiving' do
+          expect(Namespaces::Descendants).to receive(:expire_for).with([project_namespace.parent_id])
+
+          project_namespace.archive(transition_user: user)
+        end
+
+        it 'expires namespace descendants cache for the parent when unarchiving' do
+          project_namespace.update!(state: :archived)
+
+          expect(Namespaces::Descendants).to receive(:expire_for).with([project_namespace.parent_id])
+
+          project_namespace.unarchive(transition_user: user)
+        end
+      end
+
+      context 'when namespace is a user namespace' do
+        it 'does not expire namespace descendants cache' do
+          user_namespace = create(:user_namespace)
+          user_namespace.update!(state: :archived)
+
+          expect(Namespaces::Descendants).not_to receive(:expire_for)
+          expect(Namespaces::Descendants).not_to receive(:expire_recursive_for)
+
+          user_namespace.unarchive(transition_user: user)
+        end
+      end
+
+      context 'when transitioning from archived via non-archive events' do
+        let_it_be_with_reload(:group) { create(:group) }
+
+        it 'expires cache when scheduling deletion from archived state' do
+          group.update!(state: :archived)
+
+          expect(Namespaces::Descendants).to receive(:expire_recursive_for).with(group)
+
+          group.schedule_deletion(transition_user: user)
+        end
+
+        it 'expires cache when cancel_deletion restores to archived' do
+          group.update!(state: :deletion_scheduled)
+          group.namespace_details.update!(
+            state_metadata: { preserved_states: { 'schedule_deletion' => 'archived' } }
+          )
+
+          expect(Namespaces::Descendants).to receive(:expire_recursive_for).with(group)
+
+          group.cancel_deletion(transition_user: user)
+        end
+      end
+    end
+
     describe 'rejected transitions' do
       where(:event, :current_state) do
         :archive             | :archived

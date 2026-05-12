@@ -1,6 +1,13 @@
 ---
 name: read_work_item
 description: Grants the ability to read work items
+boundaries:
+  - group
+  - instance
+  - project
+  - user
+available_for:
+  - granular_access_token
 permissions:
   - read_work_item
   - read_epic
@@ -53,8 +60,3 @@ permissions:
   - read_snippet_note
   - read_snippet_note_award_emoji
   - read_wiki_page_meta_note
-boundaries:
-  - group
-  - instance
-  - project
-  - user

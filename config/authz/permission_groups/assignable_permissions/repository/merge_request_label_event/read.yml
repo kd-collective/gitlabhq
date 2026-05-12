@@ -1,8 +1,10 @@
 ---
 name: read_merge_request_label_event
-deprecated: true
 description: Grants the ability to read merge request label events
+deprecated: true
 boundaries:
   - project
+available_for:
+  - granular_access_token
 permissions:
   - read_merge_request_label_event

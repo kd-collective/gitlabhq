@@ -182,7 +182,7 @@ module Gitlab
             end
 
             def expand_context_attrs
-              {}
+              { parent_file: self }
             end
 
             def masked_location

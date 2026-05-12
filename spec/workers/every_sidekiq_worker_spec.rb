@@ -525,6 +525,7 @@ RSpec.describe 'Every Sidekiq worker', feature_category: :sidekiq do
         'AppSec::ContainerScanning::ScanImageWorker' => 3,
         'Ci::DestroyOldPipelinesWorker' => 0,
         'AuditEvents::AuditEventStreamingWorker' => 3,
+        'AuditEvents::AiAuditEventStreamingWorker' => 3,
         'Vulnerabilities::TriggerFalsePositiveDetectionWorkflowWorker' => 10,
         'Vulnerabilities::TriggerResolutionWorkflowWorker' => 10,
         'Vulnerabilities::TriggerSecretDetectionFalsePositiveDetectionWorkflowWorker' => 10,

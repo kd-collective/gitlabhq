@@ -1,8 +1,10 @@
 ---
 name: create_project_relation_import
-deprecated: true
 description: Grants the ability to import relations into a project
-permissions:
-  - create_project_relation_import
+deprecated: true
 boundaries:
   - project
+available_for:
+  - granular_access_token
+permissions:
+  - create_project_relation_import

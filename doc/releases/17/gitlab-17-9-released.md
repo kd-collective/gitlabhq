@@ -803,7 +803,7 @@ With this enhancement, you can:
 
 {{< /details >}}
 
-You can create custom roles with the [Read compliance dashboard](https://gitlab.com/gitlab-org/gitlab/-/issues/465324) permission. Custom roles allow you to grant only the specific permissions users need to complete their tasks. This helps you define roles that are tailored to the needs of your group, and can reduce the number of users who need the Owner or Maintainer role.
+You can create custom roles with the [Read compliance dashboard](https://gitlab.com/gitlab-org/gitlab/-/issues/465324) permission. Custom roles allow you to grant only the specific permissions users need to complete their tasks. This helps you define roles that are tailored to the needs of your group, and can reduce the number of users who need the Maintainer or Owner role.
 
 ### GitLab Runner 17.9
 
