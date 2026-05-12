@@ -78,7 +78,6 @@ class MergeRequestsFinder < IssuableFinder
 
   def self.scalar_params
     @scalar_params ||= super + [
-      :approved,
       :approved_by_ids,
       :deployed_after,
       :deployed_before,

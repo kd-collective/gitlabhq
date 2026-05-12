@@ -242,7 +242,6 @@ RSpec.shared_context 'ProjectPolicy context' do
     %i[
       admin_remote_mirror
       delete_custom_attribute
-      owner_access
       read_custom_attribute
       read_internal_note
       read_project_for_iids
@@ -255,7 +254,6 @@ RSpec.shared_context 'ProjectPolicy context' do
   let(:organization_owner_permissions) do
     %i[
       admin_remote_mirror
-      owner_access
     ]
   end
 

@@ -236,7 +236,6 @@ class Project < ApplicationRecord
   has_one :confluence_integration, class_name: 'Integrations::Confluence'
   has_one :custom_issue_tracker_integration, class_name: 'Integrations::CustomIssueTracker'
   has_one :datadog_integration, class_name: 'Integrations::Datadog'
-  has_one :container_registry_data_repair_detail, class_name: 'ContainerRegistry::DataRepairDetail'
   has_one :diffblue_cover_integration, class_name: 'Integrations::DiffblueCover'
   has_one :discord_integration, class_name: 'Integrations::Discord'
   has_one :drone_ci_integration, class_name: 'Integrations::DroneCi'
@@ -1035,12 +1034,6 @@ class Project < ApplicationRecord
       .having(%(COUNT(DISTINCT "topic"."name") = ?), topic_names.count)
 
     where(id: project_topics.select(:project_id))
-  end
-
-  scope :pending_data_repair_analysis, -> do
-    left_outer_joins(:container_registry_data_repair_detail)
-    .where(container_registry_data_repair_details: { project_id: nil })
-    .order(id: :desc)
   end
 
   scope :in_organization, ->(organization) { where(organization: organization) }

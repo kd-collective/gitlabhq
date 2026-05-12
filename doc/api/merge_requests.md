@@ -648,7 +648,6 @@ Supported attributes:
 | Attribute                   | Type              | Required | Description |
 |-----------------------------|-------------------|----------|-------------|
 | `id`                        | integer or string | Yes      | The ID or [URL-encoded path](rest/_index.md#namespaced-paths) of the group. |
-| `approved`                  | string            | No       | If `yes`, returns only approved merge requests. `no` returns only non-approved merge requests. |
 | `approved_by_ids[]`         | integer array     | No       | Returns merge requests approved by all the users with the given `id`, up to 5 users. `None` returns merge requests with no approvals. `Any` returns merge requests with an approval. |
 | `approved_by_usernames[]`   | string array      | No       | Returns merge requests approved by all the users with the given `username`, up to 5 users. `None` returns merge requests with no approvals. `Any` returns merge requests with an approval. |
 | `approver_ids[]`            | integer array     | No       | Returns merge requests which have all users with the specified `id` as eligible approvers according to the approval rules. `None` returns merge requests with no eligible approvers. `Any` returns merge requests with at least one eligible approver. Premium and Ultimate only. |

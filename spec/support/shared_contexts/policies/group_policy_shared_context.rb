@@ -155,7 +155,6 @@ RSpec.shared_context 'GroupPolicy context' do
         delete_subgroup
         edit_billing
         manage_merge_request_settings
-        owner_access
         read_billing
         read_statistics
         register_group_runners

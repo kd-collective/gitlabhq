@@ -6288,7 +6288,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_5ff646497b6a"
+              "$ref": "#/components/schemas/RequestBody_2def9177cd1c"
   "/api/v4/groups/{id}/member_roles/{member_role_id}":
     delete:
       operationId: deleteApiV4GroupsIdMemberRolesMemberRoleId
@@ -6355,7 +6355,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_5ff646497b6a"
+              "$ref": "#/components/schemas/RequestBody_2def9177cd1c"
   "/api/v4/member_roles/{member_role_id}":
     delete:
       operationId: deleteApiV4MemberRolesMemberRoleId
@@ -37414,17 +37414,6 @@ paths:
           nullable: true
         in: query
         example: '2019-03-15T08:00:00Z'
-      - name: approved
-        required: false
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        schema:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          nullable: true
-        in: query
       - name: merge_user_id
         required: false
         description: Returns merge requests which have been merged by the user with
@@ -37924,17 +37913,6 @@ paths:
           nullable: true
         in: query
         example: '2019-03-15T08:00:00Z'
-      - name: approved
-        required: false
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        schema:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          nullable: true
-        in: query
       - name: merge_user_id
         required: false
         description: Returns merge requests which have been merged by the user with
@@ -38615,17 +38593,6 @@ paths:
           nullable: true
         in: query
         example: '2019-03-15T08:00:00Z'
-      - name: approved
-        required: false
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        schema:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          nullable: true
-        in: query
       - name: merge_user_id
         required: false
         description: Returns merge requests which have been merged by the user with
@@ -54825,17 +54792,6 @@ paths:
           nullable: true
         in: query
         example: '2019-03-15T08:00:00Z'
-      - name: approved
-        required: false
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        schema:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          nullable: true
-        in: query
       - name: merge_user_id
         required: false
         description: Returns merge requests which have been merged by the user with
@@ -80742,6 +80698,9 @@ components:
         archive_project:
           type: boolean
           default: false
+        admin_ai_catalog_item_consumer:
+          type: boolean
+          default: false
         remove_project:
           type: boolean
           default: false
@@ -80749,6 +80708,9 @@ components:
           type: boolean
           default: false
         manage_security_policy_link:
+          type: boolean
+          default: false
+        admin_ai_catalog_item:
           type: boolean
           default: false
         admin_compliance_framework:
@@ -89373,7 +89335,7 @@ components:
           nullable: true
       required:
       - extern_uid
-    RequestBody_5ff646497b6a:
+    RequestBody_2def9177cd1c:
       type: object
       properties:
         base_access_level:
@@ -89406,6 +89368,11 @@ components:
           type: boolean
           description: Allows archiving of projects.
           nullable: true
+        admin_ai_catalog_item_consumer:
+          type: boolean
+          description: Enable, disable, and configure custom agents and flows from
+            the AI catalog for a project.
+          nullable: true
         remove_project:
           type: boolean
           description: Allows deletion of projects.
@@ -89419,6 +89386,11 @@ components:
         manage_security_policy_link:
           type: boolean
           description: Allows linking security policy projects.
+          nullable: true
+        admin_ai_catalog_item:
+          type: boolean
+          description: Create, edit, and delete custom agents and flows in the AI
+            catalog.
           nullable: true
         admin_compliance_framework:
           type: boolean

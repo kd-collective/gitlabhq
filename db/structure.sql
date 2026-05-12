@@ -45081,7 +45081,7 @@ CREATE INDEX idx_sbom_occ_vulns_on_vulnerability_occurrence_id ON sbom_occurrenc
 
 CREATE INDEX idx_sbom_occurr_on_project_component_version_input_file_path ON sbom_occurrences USING btree (project_id, component_version_id, input_file_path);
 
-CREATE INDEX idx_sbom_occurrence_refs_on_occurrence_id ON sbom_occurrence_refs USING btree (sbom_occurrence_id);
+CREATE UNIQUE INDEX idx_sbom_occurrence_refs_on_sbom_occ_id_and_tracked_context_id ON sbom_occurrence_refs USING btree (sbom_occurrence_id, security_project_tracked_context_id);
 
 CREATE INDEX idx_sbom_occurrence_refs_on_sec_prj_trck_cnxt_id ON sbom_occurrence_refs USING btree (security_project_tracked_context_id);
 

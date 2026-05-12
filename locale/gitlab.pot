@@ -43828,6 +43828,9 @@ msgstr ""
 msgid "MemberRole|Direct users assigned"
 msgstr ""
 
+msgid "MemberRole|Duo Agent Platform"
+msgstr ""
+
 msgid "MemberRole|Edit admin role"
 msgstr ""
 

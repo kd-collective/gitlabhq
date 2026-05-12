@@ -92,34 +92,6 @@ module ContainerRegistry
       end
     end
 
-    def self.each_sub_repositories_with_tag_page(path:, page_size: 100, &block)
-      raise ArgumentError, 'block not given' unless block
-
-      # dummy uri to initialize the loop
-      next_page_uri = URI('')
-      page_count = 0
-      downcased_path = path&.downcase
-
-      with_dummy_client(token_config: { type: :nested_repositories_token, path: downcased_path }) do |client|
-        while next_page_uri
-          last = Rack::Utils.parse_nested_query(next_page_uri.query)['last']
-          current_page = client.sub_repositories_with_tag(downcased_path, page_size: page_size, last: last)
-
-          if current_page&.key?(:response_body)
-            yield (current_page[:response_body] || [])
-            next_page_uri = current_page.dig(:pagination, :next, :uri)
-          else
-            # no current page. Break the loop
-            next_page_uri = nil
-          end
-
-          page_count += 1
-
-          raise 'too many pages requested' if page_count >= MAX_REPOSITORIES_PAGE_SIZE
-        end
-      end
-    end
-
     # https://gitlab.com/gitlab-org/container-registry/-/blob/master/docs/spec/gitlab/api.md#compliance-check
     def supports_gitlab_api?
       strong_memoize(:supports_gitlab_api) do

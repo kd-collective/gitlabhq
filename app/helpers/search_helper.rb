@@ -17,7 +17,7 @@ module SearchHelper
   ].freeze
 
   def search_autocomplete_opts(term, filter: nil, scope: nil)
-    return unless current_user
+    return [] unless current_user
 
     results = case filter&.to_sym
               when :search

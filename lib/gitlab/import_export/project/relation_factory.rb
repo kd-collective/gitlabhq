@@ -215,11 +215,23 @@ module Gitlab
           work_item_type_hash = @relation_hash.delete('work_item_type')
           issue_type = @relation_hash.delete('issue_type')
 
+          provider = ::WorkItems::TypesFramework::Provider.new(@importable)
+          @work_item_type = resolve_work_item_type(provider, work_item_type_hash, issue_type)
+        end
+
+        def resolve_work_item_type(provider, work_item_type_hash, issue_type)
+          name = work_item_type_hash&.dig('name')
+          if name && ::Feature.enabled?(:work_item_configurable_types, @importable.root_namespace)
+            matched = provider.find_by_name(name)
+            return matched if matched&.can_user_create_items?
+
+            return provider.default_issue_type
+          end
+
+          # Backward compatibility: legacy exports use `base_type` or `issue_type`.
+          # Also used when the `work_item_configurable_types` feature flag is disabled.
           base_type = work_item_type_hash&.dig('base_type') || issue_type
-
-          return unless base_type
-
-          @work_item_type = ::WorkItems::TypesFramework::Provider.new(@importable).find_by_base_type(base_type)
+          provider.find_by_base_type(base_type) if base_type
         end
 
         def setup_release

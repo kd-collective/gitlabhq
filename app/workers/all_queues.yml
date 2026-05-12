@@ -322,8 +322,7 @@
   :resource_boundary: :unknown
   :weight: 1
   :idempotent: true
-  :tags:
-  - :cronjob_child
+  :tags: []
   :queue_namespace: :container_repository
 - :name: container_repository_delete:container_registry_delete_container_repository
   :worker_name: ContainerRegistry::DeleteContainerRepositoryWorker

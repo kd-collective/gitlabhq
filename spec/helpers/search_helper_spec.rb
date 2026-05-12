@@ -23,8 +23,8 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
         allow(self).to receive(:current_user).and_return(nil)
       end
 
-      it "returns nil" do
-        expect(search_autocomplete_opts("q")).to be_nil
+      it "returns an empty array" do
+        expect(search_autocomplete_opts("q")).to eq([])
       end
     end
 

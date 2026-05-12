@@ -357,7 +357,6 @@ modify_value_stream_dashboard_settings
 move_design
 move_work_item
 override_group_member
-owner_access
 pages_multiple_versions
 project_bot_access
 promote_to_epic

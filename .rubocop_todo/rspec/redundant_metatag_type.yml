@@ -267,7 +267,6 @@ RSpec/RedundantMetatagType:
     - 'spec/models/clusters/kubernetes_namespace_spec.rb'
     - 'spec/models/concerns/packages/conan/package_fileable_spec.rb'
     - 'spec/models/container_expiration_policy_spec.rb'
-    - 'spec/models/container_registry/data_repair_detail_spec.rb'
     - 'spec/models/container_registry/protection/rule_spec.rb'
     - 'spec/models/container_registry/protection/tag_rule_spec.rb'
     - 'spec/models/customer_relations/contact_spec.rb'

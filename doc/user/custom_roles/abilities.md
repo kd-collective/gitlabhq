@@ -61,6 +61,13 @@ You can create a [custom role](_index.md) by adding one or more custom permissio
 | Manage deploy tokens | Manage deploy tokens at the group or project level. | [`manage_deploy_tokens`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/151677) | Group,<br> Project | GitLab [17.0](https://gitlab.com/gitlab-org/gitlab/-/issues/448843) |
 | Manage Protected Environments | Create, read, update, and delete protected environments | [`admin_protected_environments`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/178283) | Group,<br> Project | GitLab [17.9](https://gitlab.com/gitlab-org/gitlab/-/issues/471385) |
 
+## Duo agent platform
+
+| Permission | Description | API Attribute | Scope | Introduced |
+|:-----------|:------------|:--------------|:------|:-----------|
+| Configure AI catalog items | Enable, disable, and configure custom agents and flows from the AI catalog for a project. | [`admin_ai_catalog_item_consumer`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/234759) | Project | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/578558) |
+| Manage AI catalog items | Create, edit, and delete custom agents and flows in the AI catalog. | [`admin_ai_catalog_item`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/234759) | Project | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/578558) |
+
 ## Groups and projects
 
 | Permission | Description | API Attribute | Scope | Introduced |

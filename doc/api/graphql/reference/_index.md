@@ -59450,6 +59450,8 @@ Member role permission.
 
 | Value | Description |
 | ----- | ----------- |
+| <a id="memberrolepermission-admin_ai_catalog_item"></a>`ADMIN_AI_CATALOG_ITEM` | Create, edit, and delete custom agents and flows in the AI catalog. |
+| <a id="memberrolepermission-admin_ai_catalog_item_consumer"></a>`ADMIN_AI_CATALOG_ITEM_CONSUMER` | Enable, disable, and configure custom agents and flows from the AI catalog for a project. |
 | <a id="memberrolepermission-admin_cicd_variables"></a>`ADMIN_CICD_VARIABLES` | Create, read, update, and delete CI/CD variables. |
 | <a id="memberrolepermission-admin_compliance_framework"></a>`ADMIN_COMPLIANCE_FRAMEWORK` | Create, read, update, and delete compliance frameworks. Users with this permission can also assign a compliance framework label to a project, and set the default framework of a group. |
 | <a id="memberrolepermission-admin_group_member"></a>`ADMIN_GROUP_MEMBER` | Add or remove users in a group, and assign roles to users. When assigning a role, users with this custom permission must select a role that has the same or fewer permissions as the default role used as the base for their custom role. |
@@ -59494,6 +59496,8 @@ Member role standard permission.
 
 | Value | Description |
 | ----- | ----------- |
+| <a id="memberrolestandardpermission-admin_ai_catalog_item"></a>`ADMIN_AI_CATALOG_ITEM` | Create, edit, and delete custom agents and flows in the AI catalog. |
+| <a id="memberrolestandardpermission-admin_ai_catalog_item_consumer"></a>`ADMIN_AI_CATALOG_ITEM_CONSUMER` | Enable, disable, and configure custom agents and flows from the AI catalog for a project. |
 | <a id="memberrolestandardpermission-admin_cicd_variables"></a>`ADMIN_CICD_VARIABLES` | Create, read, update, and delete CI/CD variables. |
 | <a id="memberrolestandardpermission-admin_compliance_framework"></a>`ADMIN_COMPLIANCE_FRAMEWORK` | Create, read, update, and delete compliance frameworks. Users with this permission can also assign a compliance framework label to a project, and set the default framework of a group. |
 | <a id="memberrolestandardpermission-admin_group_member"></a>`ADMIN_GROUP_MEMBER` | Add or remove users in a group, and assign roles to users. When assigning a role, users with this custom permission must select a role that has the same or fewer permissions as the default role used as the base for their custom role. |

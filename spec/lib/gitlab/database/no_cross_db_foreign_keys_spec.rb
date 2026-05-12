@@ -28,9 +28,6 @@ RSpec.describe 'cross-database foreign keys', feature_category: :database do
       # https://gitlab.com/gitlab-org/gitlab/-/issues/560435
       'dingtalk_tracker_data.integration_id',
 
-      # https://gitlab.com/gitlab-org/gitlab/-/issues/560712
-      'audit_events_streaming_instance_namespace_filters.external_streaming_destination_id',
-
       # Subscription add-ons are static/deprecated tables to be removed
       # https://gitlab.com/groups/gitlab-org/-/work_items/19981
       'subscription_add_on_purchases.subscription_add_on_id',

@@ -109,9 +109,6 @@ module API
           documentation: { example: '2019-03-15T08:00:00Z' }
         optional :environment, desc: 'Returns merge requests deployed to the given environment',
           documentation: { example: '2019-03-15T08:00:00Z' }
-        optional :approved, type: String,
-          values: %w[yes no],
-          desc: 'Filters merge requests by their `approved` status. `yes` returns only approved merge requests. `no` returns only non-approved merge requests.'
         optional :merge_user_id, type: Integer,
           desc: "Returns merge requests which have been merged by the user with the given user `id`. Mutually exclusive with `merge_user_username`."
         optional :merge_user_username, type: String,

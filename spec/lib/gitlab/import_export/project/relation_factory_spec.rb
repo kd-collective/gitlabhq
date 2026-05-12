@@ -254,22 +254,59 @@ RSpec.describe Gitlab::ImportExport::Project::RelationFactory, :use_clean_rails_
       end
     end
 
-    context 'when work_item_type hash is provided' do
+    context 'when work_item_type hash with name is provided' do
       let(:incident_type) { build(:work_item_system_defined_type, :incident) }
-      let(:additional_relation_attributes) { { 'work_item_type' => { 'base_type' => 'incident' } } }
+      let(:additional_relation_attributes) { { 'work_item_type' => { 'name' => incident_type.name } } }
 
       it 'sets the correct work_item_type' do
         expect(created_object.work_item_type_id).to eq(incident_type.id)
       end
+
+      context 'when the provided name does not match any existing type' do
+        let(:additional_relation_attributes) { { 'work_item_type' => { 'name' => 'Non-existent type' } } }
+
+        it 'defaults to the issue type' do
+          expect(created_object.work_item_type_id).to eq(build(:work_item_system_defined_type, :issue).id)
+        end
+      end
+
+      context 'when work_item_configurable_types feature flag is disabled' do
+        before do
+          stub_feature_flags(work_item_configurable_types: false)
+        end
+
+        it 'ignores the name and does not set a work_item_type, lets the model default to issue' do
+          expect(created_object.work_item_type_id).to be_nil
+        end
+
+        context 'when base_type is also provided alongside name' do
+          let(:additional_relation_attributes) do
+            { 'work_item_type' => { 'name' => incident_type.name, 'base_type' => 'incident' } }
+          end
+
+          it 'falls back to base_type' do
+            expect(created_object.work_item_type_id).to eq(incident_type.id)
+          end
+        end
+      end
     end
 
-    context 'when work_item_type hash is provided as well as issue_type' do
+    context 'when work_item_type hash with name is provided as well as issue_type' do
       let(:incident_type) { build(:work_item_system_defined_type, :incident) }
       let(:additional_relation_attributes) do
-        { 'issue_type' => 'task', 'work_item_type' => { 'base_type' => 'incident' } }
+        { 'issue_type' => 'task', 'work_item_type' => { 'name' => incident_type.name } }
       end
 
       it 'makes work_item_type take precedence over issue_type' do
+        expect(created_object.work_item_type_id).to eq(incident_type.id)
+      end
+    end
+
+    context 'when legacy work_item_type hash with base_type is provided (backward compatibility)' do
+      let(:incident_type) { build(:work_item_system_defined_type, :incident) }
+      let(:additional_relation_attributes) { { 'work_item_type' => { 'base_type' => 'incident' } } }
+
+      it 'sets the correct work_item_type' do
         expect(created_object.work_item_type_id).to eq(incident_type.id)
       end
     end

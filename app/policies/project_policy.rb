@@ -332,8 +332,6 @@ class ProjectPolicy < BasePolicy
   # Ability.users_that_can_read_project method
   rule { guest }.enable :read_project
 
-  rule { owner | admin | organization_owner }.enable :owner_access
-
   rule { admin }.policy do
     enable(*Authz::Role.get(:admin).permissions(:project))
   end

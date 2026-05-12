@@ -532,7 +532,6 @@ RSpec.describe ApplicationSetting, feature_category: :settings, type: :model do
           ci_max_includes
           ci_max_total_yaml_size_bytes
           container_registry_cleanup_tags_service_max_list_size
-          container_registry_data_repair_detail_worker_max_concurrency
           container_registry_delete_tags_service_timeout
           container_registry_expiration_policies_worker_capacity
           decompress_archive_file_timeout

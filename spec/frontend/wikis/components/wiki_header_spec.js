@@ -186,10 +186,6 @@ describe('wikis/components/wiki_header', () => {
       expect(findSidebarToggle().exists()).toBe(true);
       expect(findSidebarToggle().props('action')).toBe('open');
     });
-
-    it('hides the toggle component on large screens', () => {
-      expect(findSidebarToggle().classes()).toContain('@lg/panel:gl-hidden');
-    });
   });
 
   describe('subscribe button functionality', () => {

@@ -8308,15 +8308,6 @@ paths:
         required: false
         example: '2019-03-15T08:00:00Z'
       - in: query
-        name: approved
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        type: string
-        enum:
-        - 'yes'
-        - 'no'
-        required: false
-      - in: query
         name: merge_user_id
         description: Returns merge requests which have been merged by the user with
           the given user `id`. Mutually exclusive with `merge_user_username`.
@@ -18569,15 +18560,6 @@ paths:
         required: false
         example: '2019-03-15T08:00:00Z'
       - in: query
-        name: approved
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        type: string
-        enum:
-        - 'yes'
-        - 'no'
-        required: false
-      - in: query
         name: merge_user_id
         description: Returns merge requests which have been merged by the user with
           the given user `id`. Mutually exclusive with `merge_user_username`.
@@ -27272,15 +27254,6 @@ paths:
         type: string
         required: false
         example: '2019-03-15T08:00:00Z'
-      - in: query
-        name: approved
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        type: string
-        enum:
-        - 'yes'
-        - 'no'
-        required: false
       - in: query
         name: merge_user_id
         description: Returns merge requests which have been merged by the user with
@@ -45231,15 +45204,6 @@ paths:
         required: false
         example: '2019-03-15T08:00:00Z'
       - in: query
-        name: approved
-        description: Filters merge requests by their `approved` status. `yes` returns
-          only approved merge requests. `no` returns only non-approved merge requests.
-        type: string
-        enum:
-        - 'yes'
-        - 'no'
-        required: false
-      - in: query
         name: merge_user_id
         description: Returns merge requests which have been merged by the user with
           the given user `id`. Mutually exclusive with `merge_user_username`.
@@ -48343,11 +48307,15 @@ definitions:
         type: boolean
       archive_project:
         type: boolean
+      admin_ai_catalog_item_consumer:
+        type: boolean
       remove_project:
         type: boolean
       remove_group:
         type: boolean
       manage_security_policy_link:
+        type: boolean
+      admin_ai_catalog_item:
         type: boolean
       admin_compliance_framework:
         type: boolean
@@ -48420,9 +48388,11 @@ definitions:
     - apply_security_scan_profiles
     - admin_merge_request
     - archive_project
+    - admin_ai_catalog_item_consumer
     - remove_project
     - remove_group
     - manage_security_policy_link
+    - admin_ai_catalog_item
     - admin_compliance_framework
     - admin_cicd_variables
     - manage_deploy_tokens

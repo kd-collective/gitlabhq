@@ -106,7 +106,8 @@ module Members
         {
           current_user: args[:current_user],
           expires_at: args[:expires_at],
-          ldap: args[:ldap]
+          ldap: args[:ldap],
+          skip_authorization: args[:skip_authorization]
         }
       end
 
@@ -270,7 +271,7 @@ module Members
     end
 
     def skip_authorization?
-      !current_user
+      args[:skip_authorization] || !current_user
     end
 
     def add_commit_error

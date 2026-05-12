@@ -151,8 +151,6 @@ class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
     enable(*Authz::Role.get(:public_anonymous).direct_permissions(:group))
   end
 
-  rule { owner }.enable :owner_access
-
   rule { admin }.policy do
     enable(*Authz::Role.get(:admin).permissions(:group))
   end
@@ -263,7 +261,6 @@ class GroupPolicy < Namespaces::GroupProjectNamespaceSharedPolicy
   end
 
   rule { owner | admin | organization_owner }.policy do
-    enable :owner_access
     enable :read_statistics
     enable :update_group_organization
   end

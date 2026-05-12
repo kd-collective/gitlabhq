@@ -1034,6 +1034,12 @@ API/RouteSettingLifecycle:
     - 'lib/**/api/**/*.rb'
     - 'ee/lib/**/api/**/*.rb'
 
+API/RouteSettingTier:
+  Enabled: true
+  Include:
+    - 'lib/**/api/**/*.rb'
+    - 'ee/lib/**/api/**/*.rb'
+
 API/SameAsDescription:
   Enabled: true
   Include:

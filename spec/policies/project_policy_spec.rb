@@ -806,65 +806,6 @@ RSpec.describe ProjectPolicy, feature_category: :system_access do
     end
   end
 
-  context 'owner access' do
-    let_it_be(:owner_user) { owner }
-    let_it_be(:owner_of_different_thing) { create(:user) }
-
-    context 'personal project' do
-      let_it_be(:project) { private_project }
-      let_it_be(:project2) { create(:project) }
-
-      before_all do
-        project.add_guest(guest)
-        project.add_planner(planner)
-        project.add_reporter(reporter)
-        project.add_developer(developer)
-        project.add_maintainer(maintainer)
-        project2.add_owner(owner_of_different_thing)
-      end
-
-      it 'allows owner access', :aggregate_failures do
-        expect(described_class.new(owner_of_different_thing, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(non_member, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(guest, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(planner, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(reporter, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(developer, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(maintainer, project)).to be_disallowed(:owner_access)
-        expect(described_class.new(project.owner, project)).to be_allowed(:owner_access)
-      end
-    end
-
-    context 'group project' do
-      let_it_be(:project) { private_project_in_group }
-      let_it_be(:group2) { create(:group) }
-      let_it_be(:group) { project.group }
-
-      context 'group members' do
-        before_all do
-          group.add_guest(guest)
-          group.add_planner(planner)
-          group.add_reporter(reporter)
-          group.add_developer(developer)
-          group.add_maintainer(maintainer)
-          group.add_owner(owner_user)
-          group2.add_owner(owner_of_different_thing)
-        end
-
-        it 'allows owner access', :aggregate_failures do
-          expect(described_class.new(owner_of_different_thing, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(non_member, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(guest, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(planner, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(reporter, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(developer, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(maintainer, project)).to be_disallowed(:owner_access)
-          expect(described_class.new(owner_user, project)).to be_allowed(:owner_access)
-        end
-      end
-    end
-  end
-
   context 'with timeline event tags' do
     context 'when user is member of the project' do
       it 'allows access to timeline event tags' do
