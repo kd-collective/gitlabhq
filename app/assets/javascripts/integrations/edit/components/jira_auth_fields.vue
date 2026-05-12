@@ -1,6 +1,5 @@
 <script>
-// eslint-disable-next-line no-restricted-imports
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
 import { isEmpty } from 'lodash-es';
 import { GlFormGroup, GlFormRadio, GlFormRadioGroup } from '@gitlab/ui';
 import { __, s__, sprintf } from '~/locale';
@@ -10,6 +9,7 @@ import {
   jiraIntegrationAuthFields,
   jiraAuthTypeFieldProps,
 } from '~/integrations/constants';
+import { useIntegrationForm } from '../store';
 import DynamicField from './dynamic_field.vue';
 
 const JIRA_CLOUD_ID_DOCS_URL =
@@ -76,7 +76,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentKey', 'isInheriting']),
+    ...mapState(useIntegrationForm, ['currentKey', 'isInheriting']),
 
     isAuthTypeBasic() {
       return this.authType === jiraAuthTypes.BASIC;

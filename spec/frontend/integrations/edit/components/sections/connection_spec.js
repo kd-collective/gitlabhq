@@ -1,5 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import Vue, { nextTick } from 'vue';
+import { PiniaVuePlugin } from 'pinia';
+import { createTestingPinia } from '@pinia/testing';
 import { stubComponent } from 'helpers/stub_component';
 
 import IntegrationSectionConnection from '~/integrations/edit/components/sections/connection.vue';
@@ -7,9 +9,11 @@ import ActiveCheckbox from '~/integrations/edit/components/active_checkbox.vue';
 import DynamicField from '~/integrations/edit/components/dynamic_field.vue';
 import JiraAuthFields from '~/integrations/edit/components/jira_auth_fields.vue';
 import { jiraAuthTypes } from '~/integrations/constants';
-import { createStore } from '~/integrations/edit/store';
+import { useIntegrationForm } from '~/integrations/edit/store';
 
 import { mockIntegrationProps, mockJiraAuthFields, mockField } from '../../mock_data';
+
+Vue.use(PiniaVuePlugin);
 
 describe('IntegrationSectionConnection', () => {
   let wrapper;
@@ -19,12 +23,14 @@ describe('IntegrationSectionConnection', () => {
   });
 
   const createComponent = ({ customStateProps = {}, props = {} } = {}) => {
-    const store = createStore({
+    const pinia = createTestingPinia({ stubActions: false });
+    const store = useIntegrationForm();
+    Object.assign(store, {
       customState: { ...mockIntegrationProps, ...customStateProps },
     });
     wrapper = shallowMount(IntegrationSectionConnection, {
       propsData: { ...props },
-      store,
+      pinia,
       stubs: {
         JiraAuthFields: JiraAuthFieldsStub,
       },

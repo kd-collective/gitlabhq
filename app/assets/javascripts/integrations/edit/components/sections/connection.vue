@@ -1,8 +1,8 @@
 <script>
-// eslint-disable-next-line no-restricted-imports
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
 import { INTEGRATION_FORM_TYPE_JIRA, jiraIntegrationAuthFields } from '~/integrations/constants';
 
+import { useIntegrationForm } from '../../store';
 import ActiveCheckbox from '../active_checkbox.vue';
 import DynamicField from '../dynamic_field.vue';
 
@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['currentKey', 'propsSource']),
+    ...mapState(useIntegrationForm, ['currentKey', 'propsSource']),
 
     isJiraIntegration() {
       return this.propsSource.type === INTEGRATION_FORM_TYPE_JIRA;

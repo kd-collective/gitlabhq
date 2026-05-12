@@ -1,9 +1,9 @@
 <script>
 import { GlCard, GlCollapsibleListbox, GlLink } from '@gitlab/ui';
-// eslint-disable-next-line no-restricted-imports
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
 import { s__ } from '~/locale';
 import { defaultIntegrationLevel, overrideDropdownDescriptions } from '~/integrations/constants';
+import { useIntegrationForm } from '../store';
 
 const dropdownOptions = [
   {
@@ -48,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['defaultState']),
+    ...mapState(useIntegrationForm, ['defaultState']),
     description() {
       const level = this.defaultState.integrationLevel;
 

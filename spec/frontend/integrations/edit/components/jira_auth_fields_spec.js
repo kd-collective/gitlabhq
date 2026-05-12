@@ -1,12 +1,16 @@
 import { GlFormRadio, GlFormRadioGroup } from '@gitlab/ui';
-import { nextTick } from 'vue';
+import Vue, { nextTick } from 'vue';
+import { PiniaVuePlugin } from 'pinia';
+import { createTestingPinia } from '@pinia/testing';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 
 import JiraAuthFields from '~/integrations/edit/components/jira_auth_fields.vue';
 import { jiraAuthTypes, jiraAuthTypeFieldProps } from '~/integrations/constants';
-import { createStore } from '~/integrations/edit/store';
+import { useIntegrationForm } from '~/integrations/edit/store';
 
 import { mockJiraAuthFields } from '../mock_data';
+
+Vue.use(PiniaVuePlugin);
 
 describe('JiraAuthFields', () => {
   let wrapper;
@@ -16,11 +20,12 @@ describe('JiraAuthFields', () => {
   };
 
   const createComponent = ({ props } = {}) => {
-    const store = createStore();
+    const pinia = createTestingPinia({ stubActions: false });
+    useIntegrationForm();
 
     wrapper = shallowMountExtended(JiraAuthFields, {
       propsData: { ...defaultProps, ...props },
-      store,
+      pinia,
     });
   };
 

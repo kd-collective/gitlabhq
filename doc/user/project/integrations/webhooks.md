@@ -321,7 +321,6 @@ The resulting request payload for a `push` event is:
 ```
 
 Custom webhook templates cannot access properties in arrays.
-Support for this feature is proposed in [issue 463332](https://gitlab.com/gitlab-org/gitlab/-/issues/463332).
 
 ### Filter push events by branch
 

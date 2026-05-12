@@ -1,7 +1,7 @@
 <script>
-// eslint-disable-next-line no-restricted-imports
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
 
+import { useIntegrationForm } from '../../store';
 import DynamicField from '../dynamic_field.vue';
 
 export default {
@@ -28,7 +28,7 @@ export default {
   },
   emits: ['update'],
   computed: {
-    ...mapGetters(['currentKey']),
+    ...mapState(useIntegrationForm, ['currentKey']),
   },
 };
 </script>
