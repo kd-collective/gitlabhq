@@ -548,6 +548,18 @@ production: &base
         # aws_signature_version: 4 # For creation of signed URLs. Set to 2 if provider does not support v4.
         # path_style: true # Use 'host/bucket_name/object' instead of 'bucket_name.host/object'
 
+  ## Agent Plan Content (object storage for work item agent plan markdown)
+  agent_plan_content:
+    # storage_path: shared/agent_plan_content
+    object_store:
+      enabled: false
+      remote_directory: agent-plan-content # The bucket name
+      connection:
+        provider: AWS
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        region: us-east-1
+
   ## AI Catalog
   ai_catalog:
     # storage_path: shared/ai_catalog
@@ -1665,6 +1677,17 @@ test:
       remote_directory: ci-secure-files
       connection:
         provider: AWS # Only AWS supported at the moment
+        aws_access_key_id: AWS_ACCESS_KEY_ID
+        aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+        region: us-east-1
+
+  agent_plan_content:
+    storage_path: tmp/tests/agent_plan_content
+    object_store:
+      enabled: false
+      remote_directory: agent-plan-content
+      connection:
+        provider: AWS
         aws_access_key_id: AWS_ACCESS_KEY_ID
         aws_secret_access_key: AWS_SECRET_ACCESS_KEY
         region: us-east-1

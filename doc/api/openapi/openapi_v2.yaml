@@ -48369,8 +48369,6 @@ definitions:
         type: boolean
       admin_protected_environments:
         type: boolean
-      manage_protected_tags:
-        type: boolean
       admin_push_rules:
         type: boolean
       admin_runners:
@@ -48435,7 +48433,6 @@ definitions:
     - manage_project_access_tokens
     - admin_protected_branch
     - admin_protected_environments
-    - manage_protected_tags
     - admin_push_rules
     - admin_runners
     - admin_security_attributes

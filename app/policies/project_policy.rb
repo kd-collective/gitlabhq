@@ -821,6 +821,7 @@ class ProjectPolicy < BasePolicy
   rule { read_package_registry_deploy_token }.policy do
     enable :read_package
     enable :read_project
+    enable :_read_dependency_proxy_package
   end
 
   rule { write_package_registry_deploy_token }.policy do
@@ -828,6 +829,7 @@ class ProjectPolicy < BasePolicy
     enable :read_package
     enable :destroy_package
     enable :read_project
+    enable :_read_dependency_proxy_package
   end
 
   rule { ~can?(:create_pipeline) }.prevent :create_web_ide_terminal

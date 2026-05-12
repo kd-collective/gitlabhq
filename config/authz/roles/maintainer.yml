@@ -64,6 +64,7 @@ project:
   - change_push_rules
   - change_reject_non_dco_commits
   - change_reject_unsigned_commits
+  - configure_work_item_type
   - create_ai_catalog_agent
   - create_ai_catalog_agent_item_consumer
   - create_ai_catalog_flow
@@ -154,6 +155,7 @@ project:
   - read_squash_option
   - read_usage_quotas
   - read_web_hook
+  - read_work_item_setting
   - remove_pages
   - rename_project
   - set_license_information_source
@@ -172,6 +174,7 @@ project:
   - update_security_setting
   - update_snippet
   - update_squash_option
+  - update_work_item_type_visibility
   - use_protected_cache
   - view_edit_page
 group:
@@ -192,6 +195,7 @@ group:
   - admin_upload
   - admin_vulnerability
   - admin_wiki
+  - admin_work_item_lifecycle
   - apply_security_scan_profiles
   - award_achievement
   - change_commit_committer_check
@@ -199,6 +203,7 @@ group:
   - change_push_rules
   - change_reject_non_dco_commits
   - change_reject_unsigned_commits
+  - configure_work_item_type
   - create_ai_catalog_agent_item_consumer
   - create_ai_catalog_flow_item_consumer
   - create_ai_catalog_item_consumer
@@ -208,6 +213,7 @@ group:
   - create_jira_connect_subscription
   - create_project_fork
   - create_protected_branch
+  - create_work_item_type
   - delete_custom_emoji
   - destroy_package
   - destroy_protected_branch
@@ -232,9 +238,12 @@ group:
   - read_secrets_manager
   - read_secrets_permission
   - read_security_configuration
+  - read_work_item_setting
   - start_trial
   - update_ci_namespace_settings
   - update_cluster
   - update_product_analytics_settings
   - update_protected_branch
   - update_secret_detection_validity_check
+  - update_work_item_type
+  - update_work_item_type_visibility

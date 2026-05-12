@@ -59435,12 +59435,12 @@ Member role admin permission.
 
 | Value | Description |
 | ----- | ----------- |
-| <a id="memberroleadminpermission-read_admin_cicd"></a>`READ_ADMIN_CICD` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 17.9. **Status**: Experiment. Read CI/CD details for runners and jobs in the Admin Area. |
-| <a id="memberroleadminpermission-read_admin_groups"></a>`READ_ADMIN_GROUPS` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 18.3. **Status**: Experiment. Read group details in the Admin Area. |
-| <a id="memberroleadminpermission-read_admin_monitoring"></a>`READ_ADMIN_MONITORING` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 17.9. **Status**: Experiment. Read system information such as background migrations, health checks, and Gitaly in the Admin Area. |
-| <a id="memberroleadminpermission-read_admin_projects"></a>`READ_ADMIN_PROJECTS` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 18.3. **Status**: Experiment. Read project details in the Admin Area. |
-| <a id="memberroleadminpermission-read_admin_subscription"></a>`READ_ADMIN_SUBSCRIPTION` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 17.9. **Status**: Experiment. Read subscription details in the Admin area. |
-| <a id="memberroleadminpermission-read_admin_users"></a>`READ_ADMIN_USERS` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 17.9. **Status**: Experiment. Read the user list and user details in the Admin area. |
+| <a id="memberroleadminpermission-read_admin_cicd"></a>`READ_ADMIN_CICD` | Read CI/CD details for runners and jobs in the Admin Area. |
+| <a id="memberroleadminpermission-read_admin_groups"></a>`READ_ADMIN_GROUPS` | Read group details in the Admin Area. |
+| <a id="memberroleadminpermission-read_admin_monitoring"></a>`READ_ADMIN_MONITORING` | Read system information such as background migrations, health checks, and Gitaly in the Admin Area. |
+| <a id="memberroleadminpermission-read_admin_projects"></a>`READ_ADMIN_PROJECTS` | Read project details in the Admin Area. |
+| <a id="memberroleadminpermission-read_admin_subscription"></a>`READ_ADMIN_SUBSCRIPTION` | Read subscription details in the Admin area. |
+| <a id="memberroleadminpermission-read_admin_users"></a>`READ_ADMIN_USERS` | Read the user list and user details in the Admin area. |
 
 ### `MemberRolePermission`
 
@@ -59467,7 +59467,6 @@ Member role permission.
 | <a id="memberrolepermission-manage_group_access_tokens"></a>`MANAGE_GROUP_ACCESS_TOKENS` | Create, read, update, and delete group access tokens. When creating a token, users with this custom permission must select a role for that token that has the same or fewer permissions as the default role used as the base for the custom role. |
 | <a id="memberrolepermission-manage_merge_request_settings"></a>`MANAGE_MERGE_REQUEST_SETTINGS` | Configure merge request settings at the group or project level. Group actions include managing merge checks and approval settings. Project actions include managing MR configurations, approval rules and settings, and branch targets. In order to enable Suggested reviewers, the "Manage project access tokens" custom permission needs to be enabled. |
 | <a id="memberrolepermission-manage_project_access_tokens"></a>`MANAGE_PROJECT_ACCESS_TOKENS` | Create, read, update, and delete project access tokens. When creating a token, users with this custom permission must select a role for that token that has the same or fewer permissions as the default role used as the base for the custom role. |
-| <a id="memberrolepermission-manage_protected_tags"></a>`MANAGE_PROTECTED_TAGS` | Create, read, update, and delete protected tags. |
 | <a id="memberrolepermission-manage_security_policy_link"></a>`MANAGE_SECURITY_POLICY_LINK` | Allows linking security policy projects. |
 | <a id="memberrolepermission-read_admin_cicd"></a>`READ_ADMIN_CICD` | Read CI/CD details for runners and jobs in the Admin Area. |
 | <a id="memberrolepermission-read_admin_groups"></a>`READ_ADMIN_GROUPS` | Read group details in the Admin Area. |
@@ -59512,7 +59511,6 @@ Member role standard permission.
 | <a id="memberrolestandardpermission-manage_group_access_tokens"></a>`MANAGE_GROUP_ACCESS_TOKENS` | Create, read, update, and delete group access tokens. When creating a token, users with this custom permission must select a role for that token that has the same or fewer permissions as the default role used as the base for the custom role. |
 | <a id="memberrolestandardpermission-manage_merge_request_settings"></a>`MANAGE_MERGE_REQUEST_SETTINGS` | Configure merge request settings at the group or project level. Group actions include managing merge checks and approval settings. Project actions include managing MR configurations, approval rules and settings, and branch targets. In order to enable Suggested reviewers, the "Manage project access tokens" custom permission needs to be enabled. |
 | <a id="memberrolestandardpermission-manage_project_access_tokens"></a>`MANAGE_PROJECT_ACCESS_TOKENS` | Create, read, update, and delete project access tokens. When creating a token, users with this custom permission must select a role for that token that has the same or fewer permissions as the default role used as the base for the custom role. |
-| <a id="memberrolestandardpermission-manage_protected_tags"></a>`MANAGE_PROTECTED_TAGS` {{< icon name="warning-solid" >}} | **Introduced** in GitLab 17.9. **Status**: Experiment. Create, read, update, and delete protected tags. |
 | <a id="memberrolestandardpermission-manage_security_policy_link"></a>`MANAGE_SECURITY_POLICY_LINK` | Allows linking security policy projects. |
 | <a id="memberrolestandardpermission-read_code"></a>`READ_CODE` | Allows read-only access to the source code in the user interface. Does not allow users to edit or download repository archives, clone or pull repositories, view source code in an IDE, or view merge requests for private projects. You can download individual files because read-only access inherently grants the ability to make a local copy of the file. |
 | <a id="memberrolestandardpermission-read_compliance_dashboard"></a>`READ_COMPLIANCE_DASHBOARD` | Read compliance capabilities including adherence, violations, and frameworks for groups and projects. |

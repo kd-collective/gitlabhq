@@ -8,6 +8,7 @@ project:
   permissions: []
   raw_permissions:
   - _delete_shared_saved_view
+  - _read_external_build
   - _update_incident_work_item
   - _update_protected_job
   - _update_shared_saved_view

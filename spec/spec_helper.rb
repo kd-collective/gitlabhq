@@ -21,6 +21,7 @@ CrystalballEnv.start!
 ENV["RAILS_ENV"] = 'test'
 ENV["IN_MEMORY_APPLICATION_SETTINGS"] = 'true'
 ENV["GITLAB_SECURITY_MANAGER_ROLE"] = 'true'
+ENV["GITLAB_LOAD_WIP_CUSTOM_ABILITIES"] = 'true'
 
 require_relative '../config/environment'
 
@@ -407,6 +408,21 @@ RSpec.configure do |config|
 
     # Ensure that Snowplow is enabled by default unless forced to the opposite
     stub_snowplow unless example.metadata[:do_not_stub_snowplow_by_default]
+  end
+
+  # WIP custom abilities are enabled by default via ENV var so that all specs
+  # see the full set of permissions (column accessors, Grape params, and
+  # GraphQL enum values are registered at class load time). Tests tagged with
+  # :disable_wip_custom_abilities exercise the runtime wip-filter behavior
+  # (matching production where the env var is unset). Definition memoizes the
+  # filtered set, so flipping the env var requires reloading.
+  config.around(:example, :disable_wip_custom_abilities) do |example|
+    ENV['GITLAB_LOAD_WIP_CUSTOM_ABILITIES'] = 'false'
+    Gitlab::CustomRoles::Definition.load_abilities!
+    example.run
+  ensure
+    ENV['GITLAB_LOAD_WIP_CUSTOM_ABILITIES'] = 'true'
+    Gitlab::CustomRoles::Definition.load_abilities!
   end
 
   config.around(:example, :quarantine) do |example|

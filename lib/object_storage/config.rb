@@ -7,6 +7,7 @@ module ObjectStorage
     GOOGLE_PROVIDER = 'Google'
 
     LOCATIONS = {
+      agent_plan_content: Gitlab.config.agent_plan_content,
       ai_catalog: Gitlab.config.ai_catalog,
       artifacts: Gitlab.config.artifacts,
       ci_secure_files: Gitlab.config.ci_secure_files,

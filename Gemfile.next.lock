@@ -1162,7 +1162,7 @@ GEM
       multipart-post
       oauth (~> 0.5, >= 0.5.0)
     jmespath (1.6.2)
-    js-routes (2.3.6)
+    js-routes (2.3.7)
       railties (>= 5)
       sorbet-runtime
     js_regex (3.14.0)
@@ -3033,7 +3033,7 @@ CHECKSUMS
   jaro_winkler (1.6.1) sha256=c056b61bbf7f1fc0151bde7c8f589a2d666d42d0cdb889395b9b73b328e1b393
   jira-ruby (2.3.0) sha256=abf26e6bff4a8ea40bae06f7df6276a5776905c63fb2070934823ca54f62eb62
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
-  js-routes (2.3.6) sha256=a46220beadddf3ee4dc7a1e0b908587c0b3418d44d84ef7970ed72e849598474
+  js-routes (2.3.7) sha256=56e97bb300f34f2c569268bf28358b7ed82f455a32975c7c7d38befa76b722ed
   js_regex (3.14.0) sha256=49547691c75cf201769f7e432fde3e2071cbd3e0c4ef42bd341e260b683350a3
   json (2.19.2) sha256=e7e1bd318b2c37c4ceee2444841c86539bc462e81f40d134cf97826cb14e83cf
   json-jwt (1.16.6) sha256=ab451f9cd8743cecc4137f4170806046c1d8a6d4ee6e8570e0b5c958409b266c

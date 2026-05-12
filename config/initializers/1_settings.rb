@@ -300,6 +300,12 @@ Settings.ci_secure_files['storage_path'] = Settings.absolute(Settings.ci_secure_
 Settings.ci_secure_files['object_store'] = ObjectStoreSettings.legacy_parse(Settings.ci_secure_files['object_store'], 'secure_files')
 
 #
+# Agent Plan Content
+#
+Settings['agent_plan_content'] ||= {}
+Settings.agent_plan_content['storage_path'] = Settings.absolute(Settings.agent_plan_content['storage_path'] || File.join(Settings.shared['path'], "agent_plan_content"))
+Settings.agent_plan_content['object_store'] = ObjectStoreSettings.legacy_parse(Settings.agent_plan_content['object_store'], 'agent_plan_content')
+
 # AI Catalog
 #
 Settings['ai_catalog'] ||= {}

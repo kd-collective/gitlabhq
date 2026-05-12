@@ -376,8 +376,6 @@ export default {
     'app/assets/javascripts/security_configuration/components/ref_tracking_selection.vue',
     'app/assets/javascripts/security_configuration/components/ref_tracking_selection_summary.vue',
     'app/assets/javascripts/security_configuration/components/ref_untracking_confirmation.vue',
-    'app/assets/javascripts/sessions/new/components/email_form.vue',
-    'app/assets/javascripts/sessions/new/components/email_otp_fallback_footer.vue',
     'app/assets/javascripts/set_status_modal/set_status_form.vue',
     'app/assets/javascripts/set_status_modal/set_status_modal_wrapper.vue',
     'app/assets/javascripts/sidebar/components/assignees/assignees.vue',

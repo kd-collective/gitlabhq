@@ -586,6 +586,20 @@ export default {
     agentPrivileges() {
       return [1, 2, 3, 4, 5];
     },
+    duoWorkflowGoal() {
+      const username = window.gon?.current_username || '';
+      const resourceName = this.workItemType?.toLowerCase() || 'issue';
+      const resourceUrl = this.workItem.webUrl || '';
+      /* eslint-disable @gitlab/require-i18n-strings -- LLM prompt content sent to Duo Developer agent, not user-facing UI */
+      return [
+        `@${username} assigned you to solve the following ${resourceName}: ${resourceUrl}`,
+        '',
+        'Fetch the details and understand the problem thoroughly before writing any code. Consider what might be causing the issue and where in the codebase the relevant logic lives. If there are multiple possible approaches, reason about the tradeoffs and pick the simplest one that fully addresses the issue. Implement your solution, verify it works, then create a merge request with your changes.',
+        '',
+        `When you have completed your work, @mention @${username} in a comment on the issue to notify them. And assign them to the merge request unless told differently.`,
+      ].join('\n');
+      /* eslint-enable @gitlab/require-i18n-strings */
+    },
     confidentialityToggledText() {
       return this.workItem.confidential
         ? s__('WorkItem|Confidentiality turned on.')
@@ -1233,7 +1247,7 @@ export default {
                         v-if="duoRemoteFlowsAvailability"
                         :project-path="workItemFullPath"
                         :hover-message="__('Generate merge request with Duo')"
-                        :goal="workItem.webUrl"
+                        :goal="duoWorkflowGoal"
                         workflow-definition="developer/v1"
                         :agent-privileges="agentPrivileges"
                         :work-item-id="workItem.iid"

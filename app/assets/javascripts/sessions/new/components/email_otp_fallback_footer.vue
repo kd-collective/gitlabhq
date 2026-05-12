@@ -21,6 +21,7 @@ export default {
       required: true,
     },
   },
+  emits: ['error', 'success'],
   data() {
     return {
       isSendingEmailOtp: false,

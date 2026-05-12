@@ -68360,9 +68360,6 @@ msgstr ""
 msgid "SecurityOrchestration|projects with compliance frameworks"
 msgstr ""
 
-msgid "SecurityOrchestration|projects with security categories"
-msgstr ""
-
 msgid "SecurityOrchestration|scanner finds"
 msgstr ""
 
@@ -68370,6 +68367,9 @@ msgid "SecurityOrchestration|scanners"
 msgstr ""
 
 msgid "SecurityOrchestration|scanners find"
+msgstr ""
+
+msgid "SecurityOrchestration|security attributes"
 msgstr ""
 
 msgid "SecurityOrchestration|security scan"

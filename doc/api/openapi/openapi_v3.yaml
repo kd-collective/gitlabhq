@@ -6261,7 +6261,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b8b1b3559842"
+              "$ref": "#/components/schemas/RequestBody_5ff646497b6a"
   "/api/v4/groups/{id}/member_roles/{member_role_id}":
     delete:
       operationId: deleteApiV4GroupsIdMemberRolesMemberRoleId
@@ -6328,7 +6328,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b8b1b3559842"
+              "$ref": "#/components/schemas/RequestBody_5ff646497b6a"
   "/api/v4/member_roles/{member_role_id}":
     delete:
       operationId: deleteApiV4MemberRolesMemberRoleId
@@ -80754,9 +80754,6 @@ components:
         admin_protected_environments:
           type: boolean
           default: false
-        manage_protected_tags:
-          type: boolean
-          default: false
         admin_push_rules:
           type: boolean
           default: false
@@ -89311,7 +89308,7 @@ components:
           nullable: true
       required:
       - extern_uid
-    RequestBody_b8b1b3559842:
+    RequestBody_5ff646497b6a:
       type: object
       properties:
         base_access_level:
@@ -89413,10 +89410,6 @@ components:
         admin_protected_environments:
           type: boolean
           description: Create, read, update, and delete protected environments
-          nullable: true
-        manage_protected_tags:
-          type: boolean
-          description: Create, read, update, and delete protected tags.
           nullable: true
         admin_push_rules:
           type: boolean

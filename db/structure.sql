@@ -33836,6 +33836,15 @@ CREATE SEQUENCE wiki_repository_states_id_seq
 
 ALTER SEQUENCE wiki_repository_states_id_seq OWNED BY wiki_repository_states.id;
 
+CREATE TABLE work_item_agent_plans (
+    work_item_id bigint NOT NULL,
+    namespace_id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    cached_markdown_version integer,
+    file_store smallint DEFAULT 1 NOT NULL
+);
+
 CREATE TABLE work_item_colors (
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
@@ -41541,6 +41550,9 @@ ALTER TABLE ONLY wiki_page_slugs
 
 ALTER TABLE ONLY wiki_repository_states
     ADD CONSTRAINT wiki_repository_states_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY work_item_agent_plans
+    ADD CONSTRAINT work_item_agent_plans_pkey PRIMARY KEY (work_item_id);
 
 ALTER TABLE ONLY work_item_colors
     ADD CONSTRAINT work_item_colors_pkey PRIMARY KEY (issue_id);
@@ -50447,6 +50459,8 @@ CREATE INDEX index_wiki_repository_states_on_verification_state ON wiki_reposito
 
 CREATE INDEX index_wiki_repository_states_pending_verification ON wiki_repository_states USING btree (verified_at NULLS FIRST) WHERE (verification_state = 0);
 
+CREATE INDEX index_work_item_agent_plans_on_namespace_id ON work_item_agent_plans USING btree (namespace_id);
+
 CREATE INDEX index_work_item_current_statuses_on_custom_status_id ON work_item_current_statuses USING btree (custom_status_id);
 
 CREATE INDEX index_work_item_current_statuses_on_namespace_id ON work_item_current_statuses USING btree (namespace_id);
@@ -55825,6 +55839,9 @@ ALTER TABLE ONLY work_item_custom_lifecycles
 ALTER TABLE ONLY custom_dashboard_versions
     ADD CONSTRAINT fk_00e49d2f22 FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY work_item_agent_plans
+    ADD CONSTRAINT fk_00eacc21eb FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
+
 ALTER TABLE ONLY epics
     ADD CONSTRAINT fk_013c9f36ca FOREIGN KEY (due_date_sourcing_epic_id) REFERENCES epics(id) ON DELETE SET NULL;
 
@@ -58167,6 +58184,9 @@ ALTER TABLE ONLY packages_dependencies
 
 ALTER TABLE ONLY incident_management_oncall_rotations
     ADD CONSTRAINT fk_cecf1b51f9 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY work_item_agent_plans
+    ADD CONSTRAINT fk_cf364a6cc2 FOREIGN KEY (work_item_id) REFERENCES issues(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY compliance_framework_security_policies
     ADD CONSTRAINT fk_cf3c0ac207 FOREIGN KEY (policy_configuration_id) REFERENCES security_orchestration_policy_configurations(id) ON DELETE CASCADE;
