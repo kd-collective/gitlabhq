@@ -54568,6 +54568,9 @@ msgstr ""
 msgid "Preferences|%{link_start}List of keyboard shortcuts%{link_end}"
 msgstr ""
 
+msgid "Preferences|Agentic Chat"
+msgstr ""
+
 msgid "Preferences|Automatically add new list items"
 msgstr ""
 
@@ -54611,6 +54614,9 @@ msgid "Preferences|Content will be a maximum of 1280 pixels wide."
 msgstr ""
 
 msgid "Preferences|Content will span %{percentage} of the page width."
+msgstr ""
+
+msgid "Preferences|Custom Agents"
 msgstr ""
 
 msgid "Preferences|Customize integrations with third party services."
@@ -54685,6 +54691,18 @@ msgstr ""
 msgid "Preferences|Maintain indentation"
 msgstr ""
 
+msgid "Preferences|Make Orbit tools available in agentic chat."
+msgstr ""
+
+msgid "Preferences|Make Orbit tools available to non-chat foundational agents (e.g. software development, security analyst)."
+msgstr ""
+
+msgid "Preferences|Make Orbit tools available to user-built custom agents."
+msgstr ""
+
+msgid "Preferences|Make the standalone Orbit agent available in GitLab Duo."
+msgstr ""
+
 msgid "Preferences|Mode"
 msgstr ""
 
@@ -54694,7 +54712,13 @@ msgstr ""
 msgid "Preferences|Ona"
 msgstr ""
 
+msgid "Preferences|Orbit Agent"
+msgstr ""
+
 msgid "Preferences|Orbit in GitLab Duo"
+msgstr ""
+
+msgid "Preferences|Other Foundational Agents"
 msgstr ""
 
 msgid "Preferences|Preview"
@@ -54766,7 +54790,7 @@ msgstr ""
 msgid "Preferences|Web IDE and Workspaces"
 msgstr ""
 
-msgid "Preferences|When enabled, Orbit tools will be available in Agentic Chat and foundational agents."
+msgid "Preferences|When enabled, you can choose which Orbit-powered features to use below. Turning this off disables all Orbit features."
 msgstr ""
 
 msgid "Preferences|When you type in a description or comment box, pressing %{kbdOpen}Enter%{kbdClose} creates a new line indented the same as the previous line."
@@ -68481,6 +68505,9 @@ msgid "SecurityProfiles|Error detaching profile. Please try again."
 msgstr ""
 
 msgid "SecurityProfiles|Error loading profiles. Please try again."
+msgstr ""
+
+msgid "SecurityProfiles|Error loading statuses. Please try again."
 msgstr ""
 
 msgid "SecurityProfiles|Failed to load scan details. Please try again."

@@ -21,24 +21,60 @@ const REST_STATE_TO_GRAPHQL = {
 };
 
 function mapWidgetsFromFeatures(features) {
+  const widgets = [];
+
   const labelsData = features?.labels;
-  return [
-    {
-      __typename: 'WorkItemWidgetLabels',
-      type: 'LABELS',
-      allowsScopedLabels: labelsData?.allows_scoped_labels ?? false,
-      labels: {
-        nodes: (labelsData?.labels ?? []).map((label) => ({
-          __typename: 'Label',
-          id: label.id ? `gid://gitlab/Label/${label.id}` : null,
-          title: label.title,
-          color: label.color,
-          textColor: label.text_color,
-          description: label.description ?? null,
-        })),
-      },
+  widgets.push({
+    __typename: 'WorkItemWidgetLabels',
+    type: 'LABELS',
+    allowsScopedLabels: labelsData?.allows_scoped_labels ?? false,
+    labels: {
+      nodes: (labelsData?.labels ?? []).map((label) => ({
+        __typename: 'Label',
+        id: label.id ? `gid://gitlab/Label/${label.id}` : null,
+        title: label.title,
+        color: label.color,
+        textColor: label.text_color,
+        description: label.description ?? null,
+      })),
     },
-  ];
+  });
+
+  const assignees = features?.assignees ?? [];
+  widgets.push({
+    __typename: 'WorkItemWidgetAssignees',
+    type: 'ASSIGNEES',
+    assignees: {
+      nodes: assignees.map((user) => ({
+        id: user.id ? `gid://gitlab/User/${user.id}` : null,
+        avatarUrl: user.avatar_url ?? null,
+        name: user.name,
+        username: user.username,
+        webUrl: user.web_url ?? null, // eslint-disable-line local-rules/no-web-url
+        webPath: user.web_path ?? null,
+        __typename: 'UserCore',
+      })),
+      __typename: 'UserCoreConnection',
+    },
+  });
+
+  const milestone = features?.milestone;
+  widgets.push({
+    __typename: 'WorkItemWidgetMilestone',
+    type: 'MILESTONE',
+    milestone: milestone
+      ? {
+          id: milestone.id ? `gid://gitlab/Milestone/${milestone.id}` : null,
+          dueDate: milestone.due_date ?? null,
+          startDate: milestone.start_date ?? null,
+          title: milestone.title,
+          webPath: milestone.web_path ?? null,
+          __typename: 'Milestone',
+        }
+      : null,
+  });
+
+  return widgets;
 }
 
 function mapWorkItemToGraphQL(item) {
@@ -107,7 +143,8 @@ export async function workItemsRestResolver(namespace, args) {
     'fields',
     'id,iid,global_id,title,title_html,state,created_at,updated_at,closed_at,reference,web_path,author,work_item_type',
   );
-  restParams.set('features', 'labels');
+  // eslint-disable-next-line @gitlab/require-i18n-strings
+  restParams.set('features', 'labels,assignees,milestone');
 
   const url = buildApiUrl(WORK_ITEMS_PATH).replace(':full_path', encodeURIComponent(fullPath));
 

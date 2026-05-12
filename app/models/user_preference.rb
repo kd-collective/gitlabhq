@@ -47,7 +47,6 @@ class UserPreference < ApplicationRecord
   validates :extensions_marketplace_opt_in_url, length: { maximum: 512 }
 
   validates :work_items_display_settings, json_schema: { filename: 'user_preference_work_items_display_settings' }
-  validates :orbit_settings, json_schema: { filename: 'user_preference_orbit_settings' }
 
   attribute :dark_color_scheme_id, default: -> { Gitlab::CurrentSettings.default_dark_syntax_highlighting_theme }
   attribute :tab_width, default: -> { Gitlab::TabWidth::DEFAULT }
@@ -133,18 +132,6 @@ class UserPreference < ApplicationRecord
 
   def default_text_editor_enabled=(value)
     self.text_editor = value ? "rich_text_editor" : "not_set"
-  end
-
-  def orbit_enabled
-    # Absent key means "disabled" - users must explicitly opt-in by setting
-    # enabled to true.
-    orbit_settings.fetch('enabled', false)
-  end
-
-  def orbit_enabled=(value)
-    cast_value = ActiveModel::Type::Boolean.new.cast(value)
-
-    self.orbit_settings = orbit_settings.merge('enabled' => cast_value)
   end
 
   def timezone=(value)

@@ -2760,6 +2760,7 @@ incompatible with personal access tokens.
 | ------ | ---- | ------ |
 | `POST` | `/ai/duo_workflows/agent_workflows` | AI workflows OAuth token |
 | `GET` | `/ai/duo_workflows/code_review/custom_instructions` | AI workflows OAuth token |
+| `POST` | `/ai/duo_workflows/workflows/:id/audit_events` | AI Workflows OAuth token |
 | `GET` | `/api/scim/:version/application/Groups` | SCIM token |
 | `POST` | `/api/scim/:version/application/Groups` | SCIM token |
 | `GET` | `/api/scim/:version/application/Groups/:id` | SCIM token |

@@ -411,18 +411,20 @@ Timelogs.for_project(project)
 
 #### `with_`
 
-For scopes which `joins`, `includes`, or filters `where(has_one: record)` or `where(has_many: record)` or `where(boolean condition)`
+For scopes that use `joins`, or filters `where(has_one: record)` or `where(has_many: record)`
+or `where(boolean condition)` where the result set changes.
+
 For example:
 
 ```ruby
-scope :with_labels, -> { includes(:labels) }
-AbuseReport.with_labels
-
 scope :with_status, ->(status) { where(status: status) }
 Clusters::AgentToken.with_status(:active)
 
 scope :with_due_date, -> { where.not(due_date: nil) }
 Issue.with_due_date
+
+scope :with_runner_type, ->(type) { joins(:runner).where(runner: { runner_type: type }) }
+Ci::Build.with_runner_type(:instance_type)
 ```
 
 It is also fine to use custom scope names, for example:
@@ -430,6 +432,38 @@ It is also fine to use custom scope names, for example:
 ```ruby
 scope :undeleted, -> { where('policy_index >= 0') }
 Security::Policy.undeleted
+```
+
+#### `including_`
+
+For scopes that eager load associations using `includes`. The result set does not change.
+Use `including_` to avoid N+1 queries when you do not need to control the SQL loading strategy.
+ActiveRecord decides whether to use a JOIN or a subquery.
+
+For example:
+
+```ruby
+scope :including_tags, -> { includes(:tags) }
+Package.including_tags
+
+scope :including_project, -> { includes(:project) }
+Issue.including_project
+```
+
+#### `preload_`
+
+For scopes that eager load associations using `preload`. The result set does not change.
+Use instead of `including_` when loading multiple `has_many` associations, or when a
+separate subquery is explicitly required.
+
+For example:
+
+```ruby
+scope :preload_author, -> { preload(:author) }
+MergeRequest.preload_author
+
+scope :preload_access_levels, -> { preload(:push_access_levels, :merge_access_levels, :unprotect_access_levels) }
+ProtectedBranch.preload_access_levels
 ```
 
 #### `order_by_`

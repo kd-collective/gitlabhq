@@ -88,18 +88,18 @@ module Feature
 
     # The ordering of PARAMS defines an order in YAML
     # This is done to ease the file comparison
-    PARAMS = %i[
-      name
-      feature_issue_url
-      introduced_by_url
-      rollout_issue_url
-      milestone
-      log_state_changes
-      type
-      group
-      default_enabled
-      intended_to_rollout_by
-    ].freeze
+    PARAMS = {
+      name: 'String',
+      feature_issue_url: 'String',
+      introduced_by_url: 'String',
+      rollout_issue_url: 'String',
+      milestone: 'String',
+      log_state_changes: 'Boolean',
+      type: 'String',
+      group: 'String',
+      default_enabled: 'Boolean',
+      intended_to_rollout_by: 'String'
+    }.freeze
 
     def self.can_be_default_enabled?(feature_flag_type)
       TYPES.dig(feature_flag_type.to_sym, :can_be_default_enabled)

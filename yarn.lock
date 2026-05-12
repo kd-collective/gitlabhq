@@ -1437,10 +1437,10 @@
     core-js "^3.29.1"
     mitt "^3.0.1"
 
-"@gitlab/duo-ui@^15.27.0":
-  version "15.27.0"
-  resolved "https://registry.yarnpkg.com/@gitlab/duo-ui/-/duo-ui-15.27.0.tgz#13a180e988b3a0284ec2210a00ce3c66817e29d3"
-  integrity sha512-aIWQBnAnfpM0ks2bUn7JnENZX9r93E2UcREr4ERDTBUzPa0HMq4fQ3B8+chFCuVxDne4G3pHrggTvO0BJbhVQw==
+"@gitlab/duo-ui@^15.25.1":
+  version "15.25.1"
+  resolved "https://registry.yarnpkg.com/@gitlab/duo-ui/-/duo-ui-15.25.1.tgz#0cbaa47bb16a6cf49399bac3eb38b28c20d0f601"
+  integrity sha512-CzOaLFSaInE90ZDiueYOfULEXbfEHalfe5zky0RH6/CGatiD21AntrT4DooPAjMjr/YMFQuALmW5E0hBE+OzBQ==
   dependencies:
     "@floating-ui/dom" "1.7.6"
     diff "^8.0.2"
@@ -1484,7 +1484,6 @@
   integrity sha512-/7Q5Sy9Q3pmutV/1EgURm3iDZtV0HcE4nTwFpHLCrGDdxQ3pNv6SdujzeJExnfiI5Y+1FGfOvKwOlmiVuyDtzA==
 
 "@gitlab/noop@^1.0.1", jackspeak@^3.1.2, "jackspeak@npm:@gitlab/noop@1.0.1", jsonify@^0.0.1, "jsonify@npm:@gitlab/noop@1.0.1":
-  name jackspeak
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@gitlab/noop/-/noop-1.0.1.tgz#71a831146ee02732b4a61d2d3c11204564753454"
   integrity sha512-s++4wjMYeDvBp9IO59DBrWjy8SE/gFkjTDO5ck2W0S6Vv7OlqgErwL7pHngAnrSmTJAzyUG8wHGqo0ViS4jn5Q==

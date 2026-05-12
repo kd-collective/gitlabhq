@@ -1216,13 +1216,7 @@ class MergeRequest < ApplicationRecord
   end
 
   def changed_paths
-    shas_for_changed_paths = if Feature.enabled?(:optimised_commits_for_mr_changed_paths, project)
-                               commit_shas(bypass_preloaded: true)
-                             else
-                               commits
-                             end
-
-    project.repository.find_changed_paths(shas_for_changed_paths, merge_commit_diff_mode: :all_parents)
+    project.repository.find_changed_paths(commit_shas(bypass_preloaded: true), merge_commit_diff_mode: :all_parents)
   end
   request_cache(:changed_paths) { [id, diff_head_sha] }
 
@@ -2826,8 +2820,6 @@ class MergeRequest < ApplicationRecord
   end
 
   def reached_versions_limit?
-    return false if Feature.disabled?(:merge_requests_diffs_limit, target_project)
-
     merge_request_diffs.count >= Gitlab::CurrentSettings.diff_max_versions
   end
 

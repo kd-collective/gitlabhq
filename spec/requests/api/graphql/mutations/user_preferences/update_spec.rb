@@ -271,17 +271,6 @@ RSpec.describe Mutations::UserPreferences::Update, feature_category: :user_profi
       end
     end
 
-    context 'when orbit_settings has invalid schema' do
-      it 'returns validation error' do
-        post_orbit_mutation({ 'invalid_key' => 'value' })
-
-        expect(response).to have_gitlab_http_status(:success)
-        expect(graphql_data.dig('userPreferencesUpdate', 'errors'))
-          .to include('Orbit settings must be a valid json schema')
-        expect(graphql_data.dig('userPreferencesUpdate', 'userPreferences')).to be_nil
-      end
-    end
-
     context 'when orbit_settings is empty' do
       it 'allows empty object' do
         post_orbit_mutation({})

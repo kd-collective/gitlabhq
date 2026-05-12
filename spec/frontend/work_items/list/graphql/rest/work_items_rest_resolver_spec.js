@@ -220,6 +220,196 @@ describe('workItemsRestResolver', () => {
     });
   });
 
+  describe('ASSIGNEES widget mapping', () => {
+    it('returns an empty assignees array when features is null', async () => {
+      const item = makeRestItem({ features: null });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const assigneesWidget = nodes[0].widgets.find((w) => w.type === 'ASSIGNEES');
+
+      expect(assigneesWidget).toMatchObject({ __typename: 'WorkItemWidgetAssignees' });
+      expect(assigneesWidget.assignees.nodes).toEqual([]);
+    });
+
+    it('returns an empty assignees array when features.assignees is undefined', async () => {
+      const item = makeRestItem({ features: {} });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const assigneesWidget = nodes[0].widgets.find((w) => w.type === 'ASSIGNEES');
+
+      expect(assigneesWidget.assignees.nodes).toEqual([]);
+    });
+
+    it('maps assignees from features.assignees to UserCore nodes', async () => {
+      const item = makeRestItem({
+        features: {
+          assignees: [
+            {
+              id: 100,
+              name: 'John Doe',
+              username: 'jdoe',
+              avatar_url: 'https://example.com/avatar.png',
+              web_url: 'https://gitlab.example.com/jdoe',
+              web_path: '/jdoe',
+            },
+          ],
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const assigneesWidget = nodes[0].widgets.find((w) => w.type === 'ASSIGNEES');
+
+      expect(assigneesWidget.assignees.nodes).toHaveLength(1);
+      expect(assigneesWidget.assignees.nodes[0]).toMatchObject({
+        __typename: 'UserCore',
+        id: 'gid://gitlab/User/100',
+        name: 'John Doe',
+        username: 'jdoe',
+        avatarUrl: 'https://example.com/avatar.png',
+        webUrl: 'https://gitlab.example.com/jdoe',
+        webPath: '/jdoe',
+      });
+    });
+
+    it('handles multiple assignees correctly', async () => {
+      const item = makeRestItem({
+        features: {
+          assignees: [
+            {
+              id: 100,
+              name: 'John Doe',
+              username: 'jdoe',
+              avatar_url: 'https://example.com/avatar1.png',
+              web_url: 'https://gitlab.example.com/jdoe',
+              web_path: '/jdoe',
+            },
+            {
+              id: 101,
+              name: 'Jane Smith',
+              username: 'jsmith',
+              avatar_url: 'https://example.com/avatar2.png',
+              web_url: 'https://gitlab.example.com/jsmith',
+              web_path: '/jsmith',
+            },
+          ],
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const assigneesWidget = nodes[0].widgets.find((w) => w.type === 'ASSIGNEES');
+
+      expect(assigneesWidget.assignees.nodes).toHaveLength(2);
+      expect(assigneesWidget.assignees.nodes[0].username).toBe('jdoe');
+      expect(assigneesWidget.assignees.nodes[1].username).toBe('jsmith');
+    });
+
+    it('handles missing optional assignee fields', async () => {
+      const item = makeRestItem({
+        features: {
+          assignees: [
+            {
+              id: 100,
+              name: 'John Doe',
+              username: 'jdoe',
+            },
+          ],
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const assigneesWidget = nodes[0].widgets.find((w) => w.type === 'ASSIGNEES');
+
+      expect(assigneesWidget.assignees.nodes[0]).toMatchObject({
+        __typename: 'UserCore',
+        id: 'gid://gitlab/User/100',
+        name: 'John Doe',
+        username: 'jdoe',
+        avatarUrl: null,
+        webUrl: null,
+        webPath: null,
+      });
+    });
+  });
+
+  describe('MILESTONE widget mapping', () => {
+    it('returns null milestone when features is null', async () => {
+      const item = makeRestItem({ features: null });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const milestoneWidget = nodes[0].widgets.find((w) => w.type === 'MILESTONE');
+
+      expect(milestoneWidget).toMatchObject({ __typename: 'WorkItemWidgetMilestone' });
+      expect(milestoneWidget.milestone).toBeNull();
+    });
+
+    it('returns null milestone when features.milestone is undefined', async () => {
+      const item = makeRestItem({ features: {} });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const milestoneWidget = nodes[0].widgets.find((w) => w.type === 'MILESTONE');
+
+      expect(milestoneWidget.milestone).toBeNull();
+    });
+
+    it('maps milestone from features.milestone to Milestone object', async () => {
+      const item = makeRestItem({
+        features: {
+          milestone: {
+            id: 50,
+            title: 'v1.0',
+            due_date: '2024-12-31',
+            start_date: '2024-01-01',
+            web_path: 'https://gitlab.example.com/groups/my-group/-/milestones/1',
+          },
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const milestoneWidget = nodes[0].widgets.find((w) => w.type === 'MILESTONE');
+
+      expect(milestoneWidget.milestone).toMatchObject({
+        __typename: 'Milestone',
+        id: 'gid://gitlab/Milestone/50',
+        title: 'v1.0',
+        dueDate: '2024-12-31',
+        startDate: '2024-01-01',
+        webPath: 'https://gitlab.example.com/groups/my-group/-/milestones/1',
+      });
+    });
+
+    it('handles missing optional milestone fields', async () => {
+      const item = makeRestItem({
+        features: {
+          milestone: {
+            id: 50,
+            title: 'v1.0',
+          },
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const milestoneWidget = nodes[0].widgets.find((w) => w.type === 'MILESTONE');
+
+      expect(milestoneWidget.milestone).toMatchObject({
+        __typename: 'Milestone',
+        id: 'gid://gitlab/Milestone/50',
+        title: 'v1.0',
+        dueDate: null,
+        startDate: null,
+        webPath: null,
+      });
+    });
+  });
+
   describe('error handling', () => {
     it('throws when axios request fails', async () => {
       mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_INTERNAL_SERVER_ERROR);

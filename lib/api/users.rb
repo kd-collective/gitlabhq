@@ -8,7 +8,7 @@ module API
 
     allow_access_with_scope :read_user, if: ->(request) { request.get? || request.head? }
     allow_access_with_scope :ai_workflows, if: ->(request) do
-      request.head? || request_current_user?(request)
+      request.head? || request_current_user?(request) || request_users_read?(request)
     end
 
     feature_category :user_profile,
@@ -26,6 +26,20 @@ module API
 
     def self.request_current_user?(request)
       request.get? && request.path.match?(%r{/api/v\d+/user$})
+    end
+
+    def self.request_users_read?(request)
+      return false unless request.get?
+
+      if request.path.match?(%r{/api/v\d+/users$})
+        # For the list endpoint, only allow targeted lookups by username to
+        # prevent bulk user enumeration via the ai_workflows scope.
+        request.GET['username'].present?
+      else
+        # Allow GET /api/v4/users/:id (fetch a specific user by numeric ID).
+        # Sub-resource paths (e.g. /users/:id/keys) do not match this pattern.
+        request.path.match?(%r{/api/v\d+/users/\d+$})
+      end
     end
 
     resource :users, requirements: { uid: /[0-9]*/, id: /[0-9]*/ } do

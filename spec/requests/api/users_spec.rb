@@ -813,6 +813,24 @@ RSpec.describe API::Users, :with_current_organization, :aggregate_failures, feat
         expect(json_response.size).to eq(0)
       end
     end
+
+    context 'when authenticated with a token that has the ai_workflows scope' do
+      let(:oauth_token) { create(:oauth_access_token, user: user, scopes: [:ai_workflows]) }
+
+      it 'allows searching users by username' do
+        get api(path, oauth_access_token: oauth_token), params: { username: user.username }
+
+        expect(response).to have_gitlab_http_status(:ok)
+        expect(json_response).to be_an(Array)
+        expect(json_response.first['username']).to eq(user.username)
+      end
+
+      it 'blocks unfiltered user listing without a username parameter' do
+        get api(path, oauth_access_token: oauth_token)
+
+        expect(response).to have_gitlab_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /users/:id" do
@@ -1091,6 +1109,23 @@ RSpec.describe API::Users, :with_current_organization, :aggregate_failures, feat
       get api("/users/1ASDF", user)
 
       expect(response).to have_gitlab_http_status(:not_found)
+    end
+
+    context 'when authenticated with a token that has the ai_workflows scope' do
+      let(:oauth_token) { create(:oauth_access_token, user: user, scopes: [:ai_workflows]) }
+
+      it 'allows fetching a user by ID' do
+        get api(path, oauth_access_token: oauth_token)
+
+        expect(response).to have_gitlab_http_status(:ok)
+        expect(json_response['username']).to eq(user.username)
+      end
+
+      it 'blocks access to user sub-resources' do
+        get api("/users/#{user.id}/keys", oauth_access_token: oauth_token)
+
+        expect(response).to have_gitlab_http_status(:forbidden)
+      end
     end
   end
 

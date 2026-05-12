@@ -999,6 +999,33 @@ paths:
         '503':
           description: Service unavailable
       x-gitlab-lifecycle: experiment
+  "/api/v4/ai/duo_workflows/workflows/{id}/audit_events":
+    post:
+      operationId: postApiV4AiDuoWorkflowsWorkflowsIdAuditEvents
+      summary: Ingest AI audit events from Duo Workflow Service
+      tags:
+      - GitLab Duo workflows
+      - Internal operations
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+      parameters:
+      - name: id
+        required: true
+        description: The ID of the workflow
+        schema:
+          type: integer
+        in: path
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RequestBody_8129788813d5"
   "/api/v4/ai/duo_workflows/code_review/add_comments":
     post:
       operationId: postApiV4AiDuoWorkflowsCodeReviewAddComments
@@ -70239,11 +70266,11 @@ components:
       type: object
       properties:
         plan:
-          type: string
+          type: object
         usage:
-          type: string
+          type: object
         billing:
-          type: string
+          type: object
     GitlabSubscriptionsAPIEntitiesInternalProvisionResult:
       type: object
       properties:
@@ -72452,7 +72479,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         url:
@@ -72460,44 +72487,44 @@ components:
         internal_url:
           type: string
         primary:
-          type: string
+          type: boolean
         enabled:
-          type: string
+          type: boolean
         current:
-          type: string
+          type: boolean
         files_max_capacity:
-          type: string
+          type: integer
         repos_max_capacity:
-          type: string
+          type: integer
         verification_max_capacity:
-          type: string
+          type: integer
         container_repositories_max_capacity:
-          type: string
+          type: integer
         selective_sync_type:
           type: string
         selective_sync_shards:
-          type: string
+          type: array
         selective_sync_namespace_ids:
-          type: string
+          type: array
         selective_sync_organization_ids:
-          type: string
+          type: array
         minimum_reverification_interval:
-          type: string
+          type: integer
         blob_download_timeout:
-          type: string
+          type: integer
         sync_object_storage:
-          type: string
+          type: boolean
         web_edit_url:
           type: string
         web_geo_replication_details_url:
           type: string
         _links:
-          type: string
+          type: object
     APIEntitiesGeoNode:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         name:
           type: string
         url:
@@ -72505,31 +72532,31 @@ components:
         internal_url:
           type: string
         primary:
-          type: string
+          type: boolean
         enabled:
-          type: string
+          type: boolean
         current:
-          type: string
+          type: boolean
         files_max_capacity:
-          type: string
+          type: integer
         repos_max_capacity:
-          type: string
+          type: integer
         verification_max_capacity:
-          type: string
+          type: integer
         container_repositories_max_capacity:
-          type: string
+          type: integer
         selective_sync_type:
           type: string
         selective_sync_shards:
-          type: string
+          type: array
         selective_sync_namespace_ids:
-          type: string
+          type: array
         selective_sync_organization_ids:
-          type: string
+          type: array
         minimum_reverification_interval:
-          type: string
+          type: integer
         sync_object_storage:
-          type: string
+          type: boolean
         clone_protocol:
           type: string
         web_edit_url:
@@ -72537,7 +72564,7 @@ components:
         web_geo_replication_details_url:
           type: string
         _links:
-          type: string
+          type: object
     APIEntitiesExperimentCurrentStatus:
       type: object
       properties:
@@ -76541,11 +76568,11 @@ components:
       type: object
       properties:
         plan:
-          type: string
+          type: object
         usage:
-          type: string
+          type: object
         billing:
-          type: string
+          type: object
     APIEntitiesMetadata:
       type: object
       properties:
@@ -78206,13 +78233,13 @@ components:
         milestone:
           type: string
         log_state_changes:
-          type: string
+          type: boolean
         type:
           type: string
         group:
           type: string
         default_enabled:
-          type: string
+          type: boolean
         intended_to_rollout_by:
           type: string
     APIEntitiesFeatureGate:
@@ -78300,7 +78327,7 @@ components:
           format: date-time
           example: '2019-11-04T08:13:51.423Z'
         scopes:
-          type: string
+          type: array
         strategies:
           "$ref": "#/components/schemas/APIEntitiesFeatureFlagStrategy"
     APIEntitiesPushEventPayload:
@@ -80938,7 +80965,7 @@ components:
           type: integer
           example: 200
         active_users:
-          type: string
+          type: integer
     APIEntitiesRelatedEpic:
       type: object
       properties:
@@ -87408,6 +87435,44 @@ components:
           nullable: true
       required:
       - project_path
+    RequestBody_8129788813d5:
+      type: object
+      properties:
+        events:
+          type: array
+          description: Array of CloudEvents v1.0 envelopes
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: CloudEvent id (UUID)
+                nullable: true
+              type:
+                type: string
+                description: Event type (e.g., ai_llm_input_sent)
+                nullable: true
+              source:
+                type: string
+                description: CloudEvent source
+                nullable: true
+              time:
+                type: string
+                format: date-time
+                description: Event timestamp (ISO 8601) from the gateway
+                nullable: true
+              data:
+                type: object
+                description: Event-specific payload
+                nullable: true
+            required:
+            - id
+            - type
+            - source
+            - time
+          nullable: true
+      required:
+      - events
     RequestBody_518c68f555bc:
       type: object
       properties:

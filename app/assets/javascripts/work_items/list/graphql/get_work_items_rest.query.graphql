@@ -108,7 +108,7 @@ query getWorkItemsRest(
         updatedAt
         webPath
         state
-        widgets(onlyTypes: [LABELS]) {
+        widgets(onlyTypes: [LABELS, ASSIGNEES, MILESTONE]) {
           type
           ... on WorkItemWidgetLabels {
             allowsScopedLabels
@@ -116,6 +116,27 @@ query getWorkItemsRest(
               nodes {
                 ...Label
               }
+            }
+          }
+          ... on WorkItemWidgetAssignees {
+            assignees {
+              nodes {
+                id
+                avatarUrl
+                name
+                username
+                webUrl
+                webPath
+              }
+            }
+          }
+          ... on WorkItemWidgetMilestone {
+            milestone {
+              id
+              dueDate
+              startDate
+              title
+              webPath
             }
           }
         }

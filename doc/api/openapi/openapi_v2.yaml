@@ -59246,7 +59246,7 @@ definitions:
         format: date-time
         example: '2019-11-04T08:13:51.423Z'
       scopes:
-        type: string
+        type: array
       strategies:
         "$ref": "#/definitions/API_Entities_FeatureFlag_Strategy"
     required:
@@ -72656,13 +72656,13 @@ definitions:
       milestone:
         type: string
       log_state_changes:
-        type: string
+        type: boolean
       type:
         type: string
       group:
         type: string
       default_enabled:
-        type: string
+        type: boolean
       intended_to_rollout_by:
         type: string
     required:
@@ -75293,13 +75293,13 @@ definitions:
           name:
             type: string
           trial:
-            type: string
+            type: boolean
           auto_renew:
-            type: string
+            type: boolean
           upgradable:
-            type: string
+            type: boolean
           exclude_guests:
-            type: string
+            type: boolean
         required:
         - code
         - name
@@ -75311,13 +75311,17 @@ definitions:
         type: object
         properties:
           seats_in_subscription:
-            type: string
+            type: integer
+            format: int32
           seats_in_use:
-            type: string
+            type: integer
+            format: int32
           max_seats_used:
-            type: string
+            type: integer
+            format: int32
           seats_owed:
-            type: string
+            type: integer
+            format: int32
         required:
         - seats_in_subscription
         - seats_in_use
@@ -75328,10 +75332,13 @@ definitions:
         properties:
           subscription_start_date:
             type: string
+            format: date
           subscription_end_date:
             type: string
+            format: date
           trial_ends_on:
             type: string
+            format: date
         required:
         - subscription_start_date
         - subscription_end_date

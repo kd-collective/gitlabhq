@@ -247,6 +247,7 @@ export const SCAN_PROFILE_I18N = {
   disable: s__('SecurityProfiles|Disable'),
   troubleshootFailure: s__('SecurityProfiles|Troubleshoot failure'),
   errorLoadingProfiles: s__('SecurityProfiles|Error loading profiles. Please try again.'),
+  errorLoadingStatuses: s__('SecurityProfiles|Error loading statuses. Please try again.'),
   errorApplying: s__('SecurityProfiles|Error applying profile. Please try again.'),
   errorDetaching: s__('SecurityProfiles|Error detaching profile. Please try again.'),
   errorLoadingJobData: s__('SecurityProfiles|Failed to load scan details. Please try again.'),

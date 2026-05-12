@@ -79,7 +79,7 @@ At runtime, the runner checks that the SRT is available and working:
 $ if which srt > /dev/null; then
 $ echo "SRT found, creating config..."
 SRT found, creating config...
-$ echo '{"network":{"allowedDomains":["host.docker.internal","localhost","gitlab.com","*.gitlab.com","duo-workflow-svc.runway.gitlab.net"],"deniedDomains":[],"allowAllUnixSockets":false},"filesystem":{"denyRead":["~/.ssh"],"allowWrite":["./","/tmp/gitlab_duo_agent_platform"],"denyWrite":[],"allowGitConfig":true}}' > /tmp/gitlab_duo_agent_platform/srt-settings.json
+$ echo '{"network":{"allowedDomains":["host.docker.internal","localhost","gitlab.com","*.gitlab.com","duo-workflow-svc.runway.gitlab.net"],"deniedDomains":[],"allowAllUnixSockets":false},"filesystem":{"denyRead":["~/.ssh"],"allowWrite":["./","/tmp"],"denyWrite":["/opt/.gitlab-sandbox"],"allowGitConfig":true}}' > /opt/.gitlab-sandbox/srt-settings.json
 $ echo "Testing SRT sandbox capabilities..."
 Testing SRT sandbox capabilities...
 ```
@@ -132,7 +132,8 @@ Only the environment variables and parameters required to run DAP and Git operat
 The sandbox enforces the following filesystem restrictions:
 
 - Read restrictions: SSH keys (`~/.ssh`) are blocked.
-- Write allowed: Current directory (`./`) and temporary directory (`/tmp/gitlab_duo_agent_platform`).
+- Write allowed: Current directory (`./`) and `/tmp`.
+- Write restricted: `/opt/.gitlab-sandbox` (used for platform-internal files like sandbox settings).
 - Git configuration access: Allowed.
 
 ### Configure a network policy

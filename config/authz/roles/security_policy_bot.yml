@@ -12,6 +12,7 @@ project:
   - create_pipeline
   - create_vulnerability_state_transition
   - read_on_demand_dast_scan
+  - read_project
 group:
   permissions: []
   raw_permissions: []

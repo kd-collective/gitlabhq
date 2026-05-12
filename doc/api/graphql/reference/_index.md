@@ -17627,6 +17627,7 @@ Input type: `WorkItemTypeCreateInput`
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | <a id="mutation-workitemtypecreate-clientmutationid"></a>`clientMutationId` | [`String`](#string) | A unique identifier for the client performing the mutation. |
+| <a id="mutation-workitemtypecreate-enabledbydefaultfornewnamespaces"></a>`enabledByDefaultForNewNamespaces` | [`Boolean`](#boolean) | Indicates the type is enabled by default for new child namespaces. |
 | <a id="mutation-workitemtypecreate-fullpath"></a>`fullPath` | [`String`](#string) | Full path of the root group. |
 | <a id="mutation-workitemtypecreate-iconname"></a>`iconName` | [`String!`](#string) | Icon name for the work item type. Use the `workItemTypeIconDefinitions` query to retrieve the list of available icon names. |
 | <a id="mutation-workitemtypecreate-name"></a>`name` | [`String!`](#string) | Name for the work item type. |
@@ -17654,6 +17655,7 @@ Input type: `WorkItemTypeUpdateInput`
 | ---- | ---- | ----------- |
 | <a id="mutation-workitemtypeupdate-archive"></a>`archive` | [`Boolean`](#boolean) | Whether to archive the work item type. |
 | <a id="mutation-workitemtypeupdate-clientmutationid"></a>`clientMutationId` | [`String`](#string) | A unique identifier for the client performing the mutation. |
+| <a id="mutation-workitemtypeupdate-enabledbydefaultfornewnamespaces"></a>`enabledByDefaultForNewNamespaces` | [`Boolean`](#boolean) | Indicates the type is enabled by default for new child namespaces. |
 | <a id="mutation-workitemtypeupdate-fullpath"></a>`fullPath` | [`String`](#string) | Full path of the root group. |
 | <a id="mutation-workitemtypeupdate-iconname"></a>`iconName` | [`String`](#string) | Icon name for the work item type. Use the `workItemTypeIconDefinitions` query to retrieve the list of available icon names. |
 | <a id="mutation-workitemtypeupdate-id"></a>`id` | [`WorkItemsTypeID!`](#workitemstypeid) | Global ID of the work item type to update. |

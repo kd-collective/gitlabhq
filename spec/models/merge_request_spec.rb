@@ -2808,22 +2808,6 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
 
       2.times { merge_request.changed_paths }
     end
-
-    context 'when FF optimised_commits_for_mr_changed_paths is disabled' do
-      let(:commits) { [double(:commit)] }
-
-      before do
-        stub_feature_flags(optimised_commits_for_mr_changed_paths: false)
-        allow(merge_request).to receive(:commits).and_return(commits)
-      end
-
-      it 'fetches the changed paths from gitaly' do
-        expect(project.repository)
-          .to receive(:find_changed_paths).with(commits, merge_commit_diff_mode: :all_parents)
-                                          .once.and_return(changed_paths)
-        expect(merge_request.changed_paths).to eq(changed_paths)
-      end
-    end
   end
 
   describe '#new_paths' do

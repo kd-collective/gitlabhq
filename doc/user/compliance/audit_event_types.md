@@ -312,6 +312,14 @@ Audit event types belong to the following product categories.
 |:----------|:---------------------|:------------------|:--------------|:------|
 | [`project_feature_releases_access_level_updated`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/106919) | A project's releases access level setting is updated | {{< yes >}} | GitLab [15.7](https://gitlab.com/gitlab-org/gitlab/-/issues/369308) | Project |
 
+### Dependency firewall
+
+| Type name | Event triggered when | Saved to database | Introduced in | Scope |
+|:----------|:---------------------|:------------------|:--------------|:------|
+| [`dependency_firewall_allowed`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/223712) | A dependency is allowed by the dependency firewall policy | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/588486) | Project |
+| [`dependency_firewall_blocked`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/223712) | A dependency is blocked by the dependency firewall policy | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/588486) | Project |
+| [`dependency_firewall_warned`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/223712) | A dependency matched an advisory (warn-mode) dependency firewall policy | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/588486) | Project |
+
 ### Deployment management
 
 | Type name | Event triggered when | Saved to database | Introduced in | Scope |
@@ -333,6 +341,17 @@ Audit event types belong to the following product categories.
 
 | Type name | Event triggered when | Saved to database | Introduced in | Scope |
 |:----------|:---------------------|:------------------|:--------------|:------|
+| [`ai_agent_session_ended`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | An AI agent workflow session has ended. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_agent_session_started`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | An AI agent workflow session has started. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_llm_input_sent`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | A prompt was sent to an LLM by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_llm_request_failed`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | An LLM request by an AI agent has failed. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_llm_response_received`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | An LLM response was received by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_tool_execution_failed`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | A tool execution by an AI agent has failed. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_tool_execution_retried`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | A failed tool execution was retried by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_tool_invoked`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | A tool was invoked by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_tool_response_received`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | A tool response was received by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_user_input_received`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | User input was received by an AI agent. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
+| [`ai_user_output_displayed`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/4713) | AI agent output was displayed to the user. | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/issues/591588) | Project, Group |
 | [`composite_oauth_token_created`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/231162) | A composite OAuth token was created for a Duo workflow | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/work_items/593023) | Group, Project, User |
 | [`duo_agent_platform_enabled_updated`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/232180) | Duo Agent Platform enabled setting on group changed | {{< yes >}} | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/work_items/593025) | Group |
 | [`duo_session_created`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/216689) | Duo session is created | {{< yes >}} | GitLab [18.8](https://gitlab.com/gitlab-org/gitlab/-/issues/581004) | Project |

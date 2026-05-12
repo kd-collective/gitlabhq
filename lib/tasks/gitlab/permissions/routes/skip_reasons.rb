@@ -20,6 +20,7 @@ module Tasks
             mailroom_token_auth: 'Mailroom token',
             openbao_token_auth: 'OpenBao token',
             external_registry_redirect: 'External registry redirect',
+            ai_workflows_token_auth: 'AI Workflows OAuth token',
             orbit_internal_auth: 'Orbit internal token',
             pages_token_auth: 'GitLab Pages token',
             public_endpoint: 'Public endpoint',

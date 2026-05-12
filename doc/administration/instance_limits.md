@@ -1408,13 +1408,9 @@ read the GitLab development documentation about working with diffs.
 
 - [Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/521970) in GitLab 17.10 [with a flag](feature_flags/_index.md) named `merge_requests_diffs_limit`. Disabled by default.
 - [Enabled on GitLab.com](https://gitlab.com/gitlab-org/gitlab/-/issues/521970) in GitLab 17.10.
+- [Generally available](https://gitlab.com/gitlab-org/gitlab/-/issues/537447) in GitLab 19.0. Feature flag `merge_requests_diffs_limit` removed.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of this feature is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 GitLab limits each merge request to 1000 [diff versions](../user/project/merge_requests/versions.md).
 Merge requests that reach this limit cannot be updated further. Instead,
