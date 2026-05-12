@@ -1,9 +1,10 @@
-import { GlAvatarLabeled, GlCard } from '@gitlab/ui';
+import { GlCard } from '@gitlab/ui';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 import Step3 from '~/organizations/index/components/reconciliation/steps/step_3.vue';
 import BaseStep from '~/organizations/index/components/reconciliation/steps/base_step.vue';
-import { DEFAULT_ORGANIZATION_ID } from '~/organizations/shared/constants';
+import OrganizationCard from '~/organizations/index/components/reconciliation/organization_card.vue';
 import OrganizationGroupCard from '~/organizations/index/components/reconciliation/organization_group_card.vue';
+import { mockDefaultOrganization } from 'jest/organizations/shared/mock_data';
 import {
   mockOrganizations,
   organizationWithGroups,
@@ -21,13 +22,13 @@ describe('ReconciliationStep3', () => {
       },
       stubs: {
         BaseStep,
+        OrganizationCard,
         GlCard,
       },
     });
   };
 
   const findBaseStep = () => wrapper.findComponent(BaseStep);
-  const findAllCards = () => wrapper.findAllComponents(GlCard);
   const findRetainedSection = () => wrapper.findByTestId('retained-organizations-section');
   const findDeletedSection = () => wrapper.findByTestId('deleted-organizations-section');
   const findAllGroupCards = () => wrapper.findAllComponents(OrganizationGroupCard);
@@ -54,21 +55,17 @@ describe('ReconciliationStep3', () => {
         expect(wrapper.findByText('Your new structure').exists()).toBe(true);
       });
 
-      it('renders a card for each organization with groups', () => {
+      it('renders an organization card for each organization with groups', () => {
         const retainedOrgs = mockOrganizations.filter((org) => org.groups.nodes.length > 0);
 
-        expect(findAllCards()).toHaveLength(mockOrganizations.length);
         expect(retainedOrgs).toHaveLength(1);
+        expect(findRetainedSection().findAllComponents(OrganizationCard)).toHaveLength(1);
       });
 
-      it('renders organization labeled avatar in card header', () => {
-        const card = findAllCards().at(0);
-
-        expect(card.findComponent(GlAvatarLabeled).props()).toMatchObject({
-          label: organizationWithGroups.name,
-          entityName: organizationWithGroups.name,
-          src: organizationWithGroups.avatarUrl,
-        });
+      it('passes organization prop to organization card', () => {
+        expect(findRetainedSection().findComponent(OrganizationCard).props('organization')).toEqual(
+          organizationWithGroups,
+        );
       });
 
       describe('group cards', () => {
@@ -89,13 +86,12 @@ describe('ReconciliationStep3', () => {
         expect(wrapper.findByText('These Organizations will be deleted').exists()).toBe(true);
       });
 
-      it('renders a card for each organization without groups', () => {
-        const deletedCards = findAllCards().wrappers.slice(-organizationsWithoutGroups.length);
+      it('renders an organization card for each organization without groups', () => {
+        const deletedCards = findDeletedSection().findAllComponents(OrganizationCard);
 
-        deletedCards.forEach((card, index) => {
-          expect(card.findComponent(GlAvatarLabeled).props('label')).toBe(
-            organizationsWithoutGroups[index].name,
-          );
+        expect(deletedCards).toHaveLength(organizationsWithoutGroups.length);
+        deletedCards.wrappers.forEach((card, index) => {
+          expect(card.props('organization')).toEqual(organizationsWithoutGroups[index]);
         });
       });
     });
@@ -154,15 +150,8 @@ describe('ReconciliationStep3', () => {
   });
 
   describe('default organization', () => {
-    const defaultOrg = {
-      id: `gid://gitlab/Organizations::Organization/${DEFAULT_ORGANIZATION_ID}`,
-      name: 'Default',
-      avatarUrl: null,
-      groups: { nodes: [] },
-    };
-
     it('excludes the default organization from the deleted organizations list', () => {
-      createComponent({ props: { organizations: [defaultOrg] } });
+      createComponent({ props: { organizations: [mockDefaultOrganization] } });
 
       expect(findDeletedSection().exists()).toBe(false);
     });

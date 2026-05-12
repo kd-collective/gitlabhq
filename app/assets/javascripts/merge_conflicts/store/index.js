@@ -79,7 +79,6 @@ export const useMergeConflicts = defineStore('mergeConflicts', {
         } else if (file.resolveMode === EDIT_RESOLVE_MODE) {
           if (!file.content) {
             unresolved += 1;
-            // eslint-disable-next-line no-continue
             continue;
           }
         }

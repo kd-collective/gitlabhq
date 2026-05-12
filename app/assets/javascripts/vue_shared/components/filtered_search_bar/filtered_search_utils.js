@@ -154,7 +154,6 @@ export function filterToQueryObject(filters = {}, options = {}) {
         }
 
         if (shouldExcludeEmpty && (value?.[0] === '' || value === '' || value === null)) {
-          // eslint-disable-next-line no-continue
           continue;
         }
 

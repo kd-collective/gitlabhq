@@ -55,7 +55,6 @@ module.exports = {
         });
 
         if (isInInlineCode) {
-          // eslint-disable-next-line no-continue
           continue;
         }
 

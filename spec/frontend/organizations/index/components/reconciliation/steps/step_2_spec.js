@@ -1,10 +1,11 @@
-import { GlAvatarLabeled, GlCard } from '@gitlab/ui';
+import { GlCard } from '@gitlab/ui';
 import { nextTick } from 'vue';
 import Draggable from '~/lib/utils/vue3compat/draggable_compat.vue';
 import { mountExtended, extendedWrapper } from 'helpers/vue_test_utils_helper';
 import { stubComponent } from 'helpers/stub_component';
 import Step2 from '~/organizations/index/components/reconciliation/steps/step_2.vue';
 import BaseStep from '~/organizations/index/components/reconciliation/steps/base_step.vue';
+import OrganizationCard from '~/organizations/index/components/reconciliation/organization_card.vue';
 import OrganizationGroupCard from '~/organizations/index/components/reconciliation/organization_group_card.vue';
 import {
   mockOrganizations,
@@ -32,6 +33,7 @@ describe('ReconciliationStep2', () => {
   const findBaseStep = () => wrapper.findComponent(BaseStep);
   const findAllCards = () => wrapper.findAllComponents(GlCard);
   const findCardAt = (index) => extendedWrapper(findAllCards().at(index));
+  const findAllOrganizationCards = () => wrapper.findAllComponents(OrganizationCard);
   const findAllGroupCards = (organizationCard) =>
     organizationCard.findAllComponents(OrganizationGroupCard);
 
@@ -49,23 +51,16 @@ describe('ReconciliationStep2', () => {
     );
   });
 
-  it('renders a card for each organization', () => {
+  it('renders an organization card for each organization', () => {
     createComponent();
 
-    expect(findAllCards()).toHaveLength(mockOrganizations.length);
+    expect(findAllOrganizationCards()).toHaveLength(mockOrganizations.length);
   });
 
-  it('renders organization labeled avatar', () => {
+  it('passes organization prop to organization card', () => {
     createComponent();
 
-    const card = findCardAt(0);
-    const organization = mockOrganizations[0];
-
-    expect(card.findComponent(GlAvatarLabeled).props()).toMatchObject({
-      label: organization.name,
-      entityName: organization.name,
-      src: organization.avatarUrl,
-    });
+    expect(findAllOrganizationCards().at(0).props('organization')).toEqual(mockOrganizations[0]);
   });
 
   describe('when organization has groups', () => {

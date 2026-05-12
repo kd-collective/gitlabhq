@@ -1,19 +1,15 @@
 <script>
-import { GlAvatarLabeled, GlCard } from '@gitlab/ui';
 import illustrationUrl from '@gitlab/svgs/dist/illustrations/empty-state/empty-organizations-add-md.svg?url';
-import { AVATAR_SHAPE_OPTION_RECT } from '~/vue_shared/constants';
-import { getIdFromGraphQLId } from '~/graphql_shared/utils';
 import HelpPageLink from '~/vue_shared/components/help_page_link/help_page_link.vue';
+import OrganizationCard from '../organization_card.vue';
 import BaseStep from './base_step.vue';
 
 export default {
   name: 'ReconciliationStep1',
-  AVATAR_SHAPE_OPTION_RECT,
   illustrationUrl,
   components: {
     BaseStep,
-    GlAvatarLabeled,
-    GlCard,
+    OrganizationCard,
     HelpPageLink,
   },
   props: {
@@ -21,9 +17,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-  methods: {
-    getIdFromGraphQLId,
   },
 };
 </script>
@@ -55,17 +48,7 @@ export default {
           :key="organization.id"
           class="gl-w-1/2 gl-p-2 first:gl-ml-auto last:gl-mr-auto @lg:gl-w-1/3"
         >
-          <gl-card class="gl-h-full" body-class="gl-bg-transparent">
-            <gl-avatar-labeled
-              :label="organization.name"
-              :entity-id="getIdFromGraphQLId(organization.id)"
-              :entity-name="organization.name"
-              :shape="$options.AVATAR_SHAPE_OPTION_RECT"
-              :size="32"
-              :src="organization.avatarUrl"
-              class="gl-flex"
-            />
-          </gl-card>
+          <organization-card :organization="organization" />
         </div>
       </div>
     </div>

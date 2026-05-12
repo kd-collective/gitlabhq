@@ -214,6 +214,7 @@ export default [
     'plugin:no-jquery/slim',
     'plugin:no-jquery/deprecated-3.4',
     'plugin:@gitlab/jest',
+    'plugin:@gitlab/tailwind',
   ),
   ...compat.plugins('no-jquery'),
   // Native flat config plugins
@@ -228,6 +229,11 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
+    },
+    settings: {
+      tailwindcss: {
+        config: path.resolve(dirname, 'config/tailwind.config.js'),
+      },
     },
   },
   // Main application code rules
@@ -299,12 +305,6 @@ export default [
       ],
 
       '@gitlab/vue-no-undef-apollo-properties': 'error',
-
-      // Tailwind rules
-      '@gitlab/tailwind-no-interpolation': 'error',
-      '@gitlab/vue-tailwind-no-interpolation': 'error',
-      '@gitlab/tailwind-no-max-width-media-queries': 'error',
-      '@gitlab/vue-tailwind-no-max-width-media-queries': 'error',
 
       // URL rules
       '@gitlab/no-hardcoded-urls': ['error', NO_HARDCODED_URLS_OPTIONS],

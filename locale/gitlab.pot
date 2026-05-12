@@ -4307,6 +4307,9 @@ msgstr ""
 msgid "AccessTokens|At least one scope is required."
 msgstr ""
 
+msgid "AccessTokens|Broad access"
+msgstr ""
+
 msgid "AccessTokens|Consider reducing scope"
 msgstr ""
 
@@ -4654,7 +4657,13 @@ msgstr ""
 msgid "AccessTokens|Select scopes"
 msgstr ""
 
+msgid "AccessTokens|Service ping"
+msgstr ""
+
 msgid "AccessTokens|Set group and project access."
+msgstr ""
+
+msgid "AccessTokens|Set token scope"
 msgstr ""
 
 msgid "AccessTokens|State"
@@ -4679,6 +4688,9 @@ msgid "AccessTokens|The token was revoked successfully."
 msgstr ""
 
 msgid "AccessTokens|The token was rotated successfully."
+msgstr ""
+
+msgid "AccessTokens|To limit access, use a %{linkStart}fine-grained personal access token%{linkEnd} instead."
 msgstr ""
 
 msgid "AccessTokens|Token already revoked"
@@ -4730,6 +4742,9 @@ msgid "AccessTokens|Use Demonstrating Proof of Possession (DPoP)"
 msgstr ""
 
 msgid "AccessTokens|User"
+msgstr ""
+
+msgid "AccessTokens|User & Administration"
 msgstr ""
 
 msgid "AccessTokens|User permissions"

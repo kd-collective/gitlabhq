@@ -1,8 +1,8 @@
-import { GlAvatarLabeled, GlCard } from '@gitlab/ui';
 import illustrationUrl from '@gitlab/svgs/dist/illustrations/empty-state/empty-organizations-add-md.svg?url';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 import Step1 from '~/organizations/index/components/reconciliation/steps/step_1.vue';
 import BaseStep from '~/organizations/index/components/reconciliation/steps/base_step.vue';
+import OrganizationCard from '~/organizations/index/components/reconciliation/organization_card.vue';
 import HelpPageLink from '~/vue_shared/components/help_page_link/help_page_link.vue';
 import { mockOrganizations } from '../mock_data';
 
@@ -22,8 +22,7 @@ describe('ReconciliationStep1', () => {
   };
 
   const findBaseStep = () => wrapper.findComponent(BaseStep);
-  const findCards = () => wrapper.findAllComponents(GlCard);
-  const findAvatars = () => wrapper.findAllComponents(GlAvatarLabeled);
+  const findOrganizationCards = () => wrapper.findAllComponents(OrganizationCard);
   const findHelpPageLink = () => wrapper.findComponent(HelpPageLink);
 
   describe('template', () => {
@@ -50,15 +49,12 @@ describe('ReconciliationStep1', () => {
       expect(findHelpPageLink().text()).toBe('Learn how Organizations work');
     });
 
-    it('renders a card for each organization', () => {
-      expect(findCards()).toHaveLength(mockOrganizations.length);
+    it('renders an organization card for each organization', () => {
+      expect(findOrganizationCards()).toHaveLength(mockOrganizations.length);
     });
 
-    it('renders organization avatar with name', () => {
-      const avatar = findAvatars().at(0);
-
-      expect(avatar.props('label')).toBe(mockOrganizations[0].name);
-      expect(avatar.props('entityName')).toBe(mockOrganizations[0].name);
+    it('passes organization prop to organization card', () => {
+      expect(findOrganizationCards().at(0).props('organization')).toEqual(mockOrganizations[0]);
     });
   });
 });

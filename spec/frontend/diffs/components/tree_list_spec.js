@@ -260,6 +260,14 @@ describe('Diffs tree list component', () => {
       jest.runAllTimers();
       expect(spy).toHaveBeenCalledTimes(1);
     });
+
+    it('does not throw when scroller ref is unavailable', async () => {
+      useFileBrowser().setTreeData([]);
+      createComponent({ currentDiffFileId: '05.txt' });
+      await nextTick();
+      jest.spyOn(wrapper.element, 'querySelector').mockReturnValue(document.createElement('div'));
+      expect(() => jest.runAllTimers()).not.toThrow();
+    });
   });
 
   describe('linked file', () => {
