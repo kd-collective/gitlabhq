@@ -200,7 +200,7 @@ docs-i18n-lint links:
   before_script:
     - source scripts/utils.sh
   script:
-    - lychee --offline --include-fragments --exclude "\.(png|jpg|gif|svg)$" --exclude "ja-jp/development.*#" doc-locale
+    - lychee --offline --include-fragments --exclude "\.(png|jpg|gif|svg)$" --exclude "(ja-jp|ko-kr|fr-fr)/development" doc-locale
 
 # Japanese-specific Vale linting with language-specific rules
 docs-i18n-lint japanese-vale:
@@ -212,6 +212,36 @@ docs-i18n-lint japanese-vale:
   variables:
     LANGUAGE_CODE: "ja-jp"
     LANGUAGE_NAME: "Japanese"
+  script:
+    - source ./scripts/utils.sh
+    - install_gitlab_gem
+    - scripts/i18n_lint_language_vale.sh
+
+# Korean-specific Vale linting with language-specific rules
+docs-i18n-lint korean-vale:
+  extends:
+    - .docs:rules:docs-i18n-lint-korean
+    - .docs-markdown-lint-image
+    - .lint-base
+  stage: lint
+  variables:
+    LANGUAGE_CODE: "ko-kr"
+    LANGUAGE_NAME: "Korean"
+  script:
+    - source ./scripts/utils.sh
+    - install_gitlab_gem
+    - scripts/i18n_lint_language_vale.sh
+
+# French-specific Vale linting with language-specific rules
+docs-i18n-lint french-vale:
+  extends:
+    - .docs:rules:docs-i18n-lint-french
+    - .docs-markdown-lint-image
+    - .lint-base
+  stage: lint
+  variables:
+    LANGUAGE_CODE: "fr-fr"
+    LANGUAGE_NAME: "French"
   script:
     - source ./scripts/utils.sh
     - install_gitlab_gem

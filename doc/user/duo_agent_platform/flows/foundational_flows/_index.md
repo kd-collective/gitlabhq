@@ -154,14 +154,14 @@ Prerequisites:
 
 Prerequisites:
 
-- Administrator access.
+- The Maintainer or Owner role for the group.
 - Flow execution and foundational flows turned on for the instance.
 
 1. In the top bar, select **Search or go to** and find your group.
 1. In the left sidebar, select **Settings** > **General**.
 1. Expand **GitLab Duo features**.
 1. Under **Flow execution**, select the **Allow flow execution** and **Allow foundational flows** checkboxes.
-1. Select the checkbox for each foundational flow you want to turn on.
+1. For top-level groups only, select the checkbox for each foundational flow you want to turn on.
 1. Select **Save changes**.
 
 When turned on for the group, foundational flows are available to all subgroups and projects.

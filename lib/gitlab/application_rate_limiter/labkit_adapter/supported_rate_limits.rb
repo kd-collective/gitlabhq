@@ -182,7 +182,15 @@ module Gitlab
             gitlab_shell_operation: {
               limiter_name: 'applimiter_gitlab_shell_operation',
               rule_name: 'limit_gitlab_shell_operations_by_action_project_actor',
-              characteristics: %i[action project user key ip],
+              # `:repo_path`, not `:project`: lib/api/internal/base.rb passes
+              # params[:project] as a repo-path String (see
+              # lib/api/helpers/internal_helpers.rb:173), not a Project AR.
+              # Naming the slot `:project` reserved it for AR routing, which
+              # left only two primitive slots for three String values
+              # (action, path, ip) on the untrusted-IP branch and silently
+              # dropped the IP, collapsing every untrusted-IP client to a
+              # given repo into one Redis counter.
+              characteristics: %i[action repo_path user key ip],
               action: :block,
               flag_scope: :cohort_2
             },

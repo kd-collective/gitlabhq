@@ -10,6 +10,11 @@ module Tasks
           DISALLOWED_ACTIONS = ::Authz::Validation::DISALLOWED_ACTIONS
           BOUNDARIES = ::Authz::Validation::BOUNDARIES
 
+          # Raw permissions consumed by gPATs through paths the validator cannot statically detect.
+          # Today this is `Gitlab::GitAccess#check_granular_pat_permissions!`, which calls
+          # `Authz::Tokens::AuthorizeGranularScopesService` directly for git protocol commands.
+          GRANULAR_TOKEN_NON_API_CONSUMERS = Set[:download_code].freeze
+
           def initialize
             @violations = {
               schema: {},
@@ -23,7 +28,8 @@ module Tasks
               resource_metadata_schema: {},
               category_metadata_schema: {},
               empty_resource_directory: [],
-              empty_category_directory: []
+              empty_category_directory: [],
+              granular_access_token_unused: []
             }
             @resources = []
             @categories = []
@@ -43,8 +49,77 @@ module Tasks
             validate_categories
             validate_empty_resource_directories
             validate_empty_category_directories
+            validate_granular_access_token_consumers
 
             super
+          end
+
+          def validate_granular_access_token_consumers
+            in_use = granular_access_token_raw_permissions
+
+            ::Authz::PermissionGroups::Assignable.available_definitions.each do |assignable|
+              next unless assignable.available_for?(:granular_access_token)
+              next if assignable.permissions.any? { |p| in_use.include?(p) }
+
+              violations[:granular_access_token_unused] << assignable.name
+            end
+          end
+
+          def granular_access_token_raw_permissions
+            (rest_granular_raw_permissions + graphql_granular_raw_permissions).to_set +
+              GRANULAR_TOKEN_NON_API_CONSUMERS
+          end
+
+          def rest_granular_raw_permissions
+            rest_endpoint_routes(::API::API.endpoints).flat_map do |route|
+              authorization = route.settings[:authorization]
+              next [] unless authorization
+              next [] if authorization[:skip_granular_token_authorization]
+
+              Array(authorization[:permissions]).map(&:to_sym)
+            end
+          end
+
+          def rest_endpoint_routes(endpoints)
+            endpoints.flat_map do |endpoint|
+              if endpoint.respond_to?(:endpoints) && endpoint.endpoints
+                rest_endpoint_routes(endpoint.endpoints)
+              else
+                endpoint.routes
+              end
+            end
+          end
+
+          def graphql_granular_raw_permissions
+            graphql_granular_directives.flat_map do |directive|
+              Array(directive.arguments[:permissions]).map { |p| p.to_s.downcase.to_sym }
+            end
+          end
+
+          def graphql_granular_directives
+            directives = []
+
+            GitlabSchema.types.each do |type_name, type|
+              next if type_name.start_with?('__')
+
+              if type.respond_to?(:directives)
+                type.directives.each do |d|
+                  directives << d if d.is_a?(::Directives::Authz::GranularScope)
+                end
+              end
+
+              next unless type.respond_to?(:fields)
+
+              type.fields.each_value do |field|
+                next unless field.respond_to?(:directives)
+
+                field.directives.each do |d|
+                  directives << d if d.is_a?(::Directives::Authz::GranularScope)
+                end
+              end
+            end
+
+            directives
           end
 
           def validate_permission(permission)
@@ -189,7 +264,20 @@ module Tasks
             out += format_schema_errors(:resource_metadata_schema) { |id| metadata_path(id) }
             out += format_schema_errors(:category_metadata_schema) { |id| metadata_path(id) }
             out += format_error_list(:empty_resource_directory)
-            out + format_error_list(:empty_category_directory)
+            out += format_error_list(:empty_category_directory)
+            out + format_granular_access_token_unused_errors
+          end
+
+          def format_granular_access_token_unused_errors
+            return '' if violations[:granular_access_token_unused].empty?
+
+            out = "#{error_messages[:granular_access_token_unused]}\n\n"
+
+            violations[:granular_access_token_unused].each do |name|
+              out += "  - #{name} (#{assignable_source_path(name)})\n"
+            end
+
+            "#{out}\n"
           end
 
           def metadata_path(identifier)
@@ -300,7 +388,13 @@ module Tasks
               empty_category_directory:
                 "The following category directories contain only a .metadata.yml file with no resource " \
                 "subdirectories.\nEither add resource subdirectories or remove the directory." \
-                "\n#{assignable_permissions_link(anchor: 'understanding-the-directory-structure')}"
+                "\n#{assignable_permissions_link(anchor: 'understanding-the-directory-structure')}",
+              granular_access_token_unused:
+                "The following assignable permissions declare `available_for: granular_access_token` but none " \
+                "of their raw permissions are referenced by any REST authorization or GraphQL granular scope " \
+                "directive.\nEither remove `granular_access_token` from `available_for`, or reference one of " \
+                "the raw permissions in a route/directive." \
+                "\n#{assignable_permissions_link(anchor: 'available-for-consumers')}"
             }
           end
 

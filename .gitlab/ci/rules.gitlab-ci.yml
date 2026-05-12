@@ -385,6 +385,30 @@
   - "doc-locale/ja-jp/.*"
   - "doc-locale/ja-jp/.vale/**/*"
 
+.docs-ko-kr-patterns: &docs-ko-kr-patterns
+  - ".gitlab/ci/docs.gitlab-ci.yml"
+  - ".gitlab/ci/rules.gitlab-ci.yml"
+  - ".gitlab/route-map.yml"
+  - ".markdownlint-cli2.yaml"
+  - "doc/.markdownlint/**/*"
+  - "doc/.vale/**/*"
+  - "scripts/i18n_lint_language_vale.sh"
+  - "doc-locale/ko-kr/**/*"
+  - "doc-locale/ko-kr/.*"
+  - "doc-locale/ko-kr/.vale/**/*"
+
+.docs-fr-fr-patterns: &docs-fr-fr-patterns
+  - ".gitlab/ci/docs.gitlab-ci.yml"
+  - ".gitlab/ci/rules.gitlab-ci.yml"
+  - ".gitlab/route-map.yml"
+  - ".markdownlint-cli2.yaml"
+  - "doc/.markdownlint/**/*"
+  - "doc/.vale/**/*"
+  - "scripts/i18n_lint_language_vale.sh"
+  - "doc-locale/fr-fr/**/*"
+  - "doc-locale/fr-fr/.*"
+  - "doc-locale/fr-fr/.vale/**/*"
+
 .if-tech-docs-localization: &if-tech-docs-localization
   if: '($CI_PROJECT_PATH == "gitlab-com/localization" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) ||
       ($CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_EVENT_TYPE != "merge_train")'
@@ -1461,6 +1485,16 @@
   rules:
     - <<: *if-tech-docs-localization
       changes: *docs-ja-jp-patterns
+
+.docs:rules:docs-i18n-lint-korean:
+  rules:
+    - <<: *if-tech-docs-localization
+      changes: *docs-ko-kr-patterns
+
+.docs:rules:docs-i18n-lint-french:
+  rules:
+    - <<: *if-tech-docs-localization
+      changes: *docs-fr-fr-patterns
 
 .docs:rules:deprecations-and-removals:
   rules:

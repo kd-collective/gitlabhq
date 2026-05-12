@@ -229,14 +229,43 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
       let_it_be(:deploy_key) { create(:deploy_key) }
 
       it 'routes a DeployKey to :key via is_a?, not into a primitive slot' do
-        described_class.run!(:gitlab_shell_operation, scope: [:upload, project, deploy_key])
+        described_class.run!(:gitlab_shell_operation, scope: [:upload, 'group/project', deploy_key])
 
         expected_key = "labkit:rl:applimiter_gitlab_shell_operation" \
           ":limit_gitlab_shell_operations_by_action_project_actor" \
-          ":action:upload:project:#{project.id}:user:_unknown_:key:#{deploy_key.id}:ip:_unknown_"
+          ":action:upload:repo_path:group/project:user:_unknown_:key:#{deploy_key.id}:ip:_unknown_"
         count = Gitlab::Redis::RateLimiting.with { |r| r.get(expected_key) }
 
         expect(count.to_i).to eq(1)
+      end
+    end
+
+    # Regression for gitlab.com/gitlab-org/gitlab/-/issues/599855: the
+    # untrusted-IP branch in lib/api/internal/base.rb passes three Strings
+    # as scope (action, repo path, ip). Before the :project to :repo_path
+    # rename, only :action and :ip were primitive zip targets and the IP
+    # was silently dropped, collapsing every untrusted-IP client to the
+    # same repo into a single Redis counter. params[:project] is a repo
+    # path String per lib/api/helpers/internal_helpers.rb:173.
+    context 'with the SSH internal-API anonymous branch (action, repo path, IP - all Strings)' do
+      it 'preserves per-IP counters: two distinct IPs hitting the same repo must not collide' do
+        action       = 'git-upload-pack'
+        repo_path    = 'gitlab-org/gitlab'
+
+        described_class.run!(:gitlab_shell_operation, scope: [action, repo_path, '203.0.113.10'])
+        described_class.run!(:gitlab_shell_operation, scope: [action, repo_path, '203.0.113.11'])
+
+        ip_a_key = "labkit:rl:applimiter_gitlab_shell_operation" \
+          ":limit_gitlab_shell_operations_by_action_project_actor" \
+          ":action:#{action}:repo_path:#{repo_path}:user:_unknown_:key:_unknown_:ip:203.0.113.10"
+        ip_b_key = "labkit:rl:applimiter_gitlab_shell_operation" \
+          ":limit_gitlab_shell_operations_by_action_project_actor" \
+          ":action:#{action}:repo_path:#{repo_path}:user:_unknown_:key:_unknown_:ip:203.0.113.11"
+
+        Gitlab::Redis::RateLimiting.with do |r|
+          expect(r.get(ip_a_key).to_i).to eq(1), 'expected a per-IP counter for 203.0.113.10'
+          expect(r.get(ip_b_key).to_i).to eq(1), 'expected a per-IP counter for 203.0.113.11'
+        end
       end
     end
 

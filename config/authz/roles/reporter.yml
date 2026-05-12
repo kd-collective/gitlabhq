@@ -7,6 +7,7 @@ inherits_from:
 project:
   permissions: []
   raw_permissions:
+  - _admin_authored_snippet
   - _delete_shared_saved_view
   - _read_external_build
   - _update_incident_work_item

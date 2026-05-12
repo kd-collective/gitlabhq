@@ -195,6 +195,59 @@ RSpec.describe Authz::PermissionGroups::Assignable, feature_category: :permissio
       end
     end
 
+    describe '#available_for' do
+      subject { assignable.available_for }
+
+      context 'when available_for is not set' do
+        it { is_expected.to eq([]) }
+      end
+
+      context 'when available_for is a list of strings' do
+        let(:definition) { super().merge(available_for: %w[granular_access_token role]) }
+
+        it { is_expected.to eq([:granular_access_token, :role]) }
+      end
+
+      context 'when available_for is a single value' do
+        let(:definition) { super().merge(available_for: 'granular_access_token') }
+
+        it { is_expected.to eq([:granular_access_token]) }
+      end
+    end
+
+    describe '#available_for?' do
+      subject { assignable.available_for?(consumer) }
+
+      context 'when available_for is not set' do
+        let(:consumer) { :granular_access_token }
+
+        it { is_expected.to be(false) }
+      end
+
+      context 'when available_for includes the consumer' do
+        let(:definition) { super().merge(available_for: %w[granular_access_token role]) }
+
+        context 'with a symbol' do
+          let(:consumer) { :granular_access_token }
+
+          it { is_expected.to be(true) }
+        end
+
+        context 'with a string' do
+          let(:consumer) { 'granular_access_token' }
+
+          it { is_expected.to be(true) }
+        end
+      end
+
+      context 'when available_for does not include the consumer' do
+        let(:definition) { super().merge(available_for: %w[role]) }
+        let(:consumer) { :granular_access_token }
+
+        it { is_expected.to be(false) }
+      end
+    end
+
     describe '#boundaries' do
       subject { assignable.boundaries }
 

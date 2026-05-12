@@ -41,7 +41,7 @@ class Projects::MergeRequestsController < Projects::MergeRequests::ApplicationCo
 
   before_action only: [:show, :diffs, :rapid_diffs, :reports] do
     push_frontend_feature_flag(:mr_pipelines_graphql, project)
-    push_frontend_feature_flag(:rapid_diffs_on_mr_show, current_user, type: :wip)
+    push_frontend_feature_flag(:rapid_diffs_on_mr_show, current_user, type: :beta)
     push_frontend_feature_flag(:mr_widget_pipeline_creation_state, project)
   end
 
@@ -390,7 +390,7 @@ class Projects::MergeRequestsController < Projects::MergeRequests::ApplicationCo
   end
 
   def versions
-    return render_404 unless ::Feature.enabled?(:rapid_diffs_on_mr_show, current_user, type: :wip)
+    return render_404 unless ::Feature.enabled?(:rapid_diffs_on_mr_show, current_user, type: :beta)
 
     render json: RapidDiffs::DiffCompareVersionsEntity.represent(
       @merge_request,
@@ -739,7 +739,7 @@ class Projects::MergeRequestsController < Projects::MergeRequests::ApplicationCo
   end
 
   def rapid_diffs_page_enabled?
-    ::Feature.enabled?(:rapid_diffs_on_mr_show, current_user, type: :wip) &&
+    ::Feature.enabled?(:rapid_diffs_on_mr_show, current_user, type: :beta) &&
       params[:rapid_diffs_disabled] != 'true' &&
       (params[:rapid_diffs] == 'true' || cookies[:rapid_diffs_enabled] == 'true')
   end

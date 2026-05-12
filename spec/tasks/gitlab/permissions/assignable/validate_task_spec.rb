@@ -48,6 +48,26 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
       allow(JSONSchemer).to receive(:schema)
         .with(Rails.root.join("#{described_class::PERMISSION_DIR}/resource_metadata_schema.json"))
         .and_return(instance_double(JSONSchemer::Schema, validate: []))
+
+      # Skip the granular_access_token consumer check by default -- exercised separately below.
+      allow(task).to receive(:validate_granular_access_token_consumers)
+    end
+
+    def stub_granular_token_consumers(rest_permissions: [], graphql_permissions: [])
+      allow(task).to receive(:validate_granular_access_token_consumers).and_call_original
+
+      authorization = rest_permissions.any? ? { permissions: rest_permissions } : nil
+      route = instance_double(Grape::Router::Route, settings: { authorization: authorization })
+      endpoint = instance_double(Grape::Endpoint, routes: [route], endpoints: nil)
+      allow(::API::API).to receive(:endpoints).and_return([endpoint])
+
+      directive = instance_double(::Directives::Authz::GranularScope,
+        arguments: { permissions: graphql_permissions })
+      allow(directive).to receive(:is_a?) { |klass| klass == ::Directives::Authz::GranularScope }
+      type_struct = Struct.new(:directives, :fields)
+      type_with_directives = type_struct.new([directive], {})
+      schema_types = graphql_permissions.any? ? { 'StubType' => type_with_directives } : {}
+      allow(GitlabSchema).to receive(:types).and_return(schema_types)
     end
 
     context 'when all permissions are valid' do
@@ -611,6 +631,102 @@ RSpec.describe Tasks::Gitlab::Permissions::Assignable::ValidateTask, :silence_st
           allow(File).to receive(:directory?)
             .with('config/authz/permission_groups/assignable_permissions/valid_category/some_resource/')
             .and_return(true)
+        end
+
+        it 'completes successfully' do
+          expect { run }.to output(/Assignable permission definitions are up-to-date/).to_stdout
+        end
+      end
+    end
+
+    describe 'granular access token consumer validation' do
+      context 'when the assignable is available_for granular_access_token and a REST route references it' do
+        before do
+          stub_granular_token_consumers(rest_permissions: %w[update_wiki])
+        end
+
+        it 'completes successfully' do
+          expect { run }.to output(/Assignable permission definitions are up-to-date/).to_stdout
+        end
+      end
+
+      context 'when the assignable is available_for granular_access_token and a GraphQL directive references it' do
+        before do
+          stub_granular_token_consumers(graphql_permissions: %w[update_wiki])
+        end
+
+        it 'completes successfully' do
+          expect { run }.to output(/Assignable permission definitions are up-to-date/).to_stdout
+        end
+      end
+
+      context 'when the assignable is available_for granular_access_token but no consumer references it' do
+        before do
+          stub_granular_token_consumers
+        end
+
+        it 'returns an error' do
+          expect { run }.to raise_error(SystemExit).and output(<<~OUTPUT).to_stdout
+            #######################################################################
+            #
+            #  The following assignable permissions declare `available_for: granular_access_token` but none of their raw permissions are referenced by any REST authorization or GraphQL granular scope directive.
+            #  Either remove `granular_access_token` from `available_for`, or reference one of the raw permissions in a route/directive.
+            #  Learn more: https://docs.gitlab.com/development/permissions/granular_access/assignable_permissions/#available-for-consumers
+            #
+            #    - update_wiki (config/authz/permission_groups/assignable_permissions/wiki_category/wiki/update.yml)
+            #
+            #######################################################################
+          OUTPUT
+        end
+      end
+
+      context 'when the assignable is not available_for granular_access_token' do
+        let(:permission_definition) { super().merge(available_for: ['role']) }
+
+        before do
+          stub_granular_token_consumers
+        end
+
+        it 'completes successfully' do
+          expect { run }.to output(/Assignable permission definitions are up-to-date/).to_stdout
+        end
+      end
+
+      context 'when the only referencing route uses skip_granular_token_authorization' do
+        before do
+          allow(task).to receive(:validate_granular_access_token_consumers).and_call_original
+          authorization = { permissions: %w[update_wiki], skip_granular_token_authorization: :job_token_auth }
+          route = instance_double(Grape::Router::Route, settings: { authorization: authorization })
+          endpoint = instance_double(Grape::Endpoint, routes: [route], endpoints: nil)
+          allow(::API::API).to receive(:endpoints).and_return([endpoint])
+          allow(GitlabSchema).to receive(:types).and_return({})
+        end
+
+        it 'returns an error' do
+          expect { run }.to raise_error(SystemExit).and output(
+            /The following assignable permissions declare `available_for: granular_access_token`/
+          ).to_stdout
+        end
+      end
+
+      context 'when the assignable is deprecated' do
+        let(:permission_definition) { super().merge(deprecated: true) }
+
+        before do
+          stub_granular_token_consumers
+        end
+
+        it 'completes successfully' do
+          expect { run }.to output(/Assignable permission definitions are up-to-date/).to_stdout
+        end
+      end
+
+      context 'when the raw permission is in GRANULAR_TOKEN_NON_API_CONSUMERS' do
+        let(:raw_permissions) { %w[download_code] }
+
+        before do
+          allow(Authz::Permission).to receive(:defined?).with('download_code').and_return(true)
+          stub_granular_token_consumers
         end
 
         it 'completes successfully' do

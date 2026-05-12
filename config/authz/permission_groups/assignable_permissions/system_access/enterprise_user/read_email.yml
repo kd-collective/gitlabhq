@@ -4,6 +4,6 @@ description: Grants the ability to read the email address of enterprise users
 boundaries:
   - group
 available_for:
-  - granular_access_token
+  - role
 permissions:
   - read_email_enterprise_user

@@ -250,7 +250,8 @@ To change how a merge request shows changed lines:
 
 {{< history >}}
 
-- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/590833) in GitLab 18.1 [with a flag](../../../administration/feature_flags/_index.md) named `rapid_diffs_on_mr_show`. Disabled by default.
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/590833) in GitLab 18.0 [with a flag](../../../administration/feature_flags/_index.md) named `rapid_diffs_on_mr_show`. Disabled by default.
+- [Enabled on GitLab.com and GitLab Self-Managed](https://gitlab.com/gitlab-org/gitlab/-/issues/539581) in GitLab 19.0.
 
 {{< /history >}}
 

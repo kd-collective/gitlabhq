@@ -42,6 +42,8 @@ module WorkItems
       end
 
       def filterable_list_view?
+        return false unless available_for_filtering?
+
         if is_a_group
           delegation_source.filterable_list_view?
         else
@@ -50,6 +52,7 @@ module WorkItems
       end
 
       def filterable_board_view?
+        return false unless available_for_filtering?
         return true if delegation_source.task? && tasks_on_boards
 
         delegation_source.filterable_board_view?
@@ -66,6 +69,16 @@ module WorkItems
       private
 
       attr_accessor :enabled, :is_a_group, :tasks_on_boards
+
+      # Archived types are unavailable everywhere; disabled types are unavailable
+      # only at project level (a type disabled at the group may still be enabled
+      # in descendant projects, and group-level lists aggregate from descendants).
+      def available_for_filtering?
+        return false if delegation_source.archived?
+        return false if !is_a_group && !enabled
+
+        true
+      end
 
       def visible_in_context?
         if is_a_group

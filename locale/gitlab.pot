@@ -9638,6 +9638,9 @@ msgstr ""
 msgid "AnalyticsDashboards|All available dashboards"
 msgstr ""
 
+msgid "AnalyticsDashboards|Cancel"
+msgstr ""
+
 msgid "AnalyticsDashboards|Chat (non-agentic)"
 msgstr ""
 
@@ -9650,10 +9653,28 @@ msgstr ""
 msgid "AnalyticsDashboards|Created by me"
 msgstr ""
 
+msgid "AnalyticsDashboards|Dashboard description"
+msgstr ""
+
+msgid "AnalyticsDashboards|Dashboard title"
+msgstr ""
+
+msgid "AnalyticsDashboards|Dashboard title is required."
+msgstr ""
+
 msgid "AnalyticsDashboards|Dashboards created by GitLab"
 msgstr ""
 
 msgid "AnalyticsDashboards|Dashboards created by me"
+msgstr ""
+
+msgid "AnalyticsDashboards|Enter a description (optional)"
+msgstr ""
+
+msgid "AnalyticsDashboards|Enter a title"
+msgstr ""
+
+msgid "AnalyticsDashboards|Failed to create dashboard. Please try again."
 msgstr ""
 
 msgid "AnalyticsDashboards|Failed to load dashboard. Please try again."
@@ -9666,6 +9687,12 @@ msgid "AnalyticsDashboards|Failed to load namespace metadata."
 msgstr ""
 
 msgid "AnalyticsDashboards|Keep your teams aligned around the metrics that matter most."
+msgstr ""
+
+msgid "AnalyticsDashboards|New dashboard"
+msgstr ""
+
+msgid "AnalyticsDashboards|Next"
 msgstr ""
 
 msgid "AnalyticsDashboards|No dashboards found"
@@ -28302,10 +28329,10 @@ msgstr ""
 msgid "DuoWorkflowSettings|Turn off scanning entirely. No prompt data is sent to third-party services."
 msgstr ""
 
-msgid "Duo|Select a project to keep shared custom instructions for the Code Review flow."
+msgid "Duo|Select a project to store shared custom instructions for Duo Code Review."
 msgstr ""
 
-msgid "Duo|Template project for Code Review custom instructions"
+msgid "Duo|Shared instructions"
 msgstr ""
 
 msgid "Duplicate entries found for compliance controls for the requirement."

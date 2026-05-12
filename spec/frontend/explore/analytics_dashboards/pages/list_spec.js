@@ -2,6 +2,8 @@ import { GlTabs, GlSearchBoxByType } from '@gitlab/ui';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 import ExploreAnalyticsDashboardsList from '~/explore/analytics_dashboards/pages/list.vue';
 import DashboardListTab from '~/explore/analytics_dashboards/components/dashboard_list_tab.vue';
+import PageHeading from '~/vue_shared/components/page_heading.vue';
+import NewDashboardButton from '~/explore/analytics_dashboards/components/new_dashboard_button.vue';
 
 describe('ExploreAnalyticsDashboardsList', () => {
   let wrapper;
@@ -13,6 +15,8 @@ describe('ExploreAnalyticsDashboardsList', () => {
   const findTabs = () => wrapper.findComponent(GlTabs);
   const findSearchBox = () => wrapper.findComponent(GlSearchBoxByType);
   const findDashboardListTabs = () => wrapper.findAllComponents(DashboardListTab);
+  const findPageHeading = () => wrapper.findComponent(PageHeading);
+  const findNewDashboardButton = () => wrapper.findComponent(NewDashboardButton);
 
   describe('renders the main layout', () => {
     beforeEach(() => {
@@ -29,6 +33,20 @@ describe('ExploreAnalyticsDashboardsList', () => {
 
     it('renders three dashboard list tabs', () => {
       expect(findDashboardListTabs()).toHaveLength(3);
+    });
+
+    it('renders the page title', () => {
+      expect(findPageHeading().props('heading')).toBe('Analytics dashboards');
+    });
+
+    it('renders the page description', () => {
+      expect(findPageHeading().text()).toContain(
+        'Keep your teams aligned around the metrics that matter most.',
+      );
+    });
+
+    it('renders the new dashboard button', () => {
+      expect(findNewDashboardButton().exists()).toBe(true);
     });
   });
 

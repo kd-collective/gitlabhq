@@ -29552,6 +29552,8 @@ Pre-aggregated per-user metrics for GitLab Code Suggestions and GitLab Duo Chat.
 | <a id="aiusermetrics-codesuggestions"></a>`codeSuggestions` | [`codeSuggestionsUserMetrics`](#codesuggestionsusermetrics) | Code Suggestions metrics for the user. |
 | <a id="aiusermetrics-codesuggestionsacceptedcount"></a>`codeSuggestionsAcceptedCount` {{< icon name="warning-solid" >}} | [`Int`](#int) | **Deprecated** in GitLab 18.7. Use `codeSuggestions.codeSuggestionAcceptedInIdeEventCount` instead. |
 | <a id="aiusermetrics-duochatinteractionscount"></a>`duoChatInteractionsCount` {{< icon name="warning-solid" >}} | [`Int`](#int) | **Deprecated** in GitLab 18.7. Use `chat.requestDuoChatResponseEventCount` instead. |
+| <a id="aiusermetrics-duoworkflow"></a>`duoWorkflow` | [`duoWorkflowUserMetrics`](#duoworkflowusermetrics) | Duo Workflow metrics for the user. |
+| <a id="aiusermetrics-fixpipeline"></a>`fixPipeline` | [`fixPipelineUserMetrics`](#fixpipelineusermetrics) | Fix Pipeline metrics for the user. |
 | <a id="aiusermetrics-lastduoactivityon"></a>`lastDuoActivityOn` | [`Date`](#date) | Date of the last Duo activity across all features for the user. |
 | <a id="aiusermetrics-mcp"></a>`mcp` | [`mcpUserMetrics`](#mcpusermetrics) | Mcp metrics for the user. |
 | <a id="aiusermetrics-totaleventcount"></a>`totalEventCount` | [`Int`](#int) | Total count of all tracked events for the user. |
@@ -56462,6 +56464,31 @@ Requires ClickHouse. Premium and Ultimate only.
 | ---- | ---- | ----------- |
 | <a id="duochatmetrics-requestduochatresponseeventcount"></a>`requestDuoChatResponseEventCount` | [`Int`](#int) | Total count of `request_duo_chat_response` event. |
 
+### `duoWorkflowUserMetrics`
+
+Duo Workflow user metrics for a user. Requires ClickHouse. Premium and Ultimate with GitLab Duo Enterprise only.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="duoworkflowusermetrics-duoworkflowworkloadcompletedeventcount"></a>`duoWorkflowWorkloadCompletedEventCount` | [`Int`](#int) | Total count of `duo_workflow_workload_completed` event. |
+| <a id="duoworkflowusermetrics-lastduoactivityon"></a>`lastDuoActivityOn` | [`Date`](#date) | Date of the last Duo Workflow activity for the user. |
+| <a id="duoworkflowusermetrics-totaleventcount"></a>`totalEventCount` | [`Int`](#int) | Total count of all Duo Workflow events for the user. |
+
+### `fixPipelineUserMetrics`
+
+Fix Pipeline user metrics for a user. Requires ClickHouse. Premium and Ultimate with GitLab Duo Enterprise only.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="fixpipelineusermetrics-fixpipelinesuggestionappliedeventcount"></a>`fixPipelineSuggestionAppliedEventCount` | [`Int`](#int) | Total count of `fix_pipeline_suggestion_applied` event. |
+| <a id="fixpipelineusermetrics-fixpipelinesuggestionpostedeventcount"></a>`fixPipelineSuggestionPostedEventCount` | [`Int`](#int) | Total count of `fix_pipeline_suggestion_posted` event. |
+| <a id="fixpipelineusermetrics-lastduoactivityon"></a>`lastDuoActivityOn` | [`Date`](#date) | Date of the last Fix Pipeline activity for the user. |
+| <a id="fixpipelineusermetrics-totaleventcount"></a>`totalEventCount` | [`Int`](#int) | Total count of all Fix Pipeline events for the user. |
+
 ### `mcpMetrics`
 
 Model Context Protocol metrics. Requires ClickHouse. Premium and Ultimate only.
@@ -56866,11 +56893,14 @@ Type of AI usage event.
 | <a id="aiusageeventtype-code_suggestion_direct_access_token_refresh"></a>`CODE_SUGGESTION_DIRECT_ACCESS_TOKEN_REFRESH` | Code Suggestion token was refreshed. Old data only. |
 | <a id="aiusageeventtype-code_suggestion_rejected_in_ide"></a>`CODE_SUGGESTION_REJECTED_IN_IDE` | Code Suggestion was rejected in IDE. |
 | <a id="aiusageeventtype-code_suggestion_shown_in_ide"></a>`CODE_SUGGESTION_SHOWN_IN_IDE` | Code Suggestion was shown in IDE. |
+| <a id="aiusageeventtype-duo_workflow_workload_completed"></a>`DUO_WORKFLOW_WORKLOAD_COMPLETED` | Duo Workflow workload was completed. |
 | <a id="aiusageeventtype-encounter_duo_code_review_error_during_review"></a>`ENCOUNTER_DUO_CODE_REVIEW_ERROR_DURING_REVIEW` | Duo Code Review encountered an error. |
 | <a id="aiusageeventtype-excluded_files_from_duo_code_review"></a>`EXCLUDED_FILES_FROM_DUO_CODE_REVIEW` | Files were excluded from Duo Code Review. |
 | <a id="aiusageeventtype-find_nothing_to_review_duo_code_review_on_mr"></a>`FIND_NOTHING_TO_REVIEW_DUO_CODE_REVIEW_ON_MR` | Duo Code Review found nothing to review on MR. |
 | <a id="aiusageeventtype-find_no_issues_duo_code_review_after_review"></a>`FIND_NO_ISSUES_DUO_CODE_REVIEW_AFTER_REVIEW` | Duo Code Review found no issues after review. |
 | <a id="aiusageeventtype-finish_mcp_tool_call"></a>`FINISH_MCP_TOOL_CALL` | MCP tool call was finished. |
+| <a id="aiusageeventtype-fix_pipeline_suggestion_applied"></a>`FIX_PIPELINE_SUGGESTION_APPLIED` | Fix pipeline suggestion was applied. |
+| <a id="aiusageeventtype-fix_pipeline_suggestion_posted"></a>`FIX_PIPELINE_SUGGESTION_POSTED` | Fix pipeline suggestion was posted. |
 | <a id="aiusageeventtype-post_comment_duo_code_review_on_diff"></a>`POST_COMMENT_DUO_CODE_REVIEW_ON_DIFF` | Duo Code Review posted a diff comment. |
 | <a id="aiusageeventtype-react_thumbs_down_on_duo_code_review_comment"></a>`REACT_THUMBS_DOWN_ON_DUO_CODE_REVIEW_COMMENT` | User gave thumbs-down reaction to Duo Code Review comment. |
 | <a id="aiusageeventtype-react_thumbs_up_on_duo_code_review_comment"></a>`REACT_THUMBS_UP_ON_DUO_CODE_REVIEW_COMMENT` | User gave thumbs-up reaction to Duo Code Review comment. |
@@ -56916,6 +56946,10 @@ Values for sorting AI user metrics.
 | <a id="aiusermetricssort-code_suggestion_rejected_in_ide_desc"></a>`CODE_SUGGESTION_REJECTED_IN_IDE_DESC` | Code Suggestion Rejected In Ide event count in descending order. |
 | <a id="aiusermetricssort-code_suggestion_shown_in_ide_asc"></a>`CODE_SUGGESTION_SHOWN_IN_IDE_ASC` | Code Suggestion Shown In Ide event count in ascending order. |
 | <a id="aiusermetricssort-code_suggestion_shown_in_ide_desc"></a>`CODE_SUGGESTION_SHOWN_IN_IDE_DESC` | Code Suggestion Shown In Ide event count in descending order. |
+| <a id="aiusermetricssort-duo_workflow_total_count_asc"></a>`DUO_WORKFLOW_TOTAL_COUNT_ASC` | Duo Workflow total event count in ascending order. |
+| <a id="aiusermetricssort-duo_workflow_total_count_desc"></a>`DUO_WORKFLOW_TOTAL_COUNT_DESC` | Duo Workflow total event count in descending order. |
+| <a id="aiusermetricssort-duo_workflow_workload_completed_asc"></a>`DUO_WORKFLOW_WORKLOAD_COMPLETED_ASC` | Duo Workflow Workload Completed event count in ascending order. |
+| <a id="aiusermetricssort-duo_workflow_workload_completed_desc"></a>`DUO_WORKFLOW_WORKLOAD_COMPLETED_DESC` | Duo Workflow Workload Completed event count in descending order. |
 | <a id="aiusermetricssort-encounter_duo_code_review_error_during_review_asc"></a>`ENCOUNTER_DUO_CODE_REVIEW_ERROR_DURING_REVIEW_ASC` | Encounter Duo Code Review Error During Review event count in ascending order. |
 | <a id="aiusermetricssort-encounter_duo_code_review_error_during_review_desc"></a>`ENCOUNTER_DUO_CODE_REVIEW_ERROR_DURING_REVIEW_DESC` | Encounter Duo Code Review Error During Review event count in descending order. |
 | <a id="aiusermetricssort-excluded_files_from_duo_code_review_asc"></a>`EXCLUDED_FILES_FROM_DUO_CODE_REVIEW_ASC` | Excluded Files From Duo Code Review event count in ascending order. |
@@ -56926,6 +56960,12 @@ Values for sorting AI user metrics.
 | <a id="aiusermetricssort-find_no_issues_duo_code_review_after_review_desc"></a>`FIND_NO_ISSUES_DUO_CODE_REVIEW_AFTER_REVIEW_DESC` | Find No Issues Duo Code Review After Review event count in descending order. |
 | <a id="aiusermetricssort-finish_mcp_tool_call_asc"></a>`FINISH_MCP_TOOL_CALL_ASC` | Finish Mcp Tool Call event count in ascending order. |
 | <a id="aiusermetricssort-finish_mcp_tool_call_desc"></a>`FINISH_MCP_TOOL_CALL_DESC` | Finish Mcp Tool Call event count in descending order. |
+| <a id="aiusermetricssort-fix_pipeline_suggestion_applied_asc"></a>`FIX_PIPELINE_SUGGESTION_APPLIED_ASC` | Fix Pipeline Suggestion Applied event count in ascending order. |
+| <a id="aiusermetricssort-fix_pipeline_suggestion_applied_desc"></a>`FIX_PIPELINE_SUGGESTION_APPLIED_DESC` | Fix Pipeline Suggestion Applied event count in descending order. |
+| <a id="aiusermetricssort-fix_pipeline_suggestion_posted_asc"></a>`FIX_PIPELINE_SUGGESTION_POSTED_ASC` | Fix Pipeline Suggestion Posted event count in ascending order. |
+| <a id="aiusermetricssort-fix_pipeline_suggestion_posted_desc"></a>`FIX_PIPELINE_SUGGESTION_POSTED_DESC` | Fix Pipeline Suggestion Posted event count in descending order. |
+| <a id="aiusermetricssort-fix_pipeline_total_count_asc"></a>`FIX_PIPELINE_TOTAL_COUNT_ASC` | Fix Pipeline total event count in ascending order. |
+| <a id="aiusermetricssort-fix_pipeline_total_count_desc"></a>`FIX_PIPELINE_TOTAL_COUNT_DESC` | Fix Pipeline total event count in descending order. |
 | <a id="aiusermetricssort-mcp_total_count_asc"></a>`MCP_TOTAL_COUNT_ASC` | Mcp total event count in ascending order. |
 | <a id="aiusermetricssort-mcp_total_count_desc"></a>`MCP_TOTAL_COUNT_DESC` | Mcp total event count in descending order. |
 | <a id="aiusermetricssort-post_comment_duo_code_review_on_diff_asc"></a>`POST_COMMENT_DUO_CODE_REVIEW_ON_DIFF_ASC` | Post Comment Duo Code Review On Diff event count in ascending order. |

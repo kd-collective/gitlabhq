@@ -39,6 +39,14 @@ module Authz
         definition[:deprecated] == true
       end
 
+      def available_for
+        Array(definition[:available_for]).map(&:to_sym)
+      end
+
+      def available_for?(consumer)
+        available_for.include?(consumer.to_sym)
+      end
+
       def category
         source_file                     # path/to/<base_path>/**/resource/action.yml'
           .split(self.class::BASE_PATH) # [..., '**/resource/action.yml']

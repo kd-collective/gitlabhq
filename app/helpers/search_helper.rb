@@ -305,7 +305,7 @@ module SearchHelper
     if container
       types = ::WorkItems::TypesFinder
         .new(container: container)
-        .execute
+        .execute(only_available: false)
         .map do |type|
           {
             name: type.base_type.to_s,

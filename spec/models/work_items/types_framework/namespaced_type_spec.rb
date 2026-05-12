@@ -89,8 +89,22 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
   describe '#filterable_list_view?' do
     context 'when is_a_group is true' do
       it 'delegates to the wrapped type' do
-        allow(system_type).to receive(:filterable_list_view?).and_return(true)
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: true, filterable_list_view?: true)
         namespaced = described_class.new(system_type, is_a_group: true)
+
+        expect(namespaced.filterable_list_view?).to be(true)
+      end
+
+      it 'returns false when the type is archived' do
+        allow(system_type).to receive_messages(archived?: true, only_for_group?: true, filterable_list_view?: true)
+        namespaced = described_class.new(system_type, is_a_group: true)
+
+        expect(namespaced.filterable_list_view?).to be(false)
+      end
+
+      it 'remains filterable when disabled at group level' do
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: true, filterable_list_view?: true)
+        namespaced = described_class.new(system_type, enabled: false, is_a_group: true)
 
         expect(namespaced.filterable_list_view?).to be(true)
       end
@@ -98,17 +112,31 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
 
     context 'when is_a_group is false' do
       it 'returns false when type is only_for_group' do
-        allow(system_type).to receive_messages(only_for_group?: true, filterable_list_view?: true)
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: true, filterable_list_view?: true)
         namespaced = described_class.new(system_type, is_a_group: false)
 
         expect(namespaced.filterable_list_view?).to be(false)
       end
 
       it 'returns true when type is not only_for_group and filterable_list_view' do
-        allow(system_type).to receive_messages(only_for_group?: false, filterable_list_view?: true)
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: false, filterable_list_view?: true)
         namespaced = described_class.new(system_type, is_a_group: false)
 
         expect(namespaced.filterable_list_view?).to be(true)
+      end
+
+      it 'returns false when the type is archived' do
+        allow(system_type).to receive_messages(archived?: true, only_for_group?: false, filterable_list_view?: true)
+        namespaced = described_class.new(system_type, is_a_group: false)
+
+        expect(namespaced.filterable_list_view?).to be(false)
+      end
+
+      it 'returns false when the type is disabled at project level' do
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: false, filterable_list_view?: true)
+        namespaced = described_class.new(system_type, enabled: false, is_a_group: false)
+
+        expect(namespaced.filterable_list_view?).to be(false)
       end
     end
   end
@@ -117,6 +145,7 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
     context 'when type is task and tasks_on_boards is true' do
       it 'returns true' do
         task_type = build(:work_item_system_defined_type, :task)
+        allow(task_type).to receive(:archived?).and_return(false)
         namespaced = described_class.new(task_type, tasks_on_boards: true)
 
         expect(namespaced.filterable_board_view?).to be(true)
@@ -125,7 +154,7 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
 
     context 'when type is not task' do
       it 'delegates to the wrapped type' do
-        allow(system_type).to receive(:filterable_board_view?).and_return(false)
+        allow(system_type).to receive_messages(archived?: false, filterable_board_view?: false)
         namespaced = described_class.new(system_type, tasks_on_boards: true)
 
         expect(namespaced.filterable_board_view?).to be(false)
@@ -135,9 +164,45 @@ RSpec.describe WorkItems::TypesFramework::NamespacedType, feature_category: :tea
     context 'when tasks_on_boards is false' do
       it 'delegates to the wrapped type for task types' do
         task_type = build(:work_item_system_defined_type, :task)
+        allow(task_type).to receive(:archived?).and_return(false)
         namespaced = described_class.new(task_type, tasks_on_boards: false)
 
         expect(namespaced.filterable_board_view?).to be(false)
+      end
+    end
+
+    context 'when the type is archived' do
+      it 'returns false even when tasks_on_boards is true' do
+        task_type = build(:work_item_system_defined_type, :task)
+        allow(task_type).to receive(:archived?).and_return(true)
+        namespaced = described_class.new(task_type, tasks_on_boards: true)
+
+        expect(namespaced.filterable_board_view?).to be(false)
+      end
+
+      it 'returns false for non-task types regardless of underlying configuration' do
+        allow(system_type).to receive_messages(archived?: true, filterable_board_view?: true)
+        namespaced = described_class.new(system_type, is_a_group: true)
+
+        expect(namespaced.filterable_board_view?).to be(false)
+      end
+    end
+
+    context 'when the type is disabled at project level' do
+      it 'returns false' do
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: false, filterable_board_view?: true)
+        namespaced = described_class.new(system_type, enabled: false, is_a_group: false)
+
+        expect(namespaced.filterable_board_view?).to be(false)
+      end
+    end
+
+    context 'when the type is disabled at group level' do
+      it 'remains filterable' do
+        allow(system_type).to receive_messages(archived?: false, only_for_group?: true, filterable_board_view?: true)
+        namespaced = described_class.new(system_type, enabled: false, is_a_group: true)
+
+        expect(namespaced.filterable_board_view?).to be(true)
       end
     end
   end

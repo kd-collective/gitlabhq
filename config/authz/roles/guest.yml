@@ -10,12 +10,14 @@ project:
   - _read_assigned_work_item
   - _read_authored_work_item
   - _read_dependency_proxy_package
+  - _read_private_snippet
   - _read_public_build
   - _read_public_pipeline
   - _read_public_pipeline_schedule
   - _reopen_assigned_work_item
   - _reopen_authored_work_item
   - _update_assigned_work_item
+  - _update_authored_snippet
   - _update_authored_work_item
   - admin_issue_link
   - admin_issue_relation
