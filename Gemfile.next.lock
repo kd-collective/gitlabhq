@@ -2296,6 +2296,7 @@ GEM
     yard-solargraph (0.1.0)
       yard (~> 0.9)
     zeitwerk (2.6.18)
+    zlib (3.2.3)
 
 PLATFORMS
   aarch64-linux
@@ -2682,6 +2683,7 @@ DEPENDENCIES
   yajl-ruby (~> 1.4.3)
   yard (~> 0.9)
   zeitwerk (= 2.6.18)
+  zlib (~> 3.2, >= 3.2.3)
 
 CHECKSUMS
   CFPropertyList (3.0.7) sha256=c45721614aca8d5eb6fa216f2ec28ec38de1a94505e9766a20e98745492c3c4c
@@ -3480,6 +3482,7 @@ CHECKSUMS
   yard-activesupport-concern (0.0.1) sha256=be790cb0efc23e2e87677063598ac8b743586154657bbd9655a7f03ce78390ef
   yard-solargraph (0.1.0) sha256=a19a4619c942181a618fb9458970a9d2534cf7fda69fc43949629a7948a5930e
   zeitwerk (2.6.18) sha256=bd2d213996ff7b3b364cd342a585fbee9797dbc1c0c6d868dc4150cc75739781
+  zlib (3.2.3) sha256=5bd316698b32f31a64ab910a8b6c282442ca1626a81bbd6a1674e8522e319c20
 
 BUNDLED WITH
   4.0.10

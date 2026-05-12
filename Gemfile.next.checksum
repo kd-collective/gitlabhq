@@ -866,5 +866,6 @@
 {"name":"yard","version":"0.9.38","platform":"ruby","checksum":"721fb82afb10532aa49860655f6cc2eaa7130889df291b052e1e6b268283010f"},
 {"name":"yard-activesupport-concern","version":"0.0.1","platform":"ruby","checksum":"be790cb0efc23e2e87677063598ac8b743586154657bbd9655a7f03ce78390ef"},
 {"name":"yard-solargraph","version":"0.1.0","platform":"ruby","checksum":"a19a4619c942181a618fb9458970a9d2534cf7fda69fc43949629a7948a5930e"},
-{"name":"zeitwerk","version":"2.6.18","platform":"ruby","checksum":"bd2d213996ff7b3b364cd342a585fbee9797dbc1c0c6d868dc4150cc75739781"}
+{"name":"zeitwerk","version":"2.6.18","platform":"ruby","checksum":"bd2d213996ff7b3b364cd342a585fbee9797dbc1c0c6d868dc4150cc75739781"},
+{"name":"zlib","version":"3.2.3","platform":"ruby","checksum":"5bd316698b32f31a64ab910a8b6c282442ca1626a81bbd6a1674e8522e319c20"}
 ]

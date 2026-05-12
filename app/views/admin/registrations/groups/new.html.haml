@@ -50,7 +50,7 @@
             %p.form-text.gl-text-subtle= s_('Onboarding|You can always change your URL later')
 
           .gl-flex.gl-justify-end.gl-gap-3
-            = render Pajamas::ButtonComponent.new(href: home_dashboard_path, variant: :default, button_options: { data: { testid: 'skip-button' } }) do
+            = render Pajamas::ButtonComponent.new(href: home_dashboard_path, variant: :default, button_options: { data: { testid: 'skip-button', event_tracking: 'click_skip_create_first_project' } }) do
               = s_('Onboarding|Skip')
             = render Pajamas::ButtonComponent.new(type: :submit, variant: :confirm, button_options: { data: { testid: 'submit-button' } }) do
               = s_('Onboarding|Continue')

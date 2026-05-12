@@ -284,7 +284,8 @@
     "SnippetRepositoryRegistry",
     "TerraformStateVersionRegistry",
     "UploadRegistry",
-    "UserUploadRegistry"
+    "UserUploadRegistry",
+    "VulnerabilityArchiveExportUploadRegistry"
   ],
   "RegistryInterface": [
     "ContainerRegistry",

@@ -1,7 +1,7 @@
 import { GlCollapsibleListbox, GlLink } from '@gitlab/ui';
 import { shallowMountExtended } from 'helpers/vue_test_utils_helper';
 import GroupsAndProjects from '~/organizations/show/components/groups_and_projects.vue';
-import { createRouter } from '~/organizations/show';
+import { createRouter } from '~/organizations/groups_and_projects';
 import GroupsView from '~/organizations/shared/components/groups_view.vue';
 import ProjectsView from '~/organizations/shared/components/projects_view.vue';
 

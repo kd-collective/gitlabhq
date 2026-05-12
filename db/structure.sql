@@ -2279,6 +2279,22 @@ RETURN NEW;
 END
 $$;
 
+CREATE FUNCTION trigger_1e61c7e33a36() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+IF NEW."project_id" IS NULL THEN
+  SELECT "project_id"
+  INTO NEW."project_id"
+  FROM "vulnerability_archive_export_uploads"
+  WHERE "vulnerability_archive_export_uploads"."id" = NEW."vulnerability_archive_export_upload_id";
+END IF;
+
+RETURN NEW;
+
+END
+$$;
+
 CREATE FUNCTION trigger_1e75dc6149d6() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
@@ -32829,6 +32845,29 @@ CREATE SEQUENCE vulnerabilities_id_seq
 
 ALTER SEQUENCE vulnerabilities_id_seq OWNED BY vulnerabilities.id;
 
+CREATE TABLE vulnerability_archive_export_upload_states (
+    id bigint NOT NULL,
+    verification_started_at timestamp with time zone,
+    verification_retry_at timestamp with time zone,
+    verified_at timestamp with time zone,
+    vulnerability_archive_export_upload_id bigint NOT NULL,
+    project_id bigint NOT NULL,
+    verification_state smallint DEFAULT 0 NOT NULL,
+    verification_retry_count smallint DEFAULT 0 NOT NULL,
+    verification_checksum bytea,
+    verification_failure text,
+    CONSTRAINT check_13abd09381 CHECK ((char_length(verification_failure) <= 255))
+);
+
+CREATE SEQUENCE vulnerability_archive_export_upload_states_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE vulnerability_archive_export_upload_states_id_seq OWNED BY vulnerability_archive_export_upload_states.id;
+
 CREATE TABLE vulnerability_archive_export_uploads (
     id bigint DEFAULT nextval('uploads_id_seq'::regclass) NOT NULL,
     size bigint NOT NULL,
@@ -37077,6 +37116,8 @@ ALTER TABLE ONLY virtual_registries_settings ALTER COLUMN id SET DEFAULT nextval
 ALTER TABLE ONLY vs_code_settings ALTER COLUMN id SET DEFAULT nextval('vs_code_settings_id_seq'::regclass);
 
 ALTER TABLE ONLY vulnerabilities ALTER COLUMN id SET DEFAULT nextval('vulnerabilities_id_seq'::regclass);
+
+ALTER TABLE ONLY vulnerability_archive_export_upload_states ALTER COLUMN id SET DEFAULT nextval('vulnerability_archive_export_upload_states_id_seq'::regclass);
 
 ALTER TABLE ONLY vulnerability_archive_exports ALTER COLUMN id SET DEFAULT nextval('vulnerability_archive_exports_id_seq'::regclass);
 
@@ -41413,6 +41454,9 @@ ALTER TABLE ONLY vs_code_settings
 ALTER TABLE ONLY vulnerabilities
     ADD CONSTRAINT vulnerabilities_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY vulnerability_archive_export_upload_states
+    ADD CONSTRAINT vulnerability_archive_export_upload_states_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY vulnerability_archive_export_uploads
     ADD CONSTRAINT vulnerability_archive_export_uploads_pkey PRIMARY KEY (id, model_type);
 
@@ -45210,6 +45254,20 @@ CREATE INDEX idx_user_member_roles_on_member_role_id ON user_member_roles USING 
 CREATE UNIQUE INDEX idx_user_member_roles_on_user_id_unique ON user_member_roles USING btree (user_id);
 
 CREATE INDEX idx_user_preferences_on_knowledge_graph_governing_namespace_id ON user_preferences USING btree (knowledge_graph_governing_namespace_id);
+
+CREATE UNIQUE INDEX idx_vae_upl_on_id_unique ON vulnerability_archive_export_uploads USING btree (id);
+
+CREATE INDEX idx_vae_upl_states_failed_verification ON vulnerability_archive_export_upload_states USING btree (verification_retry_at NULLS FIRST) WHERE (verification_state = 3);
+
+CREATE INDEX idx_vae_upl_states_needs_verification_id ON vulnerability_archive_export_upload_states USING btree (vulnerability_archive_export_upload_id) WHERE ((verification_state = 0) OR (verification_state = 3));
+
+CREATE UNIQUE INDEX idx_vae_upl_states_on_vae_upl_id ON vulnerability_archive_export_upload_states USING btree (vulnerability_archive_export_upload_id);
+
+CREATE INDEX idx_vae_upl_states_on_verification_started ON vulnerability_archive_export_upload_states USING btree (vulnerability_archive_export_upload_id, verification_started_at) WHERE (verification_state = 1);
+
+CREATE INDEX idx_vae_upl_states_on_verification_state ON vulnerability_archive_export_upload_states USING btree (verification_state);
+
+CREATE INDEX idx_vae_upl_states_pending_verification ON vulnerability_archive_export_upload_states USING btree (verified_at NULLS FIRST) WHERE (verification_state = 0);
 
 CREATE INDEX idx_vr_cleanup_policies_on_next_run_at_when_runnable ON virtual_registries_cleanup_policies USING btree (next_run_at) WHERE ((enabled = true) AND (status = ANY (ARRAY[0, 2])));
 
@@ -50204,6 +50262,8 @@ CREATE INDEX index_vulnerabilities_on_resolved_by_id ON vulnerabilities USING bt
 CREATE INDEX index_vulnerabilities_project_id_and_id_on_default_branch ON vulnerabilities USING btree (project_id, id) WHERE (present_on_default_branch IS TRUE);
 
 CREATE INDEX index_vulnerabilities_project_id_state_severity_default_branch ON vulnerabilities USING btree (project_id, state, severity, present_on_default_branch);
+
+CREATE INDEX index_vulnerability_archive_export_upload_states_on_project_id ON vulnerability_archive_export_upload_states USING btree (project_id);
 
 CREATE INDEX index_vulnerability_archive_exports_on_author_id ON ONLY vulnerability_archive_exports USING btree (author_id);
 
@@ -55281,6 +55341,8 @@ CREATE TRIGGER trigger_1a41d368edd5 BEFORE INSERT OR UPDATE ON import_export_upl
 
 CREATE TRIGGER trigger_1c0f1ca199a3 BEFORE INSERT OR UPDATE ON ci_resources FOR EACH ROW EXECUTE FUNCTION trigger_1c0f1ca199a3();
 
+CREATE TRIGGER trigger_1e61c7e33a36 BEFORE INSERT OR UPDATE ON vulnerability_archive_export_upload_states FOR EACH ROW EXECUTE FUNCTION trigger_1e61c7e33a36();
+
 CREATE TRIGGER trigger_1e75dc6149d6 BEFORE INSERT OR UPDATE ON import_export_upload_upload_states FOR EACH ROW EXECUTE FUNCTION trigger_1e75dc6149d6();
 
 CREATE TRIGGER trigger_1ed40f4d5f4e BEFORE INSERT OR UPDATE ON packages_maven_metadata FOR EACH ROW EXECUTE FUNCTION trigger_1ed40f4d5f4e();
@@ -56328,6 +56390,9 @@ ALTER TABLE p_ci_pipelines
 ALTER TABLE ONLY audit_events_instance_amazon_s3_configurations
     ADD CONSTRAINT fk_266365d2b0 FOREIGN KEY (stream_destination_id) REFERENCES audit_events_instance_external_streaming_destinations(id) ON DELETE SET NULL;
 
+ALTER TABLE ONLY group_wiki_repositories
+    ADD CONSTRAINT fk_26f867598c FOREIGN KEY (group_id) REFERENCES namespaces(id) ON DELETE CASCADE NOT VALID;
+
 ALTER TABLE ONLY user_namespace_callouts
     ADD CONSTRAINT fk_27a69fd1bd FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
 
@@ -56982,6 +57047,9 @@ ALTER TABLE ONLY dast_profile_schedules
 ALTER TABLE ONLY user_preferences
     ADD CONSTRAINT fk_61f4fd80d1 FOREIGN KEY (duo_default_namespace_id) REFERENCES namespaces(id) ON DELETE SET NULL;
 
+ALTER TABLE ONLY group_wiki_repository_states
+    ADD CONSTRAINT fk_621768bf3d FOREIGN KEY (group_id) REFERENCES namespaces(id) ON DELETE CASCADE NOT VALID;
+
 ALTER TABLE ONLY vulnerability_reads
     ADD CONSTRAINT fk_62736f638f FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE;
 
@@ -57374,6 +57442,9 @@ ALTER TABLE ONLY related_epic_links
 
 ALTER TABLE ONLY project_settings
     ADD CONSTRAINT fk_8264eab4ae FOREIGN KEY (pipeline_execution_policy_bot_access_group_id) REFERENCES namespaces(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY group_wiki_repository_states
+    ADD CONSTRAINT fk_832511c9f1 FOREIGN KEY (group_wiki_repository_id) REFERENCES group_wiki_repositories(group_id) ON DELETE CASCADE NOT VALID;
 
 ALTER TABLE ONLY import_export_uploads
     ADD CONSTRAINT fk_83319d9721 FOREIGN KEY (group_id) REFERENCES namespaces(id) ON DELETE CASCADE;
@@ -58209,6 +58280,9 @@ ALTER TABLE ONLY wiki_page_meta
 ALTER TABLE ONLY bulk_import_entities
     ADD CONSTRAINT fk_d06d023c30 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY vulnerability_archive_export_upload_states
+    ADD CONSTRAINT fk_d0a059bf5d FOREIGN KEY (vulnerability_archive_export_upload_id) REFERENCES vulnerability_archive_export_uploads(id) ON DELETE CASCADE;
+
 ALTER TABLE ONLY subscription_user_add_on_assignments
     ADD CONSTRAINT fk_d1074a6e16 FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
 
@@ -58538,6 +58612,9 @@ ALTER TABLE ONLY merge_request_context_commits
 
 ALTER TABLE ONLY approval_project_rules
     ADD CONSTRAINT fk_efa5a1e3fb FOREIGN KEY (security_orchestration_policy_configuration_id) REFERENCES security_orchestration_policy_configurations(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY vulnerability_archive_export_upload_states
+    ADD CONSTRAINT fk_efa6852077 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY snippet_repositories
     ADD CONSTRAINT fk_efaf4ac269 FOREIGN KEY (snippet_organization_id) REFERENCES organizations(id) ON DELETE CASCADE;

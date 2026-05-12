@@ -739,5 +739,8 @@ gem "gvltools", "~> 0.4.0", feature_category: :shared # rubocop:todo Gemfile/Mis
 
 gem 'gitlab_query_language', '~> 0.27.1', feature_category: :integrations
 
+# standard Gem, version increase to resolve vulnerabilities
+gem "zlib", "~> 3.2", ">= 3.2.3", feature_category: :shared # rubocop:todo Gemfile/MissingFeatureCategory -- https://gitlab.com/gitlab-org/gitlab/-/work_items/596593
+
 # Gems required in omnibus-gitlab pipeline
 gem 'license_finder', '~> 7.0', require: false, feature_category: :shared # rubocop:todo Gemfile/MissingFeatureCategory -- https://gitlab.com/gitlab-org/gitlab/-/issues/581839

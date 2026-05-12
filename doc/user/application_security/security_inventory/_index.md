@@ -50,6 +50,22 @@ To view the security inventory:
    - To view a group's subgroups, projects, and security assets, select the group.
    - To view a group or project's scanner coverage, search for the group or project.
 
+## Scanner coverage
+
+{{< history >}}
+
+- Stale status was [introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/596022) in GitLab 19.0
+
+{{< /history >}}
+
+Security scanner status is evaluated when a default branch pipeline completes.
+Each security scanner shows one of the following coverage statuses for every project or group:
+
+- **Not enabled**: The scanner is not configured.
+- **Enabled**: The scanner is configured and completed successfully.
+- **Failed**: The scanner ran but did not complete successfully.
+- **Stale**: A previously enabled scanner has not run in the last three consecutive pipelines.
+
 ## Filter projects in the security inventory
 
 {{< history >}}

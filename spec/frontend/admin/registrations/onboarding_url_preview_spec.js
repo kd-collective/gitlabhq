@@ -1,4 +1,5 @@
 import { setHTMLFixture, resetHTMLFixture } from 'helpers/fixtures';
+import { useMockInternalEventsTracking } from 'helpers/tracking_internal_events_helper';
 import { initOnboardingUrlPreview } from '~/admin/registrations/onboarding_url_preview';
 
 describe('initOnboardingUrlPreview', () => {
@@ -23,6 +24,10 @@ describe('initOnboardingUrlPreview', () => {
       <input id="js-onboarding-project-name" type="text" value="" />
       <input id="js-onboarding-group-path" type="hidden" value="" />
       <input id="js-onboarding-project-path" type="hidden" value="" />
+      <select id="project_project_template_name">
+        <option value="">Blank project (default)</option>
+        <option value="rails">Ruby on Rails</option>
+      </select>
     `);
 
     groupInput = document.getElementById('js-onboarding-group-name');
@@ -35,6 +40,8 @@ describe('initOnboardingUrlPreview', () => {
 
     initOnboardingUrlPreview();
   });
+
+  const { bindInternalEventDocument } = useMockInternalEventsTracking();
 
   afterEach(() => {
     resetHTMLFixture();
@@ -122,6 +129,32 @@ describe('initOnboardingUrlPreview', () => {
       projectInput.value = '';
       projectInput.dispatchEvent(new Event('input'));
       expect(projectHidden.value).toBe('');
+    });
+  });
+
+  describe('when a project template is selected', () => {
+    let templateSelect;
+
+    beforeEach(() => {
+      templateSelect = document.getElementById('project_project_template_name');
+    });
+
+    it('tracks the select_project_template event when a template is chosen', () => {
+      const { trackEventSpy } = bindInternalEventDocument(document.body);
+
+      templateSelect.value = 'rails';
+      templateSelect.dispatchEvent(new Event('change'));
+
+      expect(trackEventSpy).toHaveBeenCalledWith('select_project_template', { label: 'rails' });
+    });
+
+    it('does not track when blank project is selected', () => {
+      const { trackEventSpy } = bindInternalEventDocument(document.body);
+
+      templateSelect.value = '';
+      templateSelect.dispatchEvent(new Event('change'));
+
+      expect(trackEventSpy).not.toHaveBeenCalled();
     });
   });
 

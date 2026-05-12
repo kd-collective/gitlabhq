@@ -35,6 +35,7 @@ import getAppStatus from '~/ci/pipeline_editor/graphql/queries/client/app_status
 
 import PipelineEditorApp from '~/ci/pipeline_editor/pipeline_editor_app.vue';
 import PipelineEditorHome from '~/ci/pipeline_editor/pipeline_editor_home.vue';
+import ConfirmUnsavedChangesDialog from '~/vue_shared/components/confirm_unsaved_changes_dialog.vue';
 
 import {
   mockCiConfigPath,
@@ -154,6 +155,7 @@ describe('Pipeline editor app component', () => {
   const findEmptyState = () => wrapper.findComponent(PipelineEditorEmptyState);
   const findEmptyStateButton = () => findEmptyState().find('[data-testid="create-new-ci-button"]');
   const findValidationSegment = () => wrapper.findComponent(ValidationSegment);
+  const findConfirmUnsavedChangesDialog = () => wrapper.findComponent(ConfirmUnsavedChangesDialog);
 
   beforeEach(() => {
     mockBlobContentData = jest.fn();
@@ -294,6 +296,33 @@ describe('Pipeline editor app component', () => {
             });
           });
         });
+      });
+    });
+
+    describe('confirm unsaved changes dialog', () => {
+      it('renders the dialog with has-unsaved-changes false when content matches the last commit', async () => {
+        await createComponentWithApollo({
+          data: {
+            currentBranch: mockDefaultBranch,
+            lastCommittedContent: 'foo',
+            currentCiFileContent: 'foo',
+          },
+        });
+
+        expect(findConfirmUnsavedChangesDialog().exists()).toBe(true);
+        expect(findConfirmUnsavedChangesDialog().props('hasUnsavedChanges')).toBe(false);
+      });
+
+      it('binds has-unsaved-changes to true when current content diverges from the last commit', async () => {
+        await createComponentWithApollo({
+          data: {
+            currentBranch: mockDefaultBranch,
+            lastCommittedContent: 'foo',
+            currentCiFileContent: 'foo123',
+          },
+        });
+
+        expect(findConfirmUnsavedChangesDialog().props('hasUnsavedChanges')).toBe(true);
       });
     });
 

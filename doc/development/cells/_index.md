@@ -5,7 +5,63 @@ info: Any user with at least the Maintainer role can merge updates to this conte
 title: GitLab Cells Development Guidelines
 ---
 
-For background of GitLab Cells, refer to the [design document](https://handbook.gitlab.com/handbook/engineering/architecture/design-documents/cells/).
+## Overview
+
+Cells is a new architecture that allows different organizations to be served by
+distinct physical instances of GitLab. Each instance is called a cell.
+For the goals and motivation behind this architecture, see the
+[Cells goals page](https://handbook.gitlab.com/handbook/engineering/architecture/design-documents/cells/goals/).
+For a broader architectural overview, see the
+[design document](https://handbook.gitlab.com/handbook/engineering/architecture/design-documents/cells/).
+
+Cells is planned for GitLab.com only. GitLab Self-Managed and GitLab Dedicated
+run as a single cell.
+
+## Cells development principles
+
+All developers must follow these principles when building or modifying features.
+
+### Scope compute to a single organization
+
+Web/API requests, and Sidekiq workers should be run under a single organization.
+Use [`Current.organization`](../organization/_index.md#using-currentorganization) to scope
+work to the current organization.
+
+Convert cross-organization compute to be organization-scoped where possible.
+
+In all cases, to avoid data loss during a migration,
+cross-organization compute is only acceptable when both of the following are true:
+
+- The job is a recurring cron job.
+- The job is idempotent.
+
+### Keep organization data ownership clear
+
+Organization data must be migratable to another cell. For this to be possible,
+data ownership must be clear from the schema. Every customer-data table must have
+a traceable path to an organization through its
+[sharding key](../organization/sharding/_index.md#choosing-the-right-sharding-key).
+
+Every new model that stores customer data must define a sharding key so each row
+is attributable to a single organization. Non-customer data (data that does not
+belong to a customer organization) must be marked as cell-local in the
+[schema classification](#available-cells--organization-schemas).
+Cell-local means the row never leaves the cell.
+
+When designing a new table or extending an existing one, confirm that the
+ownership of each row is unambiguous. Ambiguous ownership blocks future cell migrations.
+
+### No new customer-owned resources outside an organization
+
+Do not introduce new customer-owned resources that exist outside of an organization.
+All customer data must belong inside an organization. Resources that exist outside
+an organization cannot be migrated when an organization moves to a different cell.
+
+### An organization is isolated to a cell
+
+An organization is by nature isolated to a cell. All data and compute for an
+organization lives on a single cell. Cross-cell access to organization data is
+not supported.
 
 ## Available Cells / Organization schemas
 

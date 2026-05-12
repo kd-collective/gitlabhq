@@ -65,6 +65,12 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
 
           expect(response).to have_gitlab_http_status(:ok)
         end
+
+        it 'tracks the view event' do
+          expect { get_new }
+            .to trigger_internal_events('view_create_first_project_page')
+            .with(user: admin, additional_properties: {})
+        end
       end
     end
   end
@@ -96,6 +102,12 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
 
         it 'creates a group and project' do
           expect { post_create }.to change { Group.count }.by(1).and change { Project.count }.by(1)
+        end
+
+        it 'tracks the submit event with success label' do
+          expect { post_create }
+            .to trigger_internal_events('submit_create_first_project_form')
+            .with(user: admin, additional_properties: { label: 'success' })
         end
 
         context 'when project_template_name is provided' do
@@ -226,6 +238,16 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
           expect(response).to have_gitlab_http_status(:unprocessable_entity)
           expect(response.body).to include('Create your first project')
         end
+
+        it 'does not track the view event on re-render' do
+          expect { post_create }.not_to trigger_internal_events('view_create_first_project_page')
+        end
+
+        it 'tracks the submit event with failure label' do
+          expect { post_create }
+            .to trigger_internal_events('submit_create_first_project_form')
+            .with(user: admin, additional_properties: { label: 'failure' })
+        end
       end
 
       context 'when the project cannot be created' do
@@ -241,6 +263,16 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
           post_create
 
           expect(response).to have_gitlab_http_status(:unprocessable_entity)
+        end
+
+        it 'does not track the view event on re-render' do
+          expect { post_create }.not_to trigger_internal_events('view_create_first_project_page')
+        end
+
+        it 'tracks the submit event with failure label' do
+          expect { post_create }
+            .to trigger_internal_events('submit_create_first_project_form')
+            .with(user: admin, additional_properties: { label: 'failure' })
         end
       end
 

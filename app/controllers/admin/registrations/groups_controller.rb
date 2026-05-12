@@ -3,6 +3,8 @@
 module Admin
   module Registrations
     class GroupsController < Admin::ApplicationController
+      include Gitlab::InternalEventsTracking
+
       skip_before_action :set_confirm_warning
       before_action :verify_available!
 
@@ -13,6 +15,8 @@ module Admin
       urgency :low, [:create]
 
       def new
+        track_internal_event('view_create_first_project_page', user: current_user)
+
         @group = Group.new
         @project = Project.new
         @project_templates = Gitlab::ProjectTemplate.all
@@ -23,6 +27,12 @@ module Admin
         result = Onboarding::SelfManaged::StandardNamespaceCreateService
           .new(current_user, group_params: group_params, project_params: project_params)
           .execute
+
+        track_internal_event(
+          'submit_create_first_project_form',
+          user: current_user,
+          additional_properties: { label: result.success? ? 'success' : 'failure' }
+        )
 
         if result.success?
           session[:sm_welcome_project_id] = result.payload[:project].id

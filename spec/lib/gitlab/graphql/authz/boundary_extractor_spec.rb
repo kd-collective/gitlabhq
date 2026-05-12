@@ -276,6 +276,22 @@ RSpec.describe Gitlab::Graphql::Authz::BoundaryExtractor, feature_category: :per
         it_behaves_like 'extracts group boundary'
       end
 
+      context 'when object responds to both :project and :group' do
+        context 'with a project label' do
+          let_it_be(:project_label) { create(:label, project: project) }
+          let(:arguments) { { resource_id: project_label.to_global_id } }
+
+          it_behaves_like 'extracts project boundary'
+        end
+
+        context 'with a group label' do
+          let_it_be(:group_label) { create(:group_label, group: group) }
+          let(:arguments) { { resource_id: group_label.to_global_id } }
+
+          it_behaves_like 'extracts group boundary'
+        end
+      end
+
       context 'when object type has no project or group method' do
         let_it_be(:user) { create(:user) }
         let(:arguments) { { resource_id: user.to_global_id } }

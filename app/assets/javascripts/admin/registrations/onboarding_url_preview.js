@@ -1,4 +1,5 @@
 import { slugify } from '~/lib/utils/text_utility';
+import InternalEvents from '~/tracking/internal_events';
 
 const PLACEHOLDER_GROUP = 'my-group';
 const PLACEHOLDER_PROJECT = 'my-project';
@@ -29,6 +30,15 @@ export function initOnboardingUrlPreview() {
 
     if (groupHidden) groupHidden.value = groupInput.value.trim() ? groupSlug : '';
     if (projectHidden) projectHidden.value = projectInput.value.trim() ? projectSlug : '';
+  }
+
+  const templateSelect = el('project_project_template_name');
+  if (templateSelect) {
+    templateSelect.addEventListener('change', () => {
+      if (templateSelect.value) {
+        InternalEvents.trackEvent('select_project_template', { label: templateSelect.value });
+      }
+    });
   }
 
   groupInput.addEventListener('input', update);

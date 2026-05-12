@@ -11,19 +11,8 @@ RSpec.describe Organizations::OrganizationHelper, feature_category: :organizatio
     build_stubbed(:organization_detail, organization: organization, description_html: '<em>description</em>')
   end
 
-  let(:stubbed_results) do
-    {
-      'groups' => 10,
-      'projects' => 50,
-      'users' => 1050
-    }
-  end
-
   before do
     allow(helper).to receive(:current_user).and_return(user)
-    allow_next_instance_of(Organizations::OrganizationAssociationCounter) do |finder|
-      allow(finder).to receive(:execute).and_return(stubbed_results)
-    end
   end
 
   shared_examples 'includes that the user can create a group' do |method|
@@ -141,54 +130,24 @@ RSpec.describe Organizations::OrganizationHelper, feature_category: :organizatio
   end
 
   describe '#organization_show_app_data' do
-    context 'when the user can create a group' do
-      before do
-        allow(helper).to receive(:can?).with(user, :create_group, organization).and_return(true)
-      end
-
-      include_examples 'includes that the user can create a group', 'organization_show_app_data'
+    before do
+      allow(helper).to receive(:can?).with(user, :read_artifact_registry, organization).and_return(true)
+      allow(helper).to receive(:can?).with(user, :admin_organization, organization).and_return(true)
     end
 
-    context 'when the user can create a project' do
-      before do
-        allow(user).to receive(:can_create_project?).and_return(true)
-      end
-
-      include_examples 'includes that the user can create a project', 'organization_show_app_data'
-    end
-
-    context 'when the organization has groups' do
-      before do
-        allow(helper).to receive(:has_groups?).and_return(true)
-      end
-
-      include_examples 'includes that the organization has groups', 'organization_show_app_data'
-    end
-
-    it "includes all other non-conditional data" do
-      expect(organization).to receive(:avatar_url).with(size: 128).and_return('avatar.jpg')
-
+    it 'returns expected json' do
       expect(
         Gitlab::Json.parse(
           helper.organization_show_app_data(organization)
         )
       ).to include(
         {
-          'organization_gid' => "gid://gitlab/Organizations::Organization/#{organization.id}",
           'organization' => {
-            'id' => organization.id,
             'name' => organization.name,
-            'description_html' => organization.description_html,
-            'avatar_url' => 'avatar.jpg',
-            'visibility' => organization.visibility
+            'path' => organization.path
           },
-          'groups_and_projects_organization_path' => "/o/#{organization.path}/-/groups_and_projects",
-          'users_organization_path' => "/o/#{organization.path}/-/users",
-          'new_group_path' => "/o/#{organization.path}/-/groups/new",
-          'new_project_path' => '/projects/new',
-          'association_counts' => stubbed_results,
-          'organization_groups_projects_sort' => 'name_asc',
-          'organization_groups_projects_display' => 'groups'
+          'can_read_artifact_registry' => true,
+          'can_admin_organization' => true
         }
       )
     end
@@ -455,6 +414,28 @@ RSpec.describe Organizations::OrganizationHelper, feature_category: :organizatio
         expect(helper.send(:available_visibility_levels_for_group, organization)).to contain_exactly(
           Gitlab::VisibilityLevel::PRIVATE
         )
+      end
+    end
+  end
+
+  describe '#push_organization_breadcrumbs' do
+    context 'when organization is nil' do
+      it 'does not call push_to_schema_breadcrumb' do
+        expect(helper).not_to receive(:push_to_schema_breadcrumb)
+
+        helper.push_organization_breadcrumbs(nil)
+      end
+    end
+
+    context 'when organization is not nil' do
+      it 'calls push_to_schema_breadcrumb' do
+        expect(helper).to receive(:push_to_schema_breadcrumb).with(
+          organization.name,
+          organization_path(organization),
+          organization.avatar_url
+        )
+
+        helper.push_organization_breadcrumbs(organization)
       end
     end
   end

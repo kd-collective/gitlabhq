@@ -27372,6 +27372,43 @@ The edge type for [`VulnerabilitiesOverTime`](#vulnerabilitiesovertime).
 | <a id="vulnerabilitiesovertimeedge-cursor"></a>`cursor` | [`String!`](#string) | A cursor for use in pagination. |
 | <a id="vulnerabilitiesovertimeedge-node"></a>`node` | [`VulnerabilitiesOverTime`](#vulnerabilitiesovertime) | The item at the end of the edge. |
 
+#### `VulnerabilityArchiveExportUploadRegistryConnection`
+
+The connection type for [`VulnerabilityArchiveExportUploadRegistry`](#vulnerabilityarchiveexportuploadregistry).
+
+##### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="vulnerabilityarchiveexportuploadregistryconnection-edges"></a>`edges` | [`[VulnerabilityArchiveExportUploadRegistryEdge]`](#vulnerabilityarchiveexportuploadregistryedge) | A list of edges. |
+| <a id="vulnerabilityarchiveexportuploadregistryconnection-nodes"></a>`nodes` | [`[VulnerabilityArchiveExportUploadRegistry]`](#vulnerabilityarchiveexportuploadregistry) | A list of nodes. |
+| <a id="vulnerabilityarchiveexportuploadregistryconnection-pageinfo"></a>`pageInfo` | [`PageInfo!`](#pageinfo) | Information to aid in pagination. |
+
+##### Fields with arguments
+
+###### `VulnerabilityArchiveExportUploadRegistryConnection.count`
+
+Limited count of collection. Returns limit + 1 for counts greater than the limit.
+
+Returns [`Int!`](#int).
+
+Arguments:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="vulnerabilityarchiveexportuploadregistryconnection-count-limit"></a>`limit` | [`Int`](#int) | Limit value to be applied to the count query. Default is 1000. |
+
+#### `VulnerabilityArchiveExportUploadRegistryEdge`
+
+The edge type for [`VulnerabilityArchiveExportUploadRegistry`](#vulnerabilityarchiveexportuploadregistry).
+
+##### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="vulnerabilityarchiveexportuploadregistryedge-cursor"></a>`cursor` | [`String!`](#string) | A cursor for use in pagination. |
+| <a id="vulnerabilityarchiveexportuploadregistryedge-node"></a>`node` | [`VulnerabilityArchiveExportUploadRegistry`](#vulnerabilityarchiveexportuploadregistry) | The item at the end of the edge. |
+
 #### `VulnerabilityConnection`
 
 The connection type for [`Vulnerability`](#vulnerability).
@@ -37615,6 +37652,31 @@ four standard [pagination arguments](#pagination-arguments):
 | <a id="geonode-useruploadregistries-replicationstate"></a>`replicationState` | [`ReplicationStateEnum`](#replicationstateenum) | Filters registries by their replication state. |
 | <a id="geonode-useruploadregistries-sort"></a>`sort` | [`GeoRegistrySort`](#georegistrysort) | Sort registries by given criteria. |
 | <a id="geonode-useruploadregistries-verificationstate"></a>`verificationState` | [`VerificationStateEnum`](#verificationstateenum) | Filters registries by their verification state. |
+
+##### `GeoNode.vulnerabilityArchiveExportUploadRegistries`
+
+{{< details >}}
+**Introduced** in GitLab 19.0.
+**Status**: Experiment.
+{{< /details >}}
+
+Find Vulnerability Archive Export Upload registries on this Geo node. Ignored if `geo_vulnerability_archive_export_upload_replication` feature flag is disabled.
+
+Returns [`VulnerabilityArchiveExportUploadRegistryConnection`](#vulnerabilityarchiveexportuploadregistryconnection).
+
+This field returns a [connection](#connections). It accepts the
+four standard [pagination arguments](#pagination-arguments):
+`before: String`, `after: String`, `first: Int`, and `last: Int`.
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="geonode-vulnerabilityarchiveexportuploadregistries-ids"></a>`ids` | [`[GeoVulnerabilityArchiveExportUploadRegistryID!]`](#geovulnerabilityarchiveexportuploadregistryid) | Filters registries by their ID. |
+| <a id="geonode-vulnerabilityarchiveexportuploadregistries-keyword"></a>`keyword` {{< icon name="warning-solid" >}} | [`String`](#string) | **Deprecated** in GitLab 17.9. A keyword search feature on Geo registries will not be built in the UI due to poor search UX and performance. |
+| <a id="geonode-vulnerabilityarchiveexportuploadregistries-replicationstate"></a>`replicationState` | [`ReplicationStateEnum`](#replicationstateenum) | Filters registries by their replication state. |
+| <a id="geonode-vulnerabilityarchiveexportuploadregistries-sort"></a>`sort` | [`GeoRegistrySort`](#georegistrysort) | Sort registries by given criteria. |
+| <a id="geonode-vulnerabilityarchiveexportuploadregistries-verificationstate"></a>`verificationState` | [`VerificationStateEnum`](#verificationstateenum) | Filters registries by their verification state. |
 
 ### `GitlabInstanceFeatureFlag`
 
@@ -54293,6 +54355,36 @@ Represents a vulnerability archive.
 | <a id="vulnerabilityarchive-month"></a>`month` | [`Int!`](#int) | Month of the archive, represented as a number from 1 (January) to 12 (December). |
 | <a id="vulnerabilityarchive-year"></a>`year` | [`Int!`](#int) | Year of the archive. |
 
+### `VulnerabilityArchiveExportUploadRegistry`
+
+Represents the Geo replication and verification state of a vulnerability_archive_export_upload.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="vulnerabilityarchiveexportuploadregistry-checksummismatch"></a>`checksumMismatch` | [`Boolean`](#boolean) | Indicate if the checksums of the VulnerabilityArchiveExportUploadRegistry do not match on the primary and secondary. |
+| <a id="vulnerabilityarchiveexportuploadregistry-createdat"></a>`createdAt` | [`Time`](#time) | Timestamp when the VulnerabilityArchiveExportUploadRegistry was created. |
+| <a id="vulnerabilityarchiveexportuploadregistry-datamanagementdetailspath"></a>`dataManagementDetailsPath` | [`String`](#string) | Path to the data management view for this VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-forcetoredownload"></a>`forceToRedownload` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Deprecated** in GitLab 17.10. Removed from registry tables in the database in favor of the newer reusable framework. |
+| <a id="vulnerabilityarchiveexportuploadregistry-id"></a>`id` | [`ID!`](#id) | ID of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-lastsyncfailure"></a>`lastSyncFailure` | [`String`](#string) | Error message during sync of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-lastsyncedat"></a>`lastSyncedAt` | [`Time`](#time) | Timestamp of the most recent successful sync of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-missingonprimary"></a>`missingOnPrimary` | [`Boolean`](#boolean) | Indicate if the VulnerabilityArchiveExportUploadRegistry is missing on primary. |
+| <a id="vulnerabilityarchiveexportuploadregistry-modelrecordid"></a>`modelRecordId` | [`Int`](#int) | ID of the VulnerabilityArchiveExportUploadRegistry's model record. |
+| <a id="vulnerabilityarchiveexportuploadregistry-retryat"></a>`retryAt` | [`Time`](#time) | Timestamp after which the VulnerabilityArchiveExportUploadRegistry is resynced. |
+| <a id="vulnerabilityarchiveexportuploadregistry-retrycount"></a>`retryCount` | [`Int`](#int) | Number of consecutive failed sync attempts of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-state"></a>`state` | [`RegistryState`](#registrystate) | Sync state of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationchecksum"></a>`verificationChecksum` | [`String`](#string) | The local checksum of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationchecksummismatched"></a>`verificationChecksumMismatched` | [`String`](#string) | The expected checksum of the VulnerabilityArchiveExportUploadRegistry in case of mismatch. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationfailure"></a>`verificationFailure` | [`String`](#string) | Error message during verification of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationretryat"></a>`verificationRetryAt` | [`Time`](#time) | Timestamp after which the VulnerabilityArchiveExportUploadRegistry is reverified. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationretrycount"></a>`verificationRetryCount` | [`Int`](#int) | Number of consecutive failed verification attempts of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationstartedat"></a>`verificationStartedAt` | [`Time`](#time) | Timestamp when the verification of VulnerabilityArchiveExportUploadRegistry started. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verificationstate"></a>`verificationState` | [`VerificationStateEnum`](#verificationstateenum) | Verification state of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-verifiedat"></a>`verifiedAt` | [`Time`](#time) | Timestamp of the most recent successful verification of the VulnerabilityArchiveExportUploadRegistry. |
+| <a id="vulnerabilityarchiveexportuploadregistry-vulnerabilityarchiveexportuploadid"></a>`vulnerabilityArchiveExportUploadId` | [`ID!`](#id) | ID of the Vulnerability Archive Export Upload. |
+
 ### `VulnerabilityAverageScoreFactor`
 
 Risk factor based on average vulnerability score.
@@ -58666,6 +58758,7 @@ Geo registry class.
 | <a id="georegistryclass-terraform_state_version_registry"></a>`TERRAFORM_STATE_VERSION_REGISTRY` | Geo::TerraformStateVersionRegistry registry class. |
 | <a id="georegistryclass-upload_registry"></a>`UPLOAD_REGISTRY` | Geo::UploadRegistry registry class. |
 | <a id="georegistryclass-user_upload_registry"></a>`USER_UPLOAD_REGISTRY` | Geo::UserUploadRegistry registry class. |
+| <a id="georegistryclass-vulnerability_archive_export_upload_registry"></a>`VULNERABILITY_ARCHIVE_EXPORT_UPLOAD_REGISTRY` | Geo::VulnerabilityArchiveExportUploadRegistry registry class. |
 
 ### `GeoRegistrySort`
 
@@ -62644,6 +62737,12 @@ A `GeoUserUploadRegistryID` is a global ID. It is encoded as a string.
 
 An example `GeoUserUploadRegistryID` is: `"gid://gitlab/Geo::UserUploadRegistry/1"`.
 
+### `GeoVulnerabilityArchiveExportUploadRegistryID`
+
+A `GeoVulnerabilityArchiveExportUploadRegistryID` is a global ID. It is encoded as a string.
+
+An example `GeoVulnerabilityArchiveExportUploadRegistryID` is: `"gid://gitlab/Geo::VulnerabilityArchiveExportUploadRegistry/1"`.
+
 ### `GitlabErrorTrackingDetailedErrorID`
 
 A `GitlabErrorTrackingDetailedErrorID` is a global ID. It is encoded as a string.
@@ -63647,6 +63746,7 @@ One of:
 - [`TerraformStateVersionRegistry`](#terraformstateversionregistry)
 - [`UploadRegistry`](#uploadregistry)
 - [`UserUploadRegistry`](#useruploadregistry)
+- [`VulnerabilityArchiveExportUploadRegistry`](#vulnerabilityarchiveexportuploadregistry)
 
 #### `SecurityPolicySource`
 

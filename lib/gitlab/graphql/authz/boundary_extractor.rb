@@ -110,9 +110,9 @@ module Gitlab
           obj = unwrap_object(object)
 
           return obj if obj.is_a?(::Project) || obj.is_a?(::Group)
-          return obj.project if obj.respond_to?(:project)
-          return obj.group if obj.respond_to?(:group)
-          return obj.owner if obj.respond_to?(:owner)
+          return obj.project if obj.respond_to?(:project) && obj.project
+          return obj.group if obj.respond_to?(:group) && obj.group
+          return obj.owner if obj.respond_to?(:owner) && obj.owner
 
           nil
         end

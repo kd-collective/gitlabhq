@@ -31212,9 +31212,6 @@ msgstr ""
 msgid "Feature flag"
 msgstr ""
 
-msgid "Feature flag `custom_admin_roles` is not enabled for the instance"
-msgstr ""
-
 msgid "Feature flag status"
 msgstr ""
 
@@ -33222,6 +33219,12 @@ msgid "Geo|Verifying"
 msgstr ""
 
 msgid "Geo|View troubleshooting docs"
+msgstr ""
+
+msgid "Geo|Vulnerability Archive Export Upload"
+msgstr ""
+
+msgid "Geo|Vulnerability Archive Export Uploads"
 msgstr ""
 
 msgid "Geo|Whether this site's database is connected to the primary database directly or through data replication"
@@ -50897,6 +50900,18 @@ msgstr ""
 msgid "Organization|%{linkStart}Organizations%{linkEnd} are a top-level container to hold your groups and projects."
 msgstr ""
 
+msgid "Organization|%{organizationName} is your organization's home. %{linkStart}Learn more%{linkEnd}."
+msgstr ""
+
+msgid "Organization|%{organizationName} is your organization's home. Manage Artifact Registry and settings from the sidebar. %{linkStart}Learn more%{linkEnd}."
+msgstr ""
+
+msgid "Organization|%{organizationName} is your organization's home. Manage Artifact Registry from the sidebar. %{linkStart}Learn more%{linkEnd}."
+msgstr ""
+
+msgid "Organization|%{organizationName} is your organization's home. Manage settings from the sidebar. %{linkStart}Learn more%{linkEnd}."
+msgstr ""
+
 msgid "Organization|A group is a collection of several projects. If you organize your projects under a group, it works like a folder."
 msgstr ""
 
@@ -50979,6 +50994,9 @@ msgid "Organization|Drop groups here"
 msgstr ""
 
 msgid "Organization|Get started with organizations"
+msgstr ""
+
+msgid "Organization|Go to Artifact Registry"
 msgstr ""
 
 msgid "Organization|Help improve Organizations"
@@ -51096,6 +51114,9 @@ msgid_plural "Organization|Organizations must have at least one owner. To delete
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Organization|Overview"
+msgstr ""
+
 msgid "Organization|Perform advanced options such as changing the organization URL."
 msgstr ""
 
@@ -51145,6 +51166,9 @@ msgid "Organization|View all"
 msgstr ""
 
 msgid "Organization|We'll create one Organization per top-level group. You can reassign groups between them in the next step."
+msgstr ""
+
+msgid "Organization|Welcome to %{organizationName}"
 msgstr ""
 
 msgid "Organization|You can now start using your new organization."

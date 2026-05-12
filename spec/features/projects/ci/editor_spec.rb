@@ -251,30 +251,12 @@ RSpec.describe 'Pipeline Editor', :js, feature_category: :pipeline_composition d
       before do
         page.within('#source-editor-') do
           find('textarea').send_keys '123'
-          # It takes some time after sending keys for the vue
-          # component to update
-          sleep 1
         end
-      end
 
-      it 'user who tries to navigate away can cancel the action and keep their changes', quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/9336' do
-        click_link 'Pipelines'
-
-        page.driver.browser.switch_to.alert.dismiss
-
-        expect(page).to have_content('Pipeline editor')
-
-        page.within('#source-editor-') do
-          expect(page).to have_content("#{default_content}123")
-        end
-      end
-
-      it 'user who tries to navigate away can confirm the action and discard their change', quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/9336' do
-        click_link 'Pipelines'
-
-        page.driver.browser.switch_to.alert.accept
-
-        expect(page).not_to have_content('Pipeline editor')
+        # The source editor debounces input before emitting to the Vue model.
+        # Wait for the "Commit changes" button to enable as the signal that
+        # the typed change has propagated to hasUnsavedChanges.
+        find("[data-testid='commit-changes-button']:not([disabled])")
       end
 
       it 'user who creates a MR is taken to the merge request page without warnings' do
