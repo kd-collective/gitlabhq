@@ -1093,6 +1093,7 @@ Grants the ability to create, delete, and read packages.
 | Read | Project | `GET` | `/projects/:id/packages/nuget/download/*package_name/*package_version/*package_filename` |
 | Read | Project | `GET` | `/projects/:id/packages` |
 | Read | Project | `GET` | `/projects/:id/packages/:package_id` |
+| Read | Project | `GET` | `/projects/:id/packages/:package_id/pipelines` |
 | Read | Project | `GET` | `/projects/:id/packages/pypi/files/:sha256/*file_identifier` |
 | Read | Project | `GET` | `/projects/:id/packages/pypi/simple` |
 | Read | Project | `GET` | `/projects/:id/packages/pypi/simple/*package_name` |
@@ -1134,14 +1135,6 @@ Grants the ability to create, delete, and read packages.
 | Read | Instance | `GET` | `/packages/conan/v1/users/check_credentials` |
 | Read | Instance | `GET` | `/packages/conan/v1/conans/search` |
 | Read | Instance | `GET` | `/packages/maven/*path/:file_name` |
-
-#### Package Pipeline
-
-Grants the ability to read the CI/CD pipelines associated with a package.
-
-| Action | Access | Method | Path |
-| ------ | ------ | ------ | ---- |
-| Read | Project | `GET` | `/projects/:id/packages/:package_id/pipelines` |
 
 #### Virtual Registry
 
@@ -1844,8 +1837,10 @@ Grants the ability to approve, create, delete, merge, read, and update merge req
 | Create | Project | `POST` | `/projects/:id/merge_requests` |
 | Create | Project | `POST` | `/projects/:id/merge_requests/:noteable_id/discussions` |
 | Create | Project | `POST` | `/projects/:id/merge_requests/:noteable_id/discussions/:discussion_id/notes` |
+| Create | Project | `POST` | `/projects/:id/merge_requests/:merge_request_iid/blocks` |
 | Delete | Project | `DELETE` | `/projects/:id/merge_requests/:merge_request_iid` |
 | Delete | Project | `DELETE` | `/projects/:id/merge_requests/:noteable_id/discussions/:discussion_id/notes/:note_id` |
+| Delete | Project | `DELETE` | `/projects/:id/merge_requests/:merge_request_iid/blocks/:block_id` |
 | Merge | Project | `POST` | `/projects/:id/merge_requests/:merge_request_iid/cancel_merge_when_pipeline_succeeds` |
 | Merge | Project | `PUT` | `/projects/:id/merge_requests/:merge_request_iid/merge` |
 | Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/draft_notes` |
@@ -1873,6 +1868,9 @@ Grants the ability to approve, create, delete, merge, read, and update merge req
 | Read | Project | `GET` | `/projects/:id/merge_requests/:noteable_id/discussions/:discussion_id/notes/:note_id` |
 | Read | Project | `GET` | `/projects/:id/merge_requests/:eventable_id/resource_label_events` |
 | Read | Project | `GET` | `/projects/:id/merge_requests/:eventable_id/resource_label_events/:event_id` |
+| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blocks` |
+| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blocks/:block_id` |
+| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blockees` |
 | Read | Group | `GET` | `/groups/:id/merge_requests` |
 | Read | User | `GET` | `/merge_requests` |
 | Update | Project | `POST` | `/projects/:id/merge_requests/:merge_request_iid/draft_notes` |
@@ -1899,18 +1897,6 @@ Grants the ability to create, delete, read, and update merge request approval ru
 | Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approval_rules` |
 | Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id` |
 | Update | Project | `PUT` | `/projects/:id/merge_requests/:merge_request_iid/approval_rules/:approval_rule_id` |
-
-#### Merge Request Dependency
-
-Grants the ability to create, delete, and read merge request dependencies.
-
-| Action | Access | Method | Path |
-| ------ | ------ | ------ | ---- |
-| Create | Project | `POST` | `/projects/:id/merge_requests/:merge_request_iid/blocks` |
-| Delete | Project | `DELETE` | `/projects/:id/merge_requests/:merge_request_iid/blocks/:block_id` |
-| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blocks` |
-| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blocks/:block_id` |
-| Read | Project | `GET` | `/projects/:id/merge_requests/:merge_request_iid/blockees` |
 
 #### Protected Branch
 
@@ -2355,6 +2341,17 @@ Grants the ability to create, delete, read, and rotate resource access tokens.
 | Rotate | Group | `POST` | `/groups/:id/access_tokens/self/rotate` |
 | Rotate | Group | `POST` | `/groups/:id/access_tokens/:token_id/rotate` |
 
+#### SAML Group Identity
+
+Grants the ability to delete, read, and update SAML group identities.
+
+| Action | Access | Method | Path |
+| ------ | ------ | ------ | ---- |
+| Delete | Group | `DELETE` | `/groups/:id/saml/:uid` |
+| Read | Group | `GET` | `/groups/:id/saml/identities` |
+| Read | Group | `GET` | `/groups/:id/saml/:uid` |
+| Update | Group | `PATCH` | `/groups/:id/saml/:uid` |
+
 #### SAML Group Link
 
 Grants the ability to create, delete, and read SAML group links.
@@ -2365,17 +2362,6 @@ Grants the ability to create, delete, and read SAML group links.
 | Delete | Group | `DELETE` | `/groups/:id/saml_group_links/:saml_group_name` |
 | Read | Group | `GET` | `/groups/:id/saml_group_links` |
 | Read | Group | `GET` | `/groups/:id/saml_group_links/:saml_group_name` |
-
-#### SAML Identity
-
-Grants the ability to delete, read, and update SAML identities.
-
-| Action | Access | Method | Path |
-| ------ | ------ | ------ | ---- |
-| Delete | Group | `DELETE` | `/groups/:id/saml/:uid` |
-| Read | Group | `GET` | `/groups/:id/saml/identities` |
-| Read | Group | `GET` | `/groups/:id/saml/:uid` |
-| Update | Group | `PATCH` | `/groups/:id/saml/:uid` |
 
 #### SAML User
 
@@ -2463,7 +2449,7 @@ Grants the ability to follow, read, and unfollow users.
 | Read | User | `GET` | `/user` |
 | Unfollow | User | `POST` | `/users/:id/unfollow` |
 
-### System Migration And Integration resources
+### System Migration resources
 
 #### Batched Background Migration
 
@@ -2689,7 +2675,7 @@ feature is enabled.
 | Work Item: Read | `GET` | `/projects/:id/milestones/:milestone_id` |
 | Package: Read | `GET` | `/projects/:id/packages` |
 | Package: Read | `GET` | `/projects/:id/packages/:package_id` |
-| Package Pipeline: Read | `GET` | `/projects/:id/packages/:package_id/pipelines` |
+| Package: Read | `GET` | `/projects/:id/packages/:package_id/pipelines` |
 | Package: Read | `GET` | `/projects/:id/packages/composer/archives/*package_name` |
 | Package: Read | `GET` | `/projects/:id/packages/debian/pool/:distribution/:letter/:package_name/:package_version/:file_name` |
 | Package: Read | `GET` | `/projects/:id/packages/generic/:package_name/*package_version/(*path/):file_name` |

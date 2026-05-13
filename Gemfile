@@ -120,7 +120,7 @@ gem 'akismet', '~> 3.0', feature_category: :insider_threat
 gem 'invisible_captcha', '~> 2.3.0', feature_category: :insider_threat
 
 # Two-factor authentication
-gem 'devise-two-factor', '~> 5.1.0', feature_category: :system_access
+gem 'devise-two-factor', '~> 6.4.0', feature_category: :system_access
 gem 'rqrcode', '~> 2.2', feature_category: :system_access
 gem 'webauthn', '~> 3.0', feature_category: :system_access
 

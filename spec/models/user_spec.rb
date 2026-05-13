@@ -3915,7 +3915,10 @@ RSpec.describe User, :with_current_organization, feature_category: :user_profile
     end
 
     it 'sets the otp_secret' do
-      expect(user.otp_secret).to have_attributes(length: described_class::OTP_SECRET_LENGTH)
+      # OTP_SECRET_LENGTH is the number of random bytes (20). ROTP::Base32.random encodes
+      # those bytes as Base32 without padding: 20 bytes * 8 bits / 5 bits-per-char = 32 chars.
+      expected_char_length = (described_class::OTP_SECRET_LENGTH * 8.0 / 5).ceil
+      expect(user.otp_secret).to have_attributes(length: expected_char_length)
     end
 
     it 'updates the otp_secret_expires_at' do

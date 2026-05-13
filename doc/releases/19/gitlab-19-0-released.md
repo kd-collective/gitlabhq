@@ -224,6 +224,23 @@ instance with any of these bundled services, follow the
 [migration guide](https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/)
 to configure external services before upgrading to GitLab 19.0.
 
+### Reliable SCIM user deprovisioning for large groups
+
+<!-- categories: User Management -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com
+- Links: [Documentation](../../development/internal_api/_index.md#group-scim-api), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/521324)
+
+{{< /details >}}
+
+For organizations managing large numbers of users through SCIM, deprovisioning group members
+could time out and return `500` errors. SCIM `DELETE` and `PATCH` requests now return a
+success response immediately. Membership removal is handled asynchronously, so identity
+providers and SCIM clients receive consistent success responses.
+
 ## Unified DevOps and Security
 
 ### Dependency scanning in security configuration profiles

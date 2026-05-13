@@ -54,7 +54,12 @@ class User < ApplicationRecord
 
   COUNT_CACHE_VALIDITY_PERIOD = 24.hours
 
-  OTP_SECRET_LENGTH = 32
+  # Number of random bytes used to generate the OTP secret via ROTP::Base32.random.
+  # 20 bytes produces a 32-character Base32 string (160-bit key), matching the
+  # devise-two-factor v6+ default and RFC 4226 recommended key length.
+  # NOTE: In devise-two-factor < 6.0, this value was a character count; from v6.0
+  # it is a byte count. 20 bytes -> 32 Base32 chars (same output as the old 32-char default).
+  OTP_SECRET_LENGTH = 20
   OTP_SECRET_TTL = 2.minutes
 
   MAX_USERNAME_LENGTH = 255
@@ -1369,9 +1374,21 @@ class User < ApplicationRecord
     end
   end
 
+  # Overrides Devise::Models::TwoFactorBackupable#invalidate_otp_backup_code! to
+  # return false on read-only replicas, and to dispatch to the FIPS-compliant
+  # PBKDF2 implementation when applicable.
+  #
+  # Backup code authentication requires a DB write to consume the code. On a
+  # read-only replica we cannot perform that write, so we treat the attempt as
+  # failed. This preserves the pre-existing behaviour: backup code auth was
+  # always denied on replicas because the external save! would raise.
   def invalidate_otp_backup_code!(code)
+    return false if Gitlab::Database.read_only?
+
     if Gitlab::FIPS.enabled? && pbkdf2?
-      invalidate_otp_backup_code_pdkdf2!(code)
+      result = invalidate_otp_backup_code_pdkdf2!(code)
+      save!(validate: false) if result
+      result
     else
       super(code)
     end
@@ -2992,18 +3009,26 @@ class User < ApplicationRecord
   end
   alias_method :in_confirmation_period?, :confirmation_period_valid?
 
-  # This is copied from Devise::Models::TwoFactorAuthenticatable#consume_otp!
+  # Overrides Devise::Models::TwoFactorAuthenticatable#consume_otp! to skip
+  # the database write on read-only replicas while still returning true so that
+  # OTP validation succeeds.
   #
-  # An OTP cannot be used more than once in a given timestep
-  # Storing timestep of last valid OTP is sufficient to satisfy this requirement
+  # An OTP cannot be used more than once in a given timestep.
+  # Storing the timestep of the last valid OTP is sufficient to satisfy this
+  # requirement.
   #
   # See:
-  #   <https://github.com/tinfoil/devise-two-factor/blob/master/lib/devise_two_factor/models/two_factor_authenticatable.rb#L66>
+  #   https://github.com/devise-two-factor/devise-two-factor/blob/main/lib/devise_two_factor/models/two_factor_authenticatable.rb
   #
-  def consume_otp!
-    if self.consumed_timestep != current_otp_timestep
-      self.consumed_timestep = current_otp_timestep
-      return Gitlab::Database.read_only? ? true : save(validate: false)
+  def consume_otp!(otp, timestamp)
+    timestep = timestamp / otp.interval
+
+    if self.consumed_timestep != timestep
+      self.consumed_timestep = timestep
+      return true if Gitlab::Database.read_only?
+
+      save!(validate: false)
+      return true
     end
 
     false

@@ -169,7 +169,7 @@ export default {
       return this.issuable.reference || `${this.issuableSymbol}${this.issuable.iid}`;
     },
     type() {
-      return this.issuable.type || this.workItemType?.toUpperCase();
+      return this.issuable.type || this.workItemType;
     },
     labels() {
       return (

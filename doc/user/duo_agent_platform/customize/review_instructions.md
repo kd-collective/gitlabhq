@@ -176,7 +176,7 @@ To configure custom review instructions for a group:
 
 1. In the top bar, select **Search or go to** and find your top-level group.
 1. In the left sidebar, select **Settings** > **GitLab Duo**.
-1. Under **Select a project to store shared custom instructions for Duo Code Review**, select a project within your group.
+1. Under **Custom review instructions for groups**, select a project in your group.
 1. Select **Save changes**.
 
 ## Best practices

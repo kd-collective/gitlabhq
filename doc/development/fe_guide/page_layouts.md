@@ -193,6 +193,11 @@ Follow these rules when adding buttons to a panel actions area:
 - If you have four or more actions, group the less commonly used ones in a
   "More actions" icon-only dropdown using the `ellipsis_h` icon, with
   `no-caret`, `category="tertiary"`, and `size="small"` options as well.
+- Ensure the page's entry template sets `@force_show_panel_header = true`.
+  For example, see
+  [`app/views/groups/observability/show.html.haml#L2`](https://gitlab.com/gitlab-org/gitlab/-/blob/2670fe39ed60b180f05f0846707265e2fc91ea52/app/views/groups/observability/show.html.haml#L2).
+  This ensures the static panel's header is always rendered, no matter the
+  value of the `page_breadcrumbs_in_top_bar` feature flag.
 
 **Example with a "More actions" dropdown:**
 

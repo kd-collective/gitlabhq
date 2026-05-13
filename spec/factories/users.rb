@@ -199,7 +199,7 @@ FactoryBot.define do
     trait :two_factor_via_otp do
       before(:create) do |user|
         user.otp_required_for_login = true
-        user.otp_secret = User.generate_otp_secret(32)
+        user.otp_secret = User.generate_otp_secret(User::OTP_SECRET_LENGTH)
         user.otp_grace_period_started_at = Time.now
         user.generate_otp_backup_codes!
       end

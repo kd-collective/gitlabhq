@@ -3,8 +3,7 @@ import { GlLoadingIcon, GlIcon } from '@gitlab/ui';
 import { debounce } from 'lodash-es';
 import fuzzaldrinPlus from 'fuzzaldrin-plus';
 import { s__ } from '~/locale';
-import SafeHtml from '~/vue_shared/directives/safe_html';
-import highlight from '~/lib/utils/highlight';
+import HighlightedText from '~/vue_shared/components/highlighted_text.vue';
 import { joinPaths, buildURLwithRefType } from '~/lib/utils/url_utility';
 import { DEFAULT_DEBOUNCE_AND_THROTTLE_MS } from '~/lib/utils/constants';
 import axios from '~/lib/utils/axios_utils';
@@ -19,9 +18,7 @@ export default {
   components: {
     GlLoadingIcon,
     GlIcon,
-  },
-  directives: {
-    SafeHtml,
+    HighlightedText,
   },
   mixins: [InternalEvents.mixin()],
   props: {
@@ -157,9 +154,6 @@ export default {
         maxResults: 20,
       });
       this.searchResults = filteredItems;
-    },
-    highlightedName(val) {
-      return highlight(val, this.searchQuery);
     },
     handleResultClick(result) {
       this.$router.push(result.routerPath);
@@ -301,10 +295,11 @@ export default {
               >
                 <div class="gl-flex gl-items-start gl-gap-2 gl-py-2">
                   <gl-icon name="document" :size="16" class="gl-mt-1 gl-shrink-0 gl-text-subtle" />
-                  <span
-                    v-safe-html="highlightedName(result.path)"
+                  <highlighted-text
+                    :text="result.path"
+                    :match="searchQuery"
                     class="gl-block gl-text-strong gl-wrap-anywhere"
-                  ></span>
+                  />
                 </div>
               </button>
             </li>

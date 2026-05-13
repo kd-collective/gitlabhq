@@ -7,4 +7,5 @@ available_for:
   - granular_access_token
 permissions:
   - delete_merge_request
+  - delete_merge_request_dependency
   - delete_merge_request_discussion_note

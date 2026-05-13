@@ -49116,6 +49116,17 @@ definitions:
             - no_checks
             - log_only
             - interrupt
+          include_recommended_allowed:
+            type: boolean
+            description: Whether to include recommended domains in the network access
+              allowlist
+          allow_all_unix_sockets:
+            type: boolean
+            description: Whether to allow all Unix sockets for network access
+          allow_project_extension:
+            type: boolean
+            description: Whether to allow projects to extend the network access domain
+              allowlist
           minimum_access_level_execute:
             type: integer
             format: int32
@@ -49407,6 +49418,17 @@ definitions:
             - no_checks
             - log_only
             - interrupt
+          include_recommended_allowed:
+            type: boolean
+            description: Whether to include recommended domains in the network access
+              allowlist
+          allow_all_unix_sockets:
+            type: boolean
+            description: Whether to allow all Unix sockets for network access
+          allow_project_extension:
+            type: boolean
+            description: Whether to allow projects to extend the network access domain
+              allowlist
           minimum_access_level_execute:
             type: integer
             format: int32
@@ -52771,8 +52793,9 @@ definitions:
         description: Enable viewing Jira issues in GitLab.
       project_keys:
         type: array
-        description: Keys of Jira projects. When `issues_enabled` is `true`, this
-          setting specifies which Jira projects to view issues from in GitLab.
+        description: Keys of Jira projects to display. When `issues_enabled` is `true`,
+          this setting filters which Jira projects are shown in GitLab. It does not
+          restrict the API token's access.
         items:
           type: string
       vulnerabilities_enabled:
@@ -60466,8 +60489,9 @@ definitions:
         description: Enable viewing Jira issues in GitLab.
       project_keys:
         type: array
-        description: Keys of Jira projects. When `issues_enabled` is `true`, this
-          setting specifies which Jira projects to view issues from in GitLab.
+        description: Keys of Jira projects to display. When `issues_enabled` is `true`,
+          this setting filters which Jira projects are shown in GitLab. It does not
+          restrict the API token's access.
         items:
           type: string
       vulnerabilities_enabled:
@@ -62392,8 +62416,9 @@ definitions:
         description: Enable viewing Jira issues in GitLab.
       project_keys:
         type: array
-        description: Keys of Jira projects. When `issues_enabled` is `true`, this
-          setting specifies which Jira projects to view issues from in GitLab.
+        description: Keys of Jira projects to display. When `issues_enabled` is `true`,
+          this setting filters which Jira projects are shown in GitLab. It does not
+          restrict the API token's access.
         items:
           type: string
       vulnerabilities_enabled:

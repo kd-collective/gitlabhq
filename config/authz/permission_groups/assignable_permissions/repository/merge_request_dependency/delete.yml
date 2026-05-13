@@ -1,5 +1,6 @@
 ---
 name: delete_merge_request_dependency
+deprecated: true
 description: Grants the ability to delete merge request dependencies
 boundaries:
   - project

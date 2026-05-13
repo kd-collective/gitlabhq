@@ -3333,6 +3333,12 @@
         - ".gitlab/ci/test-metadata.gitlab-ci.yml"
         - "scripts/rspec_helpers.sh"
 
+.setup:rules:verify-start-workflow-service-assets:
+  rules:
+    - <<: *if-default-refs
+      changes:
+        - "ee/app/services/ai/duo_workflows/start_workflow_service.rb"
+
 ###################
 # Preflight rules #
 ###################

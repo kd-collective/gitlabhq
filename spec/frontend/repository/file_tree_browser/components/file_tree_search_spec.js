@@ -9,6 +9,7 @@ import { useMockInternalEventsTracking } from 'helpers/tracking_internal_events_
 import { Mousetrap } from '~/lib/mousetrap';
 import { FOCUS_FILE_TREE_BROWSER_FILTER_BAR, keysFor } from '~/behaviors/shortcuts/keybindings';
 import { shouldDisableShortcuts } from '~/behaviors/shortcuts/shortcuts_toggle';
+import HighlightedText from '~/vue_shared/components/highlighted_text.vue';
 
 jest.mock('~/behaviors/shortcuts/shortcuts_toggle');
 
@@ -232,6 +233,14 @@ describe('FileTreeSearch', () => {
       expect(document.activeElement).toBe(findSearchInput().element);
       expect(findSearchInput().element.value).toBe('');
       expect(findSearchPanel().exists()).toBe(false);
+    });
+
+    it('renders HighlightedText with file path and search query as match', async () => {
+      await triggerSearch('user');
+
+      const highlightedTexts = wrapper.findAllComponents(HighlightedText);
+      expect(highlightedTexts.at(0).props('text')).toBe('app/models/user.rb');
+      expect(highlightedTexts.at(0).props('match')).toBe('user');
     });
 
     it('navigates to file path, clears input and hides search panel when search result file is clicked', async () => {

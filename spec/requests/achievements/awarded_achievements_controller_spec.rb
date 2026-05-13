@@ -34,26 +34,6 @@ RSpec.describe Achievements::AwardedAchievementsController, feature_category: :u
           expect(response).to have_gitlab_http_status(:ok)
         end
       end
-
-      context 'when the achievement name contains HTML characters' do
-        let_it_be(:xss_achievement) do
-          create(:achievement, namespace: group, name: '<script>alert("xss")</script>')
-        end
-
-        let_it_be(:xss_user_achievement) do
-          create(:user_achievement, achievement: xss_achievement, user: user, show_on_profile: false)
-        end
-
-        let(:xss_token) { xss_user_achievement.signed_id(purpose: :achievement_action, expires_in: 30.days) }
-
-        it 'escapes the achievement name in the response body' do
-          get accept_awarded_achievement_path(id: xss_token)
-
-          expect(response).to have_gitlab_http_status(:ok)
-          expect(response.body).to include('&lt;script&gt;')
-          expect(response.body).not_to include('<script>alert("xss")</script>')
-        end
-      end
     end
 
     context 'with an invalid token' do

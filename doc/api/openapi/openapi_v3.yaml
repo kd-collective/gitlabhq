@@ -45386,7 +45386,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
+              "$ref": "#/components/schemas/RequestBody_1978107ed956"
   "/api/v4/projects/{id}/services/jira-cloud-app":
     put:
       operationId: putApiV4ProjectsIdServicesJiraCloudApp
@@ -47284,7 +47284,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
+              "$ref": "#/components/schemas/RequestBody_1978107ed956"
   "/api/v4/projects/{id}/integrations/jira-cloud-app":
     put:
       operationId: putApiV4ProjectsIdIntegrationsJiraCloudApp
@@ -49182,7 +49182,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_355dfbda9d0e"
+              "$ref": "#/components/schemas/RequestBody_1978107ed956"
   "/api/v4/groups/{id}/integrations/jira-cloud-app":
     put:
       operationId: putApiV4GroupsIdIntegrationsJiraCloudApp
@@ -64545,7 +64545,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_59635af79df9"
+              "$ref": "#/components/schemas/RequestBody_3cadcd8792c9"
   "/api/v4/groups/{id}":
     put:
       operationId: putApiV4GroupsId
@@ -64575,7 +64575,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_15565b325eb1"
+              "$ref": "#/components/schemas/RequestBody_9daa0539fd8e"
     get:
       operationId: getApiV4GroupsId
       summary: Get a single group, with containing projects.
@@ -101274,7 +101274,7 @@ components:
       required:
       - jenkins_url
       - project_name
-    RequestBody_355dfbda9d0e:
+    RequestBody_1978107ed956:
       type: object
       properties:
         url:
@@ -101329,8 +101329,9 @@ components:
           type: array
           items:
             type: string
-          description: Keys of Jira projects. When `issues_enabled` is `true`, this
-            setting specifies which Jira projects to view issues from in GitLab.
+          description: Keys of Jira projects to display. When `issues_enabled` is
+            `true`, this setting filters which Jira projects are shown in GitLab.
+            It does not restrict the API token's access.
           nullable: true
         vulnerabilities_enabled:
           type: boolean
@@ -105644,7 +105645,7 @@ components:
           example:
             environment: production
           nullable: true
-    RequestBody_59635af79df9:
+    RequestBody_3cadcd8792c9:
       type: object
       properties:
         name:
@@ -105937,6 +105938,20 @@ components:
               description: Prompt injection protection level. One of `no_checks`,
                 `log_only` or `interrupt`
               nullable: true
+            include_recommended_allowed:
+              type: boolean
+              description: Whether to include recommended domains in the network access
+                allowlist
+              nullable: true
+            allow_all_unix_sockets:
+              type: boolean
+              description: Whether to allow all Unix sockets for network access
+              nullable: true
+            allow_project_extension:
+              type: boolean
+              description: Whether to allow projects to extend the network access
+                domain allowlist
+              nullable: true
             minimum_access_level_execute:
               type: integer
               enum:
@@ -105980,7 +105995,7 @@ components:
       required:
       - name
       - path
-    RequestBody_15565b325eb1:
+    RequestBody_9daa0539fd8e:
       type: object
       properties:
         name:
@@ -106273,6 +106288,20 @@ components:
               - interrupt
               description: Prompt injection protection level. One of `no_checks`,
                 `log_only` or `interrupt`
+              nullable: true
+            include_recommended_allowed:
+              type: boolean
+              description: Whether to include recommended domains in the network access
+                allowlist
+              nullable: true
+            allow_all_unix_sockets:
+              type: boolean
+              description: Whether to allow all Unix sockets for network access
+              nullable: true
+            allow_project_extension:
+              type: boolean
+              description: Whether to allow projects to extend the network access
+                domain allowlist
               nullable: true
             minimum_access_level_execute:
               type: integer

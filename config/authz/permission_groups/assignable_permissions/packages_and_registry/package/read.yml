@@ -28,6 +28,7 @@ permissions:
   - read_npm_package_tag
   - read_nuget_package
   - read_package
+  - read_package_pipeline
   - read_pypi_package
   - read_ruby_gem
   - read_terraform_module

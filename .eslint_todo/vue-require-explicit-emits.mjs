@@ -4,7 +4,6 @@
 export default {
   files: [
     'app/assets/javascripts/abuse_reports/components/abuse_category_selector.vue',
-    'app/assets/javascripts/add_context_commits_modal/components/review_tab_container.vue',
     'app/assets/javascripts/admin/abuse_report/components/report_actions.vue',
     'app/assets/javascripts/admin/application_settings/runner_token_expiration/components/chronic_duration_input.vue',
     'app/assets/javascripts/admin/topics/components/topic_select.vue',

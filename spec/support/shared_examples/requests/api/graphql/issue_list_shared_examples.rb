@@ -841,8 +841,7 @@ RSpec.shared_examples 'graphql issue list request spec' do
     end
   end
 
-  context 'when fetching assignees',
-    quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/5837' do
+  context 'when fetching assignees' do
     let(:fields) do
       <<~QUERY
         nodes {
@@ -862,6 +861,8 @@ RSpec.shared_examples 'graphql issue list request spec' do
         assignee = create(:user)
         issue.update!(assignees: [assignee])
       end
+      # Warm up sign-in side effects so they don't pollute control vs. test runs
+      post_graphql(query, current_user: current_user)
     end
 
     def response_assignee_ids(response_data)
