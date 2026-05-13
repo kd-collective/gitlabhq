@@ -23,6 +23,7 @@ module Issues
       {
         reference: { namespace: [{ parent: :route }, :route] },
         alert_management_alert: [:alert_management_alert],
+        alert_management_alerts: [:alert_management_alerts],
         assignees: [:assignees],
         participants: Issue.participant_includes,
         timelogs: [:timelogs],

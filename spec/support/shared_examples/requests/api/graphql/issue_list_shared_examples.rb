@@ -714,10 +714,11 @@ RSpec.shared_examples 'graphql issue list request spec' do
       QUERY
     end
 
-    context 'when the feature flag is disabled',
-      quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/17015' do
+    context 'when the feature flag is disabled' do
       before do
         stub_feature_flags(hide_incident_management_features: false)
+        create(:alert_management_alert, project: same_project_issue1.project, issue: same_project_issue1)
+        create(:alert_management_alert, project: same_project_issue2.project, issue: same_project_issue2)
       end
 
       it 'avoids N+1 queries' do

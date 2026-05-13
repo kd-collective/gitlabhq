@@ -96,6 +96,8 @@ This feature is in beta and is therefore subject to change as we gather feedback
 | Model family   | Model |
 |----------------|-------|
 | General        | Any model compatible with the [OpenAI API specification](https://platform.openai.com/docs/api-reference) |
+| Gemini         | [Gemini 3.1 Pro](https://deepmind.google/models/gemini/pro/) |
+| Gemini         | [Gemini 3.0 Flash](https://deepmind.google/models/gemini/flash/) |
 | CodeGemma      | [CodeGemma 2b](https://huggingface.co/google/codegemma-2b) |
 | CodeGemma      | [CodeGemma 7b-it](https://huggingface.co/google/codegemma-7b-it) |
 | CodeGemma      | [CodeGemma 7b-code](https://huggingface.co/google/codegemma-7b) |

@@ -285,20 +285,9 @@ RSpec.describe Gitlab::EncodingHelper, feature_category: :shared do
   end
 
   describe '#strip_bom' do
-    it 'strips single BOM from start' do
-      expect(described_class.strip_bom("\xEF\xBB\xBFhello world")).to eq('hello world')
-    end
-
-    it 'strips multiple consecutive BOMs from start' do
-      expect(described_class.strip_bom("\xEF\xBB\xBF\xEF\xBB\xBFhello world")).to eq('hello world')
-      expect(described_class.strip_bom("\xEF\xBB\xBF\xEF\xBB\xBF\xEF\xBB\xBFhello world")).to eq('hello world')
-    end
-
-    it 'leaves string without BOM unchanged' do
+    it do
       expect(described_class.strip_bom('no changes')).to eq('no changes')
-    end
-
-    it 'does not strip BOM from middle or end' do
+      expect(described_class.strip_bom("\xEF\xBB\xBFhello world")).to eq('hello world')
       expect(described_class.strip_bom("BOM at the end\xEF\xBB\xBF")).to eq("BOM at the end\xEF\xBB\xBF")
     end
   end

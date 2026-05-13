@@ -126,21 +126,6 @@
     }
   }
 
-  // work item drawer correct background colors
-  .work-item-detail-panel {
-    .description-more::before {
-      background: linear-gradient(180deg, transparent 0%, var(--gl-background-color-default) 100%) !important;
-    }
-
-    .show-all-btn {
-      background-color: var(--gl-background-color-default) !important;
-    }
-
-    .timeline-entry:not(.draft-note):last-child::before {
-      @apply gl-bg-default #{!important};
-    }
-  }
-
 }
 
 /*

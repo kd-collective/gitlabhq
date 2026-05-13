@@ -89,7 +89,7 @@ To set up ClickHouse Cloud:
 1. Select **Create Service**.
 1. Once provisioned, note your connection details from the service dashboard:
    - Host
-   - Port (usually `9440` for secure connections)
+   - Port (`8443` for HTTPS connections used by GitLab, or `9440` for native TCP with TLS used by `clickhouse-client`)
    - Username
    - Password
 
@@ -248,7 +248,7 @@ To provide GitLab with ClickHouse credentials:
    ```
 
    Replace the URL with:
-   - For ClickHouse Cloud: `https://your-service.clickhouse.cloud:9440`
+   - For ClickHouse Cloud: `https://your-service.clickhouse.cloud:8443`
    - ClickHouse for GitLab Self-Managed: `https://your-clickhouse-host:8443`
    - For ClickHouse for GitLab Self-Managed HA with load balancer: `https://your-load-balancer:8080` (or your load balancer URL)
 
@@ -290,7 +290,7 @@ To provide GitLab with ClickHouse credentials:
    ```
 
    Replace the URL with:
-   - For ClickHouse Cloud: `https://your-service.clickhouse.cloud:9440`
+   - For ClickHouse Cloud: `https://your-service.clickhouse.cloud:8443`
    - For ClickHouse for GitLab Self-Managed single node: `https://your-clickhouse-host:8443`
    - For ClickHouse for GitLab Self-Managed HA with load balancer: `https://your-load-balancer:8080` (or your load balancer URL)
 
@@ -329,6 +329,9 @@ If the connection fails, verify:
 - For HA cluster deployments: Load balancer is properly configured and routing requests.
 
 ### Run ClickHouse migrations
+
+> [!note]
+> This step is required. If you skip it, Analytics dashboards do not display data and show a "Failed to fetch data" error.
 
 {{< tabs >}}
 

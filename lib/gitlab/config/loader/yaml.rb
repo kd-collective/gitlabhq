@@ -20,9 +20,7 @@ module Gitlab
 
           raise DataTooLargeError, "The provided YAML is too big" if content_too_large?
 
-          config_without_bom = Gitlab::EncodingHelper.strip_bom(config)
-
-          @config = YAML.safe_load(config_without_bom,
+          @config = YAML.safe_load(config,
             permitted_classes: [Symbol, *additional_permitted_classes],
             permitted_symbols: [],
             aliases: true,

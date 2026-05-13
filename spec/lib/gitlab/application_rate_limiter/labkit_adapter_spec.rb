@@ -11,11 +11,11 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
     using RSpec::Parameterized::TableSyntax
 
     where(:scenario, :key, :threshold_override, :interval_override, :flag_on, :expected) do
-      'key not handled by the adapter'             | :glql             | nil | nil | true  | false
-      'threshold override forces the legacy path'  | :pipelines_create | 10  | nil | true  | false
-      'interval override forces the legacy path'   | :pipelines_create | nil | 60  | true  | false
-      'use_labkit flag is off'                     | :pipelines_create | nil | nil | false | false
-      'handled key, no overrides, flag on'         | :pipelines_create | nil | nil | true  | true
+      'key not handled by the adapter'             | :notification_emails | nil | nil | true  | false
+      'threshold override forces the legacy path'  | :pipelines_create    | 10  | nil | true  | false
+      'interval override forces the legacy path'   | :pipelines_create    | nil | 60  | true  | false
+      'use_labkit flag is off'                     | :pipelines_create    | nil | nil | false | false
+      'handled key, no overrides, flag on'         | :pipelines_create    | nil | nil | true  | true
     end
 
     with_them do
@@ -48,6 +48,15 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
 
         stub_feature_flags(rate_limiter_use_labkit_cohort_2: false)
         expect(described_class.shadow_or_enforce?(:ai_action,
+          threshold_override: nil, interval_override: nil)).to be(false)
+      end
+
+      it 'reads the cohort-wide flag for cohort 3 entries' do
+        expect(described_class.shadow_or_enforce?(:glql,
+          threshold_override: nil, interval_override: nil)).to be(true)
+
+        stub_feature_flags(rate_limiter_use_labkit_cohort_3: false)
+        expect(described_class.shadow_or_enforce?(:glql,
           threshold_override: nil, interval_override: nil)).to be(false)
       end
     end
@@ -83,7 +92,7 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
       it 'does not record overrides for keys the adapter does not handle' do
         expect(override_counter).not_to receive(:increment)
 
-        described_class.shadow_or_enforce?(:glql, threshold_override: 10, interval_override: nil)
+        described_class.shadow_or_enforce?(:notification_emails, threshold_override: 10, interval_override: nil)
       end
 
       it 'does not record when no override is passed' do
@@ -107,6 +116,13 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
 
       stub_feature_flags(rate_limiter_use_labkit_cohort_2_enforce: false)
       expect(described_class.enforce?(:ai_action)).to be(false)
+    end
+
+    it 'reflects the cohort-wide enforce flag for cohort 3 entries' do
+      expect(described_class.enforce?(:glql)).to be(true)
+
+      stub_feature_flags(rate_limiter_use_labkit_cohort_3_enforce: false)
+      expect(described_class.enforce?(:glql)).to be(false)
     end
   end
 
@@ -283,6 +299,49 @@ RSpec.describe Gitlab::ApplicationRateLimiter::LabkitAdapter,
           expect(r.get(first_key).to_i).to eq(1)
           expect(r.get(second_key)).to be_nil
         end
+      end
+    end
+  end
+
+  describe '.run_peek!' do
+    it 'does not increment the labkit counter on a fresh key' do
+      expect(described_class.run_peek!(:glql, scope: 'sha-abc123')).to be(false)
+
+      labkit_key = "labkit:rl:applimiter_glql:limit_glql_queries_by_query_sha:query_sha:sha-abc123"
+      count = Gitlab::Redis::RateLimiting.with { |r| r.get(labkit_key) }
+
+      expect(count).to be_nil
+    end
+
+    it 'reads the counter populated by a paired non-peek caller without further increment' do
+      described_class.run!(:glql, scope: 'sha-abc123')
+      described_class.run!(:glql, scope: 'sha-abc123')
+      described_class.run_peek!(:glql, scope: 'sha-abc123')
+
+      labkit_key = "labkit:rl:applimiter_glql:limit_glql_queries_by_query_sha:query_sha:sha-abc123"
+      count = Gitlab::Redis::RateLimiting.with { |r| r.get(labkit_key) }
+
+      expect(count.to_i).to eq(2)
+    end
+
+    it 'returns true once the threshold is exceeded' do
+      described_class.run!(:glql, scope: 'sha-abc123')
+      described_class.run!(:glql, scope: 'sha-abc123')
+
+      expect(described_class.run_peek!(:glql, scope: 'sha-abc123')).to be(true)
+    end
+
+    context 'when the labkit peek errors' do
+      let(:broken_result) { Labkit::RateLimit::Result.new(matched: false, error: true, action: :allow) }
+
+      before do
+        allow_next_instance_of(Labkit::RateLimit::Limiter) do |limiter|
+          allow(limiter).to receive(:peek).and_return(broken_result)
+        end
+      end
+
+      it 'returns false and fails open' do
+        expect(described_class.run_peek!(:glql, scope: 'sha-abc123')).to be(false)
       end
     end
   end

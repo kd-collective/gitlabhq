@@ -12,6 +12,12 @@ class NamespaceSetting < ApplicationRecord
 
   ignore_column :token_expiry_notify_inherited, remove_with: '17.9', remove_after: '2025-01-11'
   enum :pipeline_variables_default_role, ProjectCiCdSetting::PIPELINE_VARIABLES_OVERRIDE_ROLES, prefix: true
+  enum :enable_duo_code_review_by_default, {
+    never: 0,
+    pending: 1,
+    enabled: 2,
+    disabled: 3
+  }, prefix: true
 
   ignore_column :third_party_ai_features_enabled, remove_with: '16.11', remove_after: '2024-04-18'
   ignore_column :code_suggestions, remove_with: '17.8', remove_after: '2024-05-16'

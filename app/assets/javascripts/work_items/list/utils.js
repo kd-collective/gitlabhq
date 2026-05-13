@@ -638,22 +638,27 @@ export const convertNumberToGid = (value) => {
  */
 export const convertLegacyTypeFormat = (tokens, getWorkItemTypeConfiguration) => {
   const enumRegex = /^[a-z_]+$/i;
-  const typeToken = tokens.find((token) => token.type === TOKEN_TYPE_TYPE);
-  if (!typeToken?.value?.data) {
-    return tokens;
-  }
 
-  const testValue = Array.isArray(typeToken.value.data)
-    ? typeToken.value.data.at(0)
-    : typeToken.value.data;
+  tokens.forEach((token) => {
+    if (token.type !== TOKEN_TYPE_TYPE) {
+      return;
+    }
+    if (!token?.value?.data) {
+      return;
+    }
 
-  if (typeToken && enumRegex.test(testValue)) {
-    typeToken.value.data = convertEnumToId(typeToken.value.data, getWorkItemTypeConfiguration);
-  }
+    const testValue = Array.isArray(token.value.data) ? token.value.data.at(0) : token.value.data;
 
-  if (typeToken && testValue.toLowerCase().startsWith('gid')) {
-    typeToken.value.data = convertGidToId(typeToken.value.data);
-  }
+    if (token && enumRegex.test(testValue)) {
+      // eslint-disable-next-line no-param-reassign
+      token.value.data = convertEnumToId(token.value.data, getWorkItemTypeConfiguration);
+    }
+
+    if (token && testValue.toLowerCase().startsWith('gid')) {
+      // eslint-disable-next-line no-param-reassign
+      token.value.data = convertGidToId(token.value.data);
+    }
+  });
 
   return tokens;
 };

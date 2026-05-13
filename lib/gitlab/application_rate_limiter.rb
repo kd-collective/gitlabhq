@@ -297,23 +297,42 @@ module Gitlab
         return false if scoped_user_in_allowlist?(scope, users_allowlist)
 
         threshold_value = threshold || threshold(key)
-
         return false if threshold_value == 0
 
         interval_value = interval || interval(key)
-
         return false if interval_value == 0
 
-        # The labkit adapter only handles the plain IncrementPerAction strategy
-        # without peek; per-resource and resource-usage strategies and peek
-        # callers stay on the legacy path.
-        labkit_decision = nil
-        if !peek && strategy.is_a?(IncrementPerAction) &&
-            LabkitAdapter.shadow_or_enforce?(key, threshold_override: threshold, interval_override: interval)
-          labkit_decision = LabkitAdapter.run!(key, scope: scope)
-          return labkit_decision if LabkitAdapter.enforce?(key)
-        end
+        labkit_decision = dispatch_to_labkit(
+          key,
+          scope: scope,
+          strategy: strategy,
+          peek: peek,
+          threshold: threshold,
+          interval: interval
+        )
 
+        return labkit_decision if !labkit_decision.nil? && LabkitAdapter.enforce?(key)
+
+        legacy_decision = legacy_throttled?(
+          key,
+          scope: scope,
+          strategy: strategy,
+          peek: peek,
+          threshold_value: threshold_value,
+          interval_value: interval_value
+        )
+
+        LabkitAdapter.record_divergence(key, labkit_decision, legacy_decision) unless labkit_decision.nil?
+
+        legacy_decision
+      end
+
+      # Computes the throttle decision via the legacy Redis counter shape
+      # (application_rate_limiter:<key>:<scope>:<period_key>). Increments
+      # the counter unless +peek+, then compares against +threshold_value+.
+      # Returns false when the counter is missing (peek with no prior
+      # increment) so callers treat "no counter" as "not throttled".
+      def legacy_throttled?(key, scope:, strategy:, peek:, threshold_value:, interval_value:)
         # `period_key` is based on the current time and interval so when time passes to the next interval
         # the key changes and the rate limit count starts again from 0.
         # Based on https://github.com/rack/rack-attack/blob/886ba3a18d13c6484cd511a4dc9b76c0d14e5e96/lib/rack/attack/cache.rb#L63-L68
@@ -325,7 +344,6 @@ module Gitlab
                 else
                   # We add a 1 second buffer to avoid timing issues when we're at the end of a period
                   expiry = interval_value - time_elapsed_in_period + 1
-
                   strategy.increment(cache_key, expiry)
                 end
 
@@ -333,11 +351,22 @@ module Gitlab
 
         report_metrics(key, value, threshold_value, peek)
 
-        legacy_decision = value > threshold_value
+        value > threshold_value
+      end
 
-        LabkitAdapter.record_divergence(key, labkit_decision, legacy_decision) unless labkit_decision.nil?
+      # Routes a check through the labkit adapter when applicable, returning
+      # labkit's boolean decision or nil if the adapter does not handle this
+      # call. The adapter only takes the plain IncrementPerAction strategy;
+      # per-resource and resource-usage strategies stay on the legacy path.
+      # Peek dispatches to a read-only Redis round-trip so the labkit counter
+      # only advances via paired non-peek call sites.
+      def dispatch_to_labkit(key, scope:, strategy:, peek:, threshold:, interval:)
+        return unless strategy.is_a?(IncrementPerAction)
 
-        legacy_decision
+        return unless LabkitAdapter.shadow_or_enforce?(key, threshold_override: threshold,
+          interval_override: interval)
+
+        peek ? LabkitAdapter.run_peek!(key, scope: scope) : LabkitAdapter.run!(key, scope: scope)
       end
 
       def rate_limit_value(value)

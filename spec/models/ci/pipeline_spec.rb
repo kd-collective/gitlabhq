@@ -6834,7 +6834,7 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
     end
 
     context 'when pipeline is parent' do
-      let(:child) { create(:ci_pipeline, child_of: pipeline) }
+      let!(:child) { create(:ci_pipeline, child_of: pipeline) }
 
       it 'returns self and child' do
         expect(self_and_downstreams).to contain_exactly(pipeline, child)
@@ -6842,11 +6842,21 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
     end
 
     context 'when pipeline is a grandparent pipeline' do
-      let(:child)      { create(:ci_pipeline, child_of: pipeline) }
-      let(:grandchild) { create(:ci_pipeline, child_of: child) }
+      let!(:child) { create(:ci_pipeline, child_of: pipeline) }
+      let!(:grandchild) { create(:ci_pipeline, child_of: child) }
 
       it 'returns self, child, and grandchild' do
         expect(self_and_downstreams).to contain_exactly(pipeline, child, grandchild)
+      end
+    end
+
+    context 'when pipeline is a child with its own children' do
+      let(:parent) { create(:ci_pipeline) }
+      let!(:pipeline) { create(:ci_pipeline, child_of: parent) }
+      let!(:child) { create(:ci_pipeline, child_of: pipeline) }
+
+      it 'returns self and its children, but not the parent' do
+        expect(self_and_downstreams).to contain_exactly(pipeline, child)
       end
     end
 
@@ -6969,10 +6979,31 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
   describe '#self_and_project_ancestors' do
     subject(:self_and_project_ancestors) { pipeline.self_and_project_ancestors }
 
+    let(:pipeline) { create(:ci_pipeline, :created) }
+
+    context 'when pipeline has no relatives' do
+      it 'returns only self' do
+        expect(self_and_project_ancestors).to contain_exactly(pipeline)
+      end
+
+      it 'returns an ActiveRecord::Relation' do
+        expect(self_and_project_ancestors).to be_an(ActiveRecord::Relation)
+      end
+    end
+
+    context 'when pipeline is a root with children' do
+      before do
+        create_source_pipeline(pipeline, create(:ci_pipeline, project: pipeline.project))
+      end
+
+      it 'returns only self' do
+        expect(self_and_project_ancestors).to contain_exactly(pipeline)
+      end
+    end
+
     context 'when pipeline is child' do
-      let(:pipeline) { create(:ci_pipeline, :created) }
-      let(:parent) { create(:ci_pipeline) }
-      let(:sibling) { create(:ci_pipeline) }
+      let(:parent) { create(:ci_pipeline, project: pipeline.project) }
+      let(:sibling) { create(:ci_pipeline, project: pipeline.project) }
 
       before do
         create_source_pipeline(parent, pipeline)
@@ -6981,6 +7012,24 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
 
       it 'returns parent and self' do
         expect(self_and_project_ancestors).to contain_exactly(parent, pipeline)
+      end
+
+      it 'does not include siblings' do
+        expect(self_and_project_ancestors).not_to include(sibling)
+      end
+    end
+
+    context 'when pipeline is a grandchild' do
+      let(:ancestor) { create(:ci_pipeline, project: pipeline.project) }
+      let(:parent) { create(:ci_pipeline, project: pipeline.project) }
+
+      before do
+        create_source_pipeline(ancestor, parent)
+        create_source_pipeline(parent, pipeline)
+      end
+
+      it 'returns self, parent, and ancestor' do
+        expect(self_and_project_ancestors).to contain_exactly(ancestor, parent, pipeline)
       end
     end
 
@@ -6995,6 +7044,137 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
 
       it 'returns only self' do
         expect(self_and_project_ancestors).to contain_exactly(pipeline)
+      end
+    end
+  end
+
+  describe '#self_and_project_descendants' do
+    subject(:self_and_project_descendants) { pipeline.self_and_project_descendants }
+
+    let(:pipeline) { create(:ci_pipeline, :created) }
+
+    context 'when pipeline has no relatives' do
+      it 'returns only self' do
+        expect(self_and_project_descendants).to contain_exactly(pipeline)
+      end
+
+      it 'returns an ActiveRecord::Relation' do
+        expect(self_and_project_descendants).to be_an(ActiveRecord::Relation)
+      end
+    end
+
+    context 'when pipeline is child with no children of its own' do
+      let(:parent) { create(:ci_pipeline, project: pipeline.project) }
+
+      before do
+        create_source_pipeline(parent, pipeline)
+      end
+
+      it 'returns only self, not the parent' do
+        expect(self_and_project_descendants).to contain_exactly(pipeline)
+      end
+    end
+
+    context 'when pipeline has a child' do
+      let(:child) { create(:ci_pipeline, project: pipeline.project) }
+
+      before do
+        create_source_pipeline(pipeline, child)
+      end
+
+      it 'returns self and child' do
+        expect(self_and_project_descendants).to contain_exactly(pipeline, child)
+      end
+    end
+
+    context 'when pipeline has grandchildren' do
+      let(:child) { create(:ci_pipeline, project: pipeline.project) }
+      let(:grandchild) { create(:ci_pipeline, project: pipeline.project) }
+
+      before do
+        create_source_pipeline(pipeline, child)
+        create_source_pipeline(child, grandchild)
+      end
+
+      it 'returns self, child, and grandchild' do
+        expect(self_and_project_descendants).to contain_exactly(pipeline, child, grandchild)
+      end
+    end
+
+    context 'when pipeline has a cross-project downstream' do
+      let(:downstream) { create(:ci_pipeline, project: create(:project)) }
+
+      before do
+        create_source_pipeline(pipeline, downstream)
+      end
+
+      it 'does not traverse cross-project edges' do
+        expect(self_and_project_descendants).to contain_exactly(pipeline)
+      end
+    end
+  end
+
+  describe '#all_child_pipelines' do
+    subject(:all_child_pipelines) { pipeline.all_child_pipelines }
+
+    let(:pipeline) { create(:ci_pipeline) }
+
+    context 'when pipeline has no children' do
+      it 'returns an empty relation' do
+        expect(all_child_pipelines).to be_empty
+      end
+    end
+
+    context 'when pipeline has a child' do
+      let!(:child) { create(:ci_pipeline, child_of: pipeline) }
+
+      it 'returns the child' do
+        expect(all_child_pipelines).to contain_exactly(child)
+      end
+
+      it 'does not include self' do
+        expect(all_child_pipelines).not_to include(pipeline)
+      end
+    end
+
+    context 'when pipeline has multiple children' do
+      let!(:child1) { create(:ci_pipeline, child_of: pipeline) }
+      let!(:child2) { create(:ci_pipeline, child_of: pipeline) }
+
+      it 'returns all children' do
+        expect(all_child_pipelines).to contain_exactly(child1, child2)
+      end
+    end
+
+    context 'when pipeline has grandchildren' do
+      let!(:child) { create(:ci_pipeline, child_of: pipeline) }
+      let!(:grandchild) { create(:ci_pipeline, child_of: child) }
+
+      it 'returns child and grandchild' do
+        expect(all_child_pipelines).to contain_exactly(child, grandchild)
+      end
+    end
+
+    context 'when pipeline is a child itself' do
+      let(:parent) { create(:ci_pipeline) }
+      let!(:pipeline) { create(:ci_pipeline, child_of: parent) }
+      let!(:sibling) { create(:ci_pipeline, child_of: parent) }
+
+      it 'does not include the parent or siblings' do
+        expect(all_child_pipelines).to be_empty
+      end
+    end
+
+    context 'when pipeline has a cross-project downstream' do
+      let_it_be(:other_project) { create(:project) }
+      let!(:downstream) { create(:ci_pipeline, project: other_project) }
+
+      before do
+        create_source_pipeline(pipeline, downstream)
+      end
+
+      it 'does not include cross-project downstream pipelines' do
+        expect(all_child_pipelines).to be_empty
       end
     end
   end

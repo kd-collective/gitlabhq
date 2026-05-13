@@ -366,6 +366,18 @@ describe('convertLegacyTypeFormat', () => {
     const expectedTokens = createTokens(expected);
     expect(convertLegacyTypeFormat(tokens, getWorkItemTypeConfiguration)).toEqual(expectedTokens);
   });
+
+  it('converts when there are multiple type tokens', () => {
+    const tokens = [
+      { type: 'type', value: { data: 'gid://gitlab/WorkItems::Type/1001' } },
+      { type: 'type', value: { data: 'gid://gitlab/WorkItems::Type/1002' } },
+    ];
+    const expectedTokens = [
+      { type: 'type', value: { data: '1001' } },
+      { type: 'type', value: { data: '1002' } },
+    ];
+    expect(convertLegacyTypeFormat(tokens, getWorkItemTypeConfiguration)).toEqual(expectedTokens);
+  });
 });
 
 describe('handleEnforceSubscriptionLimit', () => {

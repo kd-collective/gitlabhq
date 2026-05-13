@@ -1272,35 +1272,45 @@ module Ci
 
     # With multi-project and parent-child pipelines
     def self_and_upstreams
-      object_hierarchy.base_and_ancestors
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self).base_and_ancestors
+      )
     end
 
     # With multi-project and parent-child pipelines
     def self_and_downstreams
-      object_hierarchy.base_and_descendants
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self).base_and_descendants
+      )
     end
 
     # With multi-project and parent-child pipelines
     def upstream_and_all_downstreams
-      pairs = ::Gitlab::Ci::PipelineSourceHierarchy.new(self)
-        .all_objects.pluck(:pipeline_id, :partition_id)
-
-      self.class.where([:id, :partition_id] => pairs)
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self).all_objects
+      )
     end
 
     # With only parent-child pipelines
     def self_and_project_ancestors
-      object_hierarchy(project_condition: :same).base_and_ancestors
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self, options: { project_condition: :same }).base_and_ancestors
+      )
     end
 
     # With only parent-child pipelines
     def self_and_project_descendants
-      object_hierarchy(project_condition: :same).base_and_descendants
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self, options: { project_condition: :same }).base_and_descendants
+      )
     end
 
     # With only parent-child pipelines
     def all_child_pipelines
-      object_hierarchy(project_condition: :same).descendants
+      pipelines_from_hierarchy(
+        ::Gitlab::Ci::PipelineSourceHierarchy.new(self, options: { project_condition: :same }).base_and_descendants,
+        except: id_and_partition_pair
+      )
     end
 
     # Follow the parent-child relationships and return the top-level parent
@@ -1836,6 +1846,11 @@ module Ci
     def object_hierarchy(options = {})
       ::Gitlab::Ci::PipelineObjectHierarchy
         .new(self.class.unscoped.where(id: id, partition_id: partition_id), options: options)
+    end
+
+    def pipelines_from_hierarchy(relation, except: [])
+      pairs = relation.pluck(:pipeline_id, :partition_id) - except
+      self.class.id_and_partition_in(pairs)
     end
 
     def internal_pipeline?

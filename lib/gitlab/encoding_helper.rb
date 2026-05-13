@@ -16,7 +16,7 @@ module Gitlab
     ENCODING_CONFIDENCE_THRESHOLD = 50
 
     UNICODE_REPLACEMENT_CHARACTER = "�"
-    BOM_UTF8_REGEX = /\A(?:\xEF\xBB\xBF)+/
+    BOM_UTF8 = "\xEF\xBB\xBF"
 
     def encode!(message)
       message = force_encode_utf8(message)
@@ -149,7 +149,7 @@ module Gitlab
     end
 
     def strip_bom(message)
-      message.sub(BOM_UTF8_REGEX, '')
+      message.delete_prefix(BOM_UTF8)
     end
 
     def force_encode_utf8(message)

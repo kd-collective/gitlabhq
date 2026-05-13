@@ -335,39 +335,4 @@ RSpec.describe Gitlab::Config::Loader::Yaml, feature_category: :pipeline_composi
       end
     end
   end
-
-  context 'when yaml content has UTF-8 BOM' do
-    let(:yml) { "\xEF\xBB\xBFimage: 'image:1.0'" }
-
-    describe '#valid?' do
-      it 'returns true' do
-        expect(loader).to be_valid
-      end
-    end
-
-    describe '#load!' do
-      it 'returns a valid hash' do
-        expect(loader.load!).to eq(image: 'image:1.0')
-      end
-    end
-
-    context 'when BOM is at the start of a multi-line YAML' do
-      let(:yml) do
-        "\xEF\xBB\xBFbuild1:\n  script: echo 'test'\nbuild2:\n  script: echo 'test2'"
-      end
-
-      it 'strips BOM and parses all jobs' do
-        result = loader.load!
-        expect(result).to include(:build1, :build2)
-      end
-    end
-
-    context 'when multiple BOMs are at the start' do
-      let(:yml) { "\xEF\xBB\xBF\xEF\xBB\xBF\xEF\xBB\xBFimage: 'image:1.0'" }
-
-      it 'strips all BOMs and returns valid hash' do
-        expect(loader.load!).to eq(image: 'image:1.0')
-      end
-    end
-  end
 end

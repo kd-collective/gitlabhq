@@ -754,15 +754,9 @@ RSpec.describe Gitlab::ApplicationRateLimiter, :clean_gitlab_redis_rate_limiting
     context 'when the adapter does not apply' do
       it 'does not dispatch when the key is not handled by the adapter' do
         expect(Gitlab::ApplicationRateLimiter::LabkitAdapter).not_to receive(:run!)
+        expect(Gitlab::ApplicationRateLimiter::LabkitAdapter).not_to receive(:run_peek!)
 
-        described_class.throttled?(:glql, scope: user)
-      end
-
-      it 'does not dispatch in peek mode' do
-        stub_feature_flags(rate_limiter_use_labkit_users_get_by_id: true)
-        expect(Gitlab::ApplicationRateLimiter::LabkitAdapter).not_to receive(:run!)
-
-        described_class.peek(:users_get_by_id, scope: user)
+        described_class.throttled?(:notification_emails, scope: user)
       end
 
       it 'does not dispatch when a resource is provided' do
@@ -770,6 +764,62 @@ RSpec.describe Gitlab::ApplicationRateLimiter, :clean_gitlab_redis_rate_limiting
         expect(Gitlab::ApplicationRateLimiter::LabkitAdapter).not_to receive(:run!)
 
         described_class.throttled?(:users_get_by_id, scope: user, resource: user)
+      end
+    end
+
+    context 'in peek mode (cohort 3)' do
+      let_it_be(:namespace) { create(:namespace) }
+      let(:labkit_key) do
+        "labkit:rl:applimiter_update_namespace_name:limit_namespace_name_updates_by_namespace" \
+          ":namespace:#{namespace.id}"
+      end
+
+      def labkit_count
+        Gitlab::Redis::RateLimiting.with { |r| r.get(labkit_key) }.to_i
+      end
+
+      before do
+        allow(Gitlab::CurrentSettings.current_application_settings)
+          .to receive(:update_namespace_name_rate_limit).and_return(2)
+      end
+
+      context 'when use_labkit is on and enforce is off (shadow)' do
+        before do
+          stub_feature_flags(rate_limiter_use_labkit_cohort_3: true,
+            rate_limiter_use_labkit_cohort_3_enforce: false)
+        end
+
+        it 'reads the labkit counter without incrementing it' do
+          described_class.peek(:update_namespace_name, scope: namespace)
+
+          expect(labkit_count).to eq(0)
+        end
+
+        it 'returns the legacy decision even when the adapter says throttled' do
+          allow(Gitlab::ApplicationRateLimiter::LabkitAdapter).to receive(:run_peek!).and_return(true)
+
+          expect(described_class.peek(:update_namespace_name, scope: namespace)).to be(false)
+        end
+      end
+
+      context 'when use_labkit and enforce are both on' do
+        before do
+          stub_feature_flags(rate_limiter_use_labkit_cohort_3: true,
+            rate_limiter_use_labkit_cohort_3_enforce: true)
+        end
+
+        it 'returns the labkit decision and skips legacy peek' do
+          allow(Gitlab::ApplicationRateLimiter::LabkitAdapter).to receive(:run_peek!).and_return(true)
+          expect(described_class).not_to receive(:report_metrics)
+
+          expect(described_class.peek(:update_namespace_name, scope: namespace)).to be(true)
+        end
+
+        it 'does not increment either counter' do
+          described_class.peek(:update_namespace_name, scope: namespace)
+
+          expect(labkit_count).to eq(0)
+        end
       end
     end
 

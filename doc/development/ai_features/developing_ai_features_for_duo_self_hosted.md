@@ -9,24 +9,8 @@ This document outlines the process for developing AI features for GitLab Duo Sel
 
 ## Gaining access to a hosted model
 
-The following models are currently available to GitLab team members for development purposes as of July, 2025:
-
-- `Claude Sonnet 3.5` on AWS Bedrock
-- `Claude Sonnet 3.5 v2` on AWS Bedrock
-- `Claude Sonnet 3.7` on AWS Bedrock
-- `Claude Sonnet 4` on AWS Bedrock
-- `Claude Haiku 3.5` on AWS Bedrock
-- `Llama 3.3 70b` on AWS Bedrock
-- `Llama 3.1 8b` on AWS Bedrock
-- `Llama 3.1 70b` on AWS Bedrock
-- `Mistral Small` on Fireworks AI
-- `Mixtral 8x22b` on Fireworks AI
-- `Codestral 22b v0.1` on Fireworks AI
-- `Llama 3.1 70b` on Fireworks AI
-- `Llama 3.1 8b` on Fireworks AI
-- `Llama 3.3 70b` on Fireworks AI
-
-Development environments provide access to a limited set of models for cost optimization. The [complete model catalog](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#supported-models) is available in production deployments.
+For the current list of models available to GitLab team members for development purposes, see the
+[supported models documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#supported-models).
 
 ### Gaining access to models on Fireworks AI
 

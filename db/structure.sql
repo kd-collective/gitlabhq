@@ -2423,24 +2423,6 @@ RETURN NEW;
 END
 $$;
 
-CREATE FUNCTION trigger_22262f5f16d8() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-  NEW."author_id_convert_to_bigint" := NEW."author_id";
-  NEW."closed_by_id_convert_to_bigint" := NEW."closed_by_id";
-  NEW."duplicated_to_id_convert_to_bigint" := NEW."duplicated_to_id";
-  NEW."id_convert_to_bigint" := NEW."id";
-  NEW."last_edited_by_id_convert_to_bigint" := NEW."last_edited_by_id";
-  NEW."milestone_id_convert_to_bigint" := NEW."milestone_id";
-  NEW."moved_to_id_convert_to_bigint" := NEW."moved_to_id";
-  NEW."project_id_convert_to_bigint" := NEW."project_id";
-  NEW."promoted_to_epic_id_convert_to_bigint" := NEW."promoted_to_epic_id";
-  NEW."updated_by_id_convert_to_bigint" := NEW."updated_by_id";
-  RETURN NEW;
-END;
-$$;
-
 CREATE FUNCTION trigger_238f37f25bb2() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
@@ -22892,16 +22874,6 @@ CREATE TABLE issues (
     namespace_id bigint,
     start_date date,
     imported_from smallint DEFAULT 0 NOT NULL,
-    author_id_convert_to_bigint bigint,
-    closed_by_id_convert_to_bigint bigint,
-    duplicated_to_id_convert_to_bigint bigint,
-    id_convert_to_bigint bigint DEFAULT 0 NOT NULL,
-    last_edited_by_id_convert_to_bigint bigint,
-    milestone_id_convert_to_bigint bigint,
-    moved_to_id_convert_to_bigint bigint,
-    project_id_convert_to_bigint bigint,
-    promoted_to_epic_id_convert_to_bigint bigint,
-    updated_by_id_convert_to_bigint bigint,
     namespace_traversal_ids bigint[] DEFAULT '{}'::bigint[],
     CONSTRAINT check_2addf801cd CHECK ((work_item_type_id IS NOT NULL)),
     CONSTRAINT check_c33362cd43 CHECK ((namespace_id IS NOT NULL)),
@@ -24721,6 +24693,7 @@ CREATE TABLE namespace_settings (
     mcp_server_enabled boolean,
     duo_external_agents_enabled boolean,
     lock_duo_external_agents_enabled boolean DEFAULT false NOT NULL,
+    enable_duo_code_review_by_default smallint DEFAULT 0 NOT NULL,
     CONSTRAINT check_0ba93c78c7 CHECK ((char_length(default_branch_name) <= 255)),
     CONSTRAINT check_d9644d516f CHECK ((char_length(step_up_auth_required_oauth_provider) <= 255)),
     CONSTRAINT check_namespace_settings_security_policies_is_hash CHECK ((jsonb_typeof(security_policies) = 'object'::text)),
@@ -50251,7 +50224,7 @@ CREATE UNIQUE INDEX index_virtual_registries_settings_on_group_id ON virtual_reg
 
 CREATE UNIQUE INDEX index_vuln_findings_on_uuid_including_vuln_id_1 ON vulnerability_occurrences USING btree (uuid) INCLUDE (vulnerability_id);
 
-CREATE UNIQUE INDEX index_vuln_historical_statistics_on_project_id_and_date ON vulnerability_historical_statistics USING btree (project_id, date);
+CREATE UNIQUE INDEX index_vuln_hist_stats_on_project_date_and_tracked_context_id ON vulnerability_historical_statistics USING btree (project_id, date, security_project_tracked_context_id) NULLS NOT DISTINCT;
 
 CREATE INDEX index_vuln_mgmt_policy_rules_on_policy_mgmt_project_id ON vulnerability_management_policy_rules USING btree (security_policy_management_project_id);
 
@@ -50278,6 +50251,8 @@ CREATE INDEX index_vuln_reads_on_project_id_state_severity_and_vuln_id ON vulner
 CREATE INDEX index_vuln_rep_info_on_project_id ON vulnerability_representation_information USING btree (project_id);
 
 CREATE INDEX index_vuln_severity_overrides_on_security_policy_id ON vulnerability_severity_overrides USING btree (security_policy_id) WHERE (security_policy_id IS NOT NULL);
+
+CREATE UNIQUE INDEX index_vuln_stats_on_project_id_and_tracked_context_id ON vulnerability_statistics USING btree (project_id, security_project_tracked_context_id) NULLS NOT DISTINCT;
 
 CREATE INDEX index_vulnerabilities_common_finder_query_on_default_branch ON vulnerabilities USING btree (project_id, state, report_type, present_on_default_branch, severity, id);
 
@@ -50478,8 +50453,6 @@ CREATE INDEX index_vulnerability_state_transitions_resolved_activity ON vulnerab
 CREATE INDEX index_vulnerability_statistics_on_latest_pipeline_id ON vulnerability_statistics USING btree (latest_pipeline_id);
 
 CREATE INDEX index_vulnerability_statistics_on_letter_grade ON vulnerability_statistics USING btree (letter_grade);
-
-CREATE UNIQUE INDEX index_vulnerability_statistics_on_unique_project_id ON vulnerability_statistics USING btree (project_id);
 
 CREATE INDEX index_vulnerability_triggered_workflows_on_project_id ON vulnerability_triggered_workflows USING btree (project_id);
 
@@ -55392,8 +55365,6 @@ CREATE TRIGGER trigger_207005e8e995 BEFORE INSERT OR UPDATE ON operations_strate
 CREATE TRIGGER trigger_218433b4faa5 BEFORE INSERT OR UPDATE ON packages_conan_file_metadata FOR EACH ROW EXECUTE FUNCTION trigger_218433b4faa5();
 
 CREATE TRIGGER trigger_219952df8fc4 BEFORE INSERT OR UPDATE ON merge_request_blocks FOR EACH ROW EXECUTE FUNCTION trigger_219952df8fc4();
-
-CREATE TRIGGER trigger_22262f5f16d8 BEFORE INSERT OR UPDATE ON issues FOR EACH ROW EXECUTE FUNCTION trigger_22262f5f16d8();
 
 CREATE TRIGGER trigger_238f37f25bb2 BEFORE INSERT OR UPDATE ON boards_epic_list_user_preferences FOR EACH ROW EXECUTE FUNCTION trigger_238f37f25bb2();
 

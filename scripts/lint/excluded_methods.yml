@@ -78,5 +78,3 @@ ee/app/models/ee/application_setting.rb:
   - advanced_search_indexing_paused?: Will be used in follow-up MR !229833 for dedicated pause indexing
 app/models/ci/catalog/components_project.rb:
   - fetch_component: Pre-existing unused method from base branch (593966-msw-infrastructure-ai-catalog)
-ee/app/models/ee/user_preference.rb:
-  - knowledge_graph_governing_namespace_with_fallback: Will be used in follow-up MR !233102 (stacked on this one) by the preferences view partial and the GraphQL UserPreferencesType field

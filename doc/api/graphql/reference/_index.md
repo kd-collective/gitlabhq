@@ -21663,6 +21663,30 @@ The edge type for [`Deployment`](#deployment).
 | <a id="deploymentedge-cursor"></a>`cursor` | [`String!`](#string) | A cursor for use in pagination. |
 | <a id="deploymentedge-node"></a>`node` | [`Deployment`](#deployment) | The item at the end of the edge. |
 
+#### `DeploymentsAggregationResponseConnection`
+
+The connection type for [`DeploymentsAggregationResponse`](#deploymentsaggregationresponse).
+
+##### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponseconnection-count"></a>`count` | [`Int!`](#int) | Total number of aggregated rows. |
+| <a id="deploymentsaggregationresponseconnection-edges"></a>`edges` | [`[DeploymentsAggregationResponseEdge]`](#deploymentsaggregationresponseedge) | A list of edges. |
+| <a id="deploymentsaggregationresponseconnection-nodes"></a>`nodes` | [`[DeploymentsAggregationResponse]`](#deploymentsaggregationresponse) | A list of nodes. |
+| <a id="deploymentsaggregationresponseconnection-pageinfo"></a>`pageInfo` | [`PageInfo!`](#pageinfo) | Information to aid in pagination. |
+
+#### `DeploymentsAggregationResponseEdge`
+
+The edge type for [`DeploymentsAggregationResponse`](#deploymentsaggregationresponse).
+
+##### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponseedge-cursor"></a>`cursor` | [`String!`](#string) | A cursor for use in pagination. |
+| <a id="deploymentsaggregationresponseedge-node"></a>`node` | [`DeploymentsAggregationResponse`](#deploymentsaggregationresponse) | The item at the end of the edge. |
+
 #### `DesignAtVersionConnection`
 
 The connection type for [`DesignAtVersion`](#designatversion).
@@ -29806,7 +29830,7 @@ Stores Amazon S3 configurations for audit event streaming.
 
 ### `Analytics`
 
-ClickHouse-based analytics endpoints.
+ClickHouse-based analytics endpoints. Data can be delayed by 10 minutes.
 
 #### Fields with arguments
 
@@ -29838,6 +29862,24 @@ Returns [`ContributionsAggregationScope`](#contributionsaggregationscope).
 | <a id="analytics-contributions-authorid"></a>`authorId` | [`[String!]`](#string) | Filter by one or many author Global IDs. |
 | <a id="analytics-contributions-createdatfrom"></a>`createdAtFrom` | [`Time`](#time) | Filter by contribution timestamp. Start of the range. |
 | <a id="analytics-contributions-createdatto"></a>`createdAtTo` | [`Time`](#time) | Filter by contribution timestamp. End of the range. |
+
+##### `Analytics.deployments`
+
+Aggregation engine for deployment analytics.
+
+Returns [`DeploymentsAggregationScope`](#deploymentsaggregationscope).
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="analytics-deployments-createdatfrom"></a>`createdAtFrom` | [`Time`](#time) | Filter by deployment creation timestamp. Start of the range. |
+| <a id="analytics-deployments-createdatto"></a>`createdAtTo` | [`Time`](#time) | Filter by deployment creation timestamp. End of the range. |
+| <a id="analytics-deployments-environmentid"></a>`environmentId` | [`[String!]`](#string) | Filter by one or many environment Global IDs. |
+| <a id="analytics-deployments-finishedatfrom"></a>`finishedAtFrom` | [`Time`](#time) | Filter by deployment finish timestamp. Start of the range. |
+| <a id="analytics-deployments-finishedatto"></a>`finishedAtTo` | [`Time`](#time) | Filter by deployment finish timestamp. End of the range. |
+| <a id="analytics-deployments-ref"></a>`ref` | [`[String!]`](#string) | Filter by one or many deployment refs. |
+| <a id="analytics-deployments-status"></a>`status` | [`[String!]`](#string) | Filter by one or many deployment statuses. |
 
 ##### `Analytics.duoCodeSuggestions`
 
@@ -35241,6 +35283,94 @@ Tags for a given deployment.
 | <a id="deploymenttag-name"></a>`name` | [`String`](#string) | Name of the git tag. |
 | <a id="deploymenttag-path"></a>`path` | [`String`](#string) | Path for the tag. |
 | <a id="deploymenttag-webpath"></a>`webPath` | [`String`](#string) | Web path for the tag. |
+
+### `DeploymentsAggregationResponse`
+
+Response for `Deployments` aggregation engine.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponse-canceledrate"></a>`canceledRate` | [`Float`](#float) | Deployment canceled rate (out of finished deployments). |
+| <a id="deploymentsaggregationresponse-dimensions"></a>`dimensions` | [`DeploymentsAggregationResponseDimensions`](#deploymentsaggregationresponsedimensions) | Aggregation dimensions. Every selected dimension will be used for aggregation. |
+| <a id="deploymentsaggregationresponse-failurerate"></a>`failureRate` | [`Float`](#float) | Deployment failure rate (out of finished deployments). |
+| <a id="deploymentsaggregationresponse-successrate"></a>`successRate` | [`Float`](#float) | Deployment success rate (out of finished deployments). |
+| <a id="deploymentsaggregationresponse-totalcount"></a>`totalCount` | [`Int`](#int) | Total number of deployments. |
+
+#### Fields with arguments
+
+##### `DeploymentsAggregationResponse.deploymentDurationQuantile`
+
+Deployment duration quantile in milliseconds.
+
+Returns [`Float`](#float).
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponse-deploymentdurationquantile-quantile"></a>`quantile` | [`Float`](#float) |  |
+
+### `DeploymentsAggregationResponseDimensions`
+
+Response dimensions for `Deployments` aggregation engine.
+
+#### Fields
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponsedimensions-environment"></a>`environment` | [`Environment`](#environment) | Environment ID. |
+| <a id="deploymentsaggregationresponsedimensions-ref"></a>`ref` | [`String`](#string) | Deployment ref. |
+| <a id="deploymentsaggregationresponsedimensions-status"></a>`status` | [`String`](#string) | Deployment status. |
+
+#### Fields with arguments
+
+##### `DeploymentsAggregationResponseDimensions.createdAt`
+
+Deployment creation time.
+
+Returns [`Time`](#time).
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponsedimensions-createdat-granularity"></a>`granularity` | [`String`](#string) |  |
+
+##### `DeploymentsAggregationResponseDimensions.finishedAt`
+
+Deployment finish time.
+
+Returns [`Time`](#time).
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationresponsedimensions-finishedat-granularity"></a>`granularity` | [`String`](#string) |  |
+
+### `DeploymentsAggregationScope`
+
+Aggregation scope for `Deployments`. Apply ordering and pagination on the aggregation.
+
+#### Fields with arguments
+
+##### `DeploymentsAggregationScope.aggregated`
+
+Aggregated data.
+
+Returns [`DeploymentsAggregationResponseConnection`](#deploymentsaggregationresponseconnection).
+
+This field returns a [connection](#connections). It accepts the
+four standard [pagination arguments](#pagination-arguments):
+`before: String`, `after: String`, `first: Int`, and `last: Int`.
+
+###### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| <a id="deploymentsaggregationscope-aggregated-orderby"></a>`orderBy` | [`[AggregationOrder!]`](#aggregationorder) | Sorting order list for the aggregated data. |
 
 ### `DescriptionVersion`
 

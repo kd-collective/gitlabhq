@@ -418,8 +418,15 @@ end
 GitLab has a dedicated repository
 ([`gitlab/gitlab-fips`](https://packages.gitlab.com/ui/browse/gitlab/gitlab-fips))
 for builds of the Omnibus GitLab which are built with FIPS compliance.
-These GitLab builds are compiled to use the system OpenSSL, instead of
-the Omnibus-embedded version of OpenSSL. These packages are built for:
+
+These GitLab builds are compiled to use the following:
+
+- In GitLab 19.0 and later, the system OpenSSL and Curl
+  instead of the Omnibus-embedded version of OpenSSL and Curl.
+- In GitLab 18.11 and earlier, the system OpenSSL
+  instead of the Omnibus-embedded version of OpenSSL.
+
+These packages are built for:
 
 - RHEL 8 and 9 (and compatible)
 - AmazonLinux 2 and 2023
@@ -536,11 +543,14 @@ standardized on using `FIPS_MODE=1 make` to build FIPS binaries locally.
 
 ### Omnibus
 
-The Omnibus FIPS builds are triggered with the `USE_SYSTEM_SSL`
-environment variable set to `true`. When this environment variable is
-set, the Omnibus recipes dependencies such as `curl`, NGINX, and libgit2
-will link against the system OpenSSL. OpenSSL will NOT be included in
-the Omnibus build.
+The Omnibus FIPS builds are compiled to use the following:
+
+- In GitLab 19.0 and later, the system OpenSSL and Curl.
+  Omnibus dependencies such as NGINX and `libgit2` link against the system OpenSSL and Curl.
+  OpenSSL and Curl are not included in the Omnibus build.
+- In GitLab 18.11 and earlier, the system OpenSSL.
+  Omnibus dependencies such as NGINX and `libgit2` link against the system OpenSSL.
+  OpenSSL is not included in the Omnibus build.
 
 The Omnibus builds are created using container images [that use the `golang-fips` compiler](https://gitlab.com/gitlab-org/gitlab-omnibus-builder/-/blob/master/docker/snippets/go_fips). For
 example, [this job](https://gitlab.com/gitlab-org/gitlab-omnibus-builder/-/jobs/2363742108) created

@@ -22,6 +22,15 @@ module Gitlab
       #   flag_scope:      optional. Absent => per-key flag (cohort 1);
       #                    set => cohort-wide flag pair, e.g. :cohort_2.
       #
+      # Cohort 3 (`flag_scope: :cohort_3`) groups keys whose call graph
+      # includes one or more `.peek` invocations; registering them was
+      # blocked on labkit's `Limiter#peek`. Both peek and non-peek callers
+      # of these keys route through the adapter so the labkit and legacy
+      # counters increment from the same call sites and shadow comparisons
+      # remain meaningful. `web_hook_calls{,_low,_mid}` are deliberately
+      # excluded: every caller passes a `threshold:` override which the
+      # adapter cannot honour and routes to legacy via record_override.
+      #
       # Keys deliberately not registered (EE-only without a current call
       # site; partner APIs with sub-second intervals) are documented in
       # the EE file's exclusion comment.
@@ -194,6 +203,13 @@ module Gitlab
               action: :block,
               flag_scope: :cohort_2
             },
+            glql: {
+              limiter_name: 'applimiter_glql',
+              rule_name: 'limit_glql_queries_by_query_sha',
+              characteristics: %i[query_sha],
+              action: :block,
+              flag_scope: :cohort_3
+            },
             group_api: {
               limiter_name: 'applimiter_group_api',
               rule_name: 'limit_group_api_by_user_or_ip',
@@ -325,6 +341,13 @@ module Gitlab
               characteristics: %i[user],
               action: :block,
               flag_scope: :cohort_2
+            },
+            permanent_email_failure: {
+              limiter_name: 'applimiter_permanent_email_failure',
+              rule_name: 'limit_permanent_email_failures_by_email',
+              characteristics: %i[email],
+              action: :block,
+              flag_scope: :cohort_3
             },
             phone_verification_send_code: {
               limiter_name: 'applimiter_phone_verification_send_code',
@@ -527,12 +550,26 @@ module Gitlab
               action: :block,
               flag_scope: :cohort_2
             },
+            temporary_email_failure: {
+              limiter_name: 'applimiter_temporary_email_failure',
+              rule_name: 'limit_temporary_email_failures_by_email',
+              characteristics: %i[email],
+              action: :block,
+              flag_scope: :cohort_3
+            },
             update_environment_canary_ingress: {
               limiter_name: 'applimiter_update_environment_canary_ingress',
               rule_name: 'limit_canary_ingress_updates_by_environment',
               characteristics: %i[environment],
               action: :block,
               flag_scope: :cohort_2
+            },
+            update_namespace_name: {
+              limiter_name: 'applimiter_update_namespace_name',
+              rule_name: 'limit_namespace_name_updates_by_namespace',
+              characteristics: %i[namespace],
+              action: :block,
+              flag_scope: :cohort_3
             },
             user_contributed_projects_api: {
               limiter_name: 'applimiter_user_contributed_projects_api',

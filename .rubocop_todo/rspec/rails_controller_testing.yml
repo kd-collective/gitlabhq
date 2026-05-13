@@ -46,7 +46,6 @@ RSpec/RailsControllerTesting:
     - 'ee/spec/controllers/projects/integrations/jira/issues_controller_spec.rb'
     - 'ee/spec/controllers/projects/integrations/zentao/issues_controller_spec.rb'
     - 'ee/spec/controllers/projects/learn_gitlab_controller_spec.rb'
-    - 'ee/spec/controllers/projects/ml/agents_controller_spec.rb'
     - 'ee/spec/controllers/projects/protected_environments_controller_spec.rb'
     - 'ee/spec/controllers/projects/quality/test_cases_controller_spec.rb'
     - 'ee/spec/controllers/projects/requirements_management/requirements_controller_spec.rb'

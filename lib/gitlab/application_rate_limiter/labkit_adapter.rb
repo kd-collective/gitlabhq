@@ -69,13 +69,24 @@ module Gitlab
         def run!(key, scope:)
           spec = SupportedRateLimits.all.fetch(key)
           rule = build_rule(key, spec)
-          limiter = ::Labkit::RateLimit::Limiter.new(
-            name: spec[:limiter_name],
-            rules: [rule],
-            redis: ::Gitlab::Redis::RateLimiting,
-            logger: ::Gitlab::AppLogger
-          )
-          result = limiter.check(identifier_for(rule, scope))
+          result = build_limiter(spec, rule).check(identifier_for(rule, scope))
+
+          return false if result.error?
+
+          result.exceeded?
+        end
+
+        # Reads the labkit counter without incrementing and returns labkit's
+        # boolean decision. Mirrors {#run!} for callers that route through
+        # ApplicationRateLimiter#peek (cohort 3). The labkit Redis key shape
+        # is identical to {#run!} so a peek observes the same counter that
+        # a paired non-peek call site increments.
+        #
+        # @return [Boolean] labkit's decision (exceeded?)
+        def run_peek!(key, scope:)
+          spec = SupportedRateLimits.all.fetch(key)
+          rule = build_rule(key, spec)
+          result = build_limiter(spec, rule).peek(identifier_for(rule, scope))
 
           return false if result.error?
 
@@ -102,6 +113,15 @@ module Gitlab
         # the cohort shares one flag pair.
         def flag_basis(key)
           SupportedRateLimits.all.fetch(key)[:flag_scope] || key
+        end
+
+        def build_limiter(spec, rule)
+          ::Labkit::RateLimit::Limiter.new(
+            name: spec[:limiter_name],
+            rules: [rule],
+            redis: ::Gitlab::Redis::RateLimiting,
+            logger: ::Gitlab::AppLogger
+          )
         end
 
         # Rules are built per check rather than memoized. Resolving threshold

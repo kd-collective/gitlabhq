@@ -460,7 +460,6 @@
 - "Projects::IterationsController#show"
 - "Projects::MergeRequestsController#codequality_mr_diff_reports"
 - "Projects::MergeRequestsController#delete_description_version"
-- "Projects::Ml::AgentsController#index"
 - "Projects::Ml::CandidatesController#destroy"
 - "Projects::Ml::ExperimentsController#destroy"
 - "Projects::OnDemandScansController#edit"

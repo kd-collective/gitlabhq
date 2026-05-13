@@ -33986,6 +33986,9 @@ msgstr ""
 msgid "GithubIntegration|This requires mirroring your GitHub repository to this project. %{docs_link}"
 msgstr ""
 
+msgid "GitlabSubscriptions|Cannot enable the Code Review flow for this namespace"
+msgstr ""
+
 msgid "Gitpod|Enable Ona integration"
 msgstr ""
 
