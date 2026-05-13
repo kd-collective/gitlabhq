@@ -115,7 +115,7 @@ Workhorse, and GitLab Shell retry request in an exponential backoff fashion.
 
 Two parameters can be configured:
 
-- `max_attempts`: Maximum number of retry attempts between 1 and 5.
+- `max_attempts`: Maximum number of retry attempts between 2 and 5.
 - `max_backoff`: Maximum amount of time before the client stops retrying. Value must be a duration string, such as
   `1.4s` or `10s`.
 

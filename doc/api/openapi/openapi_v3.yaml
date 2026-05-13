@@ -62040,6 +62040,20 @@ paths:
         schema:
           oneOf:
           - type: string
+            enum:
+            - created
+            - waiting_for_resource
+            - preparing
+            - waiting_for_callback
+            - pending
+            - running
+            - success
+            - failed
+            - canceling
+            - canceled
+            - skipped
+            - manual
+            - scheduled
             nullable: true
           - type: array
             items:
@@ -62107,6 +62121,20 @@ paths:
         schema:
           oneOf:
           - type: string
+            enum:
+            - created
+            - waiting_for_resource
+            - preparing
+            - waiting_for_callback
+            - pending
+            - running
+            - success
+            - failed
+            - canceling
+            - canceled
+            - skipped
+            - manual
+            - scheduled
             nullable: true
           - type: array
             items:

@@ -32,7 +32,7 @@ module Gitlab
 
         def authorization_enabled?(context)
           token = context[:access_token]
-          token && token.try(:granular?) && Feature.enabled?(:granular_personal_access_tokens_for_graphql, token.user)
+          token && token.try(:granular?)
         end
 
         def authorize_with_cache!(context, boundary, permissions)

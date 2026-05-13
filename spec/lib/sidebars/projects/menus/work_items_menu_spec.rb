@@ -42,15 +42,17 @@ RSpec.describe Sidebars::Projects::Menus::WorkItemsMenu, feature_category: :navi
   end
 
   describe '#has_pill?' do
-    context 'when issues feature is enabled' do
+    context 'when show_work_items_sidebar_count is enabled' do
       it 'returns true' do
-        expect(subject.has_pill?).to eq false
+        stub_feature_flags(show_work_items_sidebar_count: true)
+
+        expect(subject.has_pill?).to eq true
       end
     end
 
-    context 'when issue feature is disabled' do
+    context 'when show_work_items_sidebar_count is disabled' do
       it 'returns false' do
-        allow(project).to receive(:issues_enabled?).and_return(false)
+        stub_feature_flags(show_work_items_sidebar_count: false)
 
         expect(subject.has_pill?).to eq false
       end
@@ -59,7 +61,7 @@ RSpec.describe Sidebars::Projects::Menus::WorkItemsMenu, feature_category: :navi
 
   describe '#pill_count_field' do
     it 'returns the correct GraphQL field name' do
-      expect(subject.pill_count_field).to eq('openIssuesCount')
+      expect(subject.pill_count_field).to eq('openWorkItemsCount')
     end
   end
 

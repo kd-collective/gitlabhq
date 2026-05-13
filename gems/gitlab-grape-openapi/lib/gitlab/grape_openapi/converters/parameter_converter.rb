@@ -70,7 +70,10 @@ module Gitlab
 
         def build_union_schema(object_type)
           types = object_type[1..-2].split(", ")
-          { oneOf: types.map { |type| TypeResolver.resolve_union_member(type) } }
+          members = types.map { |type| TypeResolver.resolve_union_member(type) }
+          apply_union_enum!(members)
+          apply_union_default!(members)
+          { oneOf: members }
         end
 
         def build_range_schema(object_type)
@@ -160,6 +163,70 @@ module Gitlab
 
         def time_serializer
           @time_serializer ||= Serializers::Time.new
+        end
+
+        # When a union (oneOf) schema has a `values:` constraint, propagate it
+        # as `enum` onto each oneOf member whose type can carry the values.
+        # Skip Procs/Ranges to mirror build_enum_schema behavior.
+        def apply_union_enum!(members)
+          values = options[:values]
+          return if values.nil? || values.is_a?(Proc) || values.is_a?(Range)
+
+          members.each do |member|
+            case member[:type]
+            when 'integer'
+              ints = values.select { |v| v.is_a?(Integer) }
+              member[:enum] = ints if ints.any?
+            when 'number'
+              nums = values.select { |v| v.is_a?(Numeric) }
+              member[:enum] = nums if nums.any?
+            when 'string'
+              member[:enum] = values.map(&:to_s)
+            end
+          end
+        end
+
+        # When a union (oneOf) schema has a `default:`, attach it to every member
+        # whose schema can accept the default value. For arrays this includes
+        # checking the items type so `[1, 2]` lands on `items: { type: integer }`
+        # but not on `items: { type: string }`. Empty arrays are type-agnostic
+        # and attach to all array members.
+        def apply_union_default!(members)
+          default = options[:default]
+          return unless default && serializable?(default)
+
+          members.each do |member|
+            member[:default] = default if member_accepts_default?(member, default)
+          end
+        end
+
+        def member_accepts_default?(member, default)
+          case member[:type]
+          when 'integer' then default.is_a?(Integer)
+          when 'number'  then default.is_a?(Numeric)
+          when 'boolean' then [true, false].include?(default)
+          when 'string'  then default.is_a?(String) || default.is_a?(Symbol)
+          when 'array'   then array_member_accepts?(member, default)
+          when 'object'  then default.is_a?(Hash)
+          end
+        end
+
+        def array_member_accepts?(member, default)
+          return false unless default.is_a?(Array)
+          return true if default.empty?
+
+          item_type = member.dig(:items, :type)
+          default.all? { |element| openapi_type_accepts?(item_type, element) }
+        end
+
+        def openapi_type_accepts?(openapi_type, value)
+          case openapi_type
+          when 'integer' then value.is_a?(Integer)
+          when 'number'  then value.is_a?(Numeric)
+          when 'boolean' then [true, false].include?(value)
+          when 'string'  then value.is_a?(String) || value.is_a?(Symbol)
+          else true
+          end
         end
 
         # allow_blank defaults to true

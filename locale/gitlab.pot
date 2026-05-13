@@ -48688,7 +48688,7 @@ msgstr ""
 msgid "ObservabilityMetrics|is not like"
 msgstr ""
 
-msgid "Observability|%{code_start}service.version%{code_end} and %{code_start2}deployment.environment.name%{code_end2} are OpenTelemetry semantic conventions. The %{code_start3}gitlab.*%{code_end3} attributes use a vendor namespace for GitLab-specific context."
+msgid "Observability|%{code_start}service.version%{code_end} and %{code_start}deployment.environment.name%{code_end} are OpenTelemetry semantic conventions. The %{code_start}gitlab.*%{code_end} attributes use a vendor namespace for GitLab-specific context."
 msgstr ""
 
 msgid "Observability|%{events} events"
@@ -48892,7 +48892,7 @@ msgstr ""
 msgid "Observability|Experimental functionality"
 msgstr ""
 
-msgid "Observability|Explore your data →"
+msgid "Observability|Explore your data"
 msgstr ""
 
 msgid "Observability|External APIs"
@@ -49132,7 +49132,7 @@ msgstr ""
 msgid "Observability|Observability settings for group %{group_name} updated successfully."
 msgstr ""
 
-msgid "Observability|Open CI/CD settings →"
+msgid "Observability|Open CI/CD settings"
 msgstr ""
 
 msgid "Observability|OpenTelemetry native"
@@ -49237,7 +49237,7 @@ msgstr ""
 msgid "Observability|The commit SHA of the running code. Lets you correlate traces and errors to the exact version deployed."
 msgstr ""
 
-msgid "Observability|The environment where the code is running (for example, %{code_start}production%{code_end} or %{code_start2}staging%{code_end2})."
+msgid "Observability|The environment where the code is running (for example, %{code_start}production%{code_end} or %{code_start}staging%{code_end})."
 msgstr ""
 
 msgid "Observability|The name of the group for this o11y service configuration."
@@ -49291,7 +49291,7 @@ msgstr ""
 msgid "Observability|VPN and proxy: If operating within a VPN or behind a proxy, ensure routing rules permit traffic to these external endpoints. Configure proxy settings in your OpenTelemetry SDK if required"
 msgstr ""
 
-msgid "Observability|View CI/CD settings →"
+msgid "Observability|View CI/CD settings"
 msgstr ""
 
 msgid "Observability|View all supported languages"
@@ -58881,6 +58881,9 @@ msgid "RapidDiffs|Line %d"
 msgstr ""
 
 msgid "RapidDiffs|Loading image diff..."
+msgstr ""
+
+msgid "RapidDiffs|Open file in new tab"
 msgstr ""
 
 msgid "RapidDiffs|Original line"

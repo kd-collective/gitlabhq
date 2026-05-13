@@ -7,7 +7,7 @@ import axios from '~/lib/utils/axios_utils';
 import glFeatureFlagsMixin from '~/vue_shared/mixins/gl_feature_flags_mixin';
 import { userCounts } from '~/super_sidebar/user_counts_manager';
 import { formatAsyncCount } from '~/super_sidebar/utils';
-import { PANELS_WITH_PINS, PINNED_NAV_STORAGE_KEY } from '../constants';
+import { PANELS_WITH_PINS, PINNED_NAV_STORAGE_KEY, MAX_OPEN_WORK_ITEMS_COUNT } from '../constants';
 import NavItem from './nav_item.vue';
 import PinnedSection from './pinned_section.vue';
 import MenuSection from './menu_section.vue';
@@ -88,9 +88,17 @@ export default {
         const result = {};
 
         for (const [key, value] of Object.entries(values)) {
-          const formatted = formatAsyncCount(value);
-          if (formatted) {
-            result[key] = formatted;
+          if (
+            key === 'openWorkItemsCount' &&
+            value >= MAX_OPEN_WORK_ITEMS_COUNT &&
+            this.glFeatures.showWorkItemsSidebarCount
+          ) {
+            result[key] = `${formatAsyncCount(MAX_OPEN_WORK_ITEMS_COUNT)}+`;
+          } else {
+            const formatted = formatAsyncCount(value);
+            if (formatted) {
+              result[key] = formatted;
+            }
           }
         }
 

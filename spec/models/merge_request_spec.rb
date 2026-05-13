@@ -5242,7 +5242,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
 
       expect(RebaseWorker).not_to receive(:perform_async)
       expect(Gitlab::SidekiqStatus)
-        .to receive(:running?)
+        .to receive(:running_or_enqueued?)
         .with(rebase_jid)
         .and_return(true)
 
@@ -6025,7 +6025,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
       expect(service).to have_received(:execute)
     end
 
-    context 'when the primary state matches the replica state' do
+    context 'when the primary state matches the loaded state' do
       it 'proceeds with reload_diff' do
         expect(MergeRequests::ReloadDiffsService).to receive(:new).and_call_original
 
@@ -6033,7 +6033,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
       end
     end
 
-    context 'when the primary state differs from the replica state' do
+    context 'when the primary state differs from the loaded state' do
       before do
         allow(subject.class).to receive(:where).with(id: subject.id) do
           relation = instance_double(ActiveRecord::Relation)
@@ -6042,23 +6042,8 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
         end
       end
 
-      it 'skips reload_diff and logs a warning' do
+      it 'skips reload_diff' do
         expect(MergeRequests::ReloadDiffsService).not_to receive(:new)
-        expect(Gitlab::AppLogger).to receive(:warn).with(
-          hash_including(message: 'reload_diff skipped: stale replica state detected, MR state on primary differs from replica')
-        )
-
-        subject.reload_diff
-      end
-    end
-
-    context 'when mr_refresh_use_primary feature flag is disabled' do
-      before do
-        stub_feature_flags(mr_refresh_use_primary: false)
-      end
-
-      it 'does not check for stale replica state and proceeds with reload_diff' do
-        expect(MergeRequests::ReloadDiffsService).to receive(:new).and_call_original
 
         subject.reload_diff
       end
@@ -6297,7 +6282,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
 
     it 'returns true when merge_id, MR is not merged and it has no running job' do
       merge_request = build_stubbed(:merge_request, state_id: described_class.available_states[:opened], merge_jid: 'foo')
-      allow(Gitlab::SidekiqStatus).to receive(:running?).with('foo') { true }
+      allow(Gitlab::SidekiqStatus).to receive(:running_or_enqueued?).with('foo') { true }
 
       expect(merge_request.merge_ongoing?).to be(true)
     end
@@ -6316,7 +6301,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
 
     it 'returns false if there is no merge job running' do
       merge_request = build_stubbed(:merge_request, state_id: described_class.available_states[:opened], merge_jid: 'foo')
-      allow(Gitlab::SidekiqStatus).to receive(:running?).with('foo') { false }
+      allow(Gitlab::SidekiqStatus).to receive(:running_or_enqueued?).with('foo') { false }
 
       expect(merge_request.merge_ongoing?).to be(false)
     end
@@ -7392,7 +7377,7 @@ RSpec.describe MergeRequest, factory_default: :keep, feature_category: :code_rev
       subject { merge_request.rebase_in_progress? }
 
       it do
-        allow(Gitlab::SidekiqStatus).to receive(:running?).with(rebase_jid) { jid_valid }
+        allow(Gitlab::SidekiqStatus).to receive(:running_or_enqueued?).with(rebase_jid) { jid_valid }
 
         merge_request.rebase_jid = rebase_jid
 

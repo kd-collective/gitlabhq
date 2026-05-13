@@ -341,6 +341,7 @@ export const sortedFrequentItems = [
 export const sidebarDataCountResponse = ({
   openIssuesCount = 8,
   openMergeRequestsCount = 236456,
+  openWorkItemsCount = 5,
 } = {}) => {
   return {
     data: {
@@ -349,6 +350,7 @@ export const sidebarDataCountResponse = ({
         sidebar: {
           openIssuesCount,
           openMergeRequestsCount,
+          openWorkItemsCount,
           __typename: 'NamespaceSidebar',
         },
         __typename: 'Namespace',

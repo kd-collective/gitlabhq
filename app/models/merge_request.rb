@@ -832,7 +832,7 @@ class MergeRequest < ApplicationRecord
   end
 
   def rebase_in_progress?
-    rebase_jid.present? && Gitlab::SidekiqStatus.running?(rebase_jid)
+    rebase_jid.present? && Gitlab::SidekiqStatus.running_or_enqueued?(rebase_jid)
   end
 
   def permits_force_push?
@@ -1436,7 +1436,7 @@ class MergeRequest < ApplicationRecord
     # The unlocking process is handled by StuckMergeJobsWorker scheduled in Cron.
     return true if locked?
 
-    !!merge_jid && !merged? && Gitlab::SidekiqStatus.running?(merge_jid)
+    !!merge_jid && !merged? && Gitlab::SidekiqStatus.running_or_enqueued?(merge_jid)
   end
 
   def closed_or_merged_without_fork?
@@ -1527,7 +1527,7 @@ class MergeRequest < ApplicationRecord
   # rubocop: disable CodeReuse/ServiceClass
   def reload_diff(current_user = nil)
     return unless open?
-    return if stale_replica_state_mismatch?
+    return if state_changed_since_load?
 
     MergeRequests::ReloadDiffsService.new(self, current_user).execute
   end
@@ -2955,31 +2955,18 @@ class MergeRequest < ApplicationRecord
 
   private
 
-  # Detects a stale replica read where the state from a replica shows
-  # the MR as open, but the primary database has already transitioned it to a
-  # different state (e.g. merged or locked). If a mismatch is detected, we log a
-  # warning and return true so the caller can skip reload_diff preventing an
-  # empty diff from being written on top of a valid merged diff.
-  def stale_replica_state_mismatch?
-    return false unless Feature.enabled?(:mr_refresh_use_primary, target_project)
-
+  # Returns true when the in-memory state_id no longer matches what the primary
+  # database holds. This can happen because the instance was loaded from a
+  # replica that lagged behind primary, or because another process transitioned
+  # the MR (e.g. lock_mr, mark_as_merged) after this instance was loaded. The
+  # caller uses this to skip reload_diff and avoid writing an empty diff on top
+  # of a valid merged diff.
+  def state_changed_since_load?
     primary_state_id = ::Gitlab::Database::LoadBalancing::SessionMap
       .current(self.class.load_balancer)
       .use_primary { self.class.where(id: id).pick(:state_id) }
 
-    return false if primary_state_id == state_id
-
-    Gitlab::AppLogger.warn(
-      message: 'reload_diff skipped: stale replica state detected, MR state on primary differs from replica',
-      merge_request_id: id,
-      merge_request_iid: iid,
-      project_id: target_project_id,
-      replica_state_id: state_id,
-      primary_state_id: primary_state_id,
-      caller: Gitlab::BacktraceCleaner.clean_backtrace(caller)
-    )
-
-    true
+    primary_state_id != state_id
   end
 
   def committer_emails_from_diff

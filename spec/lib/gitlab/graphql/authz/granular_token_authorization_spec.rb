@@ -47,14 +47,6 @@ RSpec.describe Gitlab::Graphql::Authz::GranularTokenAuthorization, feature_categ
       it { is_expected.to eq('field_value') }
     end
 
-    context 'when the `granular_personal_access_tokens_for_graphql` flag is disabled' do
-      before do
-        stub_feature_flags(granular_personal_access_tokens_for_graphql: false)
-      end
-
-      it { is_expected.to eq('field_value') }
-    end
-
     context 'when field authorization should be skipped' do
       before do
         allow_next_instance_of(Gitlab::Graphql::Authz::SkipRules, field) do |skip_rules|

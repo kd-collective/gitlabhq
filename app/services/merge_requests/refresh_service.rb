@@ -18,25 +18,10 @@ module MergeRequests
       @push = Gitlab::Git::Push.new(@project, oldrev, newrev, ref)
       return true unless @push.branch_push?
 
-      ensure_primary_database! if Feature.enabled?(:mr_refresh_use_primary, @project)
-
       refresh_merge_requests!
     end
 
     private
-
-    # Ensure all reads go to the primary database to avoid stale replica reads.
-    # The post-receive hook triggers this service via a separate HTTP request,
-    # which may record a replica WAL position that predates MR state changes
-    # (e.g. lock_mr, mark_as_merged). Reading from a stale replica can cause
-    # the .opened scope to include MRs that are already locked/merged on primary,
-    # leading to empty diffs, spurious notifications, and other side effects.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/583576
-    def ensure_primary_database!
-      ::Gitlab::Database::LoadBalancing::SessionMap
-        .current(MergeRequest.load_balancer)
-        .use_primary!
-    end
 
     def refresh_merge_requests!
       # n + 1: https://gitlab.com/gitlab-org/gitlab-foss/issues/60289

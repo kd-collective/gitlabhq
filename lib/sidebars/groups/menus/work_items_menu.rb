@@ -29,7 +29,7 @@ module Sidebars
 
         override :has_pill?
         def has_pill?
-          false
+          Feature.enabled?(:show_work_items_sidebar_count, context.current_user)
         end
 
         override :active_routes
@@ -44,7 +44,7 @@ module Sidebars
 
         override :pill_count_field
         def pill_count_field
-          'openIssuesCount'
+          'openWorkItemsCount'
         end
 
         override :pill_html_options

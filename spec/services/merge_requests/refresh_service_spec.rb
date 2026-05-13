@@ -546,44 +546,6 @@ RSpec.describe MergeRequests::RefreshService, feature_category: :code_review_wor
       end
     end
 
-    context 'when the database session is using a replica' do
-      it 'uses the primary database when refreshing merge requests' do
-        refresh_service = service.new(project: @project, current_user: @user)
-
-        allow(refresh_service).to receive(:refresh_merge_requests!) do
-          session = ::Gitlab::Database::LoadBalancing::SessionMap
-                      .current(MergeRequest.load_balancer)
-
-          expect(session).to be_using_primary
-        end
-
-        ::Gitlab::Database::LoadBalancing::SessionMap.clear_session
-
-        refresh_service.execute(@oldrev, @newrev, 'refs/heads/master')
-      end
-
-      context 'when mr_refresh_use_primary feature flag is disabled' do
-        before do
-          stub_feature_flags(mr_refresh_use_primary: false)
-        end
-
-        it 'does not force the primary database' do
-          refresh_service = service.new(project: @project, current_user: @user)
-
-          allow(refresh_service).to receive(:refresh_merge_requests!) do
-            session = ::Gitlab::Database::LoadBalancing::SessionMap
-                        .current(MergeRequest.load_balancer)
-
-            expect(session).not_to be_using_primary
-          end
-
-          ::Gitlab::Database::LoadBalancing::SessionMap.clear_session
-
-          refresh_service.execute(@oldrev, @newrev, 'refs/heads/master')
-        end
-      end
-    end
-
     context 'push to fork repo source branch' do
       let(:refresh_service) { service.new(project: @fork_project, current_user: @user) }
 

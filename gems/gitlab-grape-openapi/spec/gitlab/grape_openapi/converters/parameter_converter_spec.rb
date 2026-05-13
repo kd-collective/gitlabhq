@@ -482,6 +482,188 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
           })
         end
       end
+
+      context 'with values constraint and integer values' do
+        let(:options) { { type: '[Integer, String]', values: [10, 15, 20, 30, 40, 50] } }
+
+        it 'applies enum to integer member as integers and to string member as strings' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', enum: [10, 15, 20, 30, 40, 50], nullable: true },
+              { type: 'string', enum: %w[10 15 20 30 40 50], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with values constraint and reversed type order' do
+        let(:options) { { type: '[String, Integer]', values: [10, 15, 20, 30, 40, 50] } }
+
+        it 'applies enum independent of declaration order' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'string', enum: %w[10 15 20 30 40 50], nullable: true },
+              { type: 'integer', enum: [10, 15, 20, 30, 40, 50], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with values constraint and string values' do
+        let(:options) { { type: '[Integer, String]', values: %w[low high] } }
+
+        it 'puts string enum on string member only' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', nullable: true },
+              { type: 'string', enum: %w[low high], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with Proc values constraint' do
+        let(:options) { { type: '[Integer, String]', values: -> { [10, 20] } } }
+
+        it 'does not include enum (Proc not serializable)' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', nullable: true },
+              { type: 'string', nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with Range values constraint' do
+        let(:options) { { type: '[Integer, String]', values: 1..10 } }
+
+        it 'does not include enum (Range handled separately)' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', nullable: true },
+              { type: 'string', nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with integer default' do
+        let(:options) { { type: '[Integer, String]', default: 30 } }
+
+        it 'attaches default to the integer member only' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', default: 30, nullable: true },
+              { type: 'string', nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with string default' do
+        let(:options) { { type: '[Integer, String]', default: 'all' } }
+
+        it 'attaches default to the string member only' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', nullable: true },
+              { type: 'string', default: 'all', nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with boolean default' do
+        let(:options) { { type: '[String, Grape::API::Boolean]', default: true } }
+
+        it 'attaches default to the boolean member only' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'string', nullable: true },
+              { type: 'boolean', default: true, nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with Proc default' do
+        let(:options) { { type: '[Integer, String]', default: -> { 30 } } }
+
+        it 'does not attach a default (Proc not serializable)' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', nullable: true },
+              { type: 'string', nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with values and default combined' do
+        let(:options) { { type: '[Integer, String]', values: [10, 20, 30], default: 20 } }
+
+        it 'applies enum on each member and default on the integer member' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'integer', enum: [10, 20, 30], default: 20, nullable: true },
+              { type: 'string', enum: %w[10 20 30], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with integer-array default and heterogeneous array members' do
+        let(:options) { { type: '[[Integer], [String]]', default: [1, 2] } }
+
+        it 'attaches default only to the array member with matching items type' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'array', items: { type: 'integer' }, default: [1, 2], nullable: true },
+              { type: 'array', items: { type: 'string' }, nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with integer-array default and reversed member order' do
+        let(:options) { { type: '[[String], [Integer]]', default: [1, 2] } }
+
+        it 'routes default by items type, independent of declaration order' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'array', items: { type: 'string' }, nullable: true },
+              { type: 'array', items: { type: 'integer' }, default: [1, 2], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with empty-array default and heterogeneous array members' do
+        let(:options) { { type: '[[Integer], [String]]', default: [] } }
+
+        it 'attaches the empty array default to every array member' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'array', items: { type: 'integer' }, default: [], nullable: true },
+              { type: 'array', items: { type: 'string' }, default: [], nullable: true }
+            ]
+          })
+        end
+      end
+
+      context 'with hash default on union with object member' do
+        let(:options) { { type: '[String, Hash]', default: { a: 1 } } }
+
+        it 'attaches default to the object member only' do
+          expect(converter.schema).to eq({
+            oneOf: [
+              { type: 'string', nullable: true },
+              { type: 'object', default: { a: 1 }, nullable: true }
+            ]
+          })
+        end
+      end
     end
 
     describe 'enum values' do

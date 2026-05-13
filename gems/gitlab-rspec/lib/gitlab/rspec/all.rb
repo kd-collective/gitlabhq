@@ -12,4 +12,3 @@ require_relative "let_it_be"
 require_relative "configurations/time_travel"
 
 Gitlab::Rspec::Configurations::TimeTravel.configure!
-GitlabQuality::TestTooling::TestMetricsExporter::ConfigHelper.configure!

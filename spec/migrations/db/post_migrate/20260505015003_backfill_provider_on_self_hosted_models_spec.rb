@@ -3,7 +3,7 @@
 require 'spec_helper'
 require_migration!
 
-RSpec.describe BackfillProviderOnSelfHostedModels, migration: :gitlab_main_org, feature_category: :ai_abstraction_layer, migration_version: 20260505015003 do
+RSpec.describe BackfillProviderOnSelfHostedModels, migration: :gitlab_main_cell_setting, feature_category: :"self-hosted_models", migration_version: 20260505015003 do
   let(:migration) { described_class.new }
   let(:self_hosted_models) { table(:ai_self_hosted_models) }
 
