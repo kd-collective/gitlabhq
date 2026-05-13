@@ -102,7 +102,6 @@ Layout/ClassStructure:
     - 'app/models/users/phone_number_validation.rb'
     - 'app/models/users/saved_reply.rb'
     - 'app/models/wiki_page.rb'
-    - 'app/models/work_items/type.rb'
     - 'app/models/work_items/widgets/base.rb'
     - 'app/models/work_items/widgets/hierarchy.rb'
     - 'app/presenters/ci/build_runner_presenter.rb'

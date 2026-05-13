@@ -27781,7 +27781,8 @@ CREATE TABLE project_ci_cd_settings (
     allow_composite_identities_to_run_pipelines boolean DEFAULT false NOT NULL,
     display_pipeline_variables boolean DEFAULT false NOT NULL,
     resource_group_default_process_mode smallint DEFAULT 0 NOT NULL,
-    max_pipelines_per_merge_train smallint
+    max_pipelines_per_merge_train smallint,
+    cross_project_push_for_job_token_allowed boolean DEFAULT false NOT NULL
 );
 
 CREATE SEQUENCE project_ci_cd_settings_id_seq

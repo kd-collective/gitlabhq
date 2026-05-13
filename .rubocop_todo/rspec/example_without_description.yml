@@ -284,7 +284,6 @@ RSpec/ExampleWithoutDescription:
     - 'spec/lib/gitlab/ci/variables/collection/item_spec.rb'
     - 'spec/lib/gitlab/circuit_breaker/notifier_spec.rb'
     - 'spec/lib/gitlab/data_builder/build_spec.rb'
-    - 'spec/lib/gitlab/database/migration_helpers_spec.rb'
     - 'spec/lib/gitlab/database/query_analyzers/gitlab_schemas_metrics_spec.rb'
     - 'spec/lib/gitlab/database/query_analyzers/gitlab_schemas_validate_connection_spec.rb'
     - 'spec/lib/gitlab/database/query_analyzers/prevent_cross_database_modification_spec.rb'

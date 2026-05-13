@@ -1,7 +1,6 @@
 ---
 # Cop supports --autocorrect.
 Style/RedundantParentheses:
-  Details: grace period
   Exclude:
     - 'app/helpers/appearances_helper.rb'
     - 'app/helpers/dropdowns_helper.rb'

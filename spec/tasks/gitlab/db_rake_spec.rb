@@ -1483,6 +1483,14 @@ RSpec.describe 'gitlab:db namespace rake task', :silence_stdout, feature_categor
     end
   end
 
+  describe 'reindex:stats' do
+    it 'delegates to Gitlab::Database::Reindexing.stats' do
+      expect(Gitlab::Database::Reindexing).to receive(:stats).with(no_args)
+
+      run_rake_task('gitlab:db:reindex:stats')
+    end
+  end
+
   describe 'enqueue_reindexing_action' do
     let(:index_name) { 'public.users_pkey' }
 

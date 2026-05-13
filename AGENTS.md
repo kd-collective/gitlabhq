@@ -7,6 +7,17 @@ For customization options, see .ai/README.md.
 
 Read @CLAUDE.local.md
 
+## Context Loading
+
+Load the following instruction files based on your current task:
+
+- When working with **git, commits, or branches**: Read .ai/git.md
+- When working with **merge requests**: Read .ai/merge-requests.md
+- When working with **CI/CD pipelines or `.gitlab-ci.yml`**: Read .ai/ci-cd.md
+- Before planning or implementing code changes, load the
+  `gitlab-coding-principles` skill: read
+  .agents/skills/gitlab-coding-principles/SKILL.md and follow its instructions.
+
 ## Project Notes
 
 - Default branch: `master`

@@ -148,6 +148,7 @@ To prevent overwhelming your CI/CD infrastructure when applying policies to mult
 - All pipelines are scheduled at `random`. Pipelines are randomly distributed during the specified time window.
 - The minimum time window is 10 minutes (600 seconds), and the maximum is approximately 1 month (2,629,746 seconds).
 - For monthly schedules, if you specify dates that don't exist in certain months (like 31 for February), those runs are skipped.
+- A security policy project can contain up to five scheduled pipeline execution policies.
 - A scheduled policy can only have one schedule configuration at a time.
 - When you apply a policy to multiple projects, ensure your time window is large enough to accommodate the number of projects, based on your available runner capacity. For example, a policy applied to 1000 projects with a one hour time window distributes pipeline creation evenly throughout that hour (approximately 16 pipelines per minute). Verify that your runners can handle this pipeline creation rate or choose a larger time window to avoid queuing or delays.
 - For monthly schedules, the interval between consecutive runs may vary due to random distribution during the time window. For example, a monthly schedule might run 20 days after the previous run, then 30 days later. This distribution is the expected behavior because it helps distribute load across your infrastructure.

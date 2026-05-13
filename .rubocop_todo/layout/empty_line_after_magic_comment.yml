@@ -361,7 +361,6 @@ Layout/EmptyLineAfterMagicComment:
     - 'spec/lib/gitlab/slash_commands/presenters/issue_new_spec.rb'
     - 'spec/lib/gitlab/ssh/commit_spec.rb'
     - 'spec/lib/gitlab/terraform_registry_token_spec.rb'
-    - 'spec/lib/gitlab/tracking_spec.rb'
     - 'spec/lib/gitlab/x509/commit_spec.rb'
     - 'spec/lib/gitlab/x509/tag_spec.rb'
     - 'spec/lib/security/report_schema_version_matcher_spec.rb'

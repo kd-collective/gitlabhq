@@ -1,6 +1,5 @@
 ---
 # Cop supports --autocorrect.
 Lint/LiteralAsCondition:
-  Details: grace period
   Exclude:
     - 'app/controllers/projects/merge_requests_controller.rb'

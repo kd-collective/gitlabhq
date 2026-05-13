@@ -1,6 +1,5 @@
 ---
 Style/UnlessLogicalOperators:
-  Details: grace period
   Exclude:
     - 'app/controllers/oauth/authorizations_controller.rb'
     - 'app/models/clusters/platforms/kubernetes.rb'

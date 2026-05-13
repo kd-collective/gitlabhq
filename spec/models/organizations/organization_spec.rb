@@ -647,17 +647,4 @@ RSpec.describe Organizations::Organization, type: :model, feature_category: :org
       it { expect(default_organization.full_path).to eq('') }
     end
   end
-
-  describe 'data isolation' do
-    let_it_be(:isolated_organization) { create(:organization, :isolated) }
-    let_it_be(:other_organization) { create(:organization) }
-
-    before do
-      stub_current_organization(isolated_organization)
-    end
-
-    it 'returns only the current organization' do
-      expect(described_class.all).to contain_exactly(isolated_organization)
-    end
-  end
 end

@@ -260,7 +260,11 @@ class ProjectPolicy < BasePolicy
   end
 
   condition(:push_repository_for_job_token_allowed) do
-    @user&.from_ci_job_token? && project.ci_push_repository_for_job_token_allowed? && @user.ci_job_token_scope.self_referential?(project)
+    next false unless @user&.from_ci_job_token?
+    next false unless project.ci_push_repository_for_job_token_allowed?
+
+    @user.ci_job_token_scope.self_referential?(project) ||
+      cross_project_push_allowed_for_job_token?
   end
 
   condition(:packages_disabled, scope: :subject) { !@subject.packages_enabled }
@@ -1028,6 +1032,13 @@ class ProjectPolicy < BasePolicy
     return true unless group # always enable for projects in personal namespaces
 
     resource_access_token_create_feature_available? && group.root_ancestor.namespace_settings.resource_access_token_creation_allowed?
+  end
+
+  def cross_project_push_allowed_for_job_token?
+    Feature.enabled?(:allow_push_to_allowlisted_projects, project) &&
+      project.ci_cross_project_push_for_job_token_allowed? &&
+      project.ci_inbound_job_token_scope_enabled? &&
+      @user.ci_job_token_scope.policies_allowed?(project, [:admin_repositories])
   end
 
   def project

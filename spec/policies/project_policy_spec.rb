@@ -4218,6 +4218,200 @@ RSpec.describe ProjectPolicy, feature_category: :system_access do
         end
       end
     end
+
+    context 'with cross-project push via allowlisted project' do
+      let(:current_user) { developer }
+      let(:source_project) { create(:project, :private) }
+      let(:project) { public_project }
+      let(:job) { build_stubbed(:ci_build, project: source_project, user: current_user) }
+
+      before do
+        project.add_developer(current_user)
+        source_project.add_developer(current_user)
+
+        allow(current_user).to receive(:ci_job_token_scope)
+          .and_return(current_user.set_ci_job_token_scope!(job))
+      end
+
+      context 'when all four gates are satisfied' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[admin_repositories])
+        end
+
+        it { is_expected.to be_allowed(:build_push_code) }
+      end
+
+      context 'when feature flag is disabled' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: false)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[admin_repositories])
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when cross_project_push setting is disabled' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: false
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[admin_repositories])
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when push_repository setting is disabled' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: false,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[admin_repositories])
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when inbound scope is disabled (legacy open mode)' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: false)
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when source project is not on allowlist' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when allowlist entry lacks admin_repositories policy' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[read_repositories])
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+
+      context 'when allowlist entry has default_permissions' do
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: true)
+        end
+
+        it { is_expected.to be_allowed(:build_push_code) }
+      end
+
+      context 'when user has reporter role (below developer)' do
+        let(:current_user) { reporter }
+
+        before do
+          stub_feature_flags(allow_push_to_allowlisted_projects: project)
+
+          project.add_reporter(reporter)
+          source_project.add_reporter(reporter)
+
+          project.ci_cd_settings.update!(
+            push_repository_for_job_token_allowed: true,
+            cross_project_push_for_job_token_allowed: true
+          )
+          project.update!(ci_inbound_job_token_scope_enabled: true)
+
+          create(:ci_job_token_project_scope_link,
+            source_project: project,
+            target_project: source_project,
+            direction: :inbound,
+            default_permissions: false,
+            job_token_policies: %w[admin_repositories])
+        end
+
+        it { is_expected.to be_disallowed(:build_push_code) }
+      end
+    end
   end
 
   describe 'create_saved_view' do

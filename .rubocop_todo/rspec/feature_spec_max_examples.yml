@@ -1,6 +1,5 @@
 ---
 RSpec/FeatureSpecMaxExamples:
-  Details: grace period
   Exclude:
     - 'ee/spec/features/boards/scoped_issue_board_spec.rb'
     - 'ee/spec/features/groups/group_settings_spec.rb'
@@ -24,7 +23,6 @@ RSpec/FeatureSpecMaxExamples:
     - 'spec/features/profiles/user_edit_profile_spec.rb'
     - 'spec/features/projects/blobs/blob_show_spec.rb'
     - 'spec/features/projects/branches_spec.rb'
-    - 'spec/features/projects/ci/editor_spec.rb'
     - 'spec/features/projects/commits/user_browses_commits_spec.rb'
     - 'spec/features/projects/environments/environments_spec.rb'
     - 'spec/features/projects/jobs_spec.rb'

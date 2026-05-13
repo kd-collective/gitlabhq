@@ -247,7 +247,6 @@ RSpec/ExpectInHook:
     - 'spec/models/snippet_spec.rb'
     - 'spec/models/ssh_host_key_spec.rb'
     - 'spec/models/user_spec.rb'
-    - 'spec/policies/project_policy_spec.rb'
     - 'spec/presenters/ci/build_presenter_spec.rb'
     - 'spec/presenters/ci/pipeline_presenter_spec.rb'
     - 'spec/presenters/commit_presenter_spec.rb'

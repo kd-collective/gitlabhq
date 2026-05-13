@@ -12560,6 +12560,7 @@ Input type: `ProjectCiCdSettingsUpdateInput`
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | <a id="mutation-projectcicdsettingsupdate-clientmutationid"></a>`clientMutationId` | [`String`](#string) | A unique identifier for the client performing the mutation. |
+| <a id="mutation-projectcicdsettingsupdate-crossprojectpushforjobtokenallowed"></a>`crossProjectPushForJobTokenAllowed` | [`Boolean`](#boolean) | Indicates the ability to push to this repository using a job token from an allowlisted project. |
 | <a id="mutation-projectcicdsettingsupdate-displaypipelinevariables"></a>`displayPipelineVariables` | [`Boolean`](#boolean) | Indicates whether pipeline variables can be displayed in the UI. |
 | <a id="mutation-projectcicdsettingsupdate-fullpath"></a>`fullPath` | [`ID!`](#id) | Full Path of the project the settings belong to. |
 | <a id="mutation-projectcicdsettingsupdate-grouprunnersenabled"></a>`groupRunnersEnabled` | [`Boolean`](#boolean) | Indicates whether group runners are enabled for the project. |
@@ -50033,6 +50034,7 @@ four standard [pagination arguments](#pagination-arguments):
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
+| <a id="projectcicdsetting-crossprojectpushforjobtokenallowed"></a>`crossProjectPushForJobTokenAllowed` | [`Boolean`](#boolean) | Indicates the ability to push to this repository using a job token from an allowlisted project. |
 | <a id="projectcicdsetting-displaypipelinevariables"></a>`displayPipelineVariables` | [`Boolean`](#boolean) | Indicates whether pipeline variables can be displayed in the UI. |
 | <a id="projectcicdsetting-grouprunnersenabled"></a>`groupRunnersEnabled` | [`Boolean`](#boolean) | Indicates whether group runners are enabled for the project. |
 | <a id="projectcicdsetting-inboundjobtokenscopeenabled"></a>`inboundJobTokenScopeEnabled` | [`Boolean`](#boolean) | Indicates whether CI/CD job tokens generated in other projects have restricted access to this project. |
@@ -57622,6 +57624,7 @@ CI_JOB_TOKEN policy.
 | <a id="cijobtokenscopepolicies-admin_packages"></a>`ADMIN_PACKAGES` | Admin Packages. |
 | <a id="cijobtokenscopepolicies-admin_pipelines"></a>`ADMIN_PIPELINES` | Admin Pipelines. |
 | <a id="cijobtokenscopepolicies-admin_releases"></a>`ADMIN_RELEASES` | Admin Releases. |
+| <a id="cijobtokenscopepolicies-admin_repositories"></a>`ADMIN_REPOSITORIES` | Admin Repositories. |
 | <a id="cijobtokenscopepolicies-admin_secure_files"></a>`ADMIN_SECURE_FILES` | Admin Secure Files. |
 | <a id="cijobtokenscopepolicies-admin_terraform_state"></a>`ADMIN_TERRAFORM_STATE` | Admin Terraform State. |
 | <a id="cijobtokenscopepolicies-read_deployments"></a>`READ_DEPLOYMENTS` | Read Deployments. |

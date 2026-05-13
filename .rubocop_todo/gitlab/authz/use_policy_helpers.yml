@@ -1,9 +1,7 @@
 ---
 # Cop supports --autocorrect.
 Gitlab/Authz/UsePolicyHelpers:
-  Details: grace period
   Exclude:
-    - 'ee/spec/policies/ai/catalog/item_consumer_policy_spec.rb'
     - 'ee/spec/policies/ai/catalog/item_policy_spec.rb'
     - 'ee/spec/policies/ai/conversation/thread_policy_spec.rb'
     - 'ee/spec/policies/ai/duo_workflows/checkpoint_policy_spec.rb'
@@ -27,7 +25,6 @@ Gitlab/Authz/UsePolicyHelpers:
     - 'ee/spec/policies/concerns/work_items/group_policy_spec.rb'
     - 'ee/spec/policies/concerns/work_items/shared_policy_spec.rb'
     - 'ee/spec/policies/dependencies/dependency_list_export_policy_spec.rb'
-    - 'ee/spec/policies/dependency_proxy/packages/setting_policy_spec.rb'
     - 'ee/spec/policies/ee/ci/pipeline_policy_spec.rb'
     - 'ee/spec/policies/ee/namespaces/user_namespace_policy_spec.rb'
     - 'ee/spec/policies/ee/personal_access_token_policy_spec.rb'
@@ -54,7 +51,6 @@ Gitlab/Authz/UsePolicyHelpers:
     - 'ee/spec/policies/note_policy_spec.rb'
     - 'ee/spec/policies/notifications/targeted_message_policy_spec.rb'
     - 'ee/spec/policies/organizations/organization_policy_spec.rb'
-    - 'ee/spec/policies/packages/policies/dependency_proxy/group_policy_spec.rb'
     - 'ee/spec/policies/path_lock_policy_spec.rb'
     - 'ee/spec/policies/project_policy_spec.rb'
     - 'ee/spec/policies/project_snippet_policy_spec.rb'
@@ -97,7 +93,6 @@ Gitlab/Authz/UsePolicyHelpers:
     - 'spec/policies/alert_management/http_integration_policy_spec.rb'
     - 'spec/policies/application_setting/term_policy_spec.rb'
     - 'spec/policies/application_setting_policy_spec.rb'
-    - 'spec/policies/authz/boundary_policy_spec.rb'
     - 'spec/policies/base_policy_spec.rb'
     - 'spec/policies/blob_policy_spec.rb'
     - 'spec/policies/ci/bridge_policy_spec.rb'

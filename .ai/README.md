@@ -20,28 +20,30 @@ project. These files are referenced from `AGENTS.md` (and its identical copy
 
 ```
 .ai/
-  code-style.md            # Code style guidelines (backend + frontend)
-  code-review.md           # Review guidelines referencing all principles
   ci-cd.md                 # CI/CD pipeline guidelines
   git.md                   # Git workflow guidelines
+  merge-requests.md        # Merge request workflow guidelines
   principles/              # SSOT-derived development principles
-    sources.yml            # Manifest: doc paths, file filters, baselines
-    distilled/             # Auto-generated principle files (14 domains)
+    manifest.yml           # Manifest: doc paths, file filters, baselines
+    distilled/             # Auto-generated principle files (23 domains)
     baselines/             # Hand-curated rules not yet in docs.gitlab.com
 ```
 
 ## How instructions are loaded
 
-- **Directory-scoped `AGENTS.md`**: Auto-generated files in target directories
-  (e.g., `spec/AGENTS.md`, `db/AGENTS.md`) reference the matching principle.
-  Works with any AI tool that respects directory-scoped `AGENTS.md` files.
+- **Root `AGENTS.md` / `CLAUDE.md`**: The Context Loading section routes
+  task types to the hand-authored topical modules (`.ai/git.md`,
+  `.ai/merge-requests.md`, `.ai/ci-cd.md`) and points domain-specific work
+  at the `gitlab-coding-principles` skill.
+- **Directory-scoped `AGENTS.md`**: Files in target directories
+  (e.g., `doc/AGENTS.md`, `workhorse/AGENTS.md`) provide directory-specific
+  guidance. Works with any AI tool that respects directory-scoped
+  `AGENTS.md` files.
 - **Claude Code**: Uses the project-scope skill at
   `.claude/skills/gitlab-coding-principles/SKILL.md`, auto-discovered from `.claude/skills/`.
 - **OpenCode**: Uses the equivalent skill at `.agents/skills/gitlab-coding-principles/SKILL.md`.
-- Both skill files have identical content, auto-generated from `sources.yml` by the sync script.
-  Hand-authored modules (code-style, git, etc.) are loaded via `@import` references in `AGENTS.md`.
-- **Root `AGENTS.md`**: The Context Loading section lists all principles as a
-  fallback for tools without skill support.
+  Both skill files have identical content, auto-generated from
+  `principles/manifest.yml` by the sync script.
 - **Reviewer agents**: Each agent (`.opencode/agents/`, `.claude/agents/`)
   reads its corresponding principle from `principles/distilled/` at review time.
 

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 sharding_key_map = Gitlab::Database::Dictionary.entries.each_with_object({}) do |entry, map|
-  next unless Gitlab::Organizations::Isolation::ISOLATED_TABLES.include?(entry.key_name)
-
   sharding_key = entry.sharding_key
   next unless sharding_key.is_a?(Hash) && sharding_key.any?
 

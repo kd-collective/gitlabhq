@@ -3,7 +3,6 @@
 # helpers that raise errors for group-level issues. Use Gitlab::UrlBuilder.build instead.
 # See: https://docs.gitlab.com/development/url_builder.html
 Gitlab/AvoidProjectIssuableUrlHelpers:
-  Details: grace period
   Exclude:
     - 'app/controllers/projects/issues_controller.rb'
     - 'app/controllers/projects/work_items_controller.rb'

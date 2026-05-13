@@ -8,4 +8,3 @@ RSpec/OverwritingSetup:
     - 'spec/lib/gitlab/database/background_migration/batched_migration_spec.rb'
     - 'spec/models/todo_spec.rb'
     - 'spec/models/user_spec.rb'
-    - 'spec/policies/ci/build_policy_spec.rb'

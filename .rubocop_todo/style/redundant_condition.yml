@@ -1,7 +1,6 @@
 ---
 # Cop supports --autocorrect.
 Style/RedundantCondition:
-  Details: grace period
   Exclude:
     - 'app/helpers/avatars_helper.rb'
     - 'app/models/user.rb'

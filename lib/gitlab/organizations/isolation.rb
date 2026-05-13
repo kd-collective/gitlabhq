@@ -3,13 +3,15 @@
 module Gitlab
   module Organizations
     class Isolation
-      ISOLATED_TABLES = %w[organizations].freeze
-
       # rubocop:disable Gitlab/AvoidCurrentOrganization -- We check if Current.organization is assigned so it is safe
       def self.enabled?
         return false unless Feature.enabled?(:data_isolation, Feature.current_request)
         return false unless ::Current.organization_assigned
-        return false unless ::Current.organization&.isolated?
+
+        # Disable organization scoping because checking isolation state can raise a ThreadError
+        return false unless Gitlab::Database::DataIsolation::ScopeHelper.without_data_isolation do
+          ::Current.organization&.isolated?
+        end
 
         true
       end

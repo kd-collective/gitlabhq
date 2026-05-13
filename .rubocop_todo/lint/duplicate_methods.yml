@@ -1,6 +1,5 @@
 ---
 Lint/DuplicateMethods:
-  Details: grace period
   Exclude:
     - 'app/models/group.rb'
     - 'app/models/note.rb'

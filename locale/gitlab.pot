@@ -67301,6 +67301,9 @@ msgstr ""
 msgid "SecurityOrchestration|Security policy overwrites this setting"
 msgstr ""
 
+msgid "SecurityOrchestration|Security policy project exceeds the maximum of %{limit} scheduled pipeline execution policies"
+msgstr ""
+
 msgid "SecurityOrchestration|Security policy project was linked successfully"
 msgstr ""
 

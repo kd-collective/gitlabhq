@@ -51,6 +51,13 @@ RSpec.describe Gitlab::Organizations::Isolation, feature_category: :organization
 
           it { is_expected.to be true }
         end
+
+        it 'does not deadlock on recursive calls' do
+          org = create(:organization)
+          Current.organization = org
+
+          expect { Project.find_by(id: 1) }.not_to raise_error
+        end
       end
     end
   end
