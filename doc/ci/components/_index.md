@@ -712,6 +712,56 @@ You can use this information to:
 - Understand which projects are using your catalog resources.
 - Make informed decisions about component maintenance and deprecation.
 
+## View component usage details
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+
+{{< /details >}}
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/579460) in GitLab 19.0 [with a flag](../../administration/feature_flags/_index.md) named `ci_component_analytics`. Disabled by default.
+
+{{< /history >}}
+
+> [!flag]
+> The availability of this feature is controlled by a feature flag.
+> For more information, see the history.
+
+If you maintain CI/CD catalog component projects, you can view detailed component usage information to understand which projects use the components and which versions they use.
+This helps you plan upgrades, communicate deprecations, and identify projects that use outdated versions.
+
+Prerequisites:
+
+- You must have the Maintainer or Owner role for the catalog resource project.
+
+To view component usage details:
+
+1. In the top bar, select **Search or go to** > **Explore**.
+1. Select **CI/CD Catalog**.
+1. Select a component project from the catalog.
+1. On the detail page, select the **Usage** tab.
+
+This tab lists the projects that included any of this project's component in a pipeline in the last 30 days.
+The list only includes projects that you have permission to view.
+
+The details include:
+
+- **Project path**: The full path of the project, with a link to the project.
+- **Status**: If the project used the latest version of the component, it is labeled as **Up to date**. Otherwise, it is **Outdated**.
+- **Components used**: The names and versions of the components used by the project.
+
+Projects not visible to you are displayed as **Private project** without a link.
+
+You can use this information to:
+
+- Identify projects that use outdated component versions and need to upgrade.
+- Notify project maintainers when a new version is available or when deprecating a component.
+- Understand the adoption of specific component versions across your organization.
+
 ### Publish a component project
 
 To publish a component project in the CI/CD catalog, you must:

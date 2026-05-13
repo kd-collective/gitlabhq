@@ -16,8 +16,7 @@ import setWindowLocation from 'helpers/set_window_location_helper';
 import { isLoggedIn } from '~/lib/utils/common_utils';
 import { useLocalStorageSpy } from 'helpers/local_storage_helper';
 import { useMockInternalEventsTracking } from 'helpers/tracking_internal_events_helper';
-import { getParameterByName, removeParams, updateHistory } from '~/lib/utils/url_utility';
-import { getIdFromGraphQLId } from '~/graphql_shared/utils';
+import { getParameterByName } from '~/lib/utils/url_utility';
 import {
   planningViewAllItemsFilters,
   planningViewSavedViewFilterTokens,
@@ -67,16 +66,11 @@ import {
   WORK_ITEM_TYPE_NAME_ISSUE,
   WORK_ITEM_TYPE_NAME_TICKET,
   STATE_CLOSED,
-  DETAIL_VIEW_QUERY_PARAM_NAME,
 } from '~/work_items/constants';
 
 import namespaceWorkItemTypesQuery from '~/work_items/graphql/namespace_work_item_types.query.graphql';
-import getWorkItemsFullQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_full.query.graphql';
-import getWorkItemsSlimQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_slim.query.graphql';
 import hasWorkItemsQuery from '~/work_items/list/graphql/has_work_items.query.graphql';
 import getWorkItemsCountOnlyQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_count_only.query.graphql';
-import getWorkItemsRestQuery from '~/work_items/list/graphql/get_work_items_rest.query.graphql';
-import workItemsReorderMutation from '~/work_items/graphql/work_items_reorder.mutation.graphql';
 import getUserWorkItemsPreferences from '~/work_items/graphql/get_user_preferences.query.graphql';
 import namespaceSavedViewQuery from '~/work_items/list/graphql/namespace_saved_view.query.graphql';
 import subscribeToSavedViewMutation from '~/work_items/graphql/subscribe_to_saved_view.mutation.graphql';
@@ -102,10 +96,7 @@ import NewResourceDropdown from '~/vue_shared/components/new_resource_dropdown/n
 import WorkItemDetailPanel from '~/work_items/components/work_item_detail_panel.vue';
 
 import {
-  workItemsQueryResponseNoLabels,
-  workItemsQueryResponseNoAssignees,
   userPreferenceQueryResponse,
-  combinedQueryResultExample,
   namespaceWorkItemTypesQueryResponse,
   workItemCountsOnlyResponse,
   workItemUserPreferenceUpdateMutationResponseWithErrors,
@@ -172,8 +163,6 @@ const hasWorkItemsData = {
   },
 };
 
-const defaultQueryHandler = jest.fn().mockResolvedValue(workItemsQueryResponseNoLabels);
-const defaultSlimQueryHandler = jest.fn().mockResolvedValue(workItemsQueryResponseNoAssignees);
 const namespaceQueryHandler = jest.fn().mockResolvedValue(namespaceWorkItemTypesQueryResponse);
 const userPreferenceMutationHandler = jest
   .fn()
@@ -202,26 +191,6 @@ Vue.use(VueRouter);
 const defaultHasWorkItemsHandler = jest.fn().mockResolvedValue(hasWorkItemsData);
 const defaultCountsOnlyHandler = jest.fn().mockResolvedValue(workItemCountsOnlyResponse);
 
-const emptyWorkItemsResponse = {
-  data: {
-    namespace: {
-      id: 'gid://gitlab/Group/3',
-      __typename: 'Group',
-      name: 'Test',
-      workItems: {
-        pageInfo: {
-          hasNextPage: false,
-          hasPreviousPage: false,
-          startCursor: null,
-          endCursor: null,
-          __typename: 'PageInfo',
-        },
-        nodes: [],
-        count: 0,
-      },
-    },
-  },
-};
 const emptyHasWorkItemsHandler = jest
   .fn()
   .mockResolvedValue({ data: { namespace: { id: 'namespace', workItems: { nodes: [] } } } });
@@ -284,8 +253,6 @@ const defaultFeatureFlags = {
 };
 
 const mountComponent = ({
-  queryHandler = defaultQueryHandler,
-  slimQueryHandler = defaultSlimQueryHandler,
   hasWorkItemsHandler = defaultHasWorkItemsHandler,
   countsOnlyHandler = defaultCountsOnlyHandler,
   mockPreferencesHandler = mockPreferencesQueryHandler,
@@ -300,8 +267,6 @@ const mountComponent = ({
   const { glFeatures: provideGlFeatures, ...restProvide } = provide;
 
   const apolloProvider = createMockApollo([
-    [getWorkItemsFullQuery, queryHandler],
-    [getWorkItemsSlimQuery, slimQueryHandler],
     [namespaceWorkItemTypesQuery, namespaceQueryHandler],
     [hasWorkItemsQuery, hasWorkItemsHandler],
     [getWorkItemsCountOnlyQuery, countsOnlyHandler],
@@ -390,36 +355,6 @@ const mountComponent = ({
   });
 };
 
-const mountComponentWithShowParam = async (issue, mountOptions = {}) => {
-  const showParams = {
-    id: getIdFromGraphQLId(issue.id),
-    iid: issue.iid,
-    full_path: issue.namespace.fullPath,
-  };
-  const show = btoa(JSON.stringify(showParams));
-  setWindowLocation(`?${DETAIL_VIEW_QUERY_PARAM_NAME}=${show}`);
-  getParameterByName.mockReturnValue(show);
-
-  const { provide = {}, ...restOptions } = mountOptions;
-  mountComponent({
-    provide: {
-      workItemType: WORK_ITEM_TYPE_NAME_ISSUE,
-      ...provide,
-    },
-    ...restOptions,
-  });
-  await waitForPromises();
-  await nextTick();
-};
-
-const exampleQueryParams = {
-  fullPath: 'full/path',
-  includeDescendants: true,
-  sort: CREATED_DESC,
-  state: STATUS_OPEN,
-  firstPageSize: 20,
-};
-
 describe('planning-view', () => {
   beforeEach(() => {
     getParameterByName.mockImplementation((...args) =>
@@ -429,20 +364,17 @@ describe('planning-view', () => {
     setPlanningViewSavedViewFilterTokens({});
   });
 
-  it('calls query to fetch work items when list-view emits update-query', async () => {
-    mountComponent();
-
-    findListView().vm.$emit('update-query', exampleQueryParams);
-
-    await waitForPromises();
-
-    expect(defaultQueryHandler).toHaveBeenCalledWith(expect.objectContaining(exampleQueryParams));
-  });
-
-  it('calls `getParameterByName` to get the `show` param', async () => {
+  it('passes correct queryVariables to list-view', async () => {
     mountComponent();
     await waitForPromises();
-    expect(getParameterByName).toHaveBeenCalledWith(DETAIL_VIEW_QUERY_PARAM_NAME);
+
+    expect(findListView().props('queryVariables')).toMatchObject({
+      fullPath: 'full/path',
+      includeDescendants: true,
+      sort: CREATED_DESC,
+      state: STATUS_OPEN,
+      firstPageSize: 20,
+    });
   });
 
   it('renders the WorkItemUserPreferences component', async () => {
@@ -516,8 +448,8 @@ describe('planning-view', () => {
           findListView().vm.$emit('select-item', payload);
           await nextTick();
 
-          expect(findDetailPanel().props('open')).toBe(false);
-          expect(findDetailPanel().props('activeItem')).toBeNull();
+          expect(findDetailPanel().props('open')).toBe(true);
+          expect(findDetailPanel().props('activeItem')).toEqual(payload);
         });
 
         const checkThatDrawerPropsAreEmpty = () => {
@@ -580,79 +512,46 @@ describe('planning-view', () => {
       });
     });
 
-    it('closes the drawer if there is no `show` param', async () => {
+    it('closes the drawer when set-active-item emits null', async () => {
       const issue = workItemsQueryResponseCombined.data.namespace.workItems.nodes[0];
-      await mountComponentWithShowParam(issue, {
-        queryHandler: jest.fn().mockResolvedValue(workItemsQueryResponseCombined),
-      });
+      mountComponent();
       await waitForPromises();
+      findListView().vm.$emit('set-active-item', issue);
+      await nextTick();
       expect(findDetailPanel().props('open')).toBe(true);
-      expect(findDetailPanel().props('activeItem')).toMatchObject({
-        id: issue.id,
-        iid: issue.iid,
-      });
 
-      setWindowLocation('?');
-      getParameterByName.mockReturnValue(null);
-      window.dispatchEvent(new Event('popstate'));
-
-      await waitForPromises();
+      findListView().vm.$emit('set-active-item', null);
+      await nextTick();
       expect(findDetailPanel().props('open')).toBe(false);
     });
 
     describe('When the `show` parameter matches an item in the list', () => {
       it('displays the item in the drawer', async () => {
         const issue = workItemsQueryResponseCombined.data.namespace.workItems.nodes[0];
-        await mountComponentWithShowParam(issue);
+        mountComponent();
+        await waitForPromises();
+        findListView().vm.$emit('set-active-item', issue);
+        await nextTick();
 
         expect(findDetailPanel().props('open')).toBe(true);
         expect(findDetailPanel().props('activeItem')).toMatchObject(issue);
-      });
-    });
-
-    describe('When the `show` parameter does not match an item in the list', () => {
-      beforeEach(async () => {
-        const showParams = { id: 9999, iid: '9999', full_path: 'does/not/match' };
-        const show = btoa(JSON.stringify(showParams));
-        setWindowLocation(`?${DETAIL_VIEW_QUERY_PARAM_NAME}=${show}`);
-        getParameterByName.mockReturnValue(show);
-        mountComponent({
-          provide: {
-            workItemType: WORK_ITEM_TYPE_NAME_ISSUE,
-          },
-        });
-        await waitForPromises();
-      });
-      it('calls `updateHistory', () => {
-        expect(updateHistory).toHaveBeenCalled();
-      });
-      it('calls `removeParams` to remove the `show` param', () => {
-        expect(removeParams).toHaveBeenCalledWith([DETAIL_VIEW_QUERY_PARAM_NAME]);
       });
     });
 
     describe('when window `popstate` event is triggered', () => {
-      it('updates the drawer with the new item if there is a `show` param', async () => {
+      it('updates the drawer when set-active-item is emitted with a new item', async () => {
         const issue = workItemsQueryResponseCombined.data.namespace.workItems.nodes[0];
         const nextIssue = workItemsQueryResponseCombined.data.namespace.workItems.nodes[1];
-        await mountComponentWithShowParam(issue);
-
-        expect(findDetailPanel().props('open')).toBe(true);
-        expect(findDetailPanel().props('activeItem')).toMatchObject(issue);
-
-        const showParams = {
-          id: getIdFromGraphQLId(nextIssue.id),
-          iid: nextIssue.iid,
-          full_path: nextIssue.namespace.fullPath,
-        };
-        const show = btoa(JSON.stringify(showParams));
-        setWindowLocation(`?${DETAIL_VIEW_QUERY_PARAM_NAME}=${show}`);
-
-        window.dispatchEvent(new Event('popstate'));
+        mountComponent();
         await waitForPromises();
 
-        expect(findDetailPanel().props('open')).toBe(true);
+        findListView().vm.$emit('set-active-item', issue);
+        await nextTick();
         expect(findDetailPanel().props('activeItem')).toMatchObject(issue);
+
+        findListView().vm.$emit('set-active-item', nextIssue);
+        await nextTick();
+        expect(findDetailPanel().props('activeItem')).toMatchObject(nextIssue);
       });
     });
   });
@@ -1220,44 +1119,38 @@ describe('planning-view', () => {
   });
 
   describe('when isGroupIssuesList is true', () => {
-    it('calls workItems query with excludeGroupWorkItems: true', async () => {
+    it('passes excludeGroupWorkItems: true to list-view queryVariables', async () => {
       mountComponent({ provide: { isGroupIssuesList: true } });
 
       await waitForPromises();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          excludeGroupWorkItems: true,
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        excludeGroupWorkItems: true,
+      });
     });
   });
 
   describe('when workItemType is provided', () => {
-    it('calls workItems query with "types" property', async () => {
+    it('passes "types" property to list-view queryVariables', async () => {
       mountComponent({ provide: { workItemType: WORK_ITEM_TYPE_NAME_EPIC } });
 
       await waitForPromises();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          types: 'EPIC',
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        types: 'EPIC',
+      });
     });
   });
 
   describe('when workItemType Epic is provided', () => {
-    it('calls workItems query with "excludeProjects" property', async () => {
+    it('passes "excludeProjects" property to list-view queryVariables', async () => {
       mountComponent({ provide: { workItemType: WORK_ITEM_TYPE_NAME_EPIC } });
 
       await waitForPromises();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          excludeProjects: true,
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        excludeProjects: true,
+      });
     });
   });
 
@@ -1285,7 +1178,7 @@ describe('planning-view', () => {
   });
 
   describe('when "filter" event is emitted by FilteredSearchBar', () => {
-    it('calls the workItems query', async () => {
+    it('updates queryVariables on list-view with filter params', async () => {
       mountComponent();
       await waitForPromises();
 
@@ -1296,18 +1189,16 @@ describe('planning-view', () => {
       ]);
       await nextTick();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          search: 'find issues',
-          authorUsername: 'homer',
-          in: 'TITLE',
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        search: 'find issues',
+        authorUsername: 'homer',
+        in: 'TITLE',
+      });
     });
   });
 
   describe('iid filter search', () => {
-    it('calls workItems query when user enters a number with #', async () => {
+    it('sets iid in queryVariables when user enters a number with #', async () => {
       mountComponent();
       await waitForPromises();
 
@@ -1316,14 +1207,12 @@ describe('planning-view', () => {
       ]);
       await nextTick();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          iid: '23',
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        iid: '23',
+      });
     });
 
-    it('calls workItems query when user enters a number without #', async () => {
+    it('sets search in queryVariables when user enters a number without #', async () => {
       mountComponent();
       await waitForPromises();
 
@@ -1332,17 +1221,15 @@ describe('planning-view', () => {
       ]);
       await nextTick();
 
-      expect(defaultQueryHandler).toHaveBeenCalledWith(
-        expect.objectContaining({
-          search: '23',
-        }),
-      );
+      expect(findListView().props('queryVariables')).toMatchObject({
+        search: '23',
+      });
     });
   });
 
   describe('work item features field feature flag', () => {
     describe('when the feature flag is off', () => {
-      it('does not include features variable to the in update-query event', async () => {
+      it('passes useWorkItemFeatures: false to list-view queryVariables', async () => {
         mountComponent({
           provide: {
             isServiceDeskSupported: true,
@@ -1353,16 +1240,14 @@ describe('planning-view', () => {
 
         await waitForPromises();
 
-        expect(defaultQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({
-            useWorkItemFeatures: false,
-          }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({
+          useWorkItemFeatures: false,
+        });
       });
     });
 
     describe('when the feature flag is on', () => {
-      it('passes the useWorkItemFeatures to the query', async () => {
+      it('passes useWorkItemFeatures: true to list-view queryVariables', async () => {
         mountComponent({
           provide: {
             isServiceDeskSupported: true,
@@ -1373,18 +1258,16 @@ describe('planning-view', () => {
 
         await waitForPromises();
 
-        expect(defaultQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({
-            useWorkItemFeatures: true,
-          }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({
+          useWorkItemFeatures: true,
+        });
       });
     });
   });
 
   describe('group filter', () => {
     describe('filtering by group', () => {
-      it('calls workItems query and excludes descendants and excludes projects', async () => {
+      it('passes excludeProjects: true and includeDescendants: false to list-view queryVariables', async () => {
         mountComponent();
         await waitForPromises();
 
@@ -1396,17 +1279,15 @@ describe('planning-view', () => {
         ]);
         await nextTick();
 
-        expect(defaultQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({
-            excludeProjects: true,
-            includeDescendants: false,
-          }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({
+          excludeProjects: true,
+          includeDescendants: false,
+        });
       });
     });
 
     describe('not filtering by group', () => {
-      it('calls workItems query and includes descendants and includes projects', async () => {
+      it('passes excludeProjects: false and includeDescendants: true to list-view queryVariables', async () => {
         mountComponent();
         await waitForPromises();
 
@@ -1415,12 +1296,10 @@ describe('planning-view', () => {
         ]);
         await nextTick();
 
-        expect(defaultQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({
-            excludeProjects: false,
-            includeDescendants: true,
-          }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({
+          excludeProjects: false,
+          includeDescendants: true,
+        });
       });
     });
 
@@ -1486,7 +1365,7 @@ describe('planning-view', () => {
 
   describe('when "sort" event is emitted by FilteredSearchBar', () => {
     it.each(Object.keys(urlSortParams))(
-      'calls the workItems query event with the new sort when payload is `%s`',
+      'passes the new sort to list-view queryVariables when payload is `%s`',
       async (sortKey) => {
         // Ensure initial sort key is different so we trigger an update when emitting a sort key
         if (sortKey === CREATED_DESC) {
@@ -1502,11 +1381,9 @@ describe('planning-view', () => {
         await waitForPromises();
         await nextTick();
 
-        expect(defaultQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({
-            sort: sortKey,
-          }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({
+          sort: sortKey,
+        });
       },
     );
 
@@ -1550,116 +1427,23 @@ describe('planning-view', () => {
     });
   });
 
-  describe('slim and full queries', () => {
-    beforeEach(() => {
-      mountComponent();
-
-      findListView().vm.$emit('update-query', exampleQueryParams);
-
-      return waitForPromises();
-    });
-
-    it('calls the slim query as well as the full query', () => {
-      expect(defaultQueryHandler).toHaveBeenCalled();
-      expect(defaultSlimQueryHandler).toHaveBeenCalled();
-    });
-
-    it('combines the slim and full results correctly and passes the to the list component', () => {
-      expect(findListView().props('workItems')).toEqual(combinedQueryResultExample);
-    });
-  });
-
-  describe('when workItemRestApiFrontendUsers and workItemRestApi are enabled', () => {
-    let restQueryHandler;
-
-    beforeEach(async () => {
-      restQueryHandler = jest.fn().mockResolvedValue({
-        data: {
-          namespace: {
-            id: 'gid://gitlab/Group/3',
-            __typename: 'Namespace',
-            fullPath: 'full/path',
-            name: 'Test',
-            workItems: {
-              __typename: 'WorkItemConnection',
-              pageInfo: {
-                hasNextPage: false,
-                hasPreviousPage: false,
-                startCursor: null,
-                endCursor: null,
-                __typename: 'PageInfo',
-              },
-              nodes: [
-                {
-                  __typename: 'WorkItem',
-                  id: 'gid://gitlab/WorkItem/1',
-                  iid: '1',
-                  title: 'REST work item',
-                  state: 'OPEN',
-                },
-              ],
-            },
-          },
-        },
-      });
-
-      mountComponent({
-        additionalHandlers: [[getWorkItemsRestQuery, restQueryHandler]],
-        provide: { glFeatures: { workItemRestApiFrontendUsers: true, workItemRestApi: true } },
-      });
-
-      findListView().vm.$emit('update-query', exampleQueryParams);
-      await waitForPromises();
-    });
-
-    it('calls getWorkItemsRestQuery instead of getWorkItemsSlimQuery', () => {
-      expect(restQueryHandler).toHaveBeenCalled();
-      expect(defaultSlimQueryHandler).not.toHaveBeenCalled();
-    });
-
-    describe('filtering and sorting', () => {
-      it('applies filters', async () => {
-        findFilteredSearchBar().vm.$emit('onFilter', [
-          { type: TOKEN_TYPE_AUTHOR, value: { data: 'homer', operator: OPERATOR_IS } },
-        ]);
-        await nextTick();
-        expect(restQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({ authorUsername: 'homer' }),
-        );
-      });
-
-      it('applies sort', async () => {
-        findFilteredSearchBar().vm.$emit('onSort', UPDATED_DESC);
-        await waitForPromises();
-        expect(restQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({ sort: UPDATED_DESC }),
-        );
-      });
-    });
-  });
-
-  describe.each`
-    queryName | handlerName
-    ${'full'} | ${'queryHandler'}
-    ${'slim'} | ${'slimQueryHandler'}
-  `('when there is an error with the $queryName list query', ({ handlerName }) => {
+  describe('when list-view emits set-error', () => {
     const message = 'Something went wrong when fetching work items. Please try again.';
 
     beforeEach(async () => {
-      mountComponent({ [handlerName]: jest.fn().mockRejectedValue(new Error('ERROR')) });
-      findListView().vm.$emit('update-query', exampleQueryParams);
+      mountComponent();
       await waitForPromises();
+      findListView().vm.$emit('set-error', message);
+      await nextTick();
     });
 
-    it('renders an error message', () => {
+    it('passes error to list-view props', () => {
       expect(findListView().props('error')).toBe(message);
-      expect(Sentry.captureException).toHaveBeenCalledWith(new Error('ERROR'));
     });
 
-    it('clears error message when "dismiss-alert" event is emitted from IssuableList', async () => {
+    it('clears error message when "dismiss-alert" event is emitted', async () => {
       findListView().vm.$emit('dismiss-alert');
       await nextTick();
-
       expect(findListView().props('error')).toBeUndefined();
     });
   });
@@ -1672,19 +1456,23 @@ describe('planning-view', () => {
           workItemType: WORK_ITEM_TYPE_NAME_TICKET,
         },
       });
-      findListView().vm.$emit('update-query', exampleQueryParams);
       await waitForPromises();
+
+      findListView().vm.$emit('namespace-data-loaded', {
+        namespaceName: 'Test',
+        data: { namespace: { id: 'gid://gitlab/Group/3', name: 'Test', __typename: 'Group' } },
+      });
+      await nextTick();
 
       expect(document.title).toBe('Service Desk · Test · GitLab');
     });
   });
 
-  it('skips the work item queries when metadata is loading', async () => {
+  it('sets skipQuery to true when metadata is loading', async () => {
     mountComponent({ provide: { metadataLoading: true } });
     await waitForPromises();
 
-    expect(defaultQueryHandler).not.toHaveBeenCalled();
-    expect(defaultSlimQueryHandler).not.toHaveBeenCalled();
+    expect(findListView().props('skipQuery')).toBe(true);
   });
   describe('Saved Views', () => {
     const { bindInternalEventDocument } = useMockInternalEventsTracking();
@@ -2334,8 +2122,6 @@ describe('planning-view', () => {
     describe('when group has no projects', () => {
       it('disables the bulk edit button', async () => {
         mountComponent({
-          queryHandler: jest.fn().mockResolvedValue(emptyWorkItemsResponse),
-          slimQueryHandler: jest.fn().mockResolvedValue(emptyWorkItemsResponse),
           hasWorkItemsHandler: emptyHasWorkItemsHandler,
         });
 
@@ -2481,6 +2267,12 @@ describe('planning-view', () => {
         mountComponent();
         await waitForPromises();
 
+        findListView().vm.$emit('namespace-data-loaded', {
+          namespaceName: 'Test',
+          data: { namespace: { id: 'gid://gitlab/Group/3', name: 'Test', __typename: 'Group' } },
+        });
+        await nextTick();
+
         await router.push({ name: 'savedView', params: { type: 'work_items', view_id: '3' } });
         await waitForPromises();
 
@@ -2518,6 +2310,12 @@ describe('planning-view', () => {
         });
         await waitForPromises();
 
+        findListView().vm.$emit('namespace-data-loaded', {
+          namespaceName: 'Test',
+          data: { namespace: { id: 'gid://gitlab/Group/3', name: 'Test', __typename: 'Group' } },
+        });
+        await nextTick();
+
         await router.push({ name: 'savedView', params: { type: 'work_items', view_id: '3' } });
         await waitForPromises();
 
@@ -2547,54 +2345,17 @@ describe('planning-view', () => {
         });
         await waitForPromises();
 
+        findListView().vm.$emit('namespace-data-loaded', {
+          namespaceName: 'Test',
+          data: { namespace: { id: 'gid://gitlab/Group/3', name: 'Test', __typename: 'Group' } },
+        });
+        await nextTick();
+
         await router.push({ name: 'savedView', params: { type: 'work_items', view_id: '3' } });
         await waitForPromises();
 
         expect(document.title).toBe('Work items · Test · GitLab');
       });
-    });
-  });
-  describe('when "reorder" event is emitted by ListView', () => {
-    describe('when successful', () => {
-      describe.each`
-        description                        | oldIndex | newIndex | expectedMoveBeforeId                                                   | expectedMoveAfterId
-        ${'first item to second position'} | ${0}     | ${1}     | ${workItemsQueryResponseCombined.data.namespace.workItems.nodes[1].id} | ${null}
-        ${'second item to first position'} | ${1}     | ${0}     | ${null}                                                                | ${workItemsQueryResponseCombined.data.namespace.workItems.nodes[0].id}
-      `(
-        'when moving $description',
-        ({ oldIndex, newIndex, expectedMoveBeforeId, expectedMoveAfterId }) => {
-          it('calls workItemsReorder mutation with correct parameters', async () => {
-            const reorderMutationSpy = jest.fn().mockResolvedValue({
-              data: {
-                workItemsReorder: {
-                  workItem: workItemsQueryResponseCombined.data.namespace.workItems.nodes[oldIndex],
-                  errors: [],
-                },
-              },
-            });
-
-            mountComponent({
-              mockPreferencesHandler: jest.fn().mockResolvedValue(userPreferenceQueryResponse),
-              additionalHandlers: [[workItemsReorderMutation, reorderMutationSpy]],
-            });
-            await waitForPromises();
-
-            findListView().vm.$emit('reorder', { oldIndex, newIndex });
-            await waitForPromises();
-
-            const expectedInput = {
-              id: workItemsQueryResponseCombined.data.namespace.workItems.nodes[oldIndex].id,
-            };
-
-            if (expectedMoveBeforeId) expectedInput.moveBeforeId = expectedMoveBeforeId;
-            if (expectedMoveAfterId) expectedInput.moveAfterId = expectedMoveAfterId;
-
-            expect(reorderMutationSpy).toHaveBeenCalledWith({
-              input: expectedInput,
-            });
-          });
-        },
-      );
     });
   });
 
@@ -2787,101 +2548,65 @@ describe('planning-view', () => {
     });
 
     describe('sorting work items', () => {
-      it('sorts work items by created date in descending order by default', async () => {
+      it('passes CREATED_DESC sort to list-view queryVariables by default', async () => {
         mountComponent();
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstCreatedAt = new Date(workItems[0].createdAt);
-          const secondCreatedAt = new Date(workItems[1].createdAt);
-          expect(firstCreatedAt.getTime()).toBeGreaterThanOrEqual(secondCreatedAt.getTime());
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: CREATED_DESC });
       });
 
-      it('sorts work items by created date in ascending order', async () => {
+      it('passes CREATED_ASC sort to list-view queryVariables', async () => {
         mountComponent();
+        await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', CREATED_ASC);
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstCreatedAt = new Date(workItems[0].createdAt);
-          const secondCreatedAt = new Date(workItems[1].createdAt);
-          expect(firstCreatedAt.getTime()).toBeLessThanOrEqual(secondCreatedAt.getTime());
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: CREATED_ASC });
       });
 
-      it('sorts work items by title in ascending order', async () => {
+      it('passes TITLE_ASC sort to list-view queryVariables', async () => {
         mountComponent();
+        await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', TITLE_ASC);
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstTitle = (workItems[0].title || '').toLowerCase();
-          const secondTitle = (workItems[1].title || '').toLowerCase();
-          expect(firstTitle.localeCompare(secondTitle)).toBeLessThanOrEqual(0);
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: TITLE_ASC });
       });
 
-      it('sorts work items by title in descending order', async () => {
+      it('passes TITLE_DESC sort to list-view queryVariables', async () => {
         mountComponent();
+        await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', TITLE_DESC);
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        // Verify that items are sorted by title descending
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstTitle = (workItems[0].title || '').toLowerCase();
-          const secondTitle = (workItems[1].title || '').toLowerCase();
-          expect(firstTitle.localeCompare(secondTitle)).toBeGreaterThanOrEqual(0);
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: TITLE_DESC });
       });
 
-      it('sorts work items by updated date in descending order', async () => {
+      it('passes UPDATED_DESC sort to list-view queryVariables', async () => {
         mountComponent();
+        await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', UPDATED_DESC);
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        // Verify that items are sorted by updated date descending
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstUpdatedAt = new Date(workItems[0].updatedAt);
-          const secondUpdatedAt = new Date(workItems[1].updatedAt);
-          expect(firstUpdatedAt.getTime()).toBeGreaterThanOrEqual(secondUpdatedAt.getTime());
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: UPDATED_DESC });
       });
 
-      it('sorts work items by updated date in ascending order', async () => {
+      it('passes UPDATED_ASC sort to list-view queryVariables', async () => {
         mountComponent();
         await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', UPDATED_ASC);
         await waitForPromises();
 
-        const workItems = findListView().props('workItems');
-        // Verify that items are sorted by updated date ascending
-        expect(workItems.length).toBeGreaterThan(0);
-        if (workItems.length > 1) {
-          const firstUpdatedAt = new Date(workItems[0].updatedAt);
-          const secondUpdatedAt = new Date(workItems[1].updatedAt);
-          expect(firstUpdatedAt.getTime()).toBeLessThanOrEqual(secondUpdatedAt.getTime());
-        }
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: UPDATED_ASC });
       });
 
-      it('passes the correct sort key to the API when sorting by updated date ascending', async () => {
+      it('passes the correct sort key to queryVariables when sorting by updated date ascending', async () => {
         mountComponent();
+        await waitForPromises();
         findFilteredSearchBar().vm.$emit('onSort', UPDATED_ASC);
         await waitForPromises();
 
-        expect(defaultSlimQueryHandler).toHaveBeenCalledWith(
-          expect.objectContaining({ sort: UPDATED_ASC }),
-        );
+        expect(findListView().props('queryVariables')).toMatchObject({ sort: UPDATED_ASC });
       });
     });
   });

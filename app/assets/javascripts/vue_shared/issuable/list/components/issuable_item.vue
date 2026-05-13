@@ -339,13 +339,17 @@ export default {
         return;
       }
 
-      this.$emit('select-issuable', {
-        id: this.issuable.id,
-        iid: this.issuableIid,
-        webUrl: this.issuable.webUrl,
-        fullPath: this.workItemFullPath,
-        workItemType: this.type.toLowerCase(),
-      });
+      if (this.isActive) {
+        this.$emit('select-issuable', null);
+      } else {
+        this.$emit('select-issuable', {
+          id: this.issuable.id,
+          iid: this.issuableIid,
+          webUrl: this.issuable.webUrl,
+          fullPath: this.workItemFullPath,
+          workItemType: this.type.toLowerCase(),
+        });
+      }
     },
     navigateToIssuable() {
       if (!this.fullPath) {

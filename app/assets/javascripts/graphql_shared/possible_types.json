@@ -241,6 +241,7 @@
   ],
   "PolicyAttributesUnion": [
     "ApprovalPolicyAttributesType",
+    "DependencyFirewallPolicyAttributesType",
     "PipelineExecutionPolicyAttributesType",
     "PipelineExecutionScheduledPolicyAttributesType",
     "ScanExecutionPolicyAttributesType",

@@ -31,7 +31,6 @@ optimize GitLab CI/CD pipelines. It combines:
 Use the CI Expert Agent when you need help with:
 
 - Pipeline creation: Generate `.gitlab-ci.yml` configurations from scratch based on your project requirements.
-- Component suggestions: Get CI/CD component recommendations based on your project type. For example, a Node.js, Python, Go, Ruby, or Docker project.
 - Syntax explanation: Understand CI/CD keywords and configuration options.
 - Debugging: Analyze job logs and troubleshoot pipeline failures.
 - Optimization: Improve pipeline performance through caching, parallelization, and using the `needs` keyword to let jobs start earlier.
@@ -60,7 +59,6 @@ To access the CI Expert Agent:
 ### Example prompts
 
 - "Create a CI/CD pipeline for my Node.js project with testing and Docker build."
-- "Why is my pipeline failing? Here's the error: (paste error message)"
 - "How do I cache dependencies to speed up my builds?"
 - "Add a deployment stage to my pipeline for Kubernetes."
 - "What's the difference between `cache` and `artifacts`?"
@@ -73,4 +71,3 @@ To access the CI Expert Agent:
 - "How do I run jobs only on merge requests?"
 - "Create a `.gitlab-ci.yml` for my Python project with pytest and linting."
 - "How do I use artifacts to pass data between jobs?"
-- "Set up Auto DevOps for my project."

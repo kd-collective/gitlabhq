@@ -2449,9 +2449,6 @@ msgstr ""
 msgid "AI-generated summary"
 msgstr ""
 
-msgid "AIAgents|AI Agents"
-msgstr ""
-
 msgid "AIAgents|Agent Settings"
 msgstr ""
 
@@ -2473,13 +2470,7 @@ msgstr ""
 msgid "AIAgent|AI Agent %{codeStart}%{agentName}%{codeEnd} will be permanently deleted. Are you sure?"
 msgstr ""
 
-msgid "AIAgent|Agent"
-msgstr ""
-
 msgid "AIAgent|Agent name"
-msgstr ""
-
-msgid "AIAgent|Ask your agent"
 msgstr ""
 
 msgid "AIAgent|Create agent"
@@ -2500,19 +2491,10 @@ msgstr ""
 msgid "AIAgent|Prompt"
 msgstr ""
 
-msgid "AIAgent|Settings"
-msgstr ""
-
 msgid "AIAgent|This action permanently deletes the %{codeStart}%{agentName}%{codeEnd} AI Agent."
 msgstr ""
 
-msgid "AIAgent|Try out your agent"
-msgstr ""
-
 msgid "AIAgent|Update agent"
-msgstr ""
-
-msgid "AIAgent|Your agent's system prompt will be applied to the chat input."
 msgstr ""
 
 msgid "AICatalog|%d agent"
@@ -65885,6 +65867,9 @@ msgid "SecurityOrchestration|Dependency Scope"
 msgstr ""
 
 msgid "SecurityOrchestration|Dependency Update"
+msgstr ""
+
+msgid "SecurityOrchestration|Dependency firewall"
 msgstr ""
 
 msgid "SecurityOrchestration|Deploy AI security agent to create fix MRs with code suggestions"

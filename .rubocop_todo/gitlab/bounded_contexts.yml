@@ -2265,6 +2265,7 @@ Gitlab/BoundedContexts:
     - 'ee/app/graphql/resolvers/board_groupings/epics_resolver.rb'
     - 'ee/app/graphql/resolvers/concerns/common_requirement_arguments.rb'
     - 'ee/app/graphql/resolvers/concerns/construct_approval_policies.rb'
+    - 'ee/app/graphql/resolvers/concerns/construct_dependency_firewall_policies.rb'
     - 'ee/app/graphql/resolvers/concerns/construct_pipeline_execution_policies.rb'
     - 'ee/app/graphql/resolvers/concerns/construct_pipeline_execution_schedule_policies.rb'
     - 'ee/app/graphql/resolvers/concerns/construct_scan_execution_policies.rb'

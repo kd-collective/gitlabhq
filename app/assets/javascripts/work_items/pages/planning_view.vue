@@ -9,8 +9,8 @@ import * as Sentry from '~/sentry/sentry_browser_wrapper';
 import glFeatureFlagMixin from '~/vue_shared/mixins/gl_feature_flags_mixin';
 import { InternalEvents } from '~/tracking';
 import { createAlert, VARIANT_INFO } from '~/alert';
-import { TYPENAME_NAMESPACE, TYPENAME_USER } from '~/graphql_shared/constants';
-import { getParameterByName, removeParams, updateHistory } from '~/lib/utils/url_utility';
+import { TYPENAME_USER, TYPENAME_NAMESPACE } from '~/graphql_shared/constants';
+import { getParameterByName } from '~/lib/utils/url_utility';
 import {
   STATUS_ALL,
   STATUS_OPEN,
@@ -19,7 +19,7 @@ import {
   STATUS_CLOSED,
 } from '~/issues/constants';
 import { DEFAULT_PAGE_SIZE, issuableListTabs } from '~/vue_shared/issuable/list/constants';
-import { convertToGraphQLId, getIdFromGraphQLId } from '~/graphql_shared/utils';
+import { convertToGraphQLId } from '~/graphql_shared/utils';
 import { fetchPolicies } from '~/lib/graphql';
 import { isPositiveInteger } from '~/lib/utils/number_utils';
 import { AutocompleteCache } from '~/issues/dashboard/utils';
@@ -74,16 +74,12 @@ import {
 } from '~/vue_shared/components/filtered_search_bar/constants';
 
 import searchLabelsQuery from '~/work_items/list/graphql/search_labels.query.graphql';
-import getWorkItemsQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_full.query.graphql';
-import getWorkItemsSlimQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_slim.query.graphql';
-import getWorkItemsRestQuery from '~/work_items/list/graphql/get_work_items_rest.query.graphql';
 import getWorkItemsCountOnlyQuery from 'ee_else_ce/work_items/list/graphql/get_work_items_count_only.query.graphql';
 import hasWorkItemsQuery from '~/work_items/list/graphql/has_work_items.query.graphql';
 import updateWorkItemListUserPreference from '~/work_items/graphql/update_work_item_list_user_preferences.mutation.graphql';
 import getUserWorkItemsPreferences from '~/work_items/graphql/get_user_preferences.query.graphql';
 import namespaceSavedViewQuery from '~/work_items/list/graphql/namespace_saved_view.query.graphql';
 import getNamespaceSavedViewsQuery from '~/work_items/list/graphql/work_item_saved_views_namespace.query.graphql';
-import workItemsReorderMutation from '~/work_items/graphql/work_items_reorder.mutation.graphql';
 
 import FilteredSearchBar from '~/vue_shared/components/filtered_search_bar/filtered_search_bar_root.vue';
 import NewResourceDropdown from '~/vue_shared/components/new_resource_dropdown/new_resource_dropdown.vue';
@@ -121,7 +117,6 @@ import {
   PARAM_PAGE_BEFORE,
   PARAM_STATE,
 } from '~/work_items/list/constants';
-import { getSortedWorkItems, combineWorkItemLists } from '~/work_items/utils';
 import {
   planningViewAllItemsFilters,
   planningViewSavedViewFilterTokens,
@@ -264,23 +259,18 @@ export default {
   data() {
     const loggedIn = isLoggedIn();
     return {
+      namespaceId: null,
       activeItem: null,
       sortKey: CREATED_DESC,
       error: undefined,
       initialSortKey: CREATED_DESC,
       initialViewSortKey: null,
       filterTokens: [],
-      workItemsFull: [],
-      workItemsSlim: [],
       workItemsCount: 0,
       hasWorkItems: false,
       pageParams: {},
       state: STATUS_OPEN,
       pageSize: DEFAULT_PAGE_SIZE,
-      isInitialLoadComplete: false,
-      initialLoadWasFiltered: false,
-      namespaceId: null,
-      pageInfo: {},
       savedView: null,
       lastTrackedSavedViewId: null,
       showSavedViewNotFoundModal: false,
@@ -299,22 +289,12 @@ export default {
       namespaceName: null,
       isLoggedIn: loggedIn,
       isSortKeyInitialized: !loggedIn,
+      currentWorkItemsCount: 0,
+      currentWorkItemIds: [],
     };
   },
 
   apollo: {
-    workItemsFull() {
-      return this.createWorkItemQuery(getWorkItemsQuery);
-    },
-
-    workItemsSlim() {
-      const query =
-        this.glFeatures.workItemRestApiFrontendUsers && this.glFeatures.workItemRestApi
-          ? getWorkItemsRestQuery
-          : getWorkItemsSlimQuery;
-      return this.createWorkItemQuery(query);
-    },
-
     workItemsCount: {
       query() {
         return getWorkItemsCountOnlyQuery;
@@ -344,15 +324,12 @@ export default {
       update(data) {
         return data?.namespace?.workItems.nodes.length > 0 || false;
       },
+      result({ data }) {
+        this.namespaceId = data.namespace?.id;
+      },
       error(error) {
         this.error = s__('WorkItem|An error occurred while getting work item counts.');
         Sentry.captureException(error);
-      },
-      result() {
-        if (!this.isInitialLoadComplete) {
-          this.isInitialLoadComplete = true;
-          this.initialLoadWasFiltered = this.filterTokens.length > 0;
-        }
       },
     },
 
@@ -511,17 +488,6 @@ export default {
   },
 
   computed: {
-    workItems() {
-      const useRestApi =
-        this.glFeatures.workItemRestApiFrontendUsers && this.glFeatures.workItemRestApi;
-      const combined = combineWorkItemLists(
-        this.workItemsSlim,
-        this.workItemsFull,
-        !useRestApi && Boolean(this.glFeatures.workItemFeaturesField),
-      );
-      const sortKey = this.queryVariables.sort || CREATED_DESC;
-      return getSortedWorkItems(combined, sortKey);
-    },
     workItemDetailPanelEnabled() {
       return this.displaySettings?.commonPreferences?.shouldOpenItemsInSidePanel ?? true;
     },
@@ -637,7 +603,10 @@ export default {
       return this.savedView?.userPermissions?.updateSavedView && this.viewConfigChanged;
     },
     isBulkEditDisabled() {
-      return this.showBulkEditSidebar || this.workItems.length === 0;
+      return this.showBulkEditSidebar || this.currentWorkItemsCount === 0;
+    },
+    initialLoadWasFiltered() {
+      return this.filterTokens.length > 0;
     },
     workItemTotalStateCount() {
       if (this.workItemsCount === null) {
@@ -1002,7 +971,10 @@ export default {
       return convertToGraphQLId('WorkItems::SavedViews::SavedView', this.$route.params.view_id);
     },
     allIssuablesChecked() {
-      return this.checkedIssuableIds.length === this.workItems.length;
+      return (
+        this.currentWorkItemsCount > 0 &&
+        this.checkedIssuableIds.length === this.currentWorkItemsCount
+      );
     },
     isInfoBannerVisible() {
       return this.isServiceDeskList && this.isServiceDeskSupported && this.hasWorkItems;
@@ -1066,7 +1038,7 @@ export default {
       return this.isEpicsList ? WORK_ITEM_TYPE_NAME_EPIC : WORK_ITEM_TYPE_NAME_ISSUE;
     },
     canExport() {
-      return !this.isGroup && this.isLoggedIn && this.workItems.length > 0;
+      return !this.isGroup && this.isLoggedIn && this.currentWorkItemsCount > 0;
     },
     newIssueDropdownQueryVariables() {
       return {
@@ -1084,12 +1056,6 @@ export default {
     showGroupNewWorkItem() {
       return this.isGroupIssuesList && this.hasProjects;
     },
-    detailLoading() {
-      return this.$apollo.queries.workItemsFull.loading;
-    },
-    isLoading() {
-      return this.$apollo.queries.workItemsSlim.loading;
-    },
     isServiceDeskList() {
       return this.workItemType === WORK_ITEM_TYPE_NAME_TICKET;
     },
@@ -1106,9 +1072,7 @@ export default {
 
   watch: {
     $route(newValue, oldValue) {
-      if (newValue.query[DETAIL_VIEW_QUERY_PARAM_NAME] && !this.detailLoading) {
-        this.checkDetailPanelParams();
-      } else {
+      if (!newValue.query[DETAIL_VIEW_QUERY_PARAM_NAME]) {
         this.activeItem = null;
       }
       if (newValue.fullPath !== oldValue.fullPath && !this.isSavedView) {
@@ -1134,14 +1098,6 @@ export default {
           this.restoreViewDraft();
         }
       }
-    },
-    workItems: {
-      handler(value) {
-        if (value.length > 0) {
-          this.checkDetailPanelParams();
-        }
-      },
-      immediate: true,
     },
     displaySettings: {
       immediate: true,
@@ -1188,7 +1144,6 @@ export default {
   },
   beforeDestroy() {
     setPageDefaultWidth();
-    window.removeEventListener('popstate', this.checkDetailPanelParams);
   },
 
   created() {
@@ -1206,7 +1161,6 @@ export default {
     this.autocompleteCache = new AutocompleteCache();
     this.releasesCache = [];
     this.areReleasesFetched = false;
-    window.addEventListener('popstate', this.checkDetailPanelParams);
   },
 
   methods: {
@@ -1224,42 +1178,16 @@ export default {
         });
       }
     },
-    checkDetailPanelParams() {
-      const queryParam = getParameterByName(DETAIL_VIEW_QUERY_PARAM_NAME);
-
-      if (!queryParam) {
-        this.activeItem = null;
-        return;
-      }
-
-      const params = JSON.parse(atob(queryParam));
-      if (params.id) {
-        const issue = this.workItems.find((i) => getIdFromGraphQLId(i.id) === params.id);
-        if (issue) {
-          this.activeItem = {
-            ...issue,
-            // we need fullPath here to prevent cache invalidation
-            fullPath: params.full_path,
-          };
-        } else {
-          updateHistory({
-            url: removeParams([DETAIL_VIEW_QUERY_PARAM_NAME]),
-          });
-        }
-      }
+    handleSetActiveItem(item) {
+      this.activeItem = item;
     },
-    handleToggle(item) {
-      if (item && this.activeItem?.iid === item.iid) {
-        this.activeItem = null;
-        const queryParam = getParameterByName(DETAIL_VIEW_QUERY_PARAM_NAME);
-        if (queryParam) {
-          updateHistory({
-            url: removeParams([DETAIL_VIEW_QUERY_PARAM_NAME]),
-          });
-        }
-      } else {
-        this.activeItem = item;
-      }
+    handleWorkItemsChanged({ count, ids }) {
+      this.currentWorkItemsCount = count;
+      this.currentWorkItemIds = ids;
+    },
+    handleNamespaceDataLoaded({ namespaceName, data }) {
+      this.namespaceName = namespaceName;
+      document.title = this.calculateDocumentTitle(data);
     },
     deleteItem() {
       this.activeItem = null;
@@ -1277,89 +1205,6 @@ export default {
     },
     toggleStickyHeader(isVisible) {
       this.isStickyHeaderVisible = isVisible;
-    },
-    handleReorder({ newIndex, oldIndex }) {
-      if (newIndex === oldIndex) return Promise.resolve();
-
-      const workItemToMove = this.workItems[oldIndex];
-
-      const remainingItems = this.workItems.filter((_, index) => index !== oldIndex);
-
-      let moveBeforeId = null;
-      let moveAfterId = null;
-
-      if (newIndex === 0) {
-        // Moving to beginning
-        moveBeforeId = null;
-        moveAfterId = remainingItems[0]?.id || null;
-      } else if (newIndex >= remainingItems.length) {
-        // Moving to end
-        moveAfterId = null;
-        moveBeforeId = remainingItems[remainingItems.length - 1]?.id || null;
-      } else {
-        // Moving between items
-        moveAfterId = remainingItems[newIndex - 1]?.id || null;
-        moveBeforeId = remainingItems[newIndex]?.id || null;
-      }
-
-      const input = { id: workItemToMove.id };
-      if (moveBeforeId) input.moveBeforeId = moveBeforeId;
-      if (moveAfterId) input.moveAfterId = moveAfterId;
-
-      return this.$apollo
-        .mutate({
-          mutation: workItemsReorderMutation,
-          variables: { input },
-          update: (cache) => {
-            this.updateWorkItemsCache(cache, oldIndex, newIndex);
-          },
-        })
-        .then(({ data }) => {
-          if (data?.workItemsReorder?.errors?.length > 0) {
-            throw new Error(data.workItemsReorder.errors.join(', '));
-          }
-          return data;
-        })
-        .catch((error) => {
-          this.error = s__('WorkItem|An error occurred while reordering work items.');
-          Sentry.captureException(error);
-          throw error;
-        });
-    },
-    updateWorkItemsCache(cache, oldIndex, newIndex) {
-      cache.updateQuery(
-        {
-          query: getWorkItemsQuery,
-          variables: this.queryVariables,
-        },
-        (existingData) => {
-          if (!existingData?.namespace?.workItems?.nodes) {
-            return existingData;
-          }
-
-          const workItems = [...existingData.namespace.workItems.nodes];
-
-          if (oldIndex >= 0 && oldIndex < workItems.length) {
-            const [movedItem] = workItems.splice(oldIndex, 1);
-            if (movedItem) {
-              workItems.splice(newIndex, 0, movedItem);
-            }
-          }
-
-          const newData = {
-            ...existingData,
-            namespace: {
-              ...existingData.namespace,
-              workItems: {
-                ...existingData.namespace.workItems,
-                nodes: workItems,
-              },
-            },
-          };
-
-          return newData;
-        },
-      );
     },
     getFilterTokensFromSavedView(savedViewFilters) {
       const tokens = getSavedViewFilterTokens(savedViewFilters, {
@@ -1627,16 +1472,10 @@ export default {
       localStorage.setItem(this.savedViewDraftStorageKey, JSON.stringify(this.viewDraftData));
     },
     handleAllIssuablesCheckedInput(value) {
-      this.workItems.forEach((issuable) => this.updateCheckedIssuableIds(issuable, value));
-    },
-    updateCheckedIssuableIds(issuable, toCheck) {
-      const isIdChecked = this.checkedIssuableIds.includes(issuable.id);
-      if (toCheck && !isIdChecked) {
-        this.checkedIssuableIds = [...this.checkedIssuableIds, issuable.id];
-      }
-      if (!toCheck && isIdChecked) {
-        const indexToDelete = this.checkedIssuableIds.findIndex((id) => id === issuable.id);
-        this.checkedIssuableIds = this.checkedIssuableIds.toSpliced(indexToDelete, 1);
+      if (value) {
+        this.checkedIssuableIds = [...this.currentWorkItemIds];
+      } else {
+        this.checkedIssuableIds = [];
       }
     },
     async handleLocalDisplayPreferencesUpdate(newSettings) {
@@ -1739,37 +1578,6 @@ export default {
         Sentry.captureException(error);
       }
     },
-    createWorkItemQuery(query) {
-      return {
-        query,
-        context: {
-          featureCategory: 'portfolio_management',
-        },
-        variables() {
-          return this.queryVariables;
-        },
-        update(data) {
-          return data?.namespace?.workItems.nodes ?? [];
-        },
-        skip() {
-          return (
-            isEmpty(this.queryVariables) ||
-            this.metadataLoading ||
-            this.shouldSkipDueToSavedViewState
-          );
-        },
-        result({ data }) {
-          this.namespaceId = data?.namespace?.id;
-          this.handleListDataResults(data);
-        },
-        error(error) {
-          this.error = s__(
-            'WorkItem|Something went wrong when fetching work items. Please try again.',
-          );
-          Sentry.captureException(error);
-        },
-      };
-    },
     updateState(tokens) {
       this.state =
         tokens.find((token) => token.type === TOKEN_TYPE_STATE)?.value.data || STATUS_ALL;
@@ -1780,14 +1588,9 @@ export default {
     async refetchItems({ refetchCounts = false }) {
       if (refetchCounts) {
         this.$apollo.queries.workItemsCount.refetch();
+        this.$apollo.queries.hasWorkItems.refetch();
       }
-      // evict the namespace's workItems cache to force a full refetch
-      const { cache } = this.$apollo.provider.defaultClient;
-      cache.evict({
-        id: cache.identify({ __typename: TYPENAME_NAMESPACE, id: this.namespaceId }),
-        fieldName: 'workItems',
-      });
-      cache.gc();
+      this.handleEvictCache();
     },
     extractProjects(data) {
       return data?.group?.projects?.nodes;
@@ -1812,17 +1615,6 @@ export default {
         }
       });
     },
-    handleListDataResults(listData) {
-      this.pageInfo = listData?.namespace?.workItems.pageInfo ?? {};
-
-      if (listData?.namespace) {
-        this.namespaceName = listData.namespace.name;
-        document.title = this.calculateDocumentTitle(listData);
-      }
-      if (!this.withTabs) {
-        this.isInitialLoadComplete = true;
-      }
-    },
     calculateDocumentTitle(data) {
       const middleCrumb = data.namespace.name;
       if (this.isServiceDeskList) {
@@ -1837,22 +1629,17 @@ export default {
       }
       return `${s__('WorkItem|Work items')} · ${middleCrumb} · GitLab`;
     },
-    handleSavedViewSkipState(newValue) {
-      this.shouldSkipDueToSavedViewState = newValue;
-    },
     handleRefetch(scope) {
       if (scope === 'counts') {
         this.$apollo.queries.workItemsCount.refetch();
       }
       if (scope === 'all') {
-        this.$apollo.queries.workItemsFull.refetch();
-        this.$apollo.queries.workItemsSlim.refetch();
         this.$apollo.queries.hasWorkItems.refetch();
         this.$apollo.queries.workItemsCount.refetch();
+        this.handleEvictCache();
       }
     },
     handleEvictCache() {
-      // evict the namespace's workItems cache to force a full refetch
       const { cache } = this.$apollo.provider.defaultClient;
       cache.evict({
         id: cache.identify({ __typename: TYPENAME_NAMESPACE, id: this.namespaceId }),
@@ -2149,13 +1936,10 @@ export default {
     <list-view
       :root-page-full-path="rootPageFullPath"
       :with-tabs="withTabs"
-      :work-items="workItems"
-      :page-info="pageInfo"
+      :query-variables="queryVariables"
+      :skip-query="shouldSkipDueToSavedViewState || metadataLoading"
       :work-items-count="workItemsCount"
       :has-work-items="hasWorkItems"
-      :is-initial-load-complete="isInitialLoadComplete"
-      :is-loading="isLoading"
-      :detail-loading="detailLoading"
       :error="error"
       :initial-load-was-filtered="initialLoadWasFiltered"
       :show-bulk-edit-sidebar="showBulkEditSidebar"
@@ -2169,18 +1953,17 @@ export default {
       :state="state"
       :active-item="activeItem"
       @toggle-bulk-edit-sidebar="($evt) => (showBulkEditSidebar = $evt)"
-      @skip-due-to-saved-view="handleSavedViewSkipState"
-      @reset-initial-load-state="isInitialLoadComplete = false"
       @refetch-data="handleRefetch"
-      @evict-cache="handleEvictCache"
       @dismiss-alert="error = undefined"
       @set-error="($evt) => (error = $evt)"
       @update-tokens="($evt) => (filterTokens = $evt)"
       @set-checked-issuable-ids="($evt) => (checkedIssuableIds = $evt)"
-      @reorder="handleReorder"
       @set-page-params="handleSetPageParams"
       @set-page-size="($evt) => (pageSize = $evt)"
-      @select-item="handleToggle"
+      @select-item="handleSetActiveItem"
+      @set-active-item="handleSetActiveItem"
+      @work-items-changed="handleWorkItemsChanged"
+      @namespace-data-loaded="handleNamespaceDataLoaded"
     >
       <template #list-empty-state>
         <template v-if="isServiceDeskList">
