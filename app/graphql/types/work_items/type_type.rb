@@ -154,3 +154,5 @@ module Types
     end
   end
 end
+
+Types::WorkItems::TypeType.prepend_mod

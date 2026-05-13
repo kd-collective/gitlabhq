@@ -206,7 +206,8 @@ module WorkItems
       def namespaced_type(type)
         return unless type
 
-        NamespacedType.new(type, enabled: true, is_a_group: group_namespace?, tasks_on_boards: tasks_on_boards?)
+        NamespacedType.new(type, enabled: true, is_a_group: group_namespace?, tasks_on_boards: tasks_on_boards?,
+          namespace: namespace)
       end
 
       def tasks_on_boards?

@@ -388,6 +388,7 @@ reviews are re-requested.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/web_ide.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/15146)
 
 {{< /details >}}

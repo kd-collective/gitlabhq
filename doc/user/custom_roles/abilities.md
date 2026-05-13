@@ -149,7 +149,7 @@ You can create a [custom role](_index.md) by adding one or more custom permissio
 
 | Permission | Description | API Attribute | Scope | Introduced |
 |:-----------|:------------|:--------------|:------|:-----------|
-| Read virtual registry | Allows read access to virtual registries at the group level. Enables users to resolve packages through the virtual registry without requiring broader group membership permissions. Only works on top level groups. | [`read_virtual_registry`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/231294) | Group | GitLab [19.0](https://gitlab.com/gitlab-org/gitlab/-/work_items/596622) |
+| Read virtual registry | Allows read access to virtual registries at the group level. Enables users to resolve packages through the virtual registry without requiring broader group membership permissions. Only works on top level groups. | [`read_virtual_registry`](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/231294) | Group | GitLab [18.10](https://gitlab.com/gitlab-org/gitlab/-/work_items/596622) |
 
 ## Vulnerability management
 

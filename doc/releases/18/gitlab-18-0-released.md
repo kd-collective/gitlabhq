@@ -47,7 +47,7 @@ Thanks to Michael and the Adfinis team for co-creating GitLab!
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/538857)
 
@@ -69,6 +69,7 @@ GitLab’s AI-native features include Code Suggestions and Chat within the IDE. 
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/repository/code_suggestions/repository_xray.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17756)
 
@@ -83,7 +84,7 @@ You can now use Repository X-Ray with Code Suggestions on GitLab Duo Self-Hosted
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md)
 
@@ -105,7 +106,7 @@ Automatic reviews ensure that all code in your project receives a review, consis
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/project/repository/code_suggestions/_index.md#prompt-caching) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17489)
 
@@ -120,7 +121,7 @@ Code Suggestions now includes prompt caching. Prompt caching significantly impro
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md)
 
@@ -145,7 +146,7 @@ code reviews.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/direct_transfer_migrations.md#user-membership-mapping) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/510673)
 
 {{< /details >}}
@@ -181,7 +182,7 @@ To enable support for multiple workspaces, configure the GitLab for Slack app as
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/import/mapping/post_migration_mapping.md#placeholder-user-deletion) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/473256)
 
 {{< /details >}}
@@ -212,6 +213,7 @@ This new capability delivers immediate protection for critical vulnerabilities f
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/releases/9_0/) | [Related issue](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/5927)
 
 {{< /details >}}
@@ -241,7 +243,7 @@ In GitLab 18.0, we are enabling event-level product usage data collection from G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../administration/settings/visibility_and_access_controls.md#deletion-protection) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17208) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/526405)
 
 {{< /details >}}
@@ -257,7 +259,7 @@ By making data safety a core feature, GitLab can help better protect your work a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/working_with_projects.md#delete-a-project) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/536244)
 
 {{< /details >}}
@@ -273,7 +275,7 @@ We hope this enhancement provides greater peace of mind when managing your perso
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/projects.md#list-projects)
 
 {{< /details >}}
@@ -309,7 +311,7 @@ For complete details about specific rate limits and implementation information, 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/detect/roll_out_security_scanning.md)
 
 {{< /details >}}
@@ -338,7 +340,7 @@ We also changed the API Discovery template to align with other Stable templates 
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md#filter-the-compliance-projects-report) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/500520)
 
 {{< /details >}}
@@ -364,7 +366,7 @@ This feature includes:
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/workspace/configuration.md#create-a-workspace)
 
 {{< /details >}}
@@ -382,7 +384,7 @@ You can now create a workspace directly from a merge request with the new **Open
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/repository/files/_index.md#view-open-merge-requests-for-a-file) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/448868)
 
 {{< /details >}}
@@ -408,7 +410,7 @@ reveals a popover with the list of these merge requests.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/workspace/settings.md#shared_namespace)
 
 {{< /details >}}
@@ -431,7 +433,7 @@ Thank you to the half dozen community contributors who helped build this feature
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/525081)
 
 {{< /details >}}
@@ -447,7 +449,7 @@ In GitLab 18.0, error states in the UI show a specific container’s status, sim
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#license_finding-rule-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10203)
 
 {{< /details >}}
@@ -501,7 +503,7 @@ Thank you [John Parent](https://gitlab.kitware.com/john.parent) for your contrib
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/glql/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15008)
 
 {{< /details >}}
@@ -523,7 +525,7 @@ We welcome your feedback on this enhancement, and on GLQL views in general, in [
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/pages/getting_started/pages_new_project_template.md#project-templates)
 
 {{< /details >}}
@@ -539,7 +541,7 @@ Refining templates available for GitLab Pages streamlines the website creation p
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/project_integrations.md#jira-issues) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/454574)
 
 {{< /details >}}
@@ -555,7 +557,7 @@ You can now configure this integration from the project integrations API, which 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/vulnerabilities/_index.md#vulnerability-status-values) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/523452)
 
 {{< /details >}}
@@ -571,7 +573,7 @@ GitLab now adds a system note to the vulnerability history when resolved vulnera
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#add-vulnerabilities-to-an-existing-issue) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13216)
 
 {{< /details >}}
@@ -586,7 +588,7 @@ You may now associate multiple issues and vulnerabilities together. Additionally
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../administration/settings/visibility_and_access_controls.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/19618)
 
 {{< /details >}}
@@ -605,6 +607,7 @@ This feature helps organizations maintain strict control over membership access.
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/auth/ldap/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/215357)
 
 {{< /details >}}
@@ -618,7 +621,7 @@ LDAP users can now authenticate requests with their GitLab username. Previously,
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../integration/saml.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/524624)
 
 {{< /details >}}
@@ -632,7 +635,7 @@ GitLab now automatically detects and supports both SHA1 and SHA256 certificate f
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/fine_grained_permissions.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16199)
 
 {{< /details >}}
@@ -650,7 +653,7 @@ We’re actively seeking community feedback on this feature. If you have questio
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14746)
 
 {{< /details >}}

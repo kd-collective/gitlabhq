@@ -27,10 +27,10 @@
   @apply gl-justify-start;
   @apply gl-gap-3;
   @apply gl-bg-default;
-  @apply gl-px-4;
+  @apply gl-pl-[--container-padding-x];
+  @apply gl-pr-3;
   @apply gl-rounded-t-lg;
   @apply gl-border-b;
-  @apply lg:gl-px-5;
   z-index: $panel-header-inner-z-index;
   min-height: $panel-header-inner-height;
 
@@ -51,6 +51,13 @@
   @apply gl-items-center;
 }
 
+.panel-header-panel-actions {
+  @apply gl-border;
+  @apply gl-leading-0;
+  @apply gl-ml-2;
+  border-radius: calc(var(--gl-border-radius-lg) + 1px);
+}
+
 .panel-header-inner-actions-portal-target {
   display: none;
 
@@ -63,6 +70,10 @@
     @apply gl-gap-3;
     @apply gl-items-center;
   }
+}
+
+.panel-content-inner > .container-fluid {
+  @apply gl-px-[--container-padding-x];
 }
 
 // Only display breadcrumb-free panel-header when it has action buttons or feedback badges

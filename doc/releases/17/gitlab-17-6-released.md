@@ -47,6 +47,7 @@ We are so grateful to Joel for all of his contributions and to all of our open s
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501267)
 
@@ -65,7 +66,7 @@ Please leave feedback in [issue 501268](https://gitlab.com/gitlab-org/gitlab/-/i
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/reviews/_index.md#request-a-review)
 
 {{< /details >}}
@@ -83,7 +84,7 @@ Enhanced reviewer assignments is the next evolution of applying intelligence to 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/configuration.md#configure-support-for-private-container-registries)
 
 {{< /details >}}
@@ -99,7 +100,7 @@ This feature simplifies workflows, especially for teams that use custom or third
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/web_ide/_index.md#manage-extensions)
 
 {{< /details >}}
@@ -115,7 +116,7 @@ The extension marketplace is disabled by default. To get started, go to your use
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md#automatic-workspace-stop-and-termination)
 
 {{< /details >}}
@@ -138,7 +139,7 @@ With this feature, a workspace remains available for approximately one month aft
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/deployment_approvals.md#view-blocked-deployments) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/493260)
 
 {{< /details >}}
@@ -172,7 +173,7 @@ Now, we are giving self-managed and Dedicated instance administrators the abilit
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/ci_job_token.md#job-token-authentication-log) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467292)
 
 {{< /details >}}
@@ -188,7 +189,7 @@ With this authentication log, you can view the list of other projects that have 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#group-vulnerabilities) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10164)
 
 {{< /details >}}
@@ -202,7 +203,7 @@ Users require the ability to view vulnerabilities in groups. This will help secu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/ml/model_registry/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14998)
 
 {{< /details >}}
@@ -236,7 +237,7 @@ Outbound private links and private hosted zones establish secure network connect
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_status_report.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12661)
 
 {{< /details >}}
@@ -260,7 +261,7 @@ correctly ran in a project and the pipeline results has the correct resulting ar
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#project-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/359044)
 
 {{< /details >}}
@@ -279,7 +280,7 @@ These events are triggered for [group webhooks](../../user/project/integrations/
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: GitLab Duo Pro, GitLab Duo Enterprise
 - Links: [Documentation](../../subscriptions/subscription-add-ons.md#view-assigned-gitlab-duo-users) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14683)
 
@@ -294,6 +295,7 @@ In previous versions of GitLab, the user list displayed on the GitLab Duo seat a
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../subscriptions/subscription-add-ons.md#assign-gitlab-duo-seats) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/170507)
 
@@ -314,7 +316,7 @@ To disable this email, an administrator can disable the `duo_seat_assignment_ema
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md#cveenrichmenttype) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11544)
 
 {{< /details >}}
@@ -330,7 +332,7 @@ This data is available to composition analysis users through GraphQL.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/projects.md)
 
 {{< /details >}}
@@ -348,7 +350,7 @@ It’s now easier to programatically enable secret push protection. We’ve upda
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/exclusions.md)
 
 {{< /details >}}
@@ -362,7 +364,7 @@ Audit events are now logged when a secret push protection exclusion is applied. 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/project/repository/code_suggestions/repository_xray.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/14100)
 
@@ -379,7 +381,7 @@ Now, when a new commit is pushed to your project’s default branch, Repository 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/language_server/_index.md#enable-proxy-authentication) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/issues/159)
 
 {{< /details >}}
@@ -395,7 +397,7 @@ This update is crucial for developers needing secure, authenticated connections 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/auto_merge.md#prevent-merge-before-a-specific-date)
 
 {{< /details >}}
@@ -413,7 +415,7 @@ A big thank you to [Niklas van Schrick](https://gitlab.com/Taucher2003) for the 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/cluster/agent/bootstrap.md#options) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/482844)
 
 {{< /details >}}
@@ -427,7 +429,7 @@ In the last release, we introduced support for easy agent bootstrapping to the G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md#configure-a-dashboard-for-a-dynamic-environment) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467912)
 
 {{< /details >}}
@@ -442,6 +444,7 @@ In addition, [issue 500164](https://gitlab.com/gitlab-org/gitlab/-/issues/500164
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#groups-and-projects) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/486532)
 
 {{< /details >}}
@@ -455,7 +458,7 @@ There are now additional audit events for privileged settings-related administra
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#compliance-management) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/442279)
 
 {{< /details >}}
@@ -480,7 +483,7 @@ the merge request, including:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/account/two_factor_authentication.md#disable-two-factor-authentication) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/393419)
 
 {{< /details >}}
@@ -494,6 +497,7 @@ It is now possible to disable the OTP authenticator and WebAuthn devices individ
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/admin/token.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/443597)
 
 {{< /details >}}
@@ -509,6 +513,7 @@ Thank you [Nicholas Wittstruck](https://gitlab.com/nwittstruck) and the rest of 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/notifications.md#notifications-for-unknown-sign-ins) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/296128)
 
 {{< /details >}}
@@ -524,7 +529,7 @@ Thank you [Henry Helm](https://gitlab.com/shangsuru) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#approval_settings) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13776)
 
 {{< /details >}}
@@ -540,6 +545,7 @@ This new project override setting ensures that group protected branch settings c
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/account_and_limit_settings.md#allow-top-level-group-owners-to-create-service-accounts) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/468806)
 
 {{< /details >}}
@@ -553,7 +559,7 @@ Currently, only administrators can create service accounts on GitLab self-manage
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/service_accounts.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/439768)
 
 {{< /details >}}
@@ -567,7 +573,7 @@ Service accounts now have a designated badge and can be easily identified in the
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md#user-defined-job-names)
 
 {{< /details >}}
@@ -583,7 +589,7 @@ need to name your Pages deploy job `pages`. You can now simply use the
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../api/graphql/reference/_index.md#aimetrics)
 
@@ -598,7 +604,7 @@ GitLab Duo Pro customers can now programmatically access AI Impact Analytics met
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/456941)
 
 {{< /details >}}
@@ -612,7 +618,7 @@ You can now hide closed items from the linked and child items lists by turning o
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../api/graphql/reference/_index.md#aiusermetrics) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/483049)
 
@@ -627,7 +633,7 @@ Prior to this release, it was not possible to get GitLab Duo Chat and Code Sugge
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/artifacts_reports.md#artifactsreportscyclonedx) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415935)
 
 {{< /details >}}
@@ -664,7 +670,7 @@ Try it out today by using the `macos-15-xcode-16` image in your `.gitlab-ci.yml`
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/testing/code_coverage/jacoco.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/227345)
 
 {{< /details >}}
@@ -678,6 +684,7 @@ You can now see JaCoCo test coverage results directly in your merge request diff
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

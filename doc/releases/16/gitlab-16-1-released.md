@@ -48,7 +48,7 @@ Thanks to Yuri for his valuable contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../tutorials/left_sidebar/_index.md)
 
 {{< /details >}}
@@ -75,7 +75,7 @@ Please try the new navigation and let us know about your experience in [this iss
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/390769)
 
 {{< /details >}}
@@ -91,7 +91,7 @@ This feature works with every connected Kubernetes cluster. It doesn’t matter 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/6777)
 
 {{< /details >}}
@@ -125,7 +125,7 @@ Customers in highly-regulated industries are unable to adopt multi-tenant SaaS o
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/job_artifacts.md#view-all-job-artifacts-in-a-project)
 
 {{< /details >}}
@@ -143,7 +143,7 @@ Please use the survey at the top of the Artifacts page to share any feedback you
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/_index.md#define-a-cicd-variable-in-the-ui) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/410383)
 
 {{< /details >}}
@@ -161,6 +161,7 @@ In GitLab 16.1, you will see the first iteration of these improvements. We have 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/)
 
 {{< /details >}}
@@ -176,6 +177,7 @@ with optional local overrides.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -190,7 +192,7 @@ with optional local overrides.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/enterprise_user/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/375492)
 
 {{< /details >}}
@@ -206,7 +208,7 @@ Now, domain verification lives at the group level, and has been streamlined. Thi
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/10160)
 
 {{< /details >}}
@@ -220,7 +222,7 @@ The ability to view the vulnerability report is now split into a separate permis
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/user_passwords.md#change-your-password) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/16311)
 
 {{< /details >}}
@@ -234,7 +236,7 @@ If you forget your GitLab password, you can now reset it by email with any verif
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/users.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/324247)
 
 {{< /details >}}
@@ -248,6 +250,7 @@ The users API now returns the SCIM identities for a user. Previously, this infor
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../integration/shibboleth.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/393065)
 
 {{< /details >}}
@@ -261,6 +264,7 @@ Shibboleth OmniAuth support has been re-introduced to GitLab. It was previously 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#personal-access-token-scopes) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/42692)
 
 {{< /details >}}
@@ -276,6 +280,7 @@ Thank you [Jonas Wälter](https://gitlab.com/wwwjon), [Diego Louzán](https://gi
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/account_and_limit_settings.md#prevent-users-from-deleting-their-accounts) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/26053)
 
 {{< /details >}}
@@ -289,7 +294,7 @@ Administrators can prevent users from deleting their account with a new user res
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/410168)
 
 {{< /details >}}
@@ -305,7 +310,7 @@ Thank you [Jacob Torrey](https://thinkst.com/) for your contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/import/github.md#check-status-of-imports) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/386748)
 
 {{< /details >}}
@@ -324,6 +329,7 @@ and helps you troubleshoot problems.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/_index.md)
 
 {{< /details >}}
@@ -337,6 +343,7 @@ When a requester replies to a Service Desk email, it is useful to the Service De
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/_index.md)
 
 {{< /details >}}
@@ -350,6 +357,7 @@ For Service Desk requesters, it can be helpful to access the Service Desk issue 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/18287)
 
 {{< /details >}}
@@ -364,6 +372,7 @@ Thanks to [Yuri Konotopov](https://gitlab.com/nE0sIghT) for this [community cont
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/411981)
 
 {{< /details >}}
@@ -377,6 +386,7 @@ Geo adds filtering by replication status to all components managed by the [self-
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/355660)
 
 {{< /details >}}
@@ -392,6 +402,7 @@ When you add a design to an issue, a design Git repository is created or updated
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/changes.md#add-a-comment-to-a-merge-request-file)
 
 {{< /details >}}
@@ -405,6 +416,7 @@ Merge requests now support commenting on an entire file, because not all merge r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/changelogs.md#from-the-gitlab-cli)
 
 {{< /details >}}
@@ -422,7 +434,7 @@ Thanks [Michael Mead](https://gitlab.com/michael-mead) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/approvals/_index.md#invalid-rules) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389905)
 
 {{< /details >}}
@@ -436,6 +448,7 @@ Security and compliance policies allow organizations to enforce checks and balan
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/npm_registry/_index.md#install-from-a-group) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/299834)
 
 {{< /details >}}
@@ -453,7 +466,7 @@ To make sharing packages easier between projects, you can now install packages f
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/issues/design_management.md#add-a-design-to-an-issue) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9694)
 
 {{< /details >}}
@@ -467,7 +480,7 @@ Currently the [Design uploads](../../user/project/issues/design_management.md#ad
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/introduction.md#customize-the-default-folder) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/10126)
 
 {{< /details >}}
@@ -483,6 +496,7 @@ without needing to change the output folder in their configuration.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/testing/code_quality.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/412459)
 
 {{< /details >}}
@@ -508,6 +522,7 @@ For Code Quality changes in previous releases, see [the most recent update](http
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -554,6 +569,7 @@ See [the blog post about this integration](https://about.gitlab.com/blog/how-sec
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/382119)
 
 {{< /details >}}
@@ -576,6 +592,7 @@ As of GitLab 16.1, the [`sast-rules` project](https://gitlab.com/gitlab-org/secu
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/customize_rulesets.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/362958)
 
 {{< /details >}}
@@ -597,6 +614,7 @@ Further improvements in this area are discussed in [an issue](https://gitlab.com
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#rulesneeds) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/31581)
 
 {{< /details >}}
@@ -610,7 +628,7 @@ The [needs:](../../ci/yaml/_index.md#needs) keyword defines a dependency relatio
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/394768)
 
 {{< /details >}}
@@ -640,7 +658,7 @@ You can now seamlessly build, test, and deploy larger applications that require 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/ci_job_token.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/351740)
 
 {{< /details >}}
@@ -656,6 +674,7 @@ To make this setting configurable through the REST API as well, [Gerardo Navarro
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner/fleet_scaling/#reusing-a-runner-configuration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/409388/)
 
 {{< /details >}}
@@ -669,6 +688,7 @@ The new runner creation method enables you to re-use a runner configuration for 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

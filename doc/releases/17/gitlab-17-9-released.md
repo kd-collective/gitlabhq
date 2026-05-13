@@ -36,6 +36,7 @@ We are so grateful to Salihu for all of his contributions and to all of our open
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/517102)
 
@@ -54,7 +55,7 @@ Please leave feedback in [issue 512753](https://gitlab.com/gitlab-org/gitlab/-/i
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md#parallel-deployments) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14434)
 
 {{< /details >}}
@@ -77,7 +78,7 @@ Parallel deployments expire after 24 hours by default to help manage storage spa
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/examples.md#ask-about-specific-files-in-the-ide) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15183)
 
@@ -94,7 +95,7 @@ By adding project files, Duo Chat gains deep understanding of your specific code
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/configuration.md#build-and-run-containers-in-a-workspace)
 
 {{< /details >}}
@@ -110,7 +111,7 @@ Introduced in GitLab 17.4 as part of our [sudo access feature](https://about.git
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md#gitlab-default-devfile)
 
 {{< /details >}}
@@ -131,7 +132,7 @@ Start developing and create a workspace immediately without additional setup or 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/managed_kubernetes_resources.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16130)
 
 {{< /details >}}
@@ -153,7 +154,7 @@ When your developers deploy applications, GitLab automatically creates the neces
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/505770)
 
 {{< /details >}}
@@ -167,7 +168,7 @@ Have you ever struggled to get an overview of your deployments within a project?
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/discussions/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14062)
 
 {{< /details >}}
@@ -190,7 +191,7 @@ With wiki comments, teams can maintain living documentation that evolves alongsi
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md#value-stream-stage-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/503754)
 
 {{< /details >}}
@@ -206,7 +207,7 @@ With this enhancement, teams gain deeper insights into opportunities to optimize
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerabilities/risk_assessment_data.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11544)
 
 {{< /details >}}
@@ -226,7 +227,7 @@ You can now efficiently prioritize risk across your dependency and container ima
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/on-demand_scan.md)
 
 {{< /details >}}
@@ -252,7 +253,7 @@ This enhanced control helps you run more effective security scans while maintain
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/settings.md#automatic-pipeline-cleanup) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/338480)
 
 {{< /details >}}
@@ -272,7 +273,7 @@ This can help reduce the disk usage in projects that run lots of pipelines that 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../development/ai_features/composite_identity.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/506641)
 
 {{< /details >}}
@@ -292,6 +293,7 @@ For more information about how the composite identity for service accounts can b
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/account_and_limit_settings.md#prevent-users-from-making-their-profiles-private) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421310)
 
 {{< /details >}}
@@ -306,7 +308,7 @@ Administrators can now control whether users have the option to make profiles pr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/group_integrations.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/328496)
 
 {{< /details >}}
@@ -322,7 +324,7 @@ Thanks to [Van](https://gitlab.com/van.m.anderson) for their [initial community 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/members/sharing_projects_groups.md#view-shared-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/378629)
 
 {{< /details >}}
@@ -340,7 +342,7 @@ We welcome feedback about this change in [epic 16777](https://gitlab.com/groups/
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/dependency_scanning_sbom/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/519597)
 
 {{< /details >}}
@@ -369,7 +371,7 @@ Customers who want to entirely prevent the use of the new Dependency Scanning an
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/license_scanning_of_cyclonedx_files/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/506730)
 
 {{< /details >}}
@@ -385,7 +387,7 @@ This data is available to composition analysis users through the Dependency List
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#security-scanner-configuration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/514156)
 
 {{< /details >}}
@@ -406,7 +408,7 @@ We’re working to enable this performance improvement by default; this is track
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/507986)
 
 {{< /details >}}
@@ -427,7 +429,7 @@ not project owners.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md#extension-marketplace)
 
 {{< /details >}}
@@ -441,7 +443,7 @@ Workspace extensions now support enabling proposed APIs, improving compatibility
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](https://gitlab.com/components/fluxcd/) | [Related issue](https://gitlab.com/gitlab-org/ci-cd/deploy-stage/environments-group/experiments/fluxcd-ci-cd-component/-/issues/1)
 
 {{< /details >}}
@@ -455,7 +457,7 @@ Have you ever wondered how to implement GitOps best practices with GitLab? The n
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/getting_started.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/505216)
 
 {{< /details >}}
@@ -471,7 +473,7 @@ To supplement the Kubernetes Getting started guides, we also included a series o
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/cluster_discovery.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/512420)
 
 {{< /details >}}
@@ -489,7 +491,7 @@ We encourage all GitLab.com users to check if they are affected, and to plan the
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#inject_policy-type) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/475152)
 
 {{< /details >}}
@@ -516,7 +518,7 @@ The `inject_policy` stage replaces `inject_ci` which will be deprecated, allowin
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#personal-access-token-scopes) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/430748)
 
 {{< /details >}}
@@ -532,6 +534,7 @@ Thank you [Stéphane Talbot](https://gitlab.com/stalb) and [Anthony Juckel](http
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate, Silver, Gold
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/settings/project_access_tokens.md#view-your-access-tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/462217)
 
 {{< /details >}}
@@ -545,7 +548,7 @@ You can now view inactive group and project access tokens in the UI. Previously,
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#view-token-usage-information) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428577)
 
 {{< /details >}}
@@ -561,7 +564,7 @@ Thank you [Jayce Martin](https://jrm2k.us), [Avinash Koganti](http://www.linkedi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/pages_access_control.md#remove-public-access-for-group-pages)
 
 {{< /details >}}
@@ -575,7 +578,7 @@ You can now restrict GitLab Pages access at the group level. Group owners can en
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/tasks.md#convert-a-task-into-another-item-type) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/385131)
 
 {{< /details >}}
@@ -589,7 +592,7 @@ You can now easily change the type of your work items, giving you the flexibilit
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/work_items/child_items.md#work-with-multi-level-hierarchies) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/497767)
 
 {{< /details >}}
@@ -603,7 +606,7 @@ We’ve streamlined the process of creating multiple child items by keeping the 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/513308)
 
 {{< /details >}}
@@ -623,7 +626,7 @@ These new filters give you more control when querying and organizing work items 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/482967)
 
 {{< /details >}}
@@ -639,7 +642,7 @@ If a security policy project is linked to any groups or projects, the links must
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md#filter-dependency-list) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16490)
 
 {{< /details >}}
@@ -655,7 +658,7 @@ Previously, you could not search for packages in the Dependencies list for a pro
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#filtering-vulnerabilities) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13340)
 
 {{< /details >}}
@@ -670,7 +673,7 @@ You can use the identifier in conjunction with other filters like the severity, 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#require_approval-action-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13550)
 
 {{< /details >}}
@@ -686,7 +689,7 @@ You can now tailor approval requirements to match your organization’s unique t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/credentials_inventory.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/345734)
 
 {{< /details >}}
@@ -700,7 +703,7 @@ You can now use search and filter capabilities in the Credentials Inventory. Thi
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#authorization) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/514152)
 
 {{< /details >}}
@@ -732,7 +735,7 @@ You can now use the API to clear all two-factor authentication (2FA) registratio
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/service_accounts.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428750)
 
 {{< /details >}}
@@ -748,6 +751,7 @@ Thank you [Gilles Dehaudt](https://gitlab.com/tonton1728), [Étienne Girondel](h
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/auth/oidc.md#configure-multiple-openid-connect-providers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/408248)
 
 {{< /details >}}
@@ -761,7 +765,7 @@ You can now configure additional group memberships when using multiple OIDC prov
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/service_accounts.md#rotate-a-personal-access-token-for-a-group-service-account) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/505671)
 
 {{< /details >}}
@@ -775,7 +779,7 @@ When rotating an access token for a service account, you can now use the `expire
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/512916)
 
 {{< /details >}}
@@ -798,7 +802,7 @@ With this enhancement, you can:
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14746)
 
 {{< /details >}}
@@ -812,6 +816,7 @@ You can create custom roles with the [Read compliance dashboard](https://gitlab.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

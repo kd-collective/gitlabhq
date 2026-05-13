@@ -44,9 +44,9 @@ module Issues
       return unless params[:issue_type].present?
 
       # Resolve to a type object (may be a system-defined or a namespace-scoped converted
-      # custom type) and let `work_item_type=` apply `persistable_type_id`. This keeps the
+      # custom type) and let `work_item_type=` call `persistable_id`. This keeps the
       # write path consistent for converted and non-converted types, instead of assigning
-      # `work_item_type_id` directly which bypasses the persistable id logic in EE.
+      # `work_item_type_id` directly which bypasses the persistable id logic.
       issue.work_item_type = work_item_type_provider.find_by_base_type(params[:issue_type]) ||
         work_item_type_provider.default_issue_type
     end

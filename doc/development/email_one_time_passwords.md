@@ -44,27 +44,6 @@ Example log showing successful sign-in flow, searching by IP address:
 Event reasons are defined in
 [`VerifiesWithEmail` constants](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/controllers/concerns/verifies_with_email.rb#L11-L15).
 
-### Password API authentication failures
-
-As with other 2FA methods, users enrolled in Email OTP cannot
-authenticate API requests with passwords. Look for successful password
-validation followed by 401 responses.
-
-Search for `find_with_user_password succeeded`, then look at
-time-adjacent records or records with the same IP to identify the
-request record and its response.
-
-```plaintext
-json.message: "find_with_user_password" AND json.username:replace_username_here
-```
-
-Example showing Git operations with Email OTP enrolled:
-
-![Git operation logs showing the GitLab::Auth log followed by the request log with 401 status](img/email_otp_git_unauthorized_elasticsearch_logs_v18_9.png)
-
-Note the `find_with_user_password succeeded` message appears even though
-authentication ultimately fails with 401.
-
 ### Enrollment changes
 
 View user preference modifications:

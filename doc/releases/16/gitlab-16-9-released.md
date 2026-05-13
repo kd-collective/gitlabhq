@@ -46,7 +46,7 @@ Thank you Ravi and Ian! 🙌
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11251)
 
 {{< /details >}}
@@ -73,6 +73,7 @@ You can help us mature these features by providing feedback about your experienc
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/reviews/_index.md#submit-a-review)
 
 {{< /details >}}
@@ -94,6 +95,7 @@ You can leave feedback about the **Request changes** feature in our [feedback is
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/418331)
 
 {{< /details >}}
@@ -115,6 +117,7 @@ Your [feedback for these changes](https://gitlab.com/gitlab-org/gitlab/-/issues/
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#workflowauto_cancelon_new_commit) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/412473)
 
 {{< /details >}}
@@ -132,6 +135,7 @@ This lack of flexibility hinders users who want more control over which exact jo
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../integration/advanced_search/elasticsearch.md#advanced-search-configuration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435402)
 
 {{< /details >}}
@@ -145,6 +149,7 @@ As a GitLab administrator, you can now set the maximum number of Elasticsearch c
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/appearance.md#member-guidelines) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/433093)
 
 {{< /details >}}
@@ -162,7 +167,7 @@ Thank you @bufferoverflow for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437874)
 
 {{< /details >}}
@@ -181,7 +186,7 @@ In this release, we added import results statistics for groups and projects. To 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/configure.md#view-jira-issues) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/325715)
 
 {{< /details >}}
@@ -195,7 +200,7 @@ With this release, you can enable Jira issues for all projects in a GitLab group
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/group_integrations.md#gitlab-for-slack-app) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/364440)
 
 {{< /details >}}
@@ -211,6 +216,7 @@ You cannot create a GitLab for Slack app from the API. Instead, you must [instal
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/usage_data.md#export-service-ping-data) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12251)
 
 {{< /details >}}
@@ -239,6 +245,7 @@ Previously, Git access control options on GitLab.com relied on credentials set u
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/gitlab_agent_configuration.md)
 
 {{< /details >}}
@@ -254,7 +261,7 @@ Now in 16.9, you can also limit the number of workspaces per user. With this new
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/_index.md#run-a-pipeline-job-when-environment-is-stopped) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435128)
 
 {{< /details >}}
@@ -270,7 +277,7 @@ This behaviour might be considered a breaking change in some situations. The new
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435293)
 
 {{< /details >}}
@@ -300,6 +307,7 @@ Group Owners that have [enterprise users](../../user/enterprise_user/_index.md) 
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/group/access_and_permissions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425947)
 
 {{< /details >}}
@@ -313,7 +321,7 @@ Previously, if a group had LDAP sync enabled, administrators were not able to in
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437672)
 
 {{< /details >}}
@@ -341,7 +349,7 @@ If you belong to a group that requires SAML SSO authentication, but you do not h
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11053)
 
 {{< /details >}}
@@ -367,7 +375,7 @@ In this milestone, we’ve made some improvements which will make reporting more
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/rich_text_editor.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/7098)
 
 {{< /details >}}
@@ -390,6 +398,7 @@ With improved access to the rich text editor, you can collaborate more efficient
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/terraform_module_registry/_index.md#allow-duplicate-terraform-modules) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/368040)
 
 {{< /details >}}
@@ -405,6 +414,7 @@ However, you might want to allow duplicate uploads, especially for releases. In 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/_index.md#view-packages) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/352041)
 
 {{< /details >}}
@@ -420,6 +430,7 @@ From GitLab 16.9, you can view all of your group and subgroup modules in GitLab.
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/issue_board.md#work-in-progress-limits) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/440540)
 
 {{< /details >}}
@@ -433,7 +444,7 @@ You can now visualize your work in progress limits in a board list. When a limit
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md#value-stream-stage-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/431934)
 
 {{< /details >}}
@@ -447,6 +458,7 @@ To improve the [tracking of development workflows in GitLab](https://about.gitla
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/vulnerabilities.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11968)
 
 {{< /details >}}
@@ -462,6 +474,7 @@ With this change to OCS, users who run `gitlab-agent` in FIPS mode cannot run Op
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12685)
 
 {{< /details >}}
@@ -478,6 +491,7 @@ We resolved the following bugs during the 16.9 release milestone:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/rules.md#important-rule-changes) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10971)
 
 {{< /details >}}
@@ -498,6 +512,7 @@ We’re working on more SAST rule improvements in [epic 10907](https://gitlab.co
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/visual_studio_code/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10996)
 
 {{< /details >}}
@@ -522,7 +537,7 @@ We’ve also:
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/settings.md#restrict-roles-that-can-cancel-pipelines-or-jobs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/410634)
 
 {{< /details >}}
@@ -536,6 +551,7 @@ Organizations might want to control which user roles are able to cancel a pipeli
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/runners/runner_fleet_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421457)
 
 {{< /details >}}
@@ -551,6 +567,7 @@ Now, the runner compute usage by project metric card, a complement to the previo
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -574,7 +591,7 @@ The list of all changes is in the GitLab Runner [CHANGELOG](https://gitlab.com/g
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/_index.md#view-pipelines) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416134)
 
 {{< /details >}}

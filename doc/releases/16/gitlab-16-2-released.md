@@ -36,7 +36,7 @@ A big thanks to all of our community contributors this past release 🙌
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/rich_text_editor.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10378)
 
 {{< /details >}}
@@ -56,7 +56,7 @@ We are proud of the new editing experience and can’t wait to see what you thin
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/gitops.md#immediate-git-repository-reconciliation) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/392852)
 
 {{< /details >}}
@@ -85,7 +85,7 @@ To begin using keyless signing for your build artifacts, container images, and p
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/command_palette.md)
 
 {{< /details >}}
@@ -127,6 +127,7 @@ We are continuously iterating to improve Code Suggestions. Give it a try and [sh
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/ml/experiment_tracking/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/125758)
 
 {{< /details >}}
@@ -142,7 +143,7 @@ With machine learning model experiments, data scientists can log parameters, met
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/388890)
 
 {{< /details >}}
@@ -160,7 +161,7 @@ The new configuration also includes the option to filter the metrics by labels. 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/advanced_search.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/336100)
 
 {{< /details >}}
@@ -174,6 +175,7 @@ With this release, we’ve extended Advanced Search to include [group-level wiki
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -188,7 +190,7 @@ With this release, we’ve extended Advanced Search to include [group-level wiki
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/development_panel.md#information-displayed-in-the-development-panel) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/300031)
 
 {{< /details >}}
@@ -208,6 +210,7 @@ last 5,000 commits made to the branch after the last successful deployment. The 
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/moderate_users.md#automatically-delete-unconfirmed-users) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/352514)
 
 {{< /details >}}
@@ -221,7 +224,7 @@ When invitations are sent to an incorrect email address, they can never be confi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md#feed-token) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/414257)
 
 {{< /details >}}
@@ -235,6 +238,7 @@ Feed tokens have been made more secure by only working for the URL they were gen
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/slack_app.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/358872)
 
 {{< /details >}}
@@ -252,7 +256,7 @@ To create and configure the app, see [GitLab for Slack app administration](../..
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/import.md#import-repository-from-github) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/337232)
 
 {{< /details >}}
@@ -276,6 +280,7 @@ When using multiple access tokens:
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/auth/oidc.md#auditor-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389321)
 
 {{< /details >}}
@@ -291,7 +296,7 @@ Thank you [Marin Hannache](https://gitlab.com/mareo) for your contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/sign_up_restrictions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/385651)
 
 {{< /details >}}
@@ -313,6 +318,7 @@ The GitLab sign-in and sign-up pages have been improved:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/18287)
 
 {{< /details >}}
@@ -327,6 +333,7 @@ Thanks to [Yuri Konotopov](https://gitlab.com/nE0sIghT) for this [community cont
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/364727)
 
 {{< /details >}}
@@ -342,6 +349,7 @@ Geo adds the ability to resync and reverify individual items for all component t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../topics/git/lfs/_index.md)
 
 {{< /details >}}
@@ -357,7 +365,7 @@ Previously, due to how LFS objects were fetched, GitLab created many very small 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/install/_index.md#customize-the-helm-installation) | [Related issue](https://gitlab.com/gitlab-org/charts/gitlab-agent/-/issues/33)
 
 {{< /details >}}
@@ -371,7 +379,7 @@ The `agentk` component of the agent for Kubernetes requires a token to authentic
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9566)
 
 {{< /details >}}
@@ -385,7 +393,7 @@ You can now define custom CI variables, including their values, in the Scan Exec
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/6880)
 
 {{< /details >}}
@@ -399,7 +407,7 @@ In previous GitLab versions, security policies were not enforced on projects wit
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#scan_finding-rule-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9468)
 
 {{< /details >}}
@@ -420,7 +428,7 @@ Branch rules can be configured across our various security policy rule types by 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -440,7 +448,7 @@ key to allow for a more seamless integration.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md#export-a-report-of-compliance-frameworks-on-projects-in-a-group)
 
 {{< /details >}}
@@ -462,6 +470,7 @@ which projects are tagged with which frameworks.
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8090)
 
 {{< /details >}}
@@ -477,7 +486,7 @@ With this release, you can see all dependencies at the project or group level, i
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/branches/default.md#protect-initial-default-branches)
 
 {{< /details >}}
@@ -497,6 +506,7 @@ can force push.
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -512,7 +522,7 @@ Now, instance administrators can add a streaming destination for audit events pr
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -532,6 +542,7 @@ search through the list manually.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/reviews/suggestions.md#using-the-rich-text-editor) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/406726)
 
 {{< /details >}}
@@ -549,6 +560,7 @@ We plan to have the rich text editor available in more areas of GitLab soon and 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/_index.md#to-import-packages) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389339)
 
 {{< /details >}}
@@ -564,7 +576,7 @@ You can now use the Packages Importer tool to import packages from any PyPI-comp
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/emoji_reactions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/29756)
 
 {{< /details >}}
@@ -582,6 +594,7 @@ way.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -613,6 +626,7 @@ For previous changes, see [last month’s updates](https://about.gitlab.com/rele
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/_index.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -639,7 +653,7 @@ For previous changes, see [the most recent Secret Detection update](https://abou
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#obtaining-dependency-information-by-parsing-lockfiles) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/398680)
 
 {{< /details >}}
@@ -653,6 +667,7 @@ In addition to NuGet `v1` lock files, GitLab Dependency and License Scanning bot
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#advanced-vulnerability-tracking) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/5144)
 
 {{< /details >}}
@@ -676,7 +691,7 @@ You don’t have to take action to receive this update unless you’ve [pinned S
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/includes.md#include-with-rulesif) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/348146)
 
 {{< /details >}}
@@ -709,6 +724,7 @@ We are excited to see our Free users accelerate their pipeline speeds.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

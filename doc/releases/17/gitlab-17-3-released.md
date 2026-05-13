@@ -48,7 +48,7 @@ Many thanks to Anton and the rest of GitLab’s open source contributors for co-
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/examples.md#troubleshoot-failed-cicd-jobs-with-root-cause-analysis) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13080)
 
@@ -63,6 +63,7 @@ Root cause analysis is now generally available. With root cause analysis, you ca
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo/configure/_index.md#run-a-health-check-for-gitlab-duo) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/14518)
 
@@ -80,7 +81,7 @@ The health check for GitLab Duo is available on Self-managed and GitLab Dedicate
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md#delete-a-pod) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467653)
 
 {{< /details >}}
@@ -96,7 +97,7 @@ You can stop a pod from a [dashboard for Kubernetes](../../ci/environments/kuber
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/user_access.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/463769)
 
 {{< /details >}}
@@ -114,7 +115,7 @@ To retrieve the connection command, either go to a [Kubernetes dashboard](../../
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/application_security/vulnerabilities/_index.md#vulnerability-resolution) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10783)
 
@@ -129,7 +130,7 @@ Vulnerability resolution uses AI to give specific code suggestions for users to 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md#add-a-compliance-framework-to-a-project) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13294)
 
 {{< /details >}}
@@ -149,7 +150,7 @@ With this release, you can apply multiple compliance frameworks to a project. Th
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#dashboard-metrics-and-drill-down-reports) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/471168)
 
@@ -172,6 +173,7 @@ With the addition of these new metrics, we have also introduced new overview til
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -187,7 +189,7 @@ Debian 10 has reached [EOL on June 30th, 2024](https://www.debian.org/releases/b
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md#explore-all-projects-on-an-instance) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/25368)
 
 {{< /details >}}
@@ -206,7 +208,7 @@ We welcome feedback about these changes in [#438322](https://gitlab.com/gitlab-o
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/advanced_search/elasticsearch.md#index-the-instance) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/271532)
 
 {{< /details >}}
@@ -222,7 +224,7 @@ When you enable advanced search in GitLab, you can now select **Index the instan
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467089)
 
 {{< /details >}}
@@ -240,7 +242,7 @@ whether or not a project inherits integration settings. If not set, the default 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_webhooks.md#list-project-webhook-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437188)
 
 {{< /details >}}
@@ -258,7 +260,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/command_palette.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/448646)
 
 {{< /details >}}
@@ -276,7 +278,7 @@ With 17.3, you can now search for group settings from the command palette as wel
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/project/repository/code_suggestions/supported_extensions.md#manage-languages-for-code-suggestions) | [Related issue](https://gitlab.com/gitlab-org/gitlab-vscode-extension/-/issues/1388)
 
@@ -291,7 +293,7 @@ Get more control over your coding experience in VS Code by enabling or disabling
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/jetbrains_ide/jetbrains_troubleshooting.md#certificate-errors) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-jetbrains-plugin/-/issues/371)
 
 {{< /details >}}
@@ -305,7 +307,7 @@ For tighter security in sensitive environments, you can now configure custom HTT
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/repository_size.md#remove-blobs)
 
 {{< /details >}}
@@ -330,7 +332,7 @@ This new UI streamlines the way you can manage your repositories when content ne
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#deployment-management) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/462749)
 
 {{< /details >}}
@@ -352,7 +354,7 @@ These audit events extend the `cluster_agent_token_created` and `cluster_agent_t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md#supported-kubernetes-versions-for-gitlab-features) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/456929)
 
 {{< /details >}}
@@ -368,7 +370,7 @@ You can read more about [our Kubernetes support policy and other supported Kuber
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/status_checks.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/433035)
 
 {{< /details >}}
@@ -390,7 +392,7 @@ In a [future iteration](https://gitlab.com/gitlab-org/gitlab/-/issues/476163), G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/members/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/431397)
 
 {{< /details >}}
@@ -404,7 +406,7 @@ Users can now filter the Members page by role. Use the filter to find members wi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/13061)
 
 {{< /details >}}
@@ -418,7 +420,7 @@ Previously, if you wanted to view permissions for the custom roles of a user, yo
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/access_and_permissions.md#manage-group-memberships-with-ldap) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435229)
 
 {{< /details >}}
@@ -435,7 +437,7 @@ large group of users.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391760)
 
 {{< /details >}}
@@ -453,6 +455,7 @@ With custom roles, you can reduce the number of users with the Owner role by cre
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#view-token-usage-information) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/436991)
 
 {{< /details >}}
@@ -466,7 +469,7 @@ Administrators can now disable or re-enable instance personal access tokens thro
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#add-external-accounts-to-your-user-profile-page) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/451690)
 
 {{< /details >}}
@@ -482,7 +485,7 @@ Thank you [Dominique](https://domi.zip/) for your contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/active_sessions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/471097)
 
 {{< /details >}}
@@ -498,7 +501,7 @@ Thank you [Guilherme C. Souza](https://gitlab.com/GCSBOSS) for your contribution
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/analytics/duo_and_sdlc_trends.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/464692)
 
@@ -513,7 +516,7 @@ We are excited to announce a significant improvement to our [AI Impact analytics
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/tasks.md#add-a-merge-request-and-automatically-close-tasks) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/440851)
 
 {{< /details >}}
@@ -527,7 +530,7 @@ Tasks are frequently used to break down issues into engineering implementation s
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/okrs.md#set-an-objective-as-a-parent) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11198)
 
 {{< /details >}}
@@ -541,7 +544,7 @@ You can now effortlessly update parent assignments for [OKRs](../../user/okrs.md
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/report_abuse.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/461848)
 
 {{< /details >}}
@@ -555,7 +558,7 @@ You can now easily report abuse for work items directly from the **Actions** men
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/discussions/_index.md#resolve-a-thread) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/458818)
 
 {{< /details >}}
@@ -569,7 +572,7 @@ You can now resolve threads in tasks, objectives, and key results, making it eas
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md#value-stream-stage-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/466383)
 
 {{< /details >}}
@@ -584,7 +587,7 @@ With this new event teams can identify where delays occur in the review process,
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/license_scanning_of_cyclonedx_files/_index.md#supported-languages-and-package-managers) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/13093)
 
 {{< /details >}}
@@ -600,7 +603,7 @@ To enable Rust scanning for your Project use the `cargo` template from the [Depe
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/14408)
 
 {{< /details >}}
@@ -618,7 +621,7 @@ Users will be able to view SBOM ingestion errors in the following areas of the G
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/customize_rulesets.md#use-a-remote-ruleset-file)
 
 {{< /details >}}
@@ -639,7 +642,7 @@ If you set the value to `false` when you [enforce scan execution](../../user/app
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/387547)
 
 {{< /details >}}
@@ -655,7 +658,7 @@ Previously, you could only filter the list of jobs by status, requiring manual s
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/merge_trains.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13705)
 
 {{< /details >}}
@@ -669,6 +672,7 @@ You can now visualize the merge train to gain better insight into the status and
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -704,6 +708,7 @@ We have shipped performance improvements with the recent upgrade to macOS 14.5 a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#cicd-catalog) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/426870)
 
 {{< /details >}}

@@ -148,6 +148,7 @@
  */
 
 .page-with-panels {
+  --container-padding-x: #{$gl-spacing-scale-4};
   --ai-panel-height: 3rem; //= 48px
 
   @include media-breakpoint-up(lg) {
@@ -203,16 +204,6 @@
       // This prevents the scrollbar transparency rule above from breaking scrollbars in dropdown menus
       .dropdown-menu {
         background: var(--gl-background-color-overlap);
-      }
-
-      .container-fluid {
-        --container-padding-x: #{$gl-spacing-scale-2};
-        padding-left: var(--container-padding-x);
-        padding-right: var(--container-padding-x);
-
-        @container content-panels (width >= #{map.get($breakpoints, 'lg')}) {
-          --container-padding-x: #{$gl-spacing-scale-3};
-        }
       }
 
       // Hide alert wrapper if it's empty
@@ -330,12 +321,11 @@
   }
 
   .panel-content-inner {
-    @apply gl-px-3;
     flex: 1;
   }
 
   .work-item-detail-panel-content {
-    @apply gl-px-5;
+    @apply gl-px-[--container-padding-x];
     flex: 1;
   }
 
@@ -362,18 +352,10 @@
     // Issue sticky header
     .issue-sticky-header:not(.merge-request-sticky-header) {
       @apply gl-w-full gl-border-b-subtle;
-
-      .work-item-sticky-header-text {
-        @apply gl-px-3 @lg/panel:gl-px-4 gl-py-2;
-      }
     }
 
     .work-item-detail-panel .issue-sticky-header:not(.merge-request-sticky-header) {
-      top: $header-height !important;
-
-      .work-item-sticky-header-text {
-        @apply gl-px-5;
-      }
+      top: $panel-header-inner-height !important;
     }
 
     // Legacy merge request sticky header (Firefox)
@@ -438,10 +420,6 @@
   .boards-app.boards-app {
     height: var(--panel-content-inner-height);
     overflow-y: hidden;
-
-    .issues-details-filters {
-      @apply gl-px-3;
-    }
   }
 
   .board-content {
@@ -813,14 +791,6 @@
 
   .work-item-detail-panel .work-item-overview-right-sidebar {
     @apply gl-pb-10;
-  }
-}
-
-@include gl-container-width-up(xl) {
-  &.application-chrome {
-    .boards-app.boards-app .issues-details-filters {
-      @apply gl-px-5;
-    }
   }
 }
 

@@ -67,7 +67,7 @@ open source community! 🙌
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#component-versions) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/442238)
 
 {{< /details >}}
@@ -83,6 +83,7 @@ When using a component with the `include: component` syntax, you should use the 
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_duo/turn_on_off.md)
 
 {{< /details >}}
@@ -98,7 +99,7 @@ You can now disable GitLab Duo AI features for a project, a group, or an instanc
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md#wiki-page-templates) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/16608)
 
 {{< /details >}}
@@ -147,6 +148,7 @@ With GitLab Pages, you can publish static websites directly from a repository in
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/secondary_proxy/runners.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9779)
 
 {{< /details >}}
@@ -162,6 +164,7 @@ You can now offload CI runner traffic to Geo secondary sites. Locate runner flee
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/)
 
 {{< /details >}}
@@ -179,6 +182,7 @@ Kubernetes closer to their official release.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -214,7 +218,7 @@ With the GraphQL API you can now filter group members by Enterprise users.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#follow-users) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/441774)
 
 {{< /details >}}
@@ -230,7 +234,7 @@ Thank you @SethFalco for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md#list-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/429314)
 
 {{< /details >}}
@@ -246,7 +250,7 @@ Thank you @imskr for this community contribution!
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/443682)
 
 {{< /details >}}
@@ -260,7 +264,7 @@ Now it’s easier to identify deleted projects in project lists. From GitLab 16.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/hangouts_chat.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438452)
 
 {{< /details >}}
@@ -277,7 +281,7 @@ Thanks to [Robbie Demuth](https://gitlab.com/robbie-demuth) for [this community 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhooks.md#custom-webhook-template) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/362504)
 
 {{< /details >}}
@@ -295,7 +299,7 @@ Thanks to [Niklas](https://gitlab.com/Taucher2003) for [this community contribut
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/using_service_desk.md#create-a-service-desk-ticket-in-gitlab-ui) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/433376)
 
 {{< /details >}}
@@ -315,6 +319,7 @@ Adding a Service Desk ticket using the API follows the same concept: Create an i
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/changes.md#collapse-generated-files)
 
 {{< /details >}}
@@ -335,6 +340,7 @@ You can leave feedback on this change in [issue 438727](https://gitlab.com/gitla
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/auto_merge.md)
 
 {{< /details >}}
@@ -350,7 +356,7 @@ When you view a merge request, the merge widget now gives you a comprehensive vi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/429531)
 
 {{< /details >}}
@@ -364,7 +370,7 @@ GitLab 16.10 adds a dedicated refresh feature to the dashboard for Kubernetes. N
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/431746)
 
 {{< /details >}}
@@ -378,7 +384,7 @@ The environment details page is improved in GitLab 16.10. When you select an env
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/rate_limits.md#failed-authentication-ban-for-git-and-container-registry) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/22787)
 
 {{< /details >}}
@@ -392,7 +398,7 @@ When authenticating with GitLab, it is possible to hit the authentication attemp
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -412,7 +418,7 @@ You can use this new attribute to parse through external streaming destinations 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/service_accounts.md#create-a-service-account) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415973)
 
 {{< /details >}}
@@ -426,7 +432,7 @@ You can now customize a service account’s username and display name. Previousl
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/427954)
 
 {{< /details >}}
@@ -440,7 +446,7 @@ GitLab now records an audit event when a user is assigned a different role, rega
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391760)
 
 {{< /details >}}
@@ -459,7 +465,7 @@ With the release of these custom permissions, you can reduce the number of Owner
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9850)
 
 {{< /details >}}
@@ -475,6 +481,7 @@ Merge request approval policies do not replace or conflict with existing merge r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhooks.md#configure-webhooks-to-support-mutual-tls) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/27450)
 
 {{< /details >}}
@@ -488,7 +495,7 @@ You can now configure webhooks to support mutual TLS. This configuration establi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](https://gitlab.com/gitlab-org/gitlab/-/issues/412845) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/412845)
 
 {{< /details >}}
@@ -502,6 +509,7 @@ The GitLab sign-in page has been refreshed with improvements that fix spacing is
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/auth/smartcard.md#authentication-against-an-active-directory-ldap-server) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/328074)
 
 {{< /details >}}
@@ -515,7 +523,7 @@ Smart card authentication against an LDAP server now supports Entra ID (formerly
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#understanding-merge-request-approval-policy-approvals) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428518)
 
 {{< /details >}}
@@ -530,7 +538,7 @@ Rather than comparing to the target branch’s latest completed `HEAD` pipeline,
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/redirects.md#domain-level-redirects) | [Related issue](https://gitlab.com/gitlab-org/gitlab-pages/-/issues/601)
 
 {{< /details >}}
@@ -581,7 +589,7 @@ The **Contributor count** metric is available only on GitLab.com, and requires t
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/issues_analytics/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/439615)
 
 {{< /details >}}
@@ -595,7 +603,7 @@ The **Contributor count** metric is available only on GitLab.com, and requires t
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/quick_actions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/384885)
 
 {{< /details >}}
@@ -609,7 +617,7 @@ The `/iteration` quick action now accepts a cadence reference with `--current` o
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/continuous_vulnerability_scanning/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10174)
 
 {{< /details >}}
@@ -623,7 +631,7 @@ Continuous Vulnerability Scanning for Container Scanning is now available by def
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#supported-languages-and-package-managers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/390287)
 
 {{< /details >}}
@@ -637,6 +645,7 @@ We have updated the mechanism we use to generate the list of dependencies for pr
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/12194)
 
 {{< /details >}}
@@ -658,6 +667,7 @@ We also completed the following browser-based DAST crawler performance improveme
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

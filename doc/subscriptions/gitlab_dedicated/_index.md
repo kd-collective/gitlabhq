@@ -273,6 +273,12 @@ These limits prevent any single user or automation from degrading performance fo
 For more information about how rate limits work in GitLab Dedicated,
 see [authenticated user rate limits](../../administration/dedicated/user_rate_limits.md).
 
+### Gitaly storage weights
+
+GitLab configures storage weights to distribute new repositories evenly across Gitaly nodes.
+If you modify storage weights in the Admin area, GitLab overwrites your changes during the
+next deployment.
+
 ## Unavailable features
 
 This section lists the features that are not available for GitLab Dedicated.

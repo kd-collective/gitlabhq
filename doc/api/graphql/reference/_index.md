@@ -35906,11 +35906,14 @@ A message in a Duo Workflow chat log.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
+| <a id="duomessage-componentname"></a>`componentName` {{< icon name="warning-solid" >}} | [`String`](#string) | **Introduced** in GitLab 19.0. **Status**: Experiment. Component name associated with the message. |
 | <a id="duomessage-content"></a>`content` | [`String!`](#string) | Content of the message. |
 | <a id="duomessage-correlationid"></a>`correlationId` | [`String`](#string) | Correlation ID of the message. |
+| <a id="duomessage-messagesubtype"></a>`messageSubType` {{< icon name="warning-solid" >}} | [`String`](#string) | **Introduced** in GitLab 19.0. **Status**: Experiment. Sub-type of the message. |
 | <a id="duomessage-messagetype"></a>`messageType` | [`String!`](#string) | Type of the message. |
 | <a id="duomessage-role"></a>`role` | [`String`](#string) | Role of the message. |
 | <a id="duomessage-status"></a>`status` | [`String`](#string) | Status of the message. |
+| <a id="duomessage-subsessionid"></a>`subsessionId` {{< icon name="warning-solid" >}} | [`String`](#string) | **Introduced** in GitLab 19.0. **Status**: Experiment. Subsession ID associated with the message. |
 | <a id="duomessage-timestamp"></a>`timestamp` | [`String`](#string) | Timestamp of the message. |
 | <a id="duomessage-toolinfo"></a>`toolInfo` | [`String`](#string) | Tool information for the message. |
 
@@ -55559,6 +55562,7 @@ Represents a status with its work item count.
 | <a id="workitemtype-canpromotetoobjective"></a>`canPromoteToObjective` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 18.8. **Status**: Experiment. Indicates whether the work item type can be promoted to an objective. |
 | <a id="workitemtype-canusercreateitems"></a>`canUserCreateItems` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 18.8. **Status**: Experiment. Indicates whether the work item type is creatable by the API. |
 | <a id="workitemtype-enabled"></a>`enabled` {{< icon name="warning-solid" >}} | [`Boolean!`](#boolean) | **Introduced** in GitLab 18.9. **Status**: Experiment. Indicates whether the work item type is enabled. |
+| <a id="workitemtype-enabledbydefaultfornewnamespaces"></a>`enabledByDefaultForNewNamespaces` {{< icon name="warning-solid" >}} | [`Boolean!`](#boolean) | **Introduced** in GitLab 19.0. **Status**: Experiment. Whether the work item type is enabled by default when new child namespaces are created. |
 | <a id="workitemtype-iconname"></a>`iconName` | [`String`](#string) | Icon name of the work item type. |
 | <a id="workitemtype-id"></a>`id` | [`WorkItemsTypeID!`](#workitemstypeid) | Global ID of the work item type. |
 | <a id="workitemtype-isconfigurable"></a>`isConfigurable` {{< icon name="warning-solid" >}} | [`Boolean`](#boolean) | **Introduced** in GitLab 18.8. **Status**: Experiment. Indicates whether the work item type is configurable. |

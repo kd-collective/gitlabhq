@@ -33,7 +33,7 @@ Thank you Jimmy for helping us iterate on the logic for vulnerability findings a
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/403304)
 
 {{< /details >}}
@@ -113,7 +113,7 @@ that require macOS in a secure, on-demand GitLab Runner build environment integr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/comment_templates.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/7565)
 
 {{< /details >}}
@@ -131,7 +131,7 @@ This is a great way to standardize your replies and save you time!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/forking_workflow.md#update-your-fork) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/330243)
 
 {{< /details >}}
@@ -147,7 +147,7 @@ See how many commits your fork is ahead (or behind) on your project’s main pag
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/mirror/_index.md#mirror-specific-branches) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/1893)
 
 {{< /details >}}
@@ -165,7 +165,7 @@ can decrease the amount of data your mirrors push or pull, and keep sensitive br
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/web_ide/_index.md)
 
 {{< /details >}}
@@ -183,7 +183,7 @@ it the default multi-file code editor across GitLab.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10122)
 
 {{< /details >}}
@@ -203,7 +203,7 @@ This short video walks you through the lifecycle of a workspace in the current B
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerabilities/_index.md#enable-security-training-for-vulnerabilities) | [Related issue](https://gitlab.com/gitlab-com/alliances/alliances/-/issues/297)
 
 {{< /details >}}
@@ -222,7 +222,7 @@ which can be transferred to a real environment.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/403042)
 
 {{< /details >}}
@@ -295,7 +295,7 @@ In this release, we are supporting both the [GitLab integrated error tracking](.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/382496)
 
 {{< /details >}}
@@ -313,7 +313,7 @@ Until now, these features were only available at the group-level VSA only.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/rate_limit_on_projects_api.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/388435)
 
 {{< /details >}}
@@ -331,6 +331,7 @@ Users of self-managed GitLab instances have the same rate limitation by default,
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/settings/database.html#configuring-multiple-database-connections) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9627)
 
 {{< /details >}}
@@ -348,7 +349,7 @@ This change applies to installation methods with Omnibus GitLab, GitLab Helm cha
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#disable-following-and-being-followed-by-other-users) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/325558)
 
 {{< /details >}}
@@ -364,7 +365,7 @@ When you disable this feature, no one can follow you, and you cannot follow anyo
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_com/_index.md#delayed-project-deletion) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389557)
 
 {{< /details >}}
@@ -384,6 +385,7 @@ We believe that this change will contribute to a safer deletion process and will
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/)
 
 {{< /details >}}
@@ -410,6 +412,7 @@ in the `global.registry.*` configuration for simplification because the values a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -430,6 +433,7 @@ in the `global.registry.*` configuration for simplification because the values a
 {{< details >}}
 
 - Tier: Free
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/usage_statistics.md#registration-features-program) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10508)
 
 {{< /details >}}
@@ -451,7 +455,7 @@ To get access to these features, register with GitLab and send us activity data 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/import/github.md#select-additional-items-to-import) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/398154)
 
 {{< /details >}}
@@ -475,7 +479,7 @@ direct collaborators are imported. Outside collaborators are never imported.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/import/github.md#filter-repositories-list) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/385113)
 
 {{< /details >}}
@@ -499,7 +503,7 @@ to that organization.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md#actions-that-mark-a-to-do-item-as-done) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/374726)
 
 {{< /details >}}
@@ -516,6 +520,7 @@ With this new functionality, to-do items that have already been completed by ano
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../tutorials/left_sidebar/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9044)
 
 {{< /details >}}
@@ -531,6 +536,7 @@ Please let us know about your experience in [this issue](https://gitlab.com/gitl
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#session-duration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/30819)
 
 {{< /details >}}
@@ -544,7 +550,7 @@ Administrators can remove the “Remember Me” option for users when signing in
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/configure.md#configure-the-integration) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8222)
 
 {{< /details >}}
@@ -562,7 +568,7 @@ if you are using Jira Data Center and Jira Server with Jira 8.14 and later. A Ji
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/223751)
 
 {{< /details >}}
@@ -580,6 +586,7 @@ In this release, we add an `%{ISSUE_DESCRIPTION}` placeholder so that Service De
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/_index.md)
 
 {{< /details >}}
@@ -597,7 +604,7 @@ We’re looking at more areas for [real-time improvements](https://gitlab.com/gr
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#change-status-of-vulnerabilities) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/408366)
 
 {{< /details >}}
@@ -614,7 +621,7 @@ status, and add a comment when changing a vulnerability’s status."
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md#apply-a-compliance-framework-to-projects-in-a-group)
 
 {{< /details >}}
@@ -637,7 +644,7 @@ compliance framework report as well. This simplifies the framework creation work
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md)
 
 {{< /details >}}
@@ -654,7 +661,7 @@ you are most concerned with.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8018)
 
 {{< /details >}}
@@ -670,7 +677,7 @@ This gives you additional flexibility over requiring individual approvers or def
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/_index.md)
 
 {{< /details >}}
@@ -690,6 +697,7 @@ We’re continuously iterating to develop new Breach and Attack Simulation featu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/_index.md#to-import-packages) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389338)
 
 {{< /details >}}
@@ -707,6 +715,7 @@ To use the tool, simply create a `config.yml` file that contains the details of 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/maven_repository/_index.md#install-a-package) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/212854)
 
 {{< /details >}}
@@ -724,7 +733,7 @@ Please note that publishing artifacts using `sbt` is not yet supported, but you 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9750)
 
 {{< /details >}}
@@ -740,7 +749,7 @@ In this release, we’re introducing the ability to toggle a to-do item on or of
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9347)
 
 {{< /details >}}
@@ -756,7 +765,7 @@ Now, you can secure your sites by assigning a unique subdomain to each GitLab Pa
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/emoji_reactions.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9987)
 
 {{< /details >}}
@@ -772,7 +781,7 @@ Before this release, you could only add reactions on issues, merge requests, sni
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/quick_actions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/385227)
 
 {{< /details >}}
@@ -786,6 +795,7 @@ With this additional quick action, you can now convert key results to objectives
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/labels.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/361846)
 
 {{< /details >}}
@@ -801,7 +811,7 @@ This release introduces a color picker to label management, allowing you to sele
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/okrs.md#reorder-objective-and-key-result-children) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9548)
 
 {{< /details >}}
@@ -817,7 +827,7 @@ With this work, users will now be able to reorder child records within work item
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/361983)
 
 {{< /details >}}
@@ -835,7 +845,7 @@ and MR assignment events prior to GitLab 16.0 are not available.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/releases/_index.md#prevent-unintentional-releases-by-setting-a-deploy-freeze) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/212460)
 
 {{< /details >}}
@@ -849,6 +859,7 @@ GitLab now shows you a message on the Environments page when a deploy freeze is 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -878,6 +889,7 @@ For previous changes, see [last month’s updates](https://about.gitlab.com/rele
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/_index.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -905,7 +917,7 @@ For previous changes, see [last month’s updates](https://about.gitlab.com/rele
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9945)
 
 {{< /details >}}
@@ -929,6 +941,7 @@ application being scanned. While this percentage decrease may not be seen in all
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#supported-languages-and-frameworks) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/362958)
 
 {{< /details >}}
@@ -959,6 +972,7 @@ If you have any questions, feedback, or issues with the new Semgrep-based Scala 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner/register/) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/383139/)
 
 {{< /details >}}
@@ -972,6 +986,7 @@ In this new workflow, adding a new runner to a GitLab instance requires authoriz
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#triggerstrategy) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/220794)
 
 {{< /details >}}
@@ -989,6 +1004,7 @@ This change may have an impact on your existing pipelines, especially if you hav
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9945)
 
 {{< /details >}}
@@ -1004,6 +1020,7 @@ When combined with the [`inputs`](../../ci/yaml/includes.md) keyword, a CI/CD co
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/users.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/390427)
 
 {{< /details >}}
@@ -1017,6 +1034,7 @@ Users can now use the new REST API endpoint, `POST /user/runners`, to automate t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/caching/_index.md#per-cache-fallback-keys) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/22213)
 
 {{< /details >}}
@@ -1032,6 +1050,7 @@ We previously introduced a single fallback cache to use when no cache is found, 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/383143/)
 
 {{< /details >}}
@@ -1045,6 +1064,7 @@ In this new workflow, adding a new runner to a GitLab group requires authorized 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/continuous_integration.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/207270)
 
 {{< /details >}}
@@ -1061,6 +1081,7 @@ Previously, a single CI/CD configuration could include up to 150 files, but in G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/383144)
 
 {{< /details >}}
@@ -1076,7 +1097,7 @@ With this method, the runner is now easily traceable to the user, which will hel
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/rate_limits.md#project-jobs-api-endpoint) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/382985)
 
 {{< /details >}}
@@ -1092,6 +1113,7 @@ To move this in line with other rate limits and improve efficiency and reliabili
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

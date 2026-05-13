@@ -39,7 +39,7 @@ We are so grateful to Vedant for all of his contributions and to all of our open
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/482733)
 
 {{< /details >}}
@@ -53,6 +53,7 @@ We’ve introduced the new Planner role to give you tailored access to Agile pla
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/project_integration_management.md#integration-allowlist) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/500610)
 
 {{< /details >}}
@@ -68,7 +69,7 @@ Previously enabled integrations that are later blocked by the allowlist settings
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/direct_transfer_migrations.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/478054)
 
 {{< /details >}}
@@ -89,7 +90,7 @@ For more information, see [streamline migrations with user contribution and memb
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/vulnerability_management_policy.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/5708)
 
 {{< /details >}}
@@ -105,7 +106,7 @@ We are introducing a new policy type *Vulnerability Management policy* for users
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#rotate-a-personal-access-token) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/241523)
 
 {{< /details >}}
@@ -121,6 +122,7 @@ Thank you [shangsuru](https://gitlab.com/shangsuru) for your contribution!
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md#cicatalogresourcecomponentusage) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/466575)
 
 {{< /details >}}
@@ -157,6 +159,7 @@ We are determined to provide the industry’s fastest CI/CD build speed and look
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -176,7 +179,7 @@ FIPS Linux packages for AmazonLinux 2 will continue to use the same Libgcrypt bu
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14685)
 
 {{< /details >}}
@@ -201,7 +204,7 @@ If you’ve already enabled Advanced SAST, the new rules are [automatically acti
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md#cveenrichmenttype) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11912)
 
 {{< /details >}}
@@ -217,7 +220,7 @@ This data is available to composition analysis users through GraphQL. There is [
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md#code-flow)
 
 {{< /details >}}
@@ -240,7 +243,7 @@ To learn more about Advanced SAST, see [the announcement blog](https://about.git
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/examples.md#gitlab-duo-chat-slash-commands) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/462122)
 
@@ -257,7 +260,7 @@ Give it a try and see how GitLab Duo Chat can make your work smoother and more e
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#environmentauto_stop_in) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437133)
 
 {{< /details >}}
@@ -282,7 +285,7 @@ Learn more about these proposed changes in the following issues:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md#supported-kubernetes-versions-for-gitlab-features) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501390)
 
 {{< /details >}}
@@ -298,7 +301,7 @@ For more information, see our [Kubernetes support policy and other supported Kub
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/500164)
 
 {{< /details >}}
@@ -326,7 +329,7 @@ Group and project access tokens are now visible in the credentials inventory on 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/464040)
 
 {{< /details >}}
@@ -340,7 +343,7 @@ Previously, token expiration email notifications were only sent seven days befor
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](https://gitlab-org.gitlab.io/ruby/gems/tanuki_emoji/) | [Related issue](https://gitlab.com/gitlab-org/ruby/gems/tanuki_emoji/-/issues/28)
 
 {{< /details >}}
@@ -359,7 +362,7 @@ and identities, helping everyone feel included when communicating on the platfor
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/preferences.md#set-the-default-text-editor) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/423104)
 
 {{< /details >}}
@@ -375,7 +378,7 @@ This update ensures smoother workflows by aligning the editor interface with ind
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md#create-a-personal-access-token) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/443819)
 
 {{< /details >}}
@@ -389,7 +392,7 @@ When creating a personal, project, group, or impersonation access token, you can
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/group_security_settings.md)
 
 {{< /details >}}
@@ -417,7 +420,7 @@ Group Owners can now use a dedicated API endpoint to list enterprise users and a
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md#create-a-custom-member-role) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/474273)
 
 {{< /details >}}
@@ -431,7 +434,7 @@ The Owner base role is no longer available when creating a custom role as it pro
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_frameworks_report.md)
 
 {{< /details >}}

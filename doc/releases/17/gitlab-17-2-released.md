@@ -48,7 +48,7 @@ co-create GitLab.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13793)
 
 {{< /details >}}
@@ -63,7 +63,7 @@ GitLab now ships with a log streaming view for pods and containers, so you can q
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: GitLab Duo Pro, GitLab Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo/data_usage.md#data-retention) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13401)
 
@@ -82,7 +82,7 @@ consent via a GitLab Support ticket.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/reviews/_index.md#prevent-merge-when-you-request-changes)
 
 {{< /details >}}
@@ -100,7 +100,7 @@ Leave us feedback about this new feature in [issue 455339](https://gitlab.com/gi
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/application_security/analyze/duo.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10642)
 
@@ -115,7 +115,7 @@ Vulnerability Explanation is now a part of GitLab Duo Chat and is generally avai
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/oauth2.md#device-authorization-grant-flow) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/332682)
 
 {{< /details >}}
@@ -131,7 +131,7 @@ Thank you [John Parent](https://kitware.com/) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13266)
 
 {{< /details >}}
@@ -151,7 +151,7 @@ As with all GitLab policies, enforcement can be managed centrally by designated 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/pipeline/configure.md#customize-analyzer-rulesets) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/336395)
 
 {{< /details >}}
@@ -176,7 +176,7 @@ The analyzer also now supports:
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo/_index.md)
 
@@ -193,7 +193,7 @@ The analyzer also now supports:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/_index.md#view-a-group) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437013)
 
 {{< /details >}}
@@ -209,7 +209,7 @@ We welcome feedback about these changes in [issue 438322](https://gitlab.com/git
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md#list-shared-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/424959)
 
 {{< /details >}}
@@ -227,7 +227,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/461111)
 
 {{< /details >}}
@@ -243,7 +243,7 @@ Previously, when you took action on a thread in the issue, all to-do items were 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/import/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13825)
 
 {{< /details >}}
@@ -261,7 +261,7 @@ user. For example, merge requests, issues, and notes.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/development_panel.md#feature-availability) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/351625)
 
 {{< /details >}}
@@ -278,7 +278,7 @@ From this release, branches deleted in GitLab are removed from the Jira developm
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/command_palette.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/448637)
 
 {{< /details >}}
@@ -296,6 +296,7 @@ With this release, you can now search for project settings from the command pale
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md#generate-a-merge-commit-message)
 
@@ -314,6 +315,7 @@ This new GitLab Duo capability is a great way to make sure your project’s comm
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](https://docs.gitlab.com/cli/)
 
@@ -332,7 +334,7 @@ The `ask` command for the GitLab CLI is a great way to speed up your workflow wi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/lfs/_index.md#pure-ssh-transfer-protocol) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11872)
 
 {{< /details >}}
@@ -354,7 +356,7 @@ Thank you to [Kyle Edwards](https://gitlab.com/KyleFromKitware) and
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#continuous-delivery) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/456687)
 
 {{< /details >}}
@@ -372,7 +374,7 @@ An accessible record of deployment events, like deployment approvals, is essenti
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/469004)
 
 {{< /details >}}
@@ -394,7 +396,7 @@ visualize their compliance posture at the subgroup level in addition to the full
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415427)
 
 {{< /details >}}
@@ -412,6 +414,7 @@ Note: Be sure to review all changes between `default` and `latest` templates bef
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467313)
 
 {{< /details >}}
@@ -425,7 +428,7 @@ Administrators can now run a script that identifies dates when multiple access t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/oauth_provider.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/462655)
 
 {{< /details >}}
@@ -439,6 +442,7 @@ The OAuth authorization screen now more clearly describes the authorization you 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/458985)
 
 {{< /details >}}
@@ -452,6 +456,7 @@ The administrator setup experience for a new install of GitLab has been streamli
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../integration/snowflake.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13004)
 
 {{< /details >}}
@@ -480,7 +485,7 @@ Google Cloud CLI commands are now natively available when setting up workload id
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/30758)
 
 {{< /details >}}
@@ -494,7 +499,7 @@ In GitLab 17.2, wiki page titles are separate from their paths. In previous rele
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/281570)
 
 {{< /details >}}
@@ -512,7 +517,7 @@ The addition of a search bar makes discovering content easier. And because the s
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/packages/terraform_module_registry/_index.md#view-terraform-modules) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/451054)
 
 {{< /details >}}
@@ -528,7 +533,7 @@ Previously, you had to search other sources for this critical information, which
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#work-item-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/467415)
 
 {{< /details >}}
@@ -543,7 +548,7 @@ all trigger payloads under the **Issues Events** webhook category. Until now, th
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md)
 
 {{< /details >}}
@@ -567,7 +572,7 @@ We welcome any testing feedback in [issue 466322](https://gitlab.com/gitlab-org/
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/api_security_testing/configuration/variables.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/458825)
 
 {{< /details >}}
@@ -581,7 +586,7 @@ API Security already has support for “overrides” which can modify the reques
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/container_scanning/continuous_container_scanning/_index.md#supported-package-types) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/10174)
 
 {{< /details >}}
@@ -599,7 +604,7 @@ As a note, RPM versions containing a caret (`^`) are not supported. Work to supp
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/13411)
 
 {{< /details >}}
@@ -629,7 +634,7 @@ During the 17.2 release milestone, we published the following updates.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/api_fuzzing/configuration/variables.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/458825)
 
 {{< /details >}}
@@ -643,7 +648,7 @@ API Fuzzing already has support for “overrides” which can modify the request
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13107)
 
 {{< /details >}}
@@ -660,7 +665,7 @@ During the 17.2 release milestone, we published the following updates:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/schedules.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/37246)
 
 {{< /details >}}
@@ -674,7 +679,7 @@ You can now sort the pipeline schedules list by description, ref, next run, crea
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#ruleschangescompare_to) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/369916)
 
 {{< /details >}}
@@ -688,6 +693,7 @@ In GitLab 15.3 we introduced the [`compare_to` keyword](../../ci/yaml/_index.md#
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -714,7 +720,7 @@ For a list of all changes, see the GitLab Runner [CHANGELOG](https://gitlab.com/
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/gitlab_agent_configuration.md)
 
 {{< /details >}}

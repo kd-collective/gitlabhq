@@ -27,7 +27,7 @@ module WorkItems
 
       def work_item_type=(value)
         work_item_type = work_items_types_provider.fetch_work_item_type(value)
-        self.work_item_type_id = persistable_type_id(work_item_type)
+        self.work_item_type_id = work_item_type&.persistable_id
       end
 
       private
@@ -41,11 +41,6 @@ module WorkItems
         errors.add(:work_item_type, 'is not a recognized work item type')
       end
 
-      # Overridden on EE
-      def persistable_type_id(type)
-        type&.id
-      end
-
       def work_items_types_provider
         ::WorkItems::TypesFramework::Provider.new(namespace)
       end
@@ -53,5 +48,3 @@ module WorkItems
     end
   end
 end
-
-WorkItems::TypesFramework::HasType.prepend_mod

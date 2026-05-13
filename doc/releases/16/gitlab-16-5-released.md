@@ -38,7 +38,7 @@ Thank you to Thorben and the rest of the GitLab Community for contributing 🙌
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md)
 
 {{< /details >}}
@@ -66,7 +66,7 @@ can focus on the projects or standards that matter most to your organization.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/branches/_index.md#configure-workflows-for-target-branches)
 
 {{< /details >}}
@@ -82,7 +82,7 @@ When you create a merge request, the rule checks the name of the branch. If the 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/discussions/_index.md#resolve-a-thread) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/31114)
 
 {{< /details >}}
@@ -96,7 +96,7 @@ Long-running issues with many threads can be challenging to read and track. You 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/merge_trains.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/26996)
 
 {{< /details >}}
@@ -112,7 +112,7 @@ In 16.4, we released [Fast-forward merge trains](https://about.gitlab.com/releas
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/250699)
 
 {{< /details >}}
@@ -126,6 +126,7 @@ The popularity of epics in GitLab continues to grow. Previously, finding epics w
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -145,7 +146,7 @@ from `/opt/gitlab/embedded/selinux/rhel/7/` to `/opt/gitlab/embedded/selinux` to
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/development_panel.md#information-displayed-in-the-development-panel) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/364273)
 
 {{< /details >}}
@@ -160,6 +161,7 @@ Previously, when a reviewer was assigned to a merge request, the reviewer inform
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../tutorials/left_sidebar/_index.md)
 
 {{< /details >}}
@@ -175,7 +177,7 @@ You can try it out by selecting the **Search or go to…** button or with a keyb
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#release-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/418113)
 
 {{< /details >}}
@@ -190,6 +192,7 @@ With GitLab 16.5, a webhook is now also triggered when a release is deleted.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/using_service_desk.md)
 
 {{< /details >}}
@@ -207,6 +210,7 @@ It now matches more closely the regular issues list. Available features include:
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8212)
 
 {{< /details >}}
@@ -220,6 +224,7 @@ You can now trigger bulk resync or reverify for any data component managed by Ge
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/backup_restore/backup_gitlab.md#create-server-side-repository-backups) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10826)
 
 {{< /details >}}
@@ -237,7 +242,7 @@ With this update, repository backups get stored in an object storage location of
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#environment-management) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415603)
 
 {{< /details >}}
@@ -269,7 +274,7 @@ Thank you [jgao1025](https://gitlab.com/jgao1025) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md)
 
 {{< /details >}}
@@ -289,7 +294,7 @@ In GitLab 16.5, you can now export a list of the items included in the complianc
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/17364)
 
 {{< /details >}}
@@ -303,6 +308,7 @@ The permissions to manage group members and project access tokens have been adde
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11061)
 
 {{< /details >}}
@@ -318,6 +324,7 @@ With GitLab 16.5, we’ve extended support for Google Cloud Logging to instance-
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../security/unlock_user.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/27048)
 
 {{< /details >}}
@@ -331,7 +338,7 @@ Administrators can now configure a locked user policy for their instance by choo
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11109)
 
 {{< /details >}}
@@ -352,6 +359,7 @@ With GitLab 16.5, you can use the **Active** checkbox in the GitLab UI to toggle
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/users.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425171)
 
 {{< /details >}}
@@ -365,7 +373,7 @@ You can now use a new REST API endpoint at `user/personal_access_tokens` to crea
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#group-vulnerabilities) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10164)
 
 {{< /details >}}
@@ -379,7 +387,7 @@ As a user, you require the ability to group vulnerabilities so that you can more
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md#export-a-wiki-page) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/414691)
 
 {{< /details >}}
@@ -393,7 +401,7 @@ From GitLab 16.5, you can export individual wiki pages as PDF files. Now, sharin
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/quick_actions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/420797)
 
 {{< /details >}}
@@ -407,7 +415,7 @@ You can now add a child item for a task, objective, or key result by using the `
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/okrs.md#linked-items-in-okrs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416558)
 
 {{< /details >}}
@@ -423,7 +431,7 @@ When we migrate [epics](https://gitlab.com/groups/gitlab-org/-/epics/9290) and [
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/quick_actions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/420798)
 
 {{< /details >}}
@@ -437,6 +445,7 @@ You can now set a parent item for a task, objective, or key result by using the 
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11426)
 
 {{< /details >}}
@@ -455,7 +464,7 @@ During the 16.5 release milestone, we enabled the following active checks for br
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/user_and_ip_rate_limits.md#maximum-authenticated-requests-to-projectidjobs-per-minute) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/395702)
 
 {{< /details >}}
@@ -471,6 +480,7 @@ configurable, enabling instance administrators to set the limit that best matche
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

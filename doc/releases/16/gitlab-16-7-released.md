@@ -38,7 +38,7 @@ Thank you Muhammed and Niklas! 🙌
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/code_suggestions/_index.md)
 
 {{< /details >}}
@@ -60,6 +60,7 @@ GitLab Duo Code Suggestions is [free to try](../../user/project/repository/code_
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/pages/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/17584)
 
 {{< /details >}}
@@ -77,7 +78,7 @@ We welcome feedback related to this feature in [issue 434372](https://gitlab.com
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/insights/_index.md#drill-down-on-charts) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/372215)
 
 {{< /details >}}
@@ -114,6 +115,7 @@ We plan to enable the [feature flag](https://gitlab.com/gitlab-org/gitlab/-/issu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#cicd-catalog)
 
 {{< /details >}}
@@ -133,7 +135,7 @@ While this is our initial beta release of the feature, we continue to work on ma
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#add-external-accounts-to-your-user-profile-page) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428442)
 
 {{< /details >}}
@@ -147,7 +149,7 @@ You can now list your Mastodon handle on the User Profile. With this enhancement
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416146)
 
 {{< /details >}}
@@ -161,7 +163,7 @@ Group descriptions can now contain up to 500 characters. If you try to save a gr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/424619)
 
 {{< /details >}}
@@ -175,7 +177,7 @@ The search bar is now more prominent on the search results page. To increase the
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/advanced_search.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421012)
 
 {{< /details >}}
@@ -189,7 +191,7 @@ In GitLab 16.7, issues with code have become more discoverable. With advanced se
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/preferences.md#customize-time-format) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/15206)
 
 {{< /details >}}
@@ -213,7 +215,7 @@ In the following milestone we will [audit all timestamps](https://gitlab.com/gro
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/admin_area.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415854)
 
 {{< /details >}}
@@ -227,7 +229,7 @@ Administrators can now access the Admin Area in one step, by using a link at the
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md#limits) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/429867)
 
 {{< /details >}}
@@ -247,7 +249,7 @@ In this milestone, instead of using an 8 hour time limit, GitLab now only marks 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/394727)
 
 {{< /details >}}
@@ -284,7 +286,7 @@ In this milestone we also improved navigation with the breadcrumbs between those
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/configure.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/8549)
 
 {{< /details >}}
@@ -303,6 +305,7 @@ items for them. This way you can make sure you never miss a follow-up email agai
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/backup_restore/backup_gitlab.md#backup-compression)
 
 {{< /details >}}
@@ -318,6 +321,7 @@ You can now override the default single-threaded gzip compression library with a
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/gitlab_agent_configuration.md)
 
 {{< /details >}}
@@ -331,6 +335,7 @@ In GitLab 16.7, you can now define a network policy with egress rules when you c
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/emoji_reactions.md)
 
 {{< /details >}}
@@ -345,6 +350,7 @@ Groups can now add custom emoji to use across their projects. Custom emoji allow
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/dependencies.md#nested-dependencies)
 
 {{< /details >}}
@@ -360,6 +366,7 @@ The limitations around dependency hierarchy, and items in the chain, have been r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/notifications.md#edit-notification-settings)
 
 {{< /details >}}
@@ -375,7 +382,7 @@ Enable the **Added as approver** custom notification level to trigger an email a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/infrastructure/iac/_index.md) | [Related issue](https://gitlab.com/gitlab-org/terraform-images/-/issues/114)
 
 {{< /details >}}
@@ -391,7 +398,7 @@ GitLab continues to support Terraform for the MR widget, module registry, and Gi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/personal_access_tokens.md#rotate-a-personal-access-token) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416795)
 
 {{< /details >}}
@@ -405,7 +412,7 @@ You can now optionally input a new parameter, `expires_at`, when rotating an acc
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/393239)
 
 {{< /details >}}
@@ -419,7 +426,7 @@ You can now use the UI to assign a custom role to a new user, or change an exist
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/_index.md#cicd-variable-precedence) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/424028)
 
 {{< /details >}}
@@ -437,7 +444,7 @@ Scan execution policies allow teams to enforce scanners and to define default an
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/saml.md#configure-assertions) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/420766)
 
 {{< /details >}}
@@ -451,7 +458,7 @@ SAML attribute statements now support the Microsoft SAML attribute format, which
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/rich_text_editor.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/136437)
 
 {{< /details >}}
@@ -467,6 +474,7 @@ With GitLab 16.7, we’ve changed the rich text editor to match the behavior wit
 {{< details >}}
 
 - Tier: Free, Silver, Gold
+- Offering: GitLab.com
 - Links: [Documentation](../../api/container_registry.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/411387)
 
 {{< /details >}}
@@ -501,7 +509,7 @@ This was a real problem that forced users to rely on custom scripts to manually 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md#data-filters) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/408656)
 
 {{< /details >}}
@@ -515,7 +523,7 @@ The value stream analytics report now has a set of filter options for data in th
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/continuous_vulnerability_scanning/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11474)
 
 {{< /details >}}
@@ -529,6 +537,7 @@ Continuous Vulnerability Scanning is now Generally Available. With CVS enabled, 
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md#active-checks)
 
 {{< /details >}}
@@ -548,7 +557,7 @@ During the 16.7 release milestone, we enabled the following active checks for br
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/configuration/authentication.md#configuration-for-a-multi-step-login-form) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11585)
 
 {{< /details >}}
@@ -562,6 +571,7 @@ The new `DAST_AFTER_LOGIN_ACTIONS` variable enables you to provide a list of act
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/rules.md#important-rule-changes) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8170)
 
 {{< /details >}}
@@ -583,7 +593,7 @@ We’re working on more SAST rule improvements in [epic 10907](https://gitlab.co
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#artifactspublic) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11667)
 
 {{< /details >}}
@@ -597,7 +607,7 @@ Previously, the `artifacts:public` keyword was only available as a default disab
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/job_artifacts.md#keep-artifacts-from-most-recent-successful-jobs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428408)
 
 {{< /details >}}
@@ -615,6 +625,7 @@ The **Keep artifacts from most recent successful jobs** setting overrides the jo
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -640,6 +651,7 @@ The list of all changes is in the GitLab Runner [CHANGELOG](https://gitlab.com/g
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/runners/configure_runners.md#artifact-provenance-metadata) | [Related issue](https://gitlab.com/gitlab-org/gitlab-runner/-/issues/36869)
 
 {{< /details >}}

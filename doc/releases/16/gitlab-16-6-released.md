@@ -83,7 +83,7 @@ When a GitLab.com user’s primary email address matches an existing verified do
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/forking_workflow.md#create-a-fork)
 
 {{< /details >}}
@@ -102,7 +102,7 @@ The new option shows which branch is the default, so that you are aware of exact
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#any_merge_request-rule-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9696)
 
 {{< /details >}}
@@ -136,6 +136,7 @@ Using Switchboard, you can now make some [configuration changes](../../administr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/9897)
 
 {{< /details >}}
@@ -153,7 +154,7 @@ If you try out CI/CD components, you are also welcome to try the new CI/CD catal
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/_index.md#define-a-cicd-variable-in-the-ui) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/418005)
 
 {{< /details >}}
@@ -171,6 +172,7 @@ Your [feedback for this change](https://gitlab.com/gitlab-org/gitlab/-/issues/42
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/runners/runner_fleet_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/424495)
 
 {{< /details >}}
@@ -186,7 +188,7 @@ Operators of self-managed runner fleets need observability and the ability to qu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/_index.md#include-archived-projects-in-search-results) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10957)
 
 {{< /details >}}
@@ -200,7 +202,7 @@ Previously, users saw many archived projects in their project search results. Th
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/manage.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415165)
 
 {{< /details >}}
@@ -214,7 +216,7 @@ Previously, the names of private groups were visible to all users when accessing
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/386138)
 
 {{< /details >}}
@@ -242,6 +244,7 @@ to import for a given group or project. For each item that wasn’t imported, yo
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../tutorials/left_sidebar/_index.md)
 
 {{< /details >}}
@@ -263,6 +266,7 @@ As a recap, with the new GitLab navigation, you can:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/silent_mode/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9826)
 
 {{< /details >}}
@@ -278,7 +282,7 @@ When GitLab Silent Mode is enabled, it blocks all major outbound traffic such as
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/422945)
 
 {{< /details >}}
@@ -292,7 +296,7 @@ In GitLab 16.6, you can use the cluster UI integration on your environment page 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/user_access.md#access-a-cluster-with-the-kubernetes-api) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11455)
 
 {{< /details >}}
@@ -308,7 +312,7 @@ The GitLab CLI can now list the agent connections available from a GitLab projec
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9706)
 
 {{< /details >}}
@@ -326,7 +330,7 @@ Available in SaaS in 16.6. Available for Self-managed behind the feature flag `s
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -343,6 +347,7 @@ Previously, you had to use custom HTTP headers to try to build a request that AW
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/status_checks.md#status-checks-widget)
 
 {{< /details >}}
@@ -360,7 +365,7 @@ response from the external system.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11237)
 
 {{< /details >}}
@@ -374,7 +379,7 @@ Previously, the vulnerability report allowed you to filter by a static list of G
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/personal_access_tokens.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421420)
 
 {{< /details >}}
@@ -388,6 +393,7 @@ GitLab administrators and group Owners can choose if they want to enforce an exp
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/nuget_repository/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/293748)
 
 {{< /details >}}
@@ -405,6 +411,7 @@ You can adjust this setting with the [GitLab API](../../api/graphql/reference/_i
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/packages/maven_repository/_index.md#basic-http-authentication) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/277385)
 
 {{< /details >}}
@@ -420,7 +427,7 @@ Publishing artifacts with `sbt` is not supported, but [issue 408479](https://git
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/container_scanning/_index.md#available-cicd-variables) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/6846)
 
 {{< /details >}}
@@ -435,7 +442,7 @@ you to focus on actionable findings, you can now exclude such findings. For conf
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11213)
 
 {{< /details >}}
@@ -450,7 +457,7 @@ This additional data helps you analyze and triage vulnerabilities outside GitLab
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#obtaining-dependency-information-by-parsing-lockfiles) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421174)
 
 {{< /details >}}
@@ -464,6 +471,7 @@ Dependency Scanning and License Scanning now support SBT projects using Java 21.
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md#active-checks)
 
 {{< /details >}}
@@ -501,6 +509,7 @@ Try it out today by using `macos-14-xcode-15` as the image in your .GitLab-ci.ym
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

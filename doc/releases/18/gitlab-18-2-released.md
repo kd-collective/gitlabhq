@@ -34,7 +34,7 @@ Thanks to Markus for your valuable contributions to GitLab!
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Core, Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/duo_agent_platform/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/556038)
 
@@ -61,7 +61,7 @@ and [JetBrains setup guide](../../user/gitlab_duo_chat/agentic_chat.md#use-gitla
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/work_items/status.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14794)
 
 {{< /details >}}
@@ -93,7 +93,7 @@ Help us improve this feature by sharing your thoughts and suggestions in our
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/merge_requests/homepage.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13448)
 
 {{< /details >}}
@@ -150,7 +150,7 @@ to use immutable container tags.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/gitlab_duo/turn_on_off.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/551895)
 
 {{< /details >}}
@@ -164,7 +164,7 @@ GitLab Premium and Ultimate users can now change the availability of Code Sugges
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_overview_dashboard.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13909)
 
 {{< /details >}}
@@ -206,7 +206,7 @@ This significantly increases workspace scalability by allowing organizations to 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/security_dashboard/_index.md#export-as-pdf) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16989)
 
 {{< /details >}}
@@ -221,6 +221,7 @@ you can now export the security dashboard for each project or group as a PDF doc
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/enforcement/compliance_and_security_policy_groups.md#set-up-centralized-security-policy-management) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17392)
 
 {{< /details >}}
@@ -249,6 +250,7 @@ with support for all existing security policy types, configurable for groups, pr
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#compatible-models) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18202)
 
@@ -306,7 +308,7 @@ skipping user confirmation during reassignment while maintaining secure access c
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/container_scanning/_index.md#available-cicd-variables) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/543144)
 
 {{< /details >}}
@@ -323,7 +325,7 @@ setting the `TRIVY_PLATFORM` environment variable to the platform you want to sc
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/container_scanning/_index.md#scanning-archive-formats) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501077)
 
 {{< /details >}}
@@ -338,7 +340,7 @@ If a vulnerability in a particular package is found in multiple images, you now 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dependency_scanning/static_reachability.md#supported-languages-and-package-managers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/502334)
 
 {{< /details >}}
@@ -355,7 +357,7 @@ to provide a more focused view of your vulnerabilities.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dast/browser/configuration/variables.md#authentication) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435942)
 
 {{< /details >}}
@@ -371,7 +373,7 @@ Now, you can use wildcard patterns in the `DAST_AUTH_SUCCESS_IF_AT_URL` variable
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dast/browser/configuration/authentication.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13633)
 
 {{< /details >}}
@@ -389,7 +391,7 @@ production environments where MFA is deployed.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../administration/compliance/audit_event_streaming.md#activate-or-deactivate-streaming-destinations) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/537096)
 
 {{< /details >}}
@@ -409,7 +411,7 @@ again streamed to the chosen destination.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/audit_event_streaming.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/524939)
 
 {{< /details >}}
@@ -430,7 +432,7 @@ This change also means that audit event destinations such as AWS and GCP can now
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/epics/manage_epics.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/393559)
 
 {{< /details >}}
@@ -449,7 +451,7 @@ like assignees, labels, dates, and milestones.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/epics/manage_epics.md#open-epics-in-a-drawer) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/536620)
 
 {{< /details >}}
@@ -467,7 +469,7 @@ or open the full page when you need more screen space for detailed editing and c
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/milestones/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/329)
 
 {{< /details >}}
@@ -483,7 +485,7 @@ With this clear hierarchy in place, you can reduce administrative overhead and g
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/epics/manage_epics.md#assignees) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/4231)
 
 {{< /details >}}
@@ -497,7 +499,7 @@ You can now assign epics to individuals, making it clear who is responsible for 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/glql/_index.md#presentation-syntax) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/502701)
 
 {{< /details >}}
@@ -515,7 +517,7 @@ These improvements help teams efficiently navigate complex project data and focu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/markdown.md#gitlab-specific-references) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/7654)
 
 {{< /details >}}
@@ -531,7 +533,7 @@ The plain text editor also includes a new [preference to maintain cursor indenta
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#exporting) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18033)
 
 {{< /details >}}
@@ -546,7 +548,7 @@ You can now find the ID of each vulnerability listed in the CSV export.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#filtering-vulnerabilities) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/543346)
 
 {{< /details >}}
@@ -564,7 +566,7 @@ Reachable vulnerabilities represent vulnerabilities that are both:
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/graphql/reference/_index.md#vulnerability) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/468913)
 
 {{< /details >}}
@@ -582,7 +584,7 @@ introduced and when it was last detected. The Vulnerability GraphQL API now incl
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#source-branch-exceptions) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18113)
 
 {{< /details >}}
@@ -609,7 +611,7 @@ approval policies for standard development workflows.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md#dependency-paths) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16815)
 
 {{< /details >}}
@@ -625,7 +627,7 @@ You can now determine whether a library is primarily or transitively imported us
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../administration/credentials_inventory.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421954)
 
 {{< /details >}}
@@ -639,7 +641,7 @@ GitLab now supports service account tokens in the credentials inventory, giving 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/security_inventory/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16484)
 
 {{< /details >}}
@@ -662,6 +664,7 @@ This feature helps bridge the gap between individual project security and organi
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15069)
 
 {{< /details >}}

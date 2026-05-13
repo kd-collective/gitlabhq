@@ -48,7 +48,7 @@ Thank you Ted, Martin, and Helio! 🙌
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#merge-request-changes-view) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10959)
 
 {{< /details >}}
@@ -63,7 +63,7 @@ No need to navigate elsewhere – it’s all consolidated in one place. The UI i
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/secrets/gcp_secret_manager.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11739)
 
 {{< /details >}}
@@ -77,7 +77,7 @@ Secrets stored in Google Cloud Secret Manager can now be easily retrieved and us
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md)
 
 {{< /details >}}
@@ -95,6 +95,7 @@ Since their introduction in GitLab 16.0, workspaces have received improvements t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../security/two_factor_authentication.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/427549)
 
 {{< /details >}}
@@ -108,6 +109,7 @@ You can now enforce whether GitLab administrators are required to use two-factor
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/dependency_proxy/_index.md)
 
 {{< /details >}}
@@ -127,7 +129,7 @@ If the package changes in the external repository (for example, a user deletes a
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/issues_analytics/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/233905)
 
 {{< /details >}}
@@ -141,7 +143,7 @@ The **Issue Analytics** report now contains information on the number of closed 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/426516)
 
 {{< /details >}}
@@ -161,6 +163,7 @@ To help us improve the Value Streams Dashboard, please share feedback about your
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -183,6 +186,7 @@ This means plaintext passwords for Redis no longer need to be stored in `gitlab.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/approvals/settings.md#remove-all-approvals-when-commits-are-added-to-the-source-branch)
 
 {{< /details >}}
@@ -200,6 +204,7 @@ If you have feedback about your experiences with resets now, let us know in [iss
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/files/git_blame.md#view-blame-for-a-file)
 
 {{< /details >}}
@@ -213,6 +218,7 @@ In previous versions of GitLab, viewing file blame required you to access a diff
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/gitlab_agent_configuration.md)
 
 {{< /details >}}
@@ -228,7 +234,7 @@ Now you can also set CPU and memory usage per workspace. By configuring requests
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/432070)
 
 {{< /details >}}
@@ -244,7 +250,7 @@ You can read more about our Kubernetes support policy and other supported Kubern
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391760)
 
 {{< /details >}}
@@ -266,7 +272,7 @@ Add these abilities, along with other pre-existing custom abilities, to any base
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/saml_sso/_index.md#configure-gitlab) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/417285)
 
 {{< /details >}}
@@ -280,7 +286,7 @@ Users can be assigned a custom role as the default role they are created with wh
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11384)
 
 {{< /details >}}
@@ -296,7 +302,7 @@ This additional filter will allow you to separate out events in your streams to 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_frameworks/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11240)
 
 {{< /details >}}
@@ -319,7 +325,7 @@ capabilities:
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -335,7 +341,7 @@ With GitLab 16.8, we’ve extended support for AWS S3 to instance-level streamin
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9705)
 
 {{< /details >}}
@@ -351,7 +357,7 @@ For each existing or new scan result policy, you can enable `Prevent branch modi
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/saml_sso/group_sync.md#configure-saml-group-links) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/417201)
 
 {{< /details >}}
@@ -365,7 +371,7 @@ You can now use SAML Group Sync to map custom roles to groups of users. Previous
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/approvals/settings.md#require-user-re-authentication-to-approve) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11084)
 
 {{< /details >}}
@@ -383,7 +389,7 @@ password-based solution.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/433420)
 
 {{< /details >}}
@@ -397,7 +403,7 @@ We are introducing a new landing page for the group-level analytics dashboard. T
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/tasks.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11197)
 
 {{< /details >}}
@@ -416,6 +422,7 @@ Work items include:
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/runners/runner_fleet_dashboard.md#export-compute-minutes-used-by-instance-runners) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425853)
 
 {{< /details >}}
@@ -429,6 +436,7 @@ You might need to run a report of CI/CD compute minutes used by projects on inst
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -454,7 +462,7 @@ The list of all changes is in the GitLab Runner [CHANGELOG](https://gitlab.com/g
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/predefined_variables.md#predefined-variables-for-merge-request-pipelines) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/432846)
 
 {{< /details >}}
@@ -486,6 +494,7 @@ Try it out today by using `saas-windows-medium-amd64` as the tag in your .GitLab
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#cicd-catalog) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437768)
 
 {{< /details >}}

@@ -140,7 +140,6 @@ class WorkItem < Issue
     def link_reference_pattern
       @link_reference_pattern ||= project_or_group_link_reference_pattern(
         'work_items',
-        namespace_reference_pattern,
         Gitlab::Regex.work_item
       )
     end

@@ -40,6 +40,7 @@ Océane Legrand is a Full Stack Developer at Scania where she works on maintaini
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/container_registry/container_repository_protection_rules.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/480385)
 
 {{< /details >}}
@@ -57,7 +58,7 @@ This feature and the [protected packages](https://gitlab.com/groups/gitlab-org/-
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/releases/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501169)
 
 {{< /details >}}
@@ -73,6 +74,7 @@ We would like to express our gratitude to [Anton Kalmykov](https://gitlab.com/an
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/ml/experiment_tracking/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9341)
 
 {{< /details >}}
@@ -138,6 +140,7 @@ Try out the new M2 Pro runners today by using `saas-macos-large-m2pro` as the ta
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://gitlab.com/gitlab-org/modelops/mlops/gitlab-mlops) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/16193)
 
 {{< /details >}}
@@ -164,7 +167,7 @@ We welcome the wider Python and data science community to contributions and shar
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/_index.md#view-inactive-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/457718)
 
 {{< /details >}}
@@ -180,7 +183,7 @@ Now, when a group is marked for deletion, all of its subgroups and projects will
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md#actions-that-create-to-do-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/28355)
 
 {{< /details >}}
@@ -194,7 +197,7 @@ You can now keep track of multiple discussions and mentions within a single issu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/_index.md#specify-who-can-add-projects-to-a-group) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/354355)
 
 {{< /details >}}
@@ -212,7 +215,7 @@ Thank you [@yasuk](https://gitlab.com/yasuk) for this community contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/505757)
 
 {{< /details >}}
@@ -226,7 +229,7 @@ It’s important to fix exposed secrets quickly to minimize the risk of attacker
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerabilities/_index.md#vulnerability-resolution) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/372799)
 
 {{< /details >}}
@@ -241,7 +244,7 @@ Now, we display a link to the commit SHA where the vulnerability was resolved, p
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/codeowners/reference.md#add-a-role-as-a-code-owner) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/282438)
 
 {{< /details >}}
@@ -263,7 +266,7 @@ This simplifies Code Owner management as team members join, leave, or change rol
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501339)
 
 {{< /details >}}
@@ -277,7 +280,7 @@ Previously, when you suspended Flux reconciliation from the dashboard for Kubern
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/508010)
 
 {{< /details >}}
@@ -291,7 +294,7 @@ On the dashboard for Kubernetes, finding specific pods in large deployments can 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12319)
 
 {{< /details >}}
@@ -313,7 +316,7 @@ Example uses of this improvement include:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md#primary-domain)
 
 {{< /details >}}
@@ -327,7 +330,7 @@ You can now set a primary domain in GitLab Pages to automatically redirect all r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/package_protection_rules.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/323971)
 
 {{< /details >}}
@@ -343,7 +346,7 @@ From GitLab 17.8, you can protect PyPI packages by creating protection rules. If
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md#epic-color) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509924)
 
 {{< /details >}}
@@ -359,7 +362,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/_index.md#relationships-between-epics-and-other-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509920)
 
 {{< /details >}}
@@ -375,7 +378,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md#health-status) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509922)
 
 {{< /details >}}
@@ -391,7 +394,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/_index.md#relationships-between-epics-and-other-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509923)
 
 {{< /details >}}
@@ -407,7 +410,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/time_tracking.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509930)
 
 {{< /details >}}
@@ -421,7 +424,7 @@ You can now track time directly in epics, giving you more granular control over 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/iterations/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/510005)
 
 {{< /details >}}
@@ -437,7 +440,7 @@ For epics, your administrator must enable [the new look for epics](../../user/gr
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/509928)
 
 {{< /details >}}
@@ -453,7 +456,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#vulnerability-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/366770)
 
 {{< /details >}}
@@ -467,7 +470,7 @@ Introducing a webhook integration that generates events for actions related to v
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#override_project_ci) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/512123)
 
 {{< /details >}}
@@ -487,7 +490,7 @@ The `inject_ci` strategy remains unchanged and workflow rules can only be used t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#skip_ci-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15647)
 
 {{< /details >}}
@@ -503,7 +506,7 @@ To use this feature, set `skip_ci` to `allowed: false` in the pipeline execution
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md#concurrency-control) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13997)
 
 {{< /details >}}
@@ -519,7 +522,7 @@ To use the new property, update your policy using YAML mode and follow the [`tim
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_frameworks_report.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/477394)
 
 {{< /details >}}
@@ -538,6 +541,7 @@ right-hand side pop up menu.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/continuous_integration.md#set-cicd-limits) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/287669)
 
 {{< /details >}}

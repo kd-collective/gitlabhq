@@ -33,7 +33,7 @@ Many thanks to Archish and the rest of GitLab’s open source contributors for c
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/project/repository/code_suggestions/context.md) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/issues/206)
 
@@ -50,7 +50,7 @@ This improvement to Code Suggestions now uses the content of your open editor ta
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/auto_merge.md)
 
 {{< /details >}}
@@ -84,7 +84,7 @@ The extension marketplace is disabled by default. To get started, you can enable
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/configuration.md#configure-sudo-access-for-a-workspace)
 
 {{< /details >}}
@@ -104,7 +104,7 @@ With this feature, you can fully customize your environment to match your workfl
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/470041)
 
 {{< /details >}}
@@ -122,6 +122,7 @@ This is the first time we’ve added events to the UI. Currently, events are ref
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/pages/_index.md#dns-configuration-for-single-domain-sites) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13404)
 
 {{< /details >}}
@@ -142,7 +143,7 @@ wildcard DNS records or certificates.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md#parallel-deployments) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10914)
 
 {{< /details >}}
@@ -160,7 +161,7 @@ Additionally, parallel deployments can be useful for localization when you deplo
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/discussions/_index.md#summarize-issue-discussions-with-gitlab-duo-chat)
 
@@ -175,7 +176,7 @@ Getting up to speed on lengthy issue discussions can be a significant time inves
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md)
 
 {{< /details >}}
@@ -198,7 +199,7 @@ To learn more, see [the announcement blog](https://about.gitlab.com/blog/gitlab-
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](https://new.docs.gitlab.com/ci/variables/#define-a-cicd-variable-in-the-ui) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/29674)
 
 {{< /details >}}
@@ -214,6 +215,7 @@ You might not want anyone to see the value of a variable after it is saved to pr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -229,7 +231,7 @@ GitLab 17.7 will include OpenSSL V3. This will affect Omnibus instances with ext
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md#list-invited-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/465207)
 
 {{< /details >}}
@@ -243,7 +245,7 @@ We added new endpoints to the Groups API and Projects API to retrieve the groups
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md#update-group-attributes) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/351494)
 
 {{< /details >}}
@@ -257,7 +259,7 @@ Previously, you could only add domain restrictions at the group level in the UI.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/members/_index.md#membership-types) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/431066)
 
 {{< /details >}}
@@ -271,6 +273,7 @@ We have simplified the display of the source column on the Members page for grou
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Pro
 - Links: [Documentation](../../subscriptions/subscription-add-ons.md#assign-gitlab-duo-seats) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/164104)
 
@@ -287,7 +290,7 @@ To disable this email, an administrator can disable the `duo_seat_assignment_ema
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_webhooks.md#resend-a-project-webhook-event) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/372826)
 
 {{< /details >}}
@@ -316,7 +319,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhooks.md#delivery-headers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/388692)
 
 {{< /details >}}
@@ -335,7 +338,7 @@ Thanks to [Van](https://gitlab.com/van.m.anderson) for this [community contribut
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/code_intelligence.md#with-the-cicd-component)
 
 {{< /details >}}
@@ -358,7 +361,7 @@ We’ll continue to evaluate [available SCIP indexers](https://github.com/source
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/merge_requests/changes.md#show-a-linked-file-first)
 
 {{< /details >}}
@@ -377,7 +380,7 @@ Feedback about linked files can be left in [issue 439582](https://gitlab.com/git
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/jetbrains_ide/setup.md#configure-gitlab-duo) | [Related epic](https://gitlab.com/groups/gitlab-org/editor-extensions/-/epics/70)
 
 {{< /details >}}
@@ -391,7 +394,7 @@ Our GitLab Duo plugin for JetBrains now offers a more secure and streamlined onb
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/job_control.md#types-of-manual-jobs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/390025)
 
 {{< /details >}}
@@ -424,7 +427,7 @@ You can learn more about these proposed changes in the following issues:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/434248)
 
 {{< /details >}}
@@ -440,6 +443,7 @@ To trigger a reconciliation, go to a configured dashboard and select the Flux st
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/account_and_limit_settings.md#require-expiration-dates-for-new-access-tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/470192)
 
 {{< /details >}}
@@ -453,7 +457,7 @@ Administrators can now decide if they want to enforce a mandatory expiration dat
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_projects_report.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/462943)
 
 {{< /details >}}
@@ -469,7 +473,7 @@ Now you can search by multiple compliance frameworks, which makes it easier to s
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/469439)
 
 {{< /details >}}
@@ -485,7 +489,7 @@ To configure the setting, go to the security policy project you want to share. S
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#pipeline_execution_policy-schema) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/473189)
 
 {{< /details >}}
@@ -506,7 +510,7 @@ In a follow-up enhancement, we will introduce the configuration option within th
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/154167)
 
 {{< /details >}}
@@ -522,7 +526,7 @@ lists of pages more efficiently.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/artifacts_reports.md#artifactsreportscyclonedx) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/472837)
 
 {{< /details >}}
@@ -540,7 +544,7 @@ Fields relating to hardware (HBOM), services (SaaSBOM), and AI/ML models (AI/ML-
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md#analyzers-that-have-reached-end-of-support)
 
 {{< /details >}}
@@ -559,7 +563,7 @@ The migration only resolves vulnerabilities that you haven’t confirmed or dism
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/detected_secrets.md)
 
 {{< /details >}}
@@ -573,7 +577,7 @@ Both pipeline and client-side Secret Detection now support detection of [Anthrop
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/testing/code_coverage/jacoco.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/227345)
 
 {{< /details >}}
@@ -587,6 +591,7 @@ You can now use JaCoCo coverage reports, a popular standard for coverage calcula
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

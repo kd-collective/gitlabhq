@@ -55,7 +55,7 @@ A big thanks to our newest MVPs, Ivan and Baptiste, and to the rest of GitLab’
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13516)
 
 {{< /details >}}
@@ -83,7 +83,7 @@ Feel free to share your thoughts by clicking the feedback button in the chat or 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/jetbrains_ide/_index.md) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-jetbrains-plugin/-/issues/307)
 
 {{< /details >}}
@@ -101,7 +101,7 @@ For a complete list of capabilities, see our [Duo Chat documentation](../../user
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/5510)
 
 {{< /details >}}
@@ -122,7 +122,7 @@ While today all policies managed in a security policy project are enforced again
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/productivity_analytics.md)
 
 {{< /details >}}
@@ -158,7 +158,7 @@ This granular control gives options when it comes to balancing security and acce
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/markdown.md#gitlab-specific-references) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/442229)
 
 {{< /details >}}
@@ -176,7 +176,7 @@ issue, and use the autocomplete shortcut to seamlessly link to your wiki pages f
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md)
 
 {{< /details >}}
@@ -206,7 +206,7 @@ All users with access to view or edit your tenant in Switchboard will receive a 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#workflowauto_cancelon_job_failure) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/23605)
 
 {{< /details >}}
@@ -226,6 +226,7 @@ Special thanks to [Marco](https://gitlab.com/zillemarco) for contributing to the
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -240,7 +241,7 @@ Special thanks to [Marco](https://gitlab.com/zillemarco) for contributing to the
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md#archive-a-project)
 
 {{< /details >}}
@@ -258,7 +259,7 @@ In addition, when deleting a group, the confirmation modal now lists the number 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhooks.md#custom-headers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/17290)
 
 {{< /details >}}
@@ -283,7 +284,7 @@ Thanks to [Niklas](https://gitlab.com/Taucher2003) for [this community contribut
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/projects.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/25329)
 
 {{< /details >}}
@@ -299,7 +300,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/gitlab_slack_application.md#from-the-project-or-group-settings) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391526)
 
 {{< /details >}}
@@ -315,6 +316,7 @@ This improvement brings the GitLab for Slack app closer to feature parity with t
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/import_and_export_settings.md#maximum-number-of-simultaneous-import-jobs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/439286)
 
 {{< /details >}}
@@ -337,7 +339,7 @@ of self-managed GitLab instances can now configure the number of import jobs acc
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/productivity_analytics.md)
 
 {{< /details >}}
@@ -359,7 +361,7 @@ You can help us mature this feature by providing feedback about your experience 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/comment_templates.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/440817)
 
 {{< /details >}}
@@ -379,7 +381,7 @@ We’re really excited about this next iteration of comment templates and will a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../topics/autodevops/troubleshooting.md#builder-sunset-error) | [Related issue](https://gitlab.com/gitlab-org/cluster-integration/auto-build-image/-/issues/73)
 
 {{< /details >}}
@@ -397,6 +399,7 @@ Additionally, we’re planning another major upgrade from `heroku/builder:20` to
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/admin_area.md#administering-users) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/238183)
 
 {{< /details >}}
@@ -416,7 +419,7 @@ Thank you [Ivan Shtyrliaiev](https://www.linkedin.com/in/bahek2462774/) for your
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#project-and-group-access-token-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/426147)
 
 {{< /details >}}
@@ -432,7 +435,7 @@ Previously, email was the only way to get notifications about expiring tokens. A
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_frameworks/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11480)
 
 {{< /details >}}
@@ -450,6 +453,7 @@ through these extensive controls and then roll them up to a compliance framework
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/applications.md#renew-an-application-secret) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/422420)
 
 {{< /details >}}
@@ -465,7 +469,7 @@ Thank you [Phawin](https://gitlab.com/lifez) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/433403)
 
 {{< /details >}}
@@ -504,7 +508,7 @@ This feature is in Beta and is currently available only on GitLab.com.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416903)
 
 {{< /details >}}
@@ -520,7 +524,7 @@ This issue has been resolved and it is no longer possible to link to a security 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#change-your-username) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/429283)
 
 {{< /details >}}
@@ -539,7 +543,7 @@ Thank you [Justin Zeng](https://www.linkedin.com/in/jzeng88/) for your contribut
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/18027)
 
 {{< /details >}}
@@ -574,7 +578,7 @@ This feature is in Beta and is currently available only on GitLab.com.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md#epic-color) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9033)
 
 {{< /details >}}
@@ -590,7 +594,7 @@ Quickly distinguish between group ownership, stage in a lifecycle, development t
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/value_stream_analytics/_index.md#cumulative-label-event-duration) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/12088)
 
 {{< /details >}}
@@ -606,7 +610,7 @@ Now, the duration is calculated as cumulative time, meaning it now correctly rep
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/366168)
 
 {{< /details >}}
@@ -625,7 +629,7 @@ Users can access dependency graph information in CycloneDX SBOMs generated as a 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#supported-languages-and-package-managers) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/431752)
 
 {{< /details >}}
@@ -639,6 +643,7 @@ Dependency Scanning supports Yarn v4. This enhancement allows our analyzer to pa
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/12194)
 
 {{< /details >}}
@@ -671,7 +676,7 @@ Now, you can easily provision GitLab Runners in Google Compute Engine with a ter
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#retry) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/262674)
 
 {{< /details >}}
@@ -693,6 +698,7 @@ Thanks to [Baptiste Lalanne](https://gitlab.com/BaptisteLalanne) for this commun
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}
@@ -713,7 +719,7 @@ The list of all changes is in the GitLab Runner [CHANGELOG](https://gitlab.com/g
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/secrets/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/366492)
 
 {{< /details >}}
@@ -729,6 +735,7 @@ Thanks so much to [Ivo Ivanov](https://gitlab.com/urbanwax) for this great contr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#artifactsaccess) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/428677)
 
 {{< /details >}}
@@ -744,6 +751,7 @@ So in this release, we’ve added the `artifacts:access` keyword. Now, users can
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/_index.md#view-pipelines)
 
 {{< /details >}}

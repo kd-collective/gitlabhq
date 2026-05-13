@@ -50,6 +50,7 @@ Thanks to Chaitanya for contributing to GitLab’s security foundation and the r
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/virtual_registry/maven/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14137)
 
 {{< /details >}}
@@ -69,7 +70,7 @@ We invite enterprise customers to participate in the Maven virtual registry beta
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md)
 
@@ -121,7 +122,7 @@ Note: This feature is only available for native GitLab usernames and passwords. 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/pipeline_security/slsa/_index.md#sign-and-verify-slsa-provenance-with-a-cicd-component) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15859)
 
 {{< /details >}}
@@ -139,7 +140,7 @@ in reusable modules that can be easily integrated into CI/CD workflows.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../integration/zoekt/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13127)
 
 {{< /details >}}
@@ -160,7 +161,7 @@ With this change, finding and understanding code patterns across your repositori
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/graphql/reference/_index.md#projectprojectmembers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/541386)
 
 {{< /details >}}
@@ -180,7 +181,7 @@ This enhancement is particularly valuable to organizations managing large-scale 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/549990)
 
 {{< /details >}}
@@ -194,7 +195,7 @@ The DAST analyzer now automatically ingests the same default secret detection ru
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_frameworks/_index.md#external-controls) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/527007)
 
 {{< /details >}}
@@ -212,7 +213,7 @@ create multiple external custom controls and clearly define each one with its ow
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_frameworks/_index.md#add-requirements) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/531039)
 
 {{< /details >}}
@@ -232,7 +233,7 @@ select requirements when there is a large number of them attached to a complianc
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md)
 
 {{< /details >}}
@@ -253,7 +254,7 @@ continue to perform at scale for customers who regularly use the compliance cent
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_status_report.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/521757)
 
 {{< /details >}}
@@ -319,7 +320,7 @@ This proactive validation helps prevent approval workflow disruptions by catchin
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/workspace/_index.md#user-defined-poststart-events)
 
 {{< /details >}}
@@ -337,7 +338,7 @@ GitLab workspace now supports custom `postStart` events in your devfile, allowin
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](https://docs.gitlab.com/editor_extensions/visual_studio_code/cicd/) | [Related issue](https://gitlab.com/gitlab-org/gitlab-vscode-extension/-/issues/1895)
 
 {{< /details >}}
@@ -353,7 +354,7 @@ This feature was developed through the [GitLab Co-create program](https://about.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/profile/personal_access_tokens.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425053)
 
 {{< /details >}}
@@ -367,7 +368,7 @@ GitLab automatically deactivates access tokens after they expire or are revoked.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/glql/fields.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab-query-language/glql-rust/-/issues/30)
 
 {{< /details >}}
@@ -383,7 +384,7 @@ This is a huge step forward for our planning and tracking capabilities, making i
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md#supported-languages) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14273)
 
 {{< /details >}}
@@ -401,7 +402,7 @@ To see which types of vulnerabilities Advanced SAST detects in each language, se
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md#filter-dependency-list) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16431)
 
 {{< /details >}}
@@ -416,7 +417,7 @@ The dependency lists now supports filtering by a component’s version number. Y
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#variables_override-type) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16430)
 
 {{< /details >}}
@@ -471,7 +472,7 @@ Established GitLab instances can often have large numbers of human and bot users
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/profile/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/23543)
 
 {{< /details >}}
@@ -487,7 +488,7 @@ This feature was developed as a community contribution by Thomas Labalette and E
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/profile/notifications.md#notifications-about-failed-pipeline-that-doesnt-exist) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/515629)
 
 {{< /details >}}
@@ -503,7 +504,7 @@ Thank you [Densett](https://gitlab.com/[Densett](https://gitlab.com/Densett)), [
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/vulnerabilities/_index.md#supported-vulnerabilities-for-vulnerability-resolution) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/534307)
 
 {{< /details >}}

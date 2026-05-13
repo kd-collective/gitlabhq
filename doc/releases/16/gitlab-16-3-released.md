@@ -41,7 +41,7 @@ and [Batuhan Apaydın](https://gitlab.com/batuhan.apaydin) for their great contr
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/383665)
 
 {{< /details >}}
@@ -61,7 +61,7 @@ To help us improve the Value Streams Dashboard, please share feedback about your
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/configuration.md#connect-to-a-workspace-with-ssh)
 
 {{< /details >}}
@@ -77,7 +77,7 @@ With GitLab 16.3, you can now securely connect to a workspace from your desktop 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md#flux-sync-status) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391581)
 
 {{< /details >}}
@@ -93,7 +93,7 @@ Deployments rely on Flux `Kustomization` and `HelmRelease` resources to gather t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/6826)
 
 {{< /details >}}
@@ -112,6 +112,7 @@ Determining which results from a security or compliance scan are actionable is a
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/visual_studio_code/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10407)
 
 {{< /details >}}
@@ -131,7 +132,7 @@ Security scan results are pulled from an API, so this feature is available to de
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#needsparallelmatrix) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/254821)
 
 {{< /details >}}
@@ -163,7 +164,7 @@ We are determined to provide the industry’s fastest CI/CD build speed and look
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/secrets/azure_key_vault.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/271271)
 
 {{< /details >}}
@@ -179,7 +180,7 @@ Secrets stored in Azure Key Vault can now easily be retrieved and used in CI/CD 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/search/_index.md#include-archived-projects-in-search-results) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/413237)
 
 {{< /details >}}
@@ -193,6 +194,7 @@ You can now opt to include or exclude archived projects from search results. By 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -209,7 +211,7 @@ generally available and was replaced with Amazon Linux 2023, so we have adjusted
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/282428)
 
 {{< /details >}}
@@ -223,7 +225,7 @@ Application setting changes at an instance, project, and group level are now rec
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/bitbucket.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416611)
 
 {{< /details >}}
@@ -240,6 +242,7 @@ In GitLab 16.3, we added support for correctly importing PR reviewers from BitBu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md#limits)
 
 {{< /details >}}
@@ -267,6 +270,7 @@ With these new application settings, both self-managed GitLab and GitLab.com adm
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/preferences.md)
 
 {{< /details >}}
@@ -280,7 +284,7 @@ With the new navigation enabled, you can now select one of five different color 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/_index.md#limits) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/392725)
 
 {{< /details >}}
@@ -296,7 +300,7 @@ The upper limit for the overall migration timeout is 4 hours, and so the 90 minu
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/saml_sso/group_sync.md#microsoft-azure-active-directory-integration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/414875)
 
 {{< /details >}}
@@ -310,6 +314,7 @@ GitLab SAML Group Sync now supports the Azure AD (now known as Entra ID) overage
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/323897)
 
 {{< /details >}}
@@ -325,6 +330,7 @@ Geo is now able to detect and correct data corruption of [group wikis](../../use
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/project/codeowners/reference.md)
 
 {{< /details >}}
@@ -351,7 +357,7 @@ Previously, the `CODEOWNERS` file didn’t validate the information being entere
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/420859)
 
 {{< /details >}}
@@ -367,7 +373,7 @@ You can read more about [our Kubernetes support policy](../../user/clusters/agen
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../operations/feature_flags.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/418147)
 
 {{< /details >}}
@@ -383,7 +389,7 @@ In GitLab 16.3, the entire feature flag name is shown. Long names wrap across mu
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -414,7 +420,7 @@ GitLab surfaces vulnerabilities that contain relevant information, however, some
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md)
 
 {{< /details >}}
@@ -431,7 +437,7 @@ From GitLab 16.3, Compliance reports are known as Compliance center.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/issues/379108)
 
 {{< /details >}}
@@ -447,6 +453,7 @@ Previously, we compared vulnerabilities in the latest source and target branches
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/compliance/audit_event_reports.md)
 
 {{< /details >}}
@@ -463,7 +470,7 @@ of audit events to send to each streaming location, focusing only on the events 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10756)
 
 {{< /details >}}
@@ -479,6 +486,7 @@ When a security policy project is linked to a group or subgroup, a security poli
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -500,7 +508,7 @@ For previous changes, see [last month’s updates](https://about.gitlab.com/rele
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#obtaining-dependency-information-by-parsing-lockfiles) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/387307)
 
 {{< /details >}}
@@ -514,7 +522,7 @@ GitLab Dependency and License Scanning now support analyzing Java v21 Maven lock
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/on-demand_scan.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/345430)
 
 {{< /details >}}
@@ -528,6 +536,7 @@ You can now use tags to specify which runners you wish to use for on-demand DAST
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#advanced-vulnerability-tracking) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/5144)
 
 {{< /details >}}
@@ -577,7 +586,7 @@ See [the Postman blog post about this integration](https://blog.postman.com/prot
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/predefined_variables.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/420002)
 
 {{< /details >}}
@@ -591,6 +600,7 @@ Pipeline names defined with the [`workflow:name`](../../ci/yaml/_index.md#workfl
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

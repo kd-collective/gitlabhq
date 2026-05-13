@@ -16,6 +16,8 @@ components:
       - 'doc/development/**'
       - 'doc/legal/**'
       - 'doc/user/markdown.md'
+      - 'doc/AGENTS.md'
+      - 'doc/CLAUDE.md'
      # Redirects: See Redirects component for more info
       - 'doc/ci/pipeline_security/slsa/provenance_v1.md'
       - 'doc/ci/steps/_index.md'

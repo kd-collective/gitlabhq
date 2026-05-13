@@ -56,7 +56,7 @@ and growing our open source community!
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Core, Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo/model_selection.md#select-a-model-for-a-feature) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18818)
 
@@ -75,7 +75,7 @@ GitLab users that belong to multiple namespaces on GitLab.com can now also set a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](https://gitlab-org.gitlab.io/rust/knowledge-graph/) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17514)
 
 {{< /details >}}
@@ -116,7 +116,7 @@ To get started, look for the model dropdown in GitLab Duo Agentic Chat to select
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/jobs/ci_job_token.md#allow-git-push-requests-to-your-project-repository) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/389060)
 
 {{< /details >}}
@@ -132,7 +132,7 @@ parameter in the project’s REST API endpoint.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo/context.md#exclude-context-from-code-review) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17124)
 
@@ -200,6 +200,7 @@ This feature is currently available in GitLab.com, and we plan to make it availa
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enteprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#supported-models) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16742)
 
@@ -216,6 +217,7 @@ To leave feedback on using these models with GitLab Duo Self-Hosted, see [issue 
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md#gitlab-duo) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/548975)
 
@@ -234,7 +236,7 @@ Provide feedback on Code Review in [issue 517386](https://gitlab.com/gitlab-org/
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/secret_detection/pipeline/_index.md#excluded-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/560147)
 
 {{< /details >}}
@@ -250,7 +252,7 @@ if they have a low likelihood of containing secrets, improving scan performance.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/secret_detection/pipeline/_index.md#how-the-analyzer-fetches-commits) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17315)
 
 {{< /details >}}
@@ -266,7 +268,7 @@ This enhancement reduces job timeouts, decreases resource consumption, and provi
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16561)
 
 {{< /details >}}
@@ -287,7 +289,7 @@ You can see which analyzer version you’re using by [checking scan job logs](..
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/clusters/agent/vulnerabilities.md#configure-trivy-severity-threshold-filter) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/559278)
 
 {{< /details >}}
@@ -308,7 +310,7 @@ To learn more about contributing to GitLab, check out the [Community Contributio
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](https://gitlab.com/components/opentofu#publish-providers-to-the-gitlab-oci-registry) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/562715)
 
 {{< /details >}}
@@ -347,7 +349,7 @@ Enterprise users still receive notification emails after the reassignment is com
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/issues/managing_issues.md#open-issues-in-a-panel) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/570776)
 
 {{< /details >}}
@@ -365,7 +367,7 @@ With the new toggle that switches between the drawer view and full-page navigati
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/issues/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/556200)
 
 {{< /details >}}
@@ -379,7 +381,7 @@ We’ve replaced the “epic” filter on the Issues and Epics pages with a more
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/issue_board.md#filter-issues) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/358416)
 
 {{< /details >}}
@@ -393,7 +395,7 @@ You can now view all issues from child epics when filtering by a parent epic in 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/rich_text_editor.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/507377)
 
 {{< /details >}}
@@ -416,7 +418,7 @@ Both editors now have consistent button placement and separators, making it easi
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/policies/vulnerability_management_policy.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/566392)
 
 {{< /details >}}
@@ -432,7 +434,7 @@ If a vulnerability is automatically resolved, the vulnerability notes in the vul
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/yaml/_index.md#artifactsaccess) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/454398)
 
 {{< /details >}}

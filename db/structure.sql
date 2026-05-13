@@ -13856,6 +13856,32 @@ CREATE TABLE ai_testing_terms_acceptances (
     CONSTRAINT check_5efe98894e CHECK ((char_length(user_email) <= 255))
 );
 
+CREATE TABLE ai_tool_rules (
+    id bigint NOT NULL,
+    namespace_id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    web_access smallint,
+    local_access smallint,
+    tool_name text NOT NULL,
+    tool_source text,
+    tool_arguments jsonb,
+    CONSTRAINT check_72f465d750 CHECK ((char_length(tool_source) <= 255)),
+    CONSTRAINT check_d7f656466e CHECK ((char_length(tool_name) <= 255)),
+    CONSTRAINT chk_ai_tool_rules_has_permission CHECK (((web_access IS NOT NULL) OR (local_access IS NOT NULL))),
+    CONSTRAINT chk_ai_tool_rules_local_access_enum CHECK (((local_access IS NULL) OR (local_access = ANY (ARRAY[0, 1, 2])))),
+    CONSTRAINT chk_ai_tool_rules_web_access_enum CHECK (((web_access IS NULL) OR (web_access = ANY (ARRAY[0, 1, 2]))))
+);
+
+CREATE SEQUENCE ai_tool_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE ai_tool_rules_id_seq OWNED BY ai_tool_rules.id;
+
 CREATE TABLE ai_troubleshoot_job_events (
     id bigint NOT NULL,
     "timestamp" timestamp with time zone NOT NULL,
@@ -35697,6 +35723,8 @@ ALTER TABLE ONLY ai_self_hosted_models ALTER COLUMN id SET DEFAULT nextval('ai_s
 
 ALTER TABLE ONLY ai_settings ALTER COLUMN id SET DEFAULT nextval('ai_settings_id_seq'::regclass);
 
+ALTER TABLE ONLY ai_tool_rules ALTER COLUMN id SET DEFAULT nextval('ai_tool_rules_id_seq'::regclass);
+
 ALTER TABLE ONLY ai_troubleshoot_job_events ALTER COLUMN id SET DEFAULT nextval('ai_troubleshoot_job_events_id_seq'::regclass);
 
 ALTER TABLE ONLY ai_usage_events ALTER COLUMN id SET DEFAULT nextval('ai_usage_events_id_seq'::regclass);
@@ -38654,6 +38682,9 @@ ALTER TABLE ONLY ai_settings
 
 ALTER TABLE ONLY ai_testing_terms_acceptances
     ADD CONSTRAINT ai_testing_terms_acceptances_pkey PRIMARY KEY (user_id);
+
+ALTER TABLE ONLY ai_tool_rules
+    ADD CONSTRAINT ai_tool_rules_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY ai_troubleshoot_job_events
     ADD CONSTRAINT ai_troubleshoot_job_events_pkey PRIMARY KEY (id, "timestamp");
@@ -44492,6 +44523,8 @@ CREATE UNIQUE INDEX idx_ai_events_counts_unique_tuple ON ONLY ai_events_counts U
 CREATE UNIQUE INDEX idx_ai_iaer_default_rule_on_accessible_entity ON ai_instance_accessible_entity_rules USING btree (accessible_entity) WHERE (through_namespace_id IS NULL);
 
 CREATE UNIQUE INDEX idx_ai_nfar_default_rule_on_root_ns_accessible_entity ON ai_namespace_feature_access_rules USING btree (root_namespace_id, accessible_entity) WHERE (through_namespace_id IS NULL);
+
+CREATE UNIQUE INDEX idx_ai_tool_rules_ns_tool_unique ON ai_tool_rules USING btree (namespace_id, tool_name);
 
 CREATE UNIQUE INDEX idx_ai_usage_events_uniqueness ON ONLY ai_usage_events USING btree (namespace_id, user_id, event, "timestamp") NULLS NOT DISTINCT;
 
@@ -60715,6 +60748,9 @@ ALTER TABLE ONLY vulnerability_issue_links
 
 ALTER TABLE ONLY alert_management_alert_assignees
     ADD CONSTRAINT fk_rails_d47570ac62 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY ai_tool_rules
+    ADD CONSTRAINT fk_rails_d4bea8c694 FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
 
 ALTER TABLE p_ci_job_annotations
     ADD CONSTRAINT fk_rails_d4d0c0fa0f FOREIGN KEY (partition_id, job_id) REFERENCES p_ci_builds(partition_id, id) ON UPDATE CASCADE ON DELETE CASCADE;

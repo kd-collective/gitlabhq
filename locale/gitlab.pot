@@ -572,6 +572,9 @@ msgstr ""
 msgid "%{actionText} & reopen %{noteable}"
 msgstr ""
 
+msgid "%{action} %{date}"
+msgstr ""
+
 msgid "%{address} is an invalid IP address range"
 msgstr ""
 
@@ -18137,6 +18140,9 @@ msgid "Compare revisions"
 msgstr ""
 
 msgid "Compare submodule commit revisions"
+msgstr ""
+
+msgid "Compare to previous release"
 msgstr ""
 
 msgid "Compare with previous version"
@@ -45062,6 +45068,9 @@ msgstr ""
 msgid "Milestone id(s) not found: %{milestones}"
 msgstr ""
 
+msgid "Milestone information"
+msgstr ""
+
 msgid "Milestone lists not available with your current license"
 msgstr ""
 
@@ -59307,6 +59316,9 @@ msgid "Release assets"
 msgstr ""
 
 msgid "Release assets documentation"
+msgstr ""
+
+msgid "Release commit: %{commit}"
 msgstr ""
 
 msgid "Release date"
@@ -77867,6 +77879,9 @@ msgstr ""
 msgid "Turn off"
 msgstr ""
 
+msgid "Turn off restricted access"
+msgstr ""
+
 msgid "Turn on"
 msgstr ""
 
@@ -77874,6 +77889,9 @@ msgid "Turn on confidentiality"
 msgstr ""
 
 msgid "Turn on confidentiality: Limit visibility to project members with at least the Planner role."
+msgstr ""
+
+msgid "Turn on restricted access"
 msgstr ""
 
 msgid "Turning this setting off disables all subgroup 2FA settings. This is a destructive change and cannot be reversed. Read %{link_start}more%{link_end}."
@@ -81102,9 +81120,6 @@ msgid "View trigger token usage examples"
 msgstr ""
 
 msgid "View usage details"
-msgstr ""
-
-msgid "View users statistics"
 msgstr ""
 
 msgid "View work items"
@@ -87173,16 +87188,46 @@ msgstr ""
 msgid "Your groups couldn't be loaded. Refresh the page to try again."
 msgstr ""
 
-msgid "Your instance has %{remaining_user_count} users remaining of the %{total_user_count} in your subscription. When there are no more seats, users cannot be invited or added to the instance."
-msgstr ""
-
-msgid "Your instance has %{remaining_user_count} users remaining of the %{total_user_count} included in your subscription. You can add more users than the number included in your license, and we will include the overage in your next bill."
+msgid "Your instance has exceeded its seat limit"
 msgstr ""
 
 msgid "Your instance has exceeded your subscription's licensed user count."
 msgstr ""
 
-msgid "Your instance is approaching its licensed user count"
+msgid "Your instance has reached its seat limit"
+msgstr ""
+
+msgid "Your instance has used %{used_seats} of %{total_seats} seat (%{overage_count} over limit). Purchase more seats and turn on restricted access to prevent further overages."
+msgid_plural "Your instance has used %{used_seats} of %{total_seats} seats (%{overage_count} over limit). Purchase more seats and turn on restricted access to prevent further overages."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance has used %{used_seats} of %{total_seats} seat (%{overage_count} over limit). Restricted access is blocking new users from being added. Purchase more seats to resolve the overage."
+msgid_plural "Your instance has used %{used_seats} of %{total_seats} seats (%{overage_count} over limit). Restricted access is blocking new users from being added. Purchase more seats to resolve the overage."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance has used %{used_seats} of %{total_seats} seat. When no seats remain, adding new users will put your instance into overage. Purchase more seats and turn on restricted access to block new users automatically."
+msgid_plural "Your instance has used %{used_seats} of %{total_seats} seats. When no seats remain, adding new users will put your instance into overage. Purchase more seats and turn on restricted access to block new users automatically."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance has used %{used_seats} of %{total_seats} seat. When no seats remain, restricted access will block new users from being added to prevent overages."
+msgid_plural "Your instance has used %{used_seats} of %{total_seats} seats. When no seats remain, restricted access will block new users from being added to prevent overages."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance has used all %{total_seats} seat. Adding new users will put your instance into overage. Purchase more seats and turn on restricted access to block new users automatically."
+msgid_plural "Your instance has used all %{total_seats} seats. Adding new users will put your instance into overage. Purchase more seats and turn on restricted access to block new users automatically."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance has used all %{total_seats} seat. Restricted access is blocking new users from being added to prevent overages. Purchase more seats or turn off restricted access to allow new users."
+msgid_plural "Your instance has used all %{total_seats} seats. Restricted access is blocking new users from being added to prevent overages. Purchase more seats or turn off restricted access to allow new users."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Your instance is approaching its seat limit"
 msgstr ""
 
 msgid "Your issues are being imported. Once finished, you'll get a confirmation email."

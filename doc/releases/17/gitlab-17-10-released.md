@@ -40,7 +40,7 @@ Thank you Alexey for making GitLab more inclusive and transparent!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md#use-gitlab-duo-to-review-your-code)
 
@@ -66,6 +66,7 @@ You can track future progress for Duo Code Review in epic [13008](https://gitlab
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md#feature-versions-and-status) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13759)
 
@@ -106,7 +107,7 @@ These newly available regions are only available for hosting failover instances 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/glql/_index.md#embedded-views) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14938)
 
 {{< /details >}}
@@ -130,7 +131,7 @@ Teams can now maintain context while accessing the information they need, creati
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/markdown.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/7654)
 
 {{< /details >}}
@@ -160,7 +161,7 @@ These improvements make GitLab Flavored Markdown more powerful for teams creatin
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#projects-by-dora-metric) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/408516)
 
 {{< /details >}}
@@ -176,7 +177,7 @@ The [DORA metrics](../../user/analytics/dora_metrics.md) are available out-of-th
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/issues/_index.md)
 
 {{< /details >}}
@@ -199,7 +200,7 @@ Issues now share a common framework with epics and tasks, featuring real-time up
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/description_templates.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16088)
 
 {{< /details >}}
@@ -215,7 +216,7 @@ This powerful addition allows you to create standardized templates, saving you t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#change-or-override-vulnerability-severity) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/16157)
 
 {{< /details >}}
@@ -239,7 +240,7 @@ All severity changes are tracked in the vulnerability history and audit events a
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md#use-gitlab-duo-chat-in-the-gitlab-ui) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/499849)
 
@@ -279,6 +280,7 @@ Share your experience with us in [issue 526013](https://gitlab.com/gitlab-org/gi
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/configure_duo_features.md#select-a-self-hosted-model-for-a-feature) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/524174)
 
@@ -295,6 +297,7 @@ To leave feedback, go to [issue 524175](https://gitlab.com/gitlab-org/gitlab/-/i
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/duo_and_sdlc_trends.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/523807)
 
 {{< /details >}}
@@ -312,6 +315,7 @@ Please leave feedback on the AI Impact Dashboard in [issue 456105](https://gitla
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#supported-models) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/523917)
 
@@ -330,7 +334,7 @@ Please leave feedback on using these models with GitLab Duo Self-Hosted in [issu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/import/mapping/post_migration_mapping.md#placeholder-user-attributes) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/507297)
 
 {{< /details >}}
@@ -345,7 +349,7 @@ With this release, we’ve added timestamps so you can track the progress of you
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md#bulk-edit-to-do-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/16564)
 
 {{< /details >}}
@@ -359,7 +363,7 @@ You can now efficiently manage your To-Do List with our improved bulk editing fe
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/todos.md#snooze-to-do-items) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/17712)
 
 {{< /details >}}
@@ -373,7 +377,7 @@ You can now snooze notifications in your To-Do List, allowing you to temporarily
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/import/mapping/reassignment.md#request-reassignment-by-using-a-csv-file) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16765)
 
 {{< /details >}}
@@ -395,7 +399,7 @@ To further streamline large-scale migrations, API support for CSV-based reassign
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/465889)
 
 {{< /details >}}
@@ -419,7 +423,7 @@ We value your feedback on this update! Join the discussion in [epic 16662](https
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/visibility_and_access_controls.md#define-which-roles-can-create-projects) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/507410)
 
 {{< /details >}}
@@ -443,7 +447,7 @@ Thank you [@yasuk](https://gitlab.com/yasuk) for this community contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#supported-languages-and-package-managers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/342468)
 
 {{< /details >}}
@@ -459,7 +463,7 @@ This addition was a community contribution from one of our users, Alexandre Laro
 {{< details >}}
 
 - Tier: Ultimate, Premium
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_frameworks_report.md#set-and-remove-a-compliance-framework-as-default) | [Related epic](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/181500)
 
 {{< /details >}}
@@ -479,7 +483,7 @@ center of a top-level group. This feature isn’t available in the compliance ce
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/files/git_blame.md#ignore-specific-revisions)
 
 {{< /details >}}
@@ -498,7 +502,7 @@ When you look through the history of a project with `blame`, these kinds of comm
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/codeowners/reference.md#exclusion-patterns)
 
 {{< /details >}}
@@ -517,7 +521,7 @@ when you want to exclude specific files, or paths from requiring a Code Owner ap
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/branches/branch_rules.md#edit-squash-commits-option)
 
 {{< /details >}}
@@ -538,7 +542,7 @@ This flexibility ensures consistent commit history across your project while res
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/manage.md#expiry-emails-for-group-and-project-access-tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/463016)
 
 {{< /details >}}
@@ -552,7 +556,7 @@ Previously, access token expiry notification emails were only sent to direct mem
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/pipeline_execution_policies.md#pipeline_execution_policy-schema) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/469256)
 
 {{< /details >}}
@@ -570,7 +574,7 @@ To inject jobs at the beginning of the pipeline without overriding `needs` behav
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/pages_access_control.md#authenticate-with-an-access-token)
 
 {{< /details >}}
@@ -586,7 +590,7 @@ This powerful enhancement increases productivity while maintaining security, giv
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/analytics/duo_and_sdlc_trends.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/477246)
 
@@ -602,6 +606,7 @@ With these additional metrics, managers can better measure the AI impact on thei
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/dependency_proxy/_index.md#authenticate-with-docker-hub) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/331741)
 
 {{< /details >}}
@@ -619,7 +624,7 @@ With this release, you can configure Docker Hub authentication through the Graph
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/329588)
 
 {{< /details >}}
@@ -637,7 +642,7 @@ Audit events for projects are stored either in a group namespace or the project 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../administration/credentials_inventory.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/513181)
 
 {{< /details >}}
@@ -652,6 +657,7 @@ Thank you [Chaitanya Sonwane](https://gitlab.com/chaitanyason9) for your contrib
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/admin/token.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15777)
 
 {{< /details >}}
@@ -667,6 +673,7 @@ Thank you [Nicholas Wittstruck](https://gitlab.com/nwittstruck) and the team fro
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/auth/oidc.md#configure-a-custom-duration-for-id-tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/377654)
 
 {{< /details >}}
@@ -682,6 +689,7 @@ Thank you [Henry Sachs](https://gitlab.com/DerAstronaut) for your contribution!
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../integration/omniauth.md#keep-omniauth-user-profiles-up-to-date) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/505575)
 
 {{< /details >}}
@@ -695,7 +703,7 @@ You can now map the Organization and Title profile attributes from an OmniAuth i
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/manage.md#add-additional-webhook-triggers-for-group-access-token-expiration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/499732)
 
 {{< /details >}}
@@ -709,6 +717,7 @@ You can now trigger webhook events 60 and 30 days before a project or group acce
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

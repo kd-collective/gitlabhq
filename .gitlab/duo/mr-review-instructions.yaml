@@ -326,6 +326,7 @@ instructions:
          - All required identifiers (user, project, namespace) are passed when the metric uses them
          - If a metric has a unique property like `unique: project.id`, ensure the corresponding argument (e.g., `project`) is passed in the tracking call
          - `additional_properties` match those documented in the event definition
+         - When the call is made from a service object (a class with an `execute` method, typically under `app/services/` or `ee/app/services/`), prefer the declarative `Gitlab::InternalEvents::ServiceTracking` DSL (`tracks_event 'event_name', on: :success`) over manual `track_internal_event` calls in `execute`. The DSL handles success/error detection, payload extraction, and conditions automatically.
       3. For frontend `trackEvent` or `InternalEvents.trackEvent` calls:
          - Event name matches an existing event definition
          - Additional properties are documented in the event definition

@@ -47,6 +47,7 @@ Many thanks to Gerardo Navarro and the rest of the team from Siemens for helping
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#cicd-catalog)
 
 {{< /details >}}
@@ -66,7 +67,7 @@ You’re invited to contribute CI/CD components to the Catalog and help expand t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/duo_and_sdlc_trends.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/12978)
 
 {{< /details >}}
@@ -102,7 +103,7 @@ We are determined to provide the industry’s fastest CI/CD build speed and look
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/deployment_approvals.md#approve-or-reject-a-deployment) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/374538)
 
 {{< /details >}}
@@ -118,7 +119,7 @@ From 17.0, GitLab offers a deployment details view that you can link to directly
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13297)
 
 {{< /details >}}
@@ -134,7 +135,7 @@ At GitLab, we apply a test-driven approach when choosing the best model for a se
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/gitlab_duo_chat/examples.md#ask-about-gitlab) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/451215)
 
 {{< /details >}}
@@ -150,7 +151,7 @@ Whether you’re a newcomer or an expert, you can ask Chat for help with queries
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#overview) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438256)
 
 {{< /details >}}
@@ -166,7 +167,7 @@ The Overview panel displays metrics for the group level, such as number of (sub)
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/ci_job_token.md#control-job-token-access-to-your-project) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415519)
 
 {{< /details >}}
@@ -182,6 +183,7 @@ In GitLab 17.0, you can now add groups to a project’s CI/CD job token allowlis
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#rulesexistsproject) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/386040)
 
 {{< /details >}}
@@ -219,6 +221,7 @@ We will be extending this functionality to enable self-serve updates for additio
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/)
 
 {{< /details >}}
@@ -238,6 +241,7 @@ The deprecated queue selector and negate options are removed from the Sidekiq ch
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -251,6 +255,7 @@ CentOS Linux 7 will reach [end of life](https://www.redhat.com/en/topics/linux/c
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/postgresql/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/432391)
 
 {{< /details >}}
@@ -274,7 +279,7 @@ The [actual migration](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/135
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/members/sharing_projects_groups.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/418888)
 
 {{< /details >}}
@@ -288,7 +293,7 @@ Previously, when a public group or project invited a private group, the private 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/members/_index.md#share-a-project-with-a-group) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/219230)
 
 {{< /details >}}
@@ -302,7 +307,7 @@ Previously, members of groups that were invited to a group or project were visib
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/import.md#import-repository-from-bitbucket-cloud) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/215036)
 
 {{< /details >}}
@@ -318,7 +323,7 @@ This can be a better solution for importing a lot of projects than importing by 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_import_export.md#import-project-resources) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425798)
 
 {{< /details >}}
@@ -337,7 +342,7 @@ In this release, we added an API endpoint that re-imports a named relation, skip
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/jira/configure.md#view-jira-issues) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12609)
 
 {{< /details >}}
@@ -358,7 +363,7 @@ To [create Jira issues for vulnerabilities](../../integration/jira/configure.md#
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_integrations.md#jira-issues) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/267015)
 
 {{< /details >}}
@@ -374,7 +379,7 @@ Thanks to [Ivan](https://gitlab.com/ivantedja) for [this community contribution]
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/external_participants.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/3758)
 
 {{< /details >}}
@@ -408,6 +413,7 @@ is available to make it easy for external participants to opt out of a conversat
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/direct_transfer_migrations.md#review-results-of-the-import) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/443492)
 
 {{< /details >}}
@@ -433,7 +439,7 @@ Until now, imported items were not easily identifiable. With this release, we’
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/jetbrains_ide/_index.md#integrate-with-1password-cli) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-jetbrains-plugin/-/issues/291)
 
 {{< /details >}}
@@ -449,7 +455,7 @@ Developers can replace their personal access tokens in their JetBrains IDE setti
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../editor_extensions/jetbrains_ide/_index.md) | [Related issue](https://gitlab.com/gitlab-org/editor-extensions/gitlab-jetbrains-plugin/-/issues/332)
 
 {{< /details >}}
@@ -465,7 +471,7 @@ Use the default Alt+D keyboard shortcut (or set your own) to open Duo Chat quick
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/comment_templates.md#for-a-project) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/440818)
 
 {{< /details >}}
@@ -485,6 +491,7 @@ We’re really excited about this iteration of comment templates and if you have
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/gitaly/configure_gitaly.md#configure-commit-signing-for-gitlab-ui-commits) | [Related issue](https://gitlab.com/gitlab-org/gitaly/-/issues/5361)
 
 {{< /details >}}
@@ -498,7 +505,7 @@ Previously, web commits and automated commits made by GitLab could not be signed
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/431133)
 
 {{< /details >}}
@@ -514,6 +521,7 @@ If you need to run multiple agents in a cluster, we would like to hear your feed
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/clusters/kas.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/375327)
 
 {{< /details >}}
@@ -527,7 +535,7 @@ From GitLab 17.0, you can install GitLab in FIPS mode with the agent for Kuberne
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/deployments.md#track-newly-included-merge-requests-per-deployment) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/384104)
 
 {{< /details >}}
@@ -541,6 +549,7 @@ In past releases, merge requests were tracked in a deployment only if the projec
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/sign_in_restrictions.md#check-if-your-session-has-admin-mode-enabled) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438674)
 
 {{< /details >}}
@@ -571,7 +580,7 @@ Thank you [Phawin](https://gitlab.com/lifez) for your contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md#edit-a-custom-role) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437590)
 
 {{< /details >}}
@@ -585,7 +594,7 @@ Previously, you could not edit an existing custom role and its permissions. Now,
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391760)
 
 {{< /details >}}
@@ -606,6 +615,7 @@ With the release of these custom permissions, you can reduce the number of Owner
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11851)
 
 {{< /details >}}
@@ -623,7 +633,7 @@ This update does not impact custom role workflows on GitLab.com.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11947)
 
 {{< /details >}}
@@ -642,7 +652,7 @@ A series of improvements have been made to the user experience for custom roles,
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/branches/default.md#for-all-projects-in-an-instance)
 
 {{< /details >}}
@@ -659,7 +669,7 @@ This allows more flexibility in protecting your default branch and simplifies th
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438272)
 
 {{< /details >}}
@@ -673,7 +683,7 @@ The security policy bot posts a comment on merge requests when they violate a po
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md#filtering-vulnerabilities) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13339)
 
 {{< /details >}}
@@ -691,7 +701,7 @@ like this proposed [filter by identifier](https://gitlab.com/groups/gitlab-org/-
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10816)
 
 {{< /details >}}
@@ -707,7 +717,7 @@ When a merge request approval policy is configured to fail open, MRs will now on
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/profile/_index.md#delete-email-addresses-from-your-user-profile) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/367823)
 
 {{< /details >}}
@@ -721,6 +731,7 @@ If you add a secondary email address to your user profile and do not verify it, 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/packages/package_registry/_index.md#view-packages) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/451054)
 
 {{< /details >}}
@@ -736,7 +747,7 @@ Now you can filter the package registry UI for packages that failed to upload. T
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#dashboard-metrics-and-drill-down-reports) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/435451)
 
 {{< /details >}}
@@ -752,7 +763,7 @@ By analyzing how this metric evolves in the [context of other SDLC metrics](http
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/issues/design_management.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438829)
 
 {{< /details >}}
@@ -766,7 +777,7 @@ GitLab is expanding collaboration by updating our permissions. Now, users with t
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md#delete-an-epic) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/452189)
 
 {{< /details >}}
@@ -782,7 +793,7 @@ Now, when you delete a parent epic, instead of deleting all its child records au
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/roadmap/_index.md#sort-and-filter-the-roadmap) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/460492)
 
 {{< /details >}}
@@ -796,7 +807,7 @@ We expanded the epic sorting options available in the Roadmap view, providing yo
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#customize-dashboard-panels) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/432185)
 
 {{< /details >}}
@@ -812,7 +823,7 @@ Using this customization, decision-makers can focus on the most relevant informa
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10267)
 
 {{< /details >}}
@@ -826,7 +837,7 @@ We reduced the minimum role required to relate issues and tasks from Reporter to
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/issue_board.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/25758)
 
 {{< /details >}}
@@ -840,7 +851,7 @@ We’ve improved issue boards to offer you clearer insights into your project’
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/api_security_testing/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/13644)
 
 {{< /details >}}
@@ -861,7 +872,7 @@ As [previously announced](../../update/deprecations.md#secure-analyzers-major-ve
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#use-cicd-components) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12968)
 
 {{< /details >}}
@@ -875,7 +886,7 @@ Users of Dependency Scanning can now scan Android projects. To configure Android
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#supported-languages-and-package-managers) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/441491)
 
 {{< /details >}}
@@ -891,7 +902,7 @@ As outlined in the [deprecation notice](../../update/deprecations.md#deprecate-p
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/_index.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/13757)
 
 {{< /details >}}
@@ -905,6 +916,7 @@ DAST 5 supports both arm64 and amd64 architectures by default. This enables cust
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#supported-languages-and-frameworks) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/412060)
 
 {{< /details >}}
@@ -930,7 +942,7 @@ As [announced](../../update/deprecations.md#sast-analyzer-coverage-changing-in-g
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/pipeline/configure.md#with-a-remote-ruleset) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/425251)
 
 {{< /details >}}
@@ -944,7 +956,7 @@ We resolved a Secret Detection bug that impacted remote rulesets. It’s now pos
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/pipeline/_index.md#duplicate-vulnerability-tracking) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/434096)
 
 {{< /details >}}
@@ -963,6 +975,7 @@ Otherwise, the existing workflow (merge request widget, pipeline report, and vul
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#semantic-versioning) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/450835)
 
 {{< /details >}}
@@ -978,6 +991,7 @@ With this release, you can opt to use the latest major or minor version of a CI/
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../ci/components/_index.md#publish-a-new-release) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/442066)
 
 {{< /details >}}
@@ -991,7 +1005,7 @@ We have been hard at work on CI/CD components, including making the process of r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/script.md#set-a-default-before_script-or-after_script-for-all-jobs) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10158)
 
 {{< /details >}}
@@ -1007,6 +1021,7 @@ As of GitLab 17.0, `after_script` commands will always run when a job is cancele
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

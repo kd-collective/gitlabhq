@@ -20,11 +20,12 @@ module WorkItems
     # the wrapped type's class, keeping NamespacedType transparent to code that
     # compares types by identity.
     class NamespacedType < SimpleDelegator
-      def initialize(type, enabled: true, is_a_group: false, tasks_on_boards: false)
+      def initialize(type, enabled: true, is_a_group: false, tasks_on_boards: false, namespace: nil)
         super(type)
         @enabled = enabled
         @is_a_group = is_a_group
         @tasks_on_boards = tasks_on_boards
+        @namespace = namespace
       end
 
       def class
@@ -62,13 +63,17 @@ module WorkItems
         enabled? && delegation_source.creatable?
       end
 
+      def enabled_by_default_for_new_namespaces?
+        true
+      end
+
       def enabled?
         enabled && !delegation_source.archived? && visible_in_context?
       end
 
       private
 
-      attr_accessor :enabled, :is_a_group, :tasks_on_boards
+      attr_accessor :enabled, :is_a_group, :tasks_on_boards, :namespace
 
       # Archived types are unavailable everywhere; disabled types are unavailable
       # only at project level (a type disabled at the group may still be enabled
@@ -94,3 +99,5 @@ module WorkItems
     end
   end
 end
+
+WorkItems::TypesFramework::NamespacedType.prepend_mod

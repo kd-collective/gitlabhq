@@ -55,7 +55,7 @@ Thank you, Ahmed, for your exceptional contributions to GitLab’s Web IDE!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/duo_agent_platform/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/editor-extensions/-/epics/179)
 
 {{< /details >}}
@@ -78,7 +78,7 @@ Try the Duo Agent Platform beta in Visual Studio today and experience a new leve
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/glql/_index.md#embedded-views) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15008)
 
 {{< /details >}}
@@ -98,7 +98,7 @@ We welcome your feedback as we continue to enhance embedded views. Please share 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/import/direct_transfer_migrations.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11398)
 
 {{< /details >}}
@@ -120,7 +120,7 @@ On GitLab.com, migration by direct transfer is enabled by default. On GitLab Sel
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/jobs/fine_grained_permissions.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15258)
 
 {{< /details >}}
@@ -138,6 +138,7 @@ We’re actively working to add [additional fine-grained permissions](https://gi
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/524929)
 
@@ -156,7 +157,7 @@ Provide feedback on Code Review in [issue 517386](https://gitlab.com/gitlab-org/
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/project/merge_requests/duo_in_merge_requests.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/545136)
 
@@ -181,6 +182,7 @@ Help us improve this feature by sharing your thoughts and suggestions in our [fe
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/517581)
 
@@ -197,6 +199,7 @@ This feature makes GitLab Duo Self-Hosted more flexible, but GitLab cannot guara
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17192)
 
@@ -213,7 +216,7 @@ With hybrid models on GitLab Duo Self-Hosted, GitLab Self-Managed instance admin
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/compliance_center/compliance_violations_report.md)
 
 {{< /details >}}
@@ -240,7 +243,7 @@ while providing reassurance that non-compliance can be effectively identified, r
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/project/web_ide/_index.md#use-source-control)
 
 {{< /details >}}
@@ -261,7 +264,7 @@ These enhancements bring Git operations right to your fingertips. For informatio
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../ci/secrets/aws_secrets_manager.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/17822)
 
 {{< /details >}}
@@ -295,6 +298,7 @@ If you have questions, want to share your implementation experience, or would li
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/560016)
 
@@ -314,7 +318,7 @@ see [issue 523918](https://gitlab.com/gitlab-org/gitlab/-/issues/523918).
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/_index.md#group-visibility) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/502487)
 
 {{< /details >}}
@@ -355,7 +359,7 @@ This update brings the administrator experience in line with GitLab design stand
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dependency_scanning/dependency_scanning_sbom/_index.md#customizing-behavior-with-the-cicd-template) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/537716)
 
 {{< /details >}}
@@ -377,7 +381,7 @@ for the Dependency Scanning job.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/license_scanning_of_cyclonedx_files/_index.md#use-cyclonedx-report-as-a-source-of-license-information) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/501662)
 
 {{< /details >}}
@@ -396,7 +400,7 @@ for license information.
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/dast/browser/troubleshooting.md#what-is-dast-doing) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18342)
 
 {{< /details >}}
@@ -451,7 +455,7 @@ able to manage policies centrally within a single top-level group or namespace.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/workspace/_index.md#shallow-cloning)
 
 {{< /details >}}
@@ -467,7 +471,7 @@ This feature applies automatically to all new workspaces, no configuration is re
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/infrastructure/iac/terraform_state.md) | [Related issue](https://gitlab.com/gitlab-org/cli/-/issues/7954)
 
 {{< /details >}}
@@ -494,7 +498,7 @@ To manage state with the `opentofu` command, you must have at least `glab` 1.66 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/clusters/agent/_index.md#supported-kubernetes-versions-for-gitlab-features) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/538906)
 
 {{< /details >}}
@@ -510,7 +514,7 @@ For more information, see the [Supported Kubernetes versions for GitLab features
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/oauth2.md#authorization-code-flow)
 
 {{< /details >}}
@@ -533,7 +537,7 @@ Your OAuth integrations now respect SSO policies automatically, eliminating conf
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../administration/pages/_index.md#disable-unique-domains-by-default)
 
 {{< /details >}}
@@ -551,7 +555,7 @@ Users can still override this setting for individual projects, and existing Page
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/discussions/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/16403)
 
 {{< /details >}}
@@ -574,7 +578,7 @@ With these updates, your GitLab wiki becomes living documentation that evolves a
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/epics/manage_epics.md#bulk-edit-epics) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11901)
 
 {{< /details >}}
@@ -590,7 +594,7 @@ This enhancement makes it faster to manage large numbers of epics by letting you
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../api/projects.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/524124)
 
 {{< /details >}}
@@ -623,7 +627,7 @@ In the vulnerability report for projects and groups, you can now group the vulne
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/policies/scan_execution_policies.md#scan-execution-policy-editor) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11919)
 
 {{< /details >}}
@@ -644,7 +648,7 @@ Once you select a template, choose which GitLab security scans to enable with th
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/compliance/audit_event_streaming.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15869)
 
 {{< /details >}}
@@ -683,7 +687,7 @@ This enhancement strengthens your security posture by ensuring you have access t
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#access-token-and-service-account-exceptions) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/18112)
 
 {{< /details >}}
@@ -705,7 +709,7 @@ This enhancement maintains strict security policies with flexibility for modern 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/group/saml_sso/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/262074)
 
 {{< /details >}}
@@ -721,7 +725,7 @@ ensuring consistent session management across your organization. This feature re
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/profile/service_accounts.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/537976)
 
 {{< /details >}}
@@ -753,7 +757,7 @@ Additionally, organizations can now hide enterprise user emails on their user pr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com, GitLab Dedicated
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 - Links: [Documentation](../../user/ssh.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/432624)
 
 {{< /details >}}

@@ -44,7 +44,7 @@ Thank you, Kik, for choosing to help build GitLab and being a part of our amazin
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/393235)
 
 {{< /details >}}
@@ -58,7 +58,7 @@ Group Owners or administrators can now create and remove custom roles using the 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/workspace/_index.md#personal-access-token)
 
 {{< /details >}}
@@ -74,7 +74,7 @@ With GitLab 16.4, you can create a workspace for any public or private project. 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/user_access.md#access-a-cluster-with-the-kubernetes-api) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/11235)
 
 {{< /details >}}
@@ -92,7 +92,7 @@ In this first iteration of cluster access, you must [manage your Kubernetes conf
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/8090)
 
 {{< /details >}}
@@ -106,7 +106,7 @@ When reviewing a list of dependencies, it is important to have an overall view. 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/vulnerability_report/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/4649)
 
 {{< /details >}}
@@ -121,7 +121,7 @@ With this release you can bulk change the status and make a comment for multiple
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/10684)
 
 {{< /details >}}
@@ -145,7 +145,7 @@ We plan to remove the ability to change the status of a vulnerability from the D
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/merge_trains.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/4911)
 
 {{< /details >}}
@@ -163,7 +163,7 @@ To enable the Fast-forward merge trains, locate the feature flag `fast_forward_m
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/yaml/_index.md#id_tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/419750)
 
 {{< /details >}}
@@ -181,7 +181,7 @@ In GitLab 15.9 we announced the [deprecation of older versions of JSON web token
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/advanced_search/elasticsearch.md#index-integrity) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/214601)
 
 {{< /details >}}
@@ -195,6 +195,7 @@ With GitLab 16.4, Elasticsearch index integrity is generally available for all G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -208,7 +209,7 @@ With GitLab 16.4, Elasticsearch index integrity is generally available for all G
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/webhook_events.md#emoji-events) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/290773)
 
 {{< /details >}}
@@ -224,7 +225,7 @@ You could use the new webhook, for example, to send an email when users react to
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/member_roles.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/416751)
 
 {{< /details >}}
@@ -238,7 +239,7 @@ When creating a custom role, you can now use the member roles API to add a name 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/integrations/gitlab_slack_application.md#trigger-notifications-for-group-mentions) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/417751)
 
 {{< /details >}}
@@ -255,6 +256,7 @@ GitLab can send messages to Slack workspace channels for certain GitLab events. 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/import_and_export_settings.md#timeout-for-decompressing-archived-files) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/421432)
 
 {{< /details >}}
@@ -274,7 +276,7 @@ GitLab.com administrators can adjust this limit as needed.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/service_desk/configure.md#custom-email-address) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/329990)
 
 {{< /details >}}
@@ -292,6 +294,7 @@ provide feedback in [the feedback issue](https://gitlab.com/gitlab-org/gitlab/-/
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/secondary_proxy/_index.md#set-up-a-unified-url-for-geo-sites) | [Related epic](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/3522)
 
 {{< /details >}}
@@ -305,6 +308,7 @@ Geo now supports unified URLs on [Cloud Native Hybrid](../../administration/refe
 {{< details >}}
 
 - Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/geo/replication/object_storage.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/8056)
 
 {{< /details >}}
@@ -320,7 +324,7 @@ Geo adds the ability to verify object storage when [object storage replication i
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/pipelines/downstream_pipelines.md#downstream-pipelines-for-deployments) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/369061)
 
 {{< /details >}}
@@ -336,7 +340,7 @@ Previously, when you ran separate pipelines for CI and CD and used the `trigger`
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9567)
 
 {{< /details >}}
@@ -352,6 +356,7 @@ For scan execution policies, you can configure exceptions for the [pipeline](../
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/367705)
 
 {{< /details >}}
@@ -365,6 +370,7 @@ Group and project access tokens are frequently used for automation. It is import
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/group/_index.md#add-users-to-a-group) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/12704)
 
 {{< /details >}}
@@ -378,7 +384,7 @@ A user will get an email notification seven days before their group or project a
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dast/browser/checks/_index.md#active-checks) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/392718)
 
 {{< /details >}}
@@ -392,7 +398,7 @@ Browser-based DAST active check 22.1 has been enabled by default. It replaces ZA
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/vulnerabilities.md#scanning-private-images) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/415451)
 
 {{< /details >}}
@@ -406,7 +412,7 @@ Browser-based DAST active check 22.1 has been enabled by default. It replaces ZA
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_scanning/legacy_dependency_scanning/_index.md#obtaining-dependency-information-by-parsing-lockfiles) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/413903)
 
 {{< /details >}}
@@ -420,6 +426,7 @@ Thanks to a community contribution from [Weyert de Boer](https://gitlab.com/weye
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/analyzers.md) | [Related issue](../../user/application_security/_index.md)
 
 {{< /details >}}
@@ -444,6 +451,7 @@ For previous changes, see [last month’s updates](https://about.gitlab.com/rele
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/_index.md#advanced-vulnerability-tracking) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/373921)
 
 {{< /details >}}
@@ -470,7 +478,7 @@ You don’t have to take action to receive this update unless you’ve [pinned S
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/dependency_list_export.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/333463)
 
 {{< /details >}}
@@ -484,6 +492,7 @@ We’ve added an API that allows you to download a CycloneDX SBOM, which lists a
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/permissions.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/384179)
 
 {{< /details >}}
@@ -515,6 +524,7 @@ that require macOS in a secure, on-demand GitLab Runner build environment integr
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

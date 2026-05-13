@@ -4,12 +4,8 @@
   width: 100%;
 
   .container-fluid {
-    --container-padding-x: #{$container-margin};
-    padding: 0 var(--container-padding-x);
-
-    @include gl-container-width-up(xl, panel) {
-      --container-padding-x: #{$container-margin-xl};
-    }
+    @apply gl-py-0;
+    @apply gl-px-[--container-padding-x];
 
     &.container-blank {
       background: none;

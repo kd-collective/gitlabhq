@@ -49,7 +49,7 @@ We are so grateful to Jim and all of our open source community for contributing 
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md#in-an-editor-window) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/15218)
 
@@ -64,6 +64,7 @@ Introducing Duo Quick Chat, an AI-powered chat designed to work exactly where yo
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../administration/gitlab_duo_self_hosted/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/498114)
 
@@ -82,7 +83,7 @@ Please leave feedback in [the feedback issue](https://gitlab.com/gitlab-org/gitl
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../api/graphql/reference/_index.md#codesuggestionevent) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/477231)
 
@@ -99,7 +100,7 @@ Now, you can export raw code suggestion events from the GraphQL API. This way yo
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/examples.md#ask-about-a-specific-merge-request) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/464587)
 
@@ -116,7 +117,7 @@ This new feature complements our existing feature, where you can quickly populat
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/branches/branch_rules.md#create-a-branch-rule)
 
 {{< /details >}}
@@ -150,7 +151,7 @@ With this first release, you can now view your current GitLab version, instance 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/secret_detection/secret_push_protection/_index.md)
 
 {{< /details >}}
@@ -186,7 +187,7 @@ Group Owners can use the Credentials Inventory to understand the credentials tha
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/dependency_list/_index.md#filter-dependency-list) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/12652)
 
 {{< /details >}}
@@ -204,6 +205,7 @@ With the new **filter by component** on the dependency list, you isolate vulnera
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/charts/)
 
 {{< /details >}}
@@ -218,6 +220,7 @@ note this includes new RBAC requirements because the new controller now uses end
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -234,7 +237,7 @@ so PostgreSQL upgrades must be triggered manually.
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Add-ons: Duo Pro, Duo Enterprise
 - Links: [Documentation](../../user/gitlab_duo_chat/_index.md#use-gitlab-duo-chat-in-visual-studio-for-windows) | [Related epic](https://gitlab.com/groups/gitlab-org/editor-extensions/-/epics/77)
 
@@ -249,7 +252,7 @@ Empower your development workflow with Duo Chat, now seamlessly integrated into 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/environments.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/412677)
 
 {{< /details >}}
@@ -266,7 +269,7 @@ To further improve support for dynamic environments, [issue 467912](https://gitl
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/install/_index.md#bootstrap-the-agent-with-flux-support-recommended) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/473987)
 
 {{< /details >}}
@@ -283,6 +286,7 @@ Now, you can configure Flux and the agent with just two simple commands.
 {{< details >}}
 
 - Tier: Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/clusters/agent/_index.md#receptive-agents) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/437014)
 
 {{< /details >}}
@@ -300,7 +304,7 @@ Once the initial connection is established, all the features of the agent are av
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/470042)
 
 {{< /details >}}
@@ -316,7 +320,7 @@ This release further improves the dashboard for Kubernetes by letting you stream
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/environments/kubernetes_dashboard.md#suspend-or-resume-flux-reconciliation) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/478380)
 
 {{< /details >}}
@@ -330,6 +334,7 @@ As a Flux user, have you ever needed to quickly stop an automatic reconciliation
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/profile/account/create_accounts.md#create-a-user-in-the-admin-area) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/456332)
 
 {{< /details >}}
@@ -349,7 +354,7 @@ This increases user management efficiency, because administrators can quickly se
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/14149)
 
 {{< /details >}}
@@ -381,7 +386,7 @@ Enterprise users can authenticate using a local account with username and passwo
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_center/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/441350)
 
 {{< /details >}}
@@ -400,7 +405,7 @@ To add or edit a framework, you should access the compliance center on top-level
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/compliance_pipelines.md#pipeline-execution-policies-migration) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/11275)
 
 {{< /details >}}
@@ -421,7 +426,7 @@ warning banner that:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/personal_access_tokens.md#list-all-token-associations) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/466046)
 
 {{< /details >}}
@@ -435,6 +440,7 @@ You can now view which groups, subgroups, and projects a token is associated wit
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/settings/sign_in_restrictions.md#disable-password-and-passkey-authentication-for-users-with-an-sso-identity) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/382917)
 
 {{< /details >}}
@@ -462,6 +468,7 @@ working properly before selecting the **Enable SAML authentication for this grou
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../api/container_registry.md#list-all-registry-repository-tags) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/482399)
 
 {{< /details >}}
@@ -493,7 +500,7 @@ From GitLab 17.5, you can protect npm packages by creating protection rules. If 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/sast/gitlab_advanced_sast.md)
 
 {{< /details >}}
@@ -519,6 +526,7 @@ To learn more about Advanced SAST, see [last month’s announcement blog](https:
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner)
 
 {{< /details >}}

@@ -53,7 +53,7 @@ Joe is a Senior R&D Engineer at [Kitware](https://www.kitware.com/) and has been
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/ml/model_registry/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/9423)
 
 {{< /details >}}
@@ -71,7 +71,7 @@ We think of the model registry as a cornerstone concept that enables teams to co
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/repository/code_suggestions/_index.md#view-multiple-code-suggestions) | [Related issue](https://gitlab.com/gitlab-org/gitlab-vscode-extension/-/issues/1325)
 
 {{< /details >}}
@@ -109,6 +109,7 @@ Secret push protection is available on GitLab.com and for Dedicated customers as
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner/runner_autoscale/) | [Related issue](https://gitlab.com/gitlab-org/gitlab-runner/-/issues/29221)
 
 {{< /details >}}
@@ -124,7 +125,7 @@ Today, we’re pleased to announce the general availability of the GitLab Runner
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../integration/snowflake.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13004)
 
 {{< /details >}}
@@ -147,7 +148,7 @@ To make use of this functionality, customers must deploy and manage the applicat
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/452225)
 
 {{< /details >}}
@@ -167,7 +168,7 @@ These enhancements improve ease of use, discoverability, and content management 
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/analytics/value_streams_dashboard.md#schedule-reports) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/10880)
 
 {{< /details >}}
@@ -205,7 +206,7 @@ This improvement is generally available only on GitLab.com. Self-managed support
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/jobs/job_control.md#require-confirmation-for-manual-jobs) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/18906)
 
 {{< /details >}}
@@ -221,7 +222,7 @@ Special thanks to [Phawin](https://gitlab.com/lifez) for this community contribu
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/runners/runner_fleet_dashboard_groups.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/424789)
 
 {{< /details >}}
@@ -239,6 +240,7 @@ Customers on GitLab.com can use all of the fleet dashboard metrics available for
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/omnibus/)
 
 {{< /details >}}
@@ -252,7 +254,7 @@ GitLab 17.1 includes packages for supporting [Ubuntu Noble 24.04](../../install/
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md#querygroups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/463809)
 
 {{< /details >}}
@@ -268,7 +270,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/badges.md#placeholders) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/22278)
 
 {{< /details >}}
@@ -289,7 +291,7 @@ Thank you [@TamsilAmani](https://gitlab.com/TamsilAmani) for this community cont
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/badges.md#placeholders) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/26420)
 
 {{< /details >}}
@@ -305,7 +307,7 @@ Thank you [@TamsilAmani](https://gitlab.com/TamsilAmani) for this community cont
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/groups.md#list-groups) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/429315)
 
 {{< /details >}}
@@ -321,7 +323,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/graphql/reference/_index.md#usercontributedprojects) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/450191)
 
 {{< /details >}}
@@ -337,7 +339,7 @@ Thank you [@yasuk](https://gitlab.com/yasuk) for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/group_members.md#add-a-group-member) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/28208)
 
 {{< /details >}}
@@ -353,7 +355,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/working_with_projects.md#explore-all-projects-on-an-instance)
 
 {{< /details >}}
@@ -373,7 +375,7 @@ We welcome feedback about these changes in [issue 438322](https://gitlab.com/git
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/public_access.md#change-group-visibility) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/455668)
 
 {{< /details >}}
@@ -389,7 +391,7 @@ We hope these changes help you resolve the conflicts in selecting your desired v
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/projects.md#list-all-projects) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/463939)
 
 {{< /details >}}
@@ -405,7 +407,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/compliance/audit_event_types.md#webhooks) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/8068)
 
 {{< /details >}}
@@ -422,7 +424,7 @@ In this release, we’ve added an audit event for when a user creates a system, 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/bulk_imports.md#cancel-a-migration) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438281)
 
 {{< /details >}}
@@ -439,7 +441,7 @@ In this release, we’ve added the ability for Administrators to cancel a migrat
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/group_webhooks.md#trigger-a-test-group-hook) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/455589)
 
 {{< /details >}}
@@ -457,7 +459,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_import_export.md#import-project-resources) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/455889)
 
 {{< /details >}}
@@ -476,7 +478,7 @@ In this release, we’ve added an API endpoint that re-imports a named relation,
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/import/direct_transfer_migrations.md#user-membership-mapping) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/458834)
 
 {{< /details >}}
@@ -494,7 +496,7 @@ the source GitLab instance.
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../api/project_webhooks.md#set-a-custom-header) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/455528)
 
 {{< /details >}}
@@ -513,6 +515,7 @@ Thanks to [Niklas](https://gitlab.com/Taucher2003) for [this community contribut
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/backup_restore/backup_gitlab.md#backup-command)
 
 {{< /details >}}
@@ -530,6 +533,7 @@ The `backup-utility` for Cloud Native Hybrid environments already supported back
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../user/group/manage.md#disable-diff-previews-in-email-notifications)
 
 {{< /details >}}
@@ -547,6 +551,7 @@ A gigantic thank you to [Joe Snyder](https://gitlab.com/joe-snyder) for contribu
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/admin_area.md#administering-users) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/20381)
 
 {{< /details >}}
@@ -562,7 +567,7 @@ Thanks [@zzaakiirr](https://gitlab.com/zzaakiirr) for this community contributio
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/releases/_index.md#track-releases-with-an-rss-feed) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/30988)
 
 {{< /details >}}
@@ -578,7 +583,7 @@ Thanks to [Martin Schurz](https://gitlab.com/schurzi) for the contribution!
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/custom_roles/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/391760)
 
 {{< /details >}}
@@ -599,7 +604,7 @@ With custom roles, you can reduce the number of users with the Owner role by cre
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/policies/merge_request_approval_policies.md#fallback_behavior) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/13227)
 
 {{< /details >}}
@@ -615,7 +620,7 @@ For example, a merge request policy configured to fail open allows a merge reque
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../security/tokens/_index.md#project-access-tokens) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/460818)
 
 {{< /details >}}
@@ -631,7 +636,7 @@ Thank you [Jacob Henner](https://gitlab.com/arcesium-henner) for your contributi
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/markdown.md#change-image-or-video-dimensions) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/419913)
 
 {{< /details >}}
@@ -645,7 +650,7 @@ GitLab 17.1 enhances the handling of high-resolution images, enabling them to be
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/rich_text_editor.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/452233)
 
 {{< /details >}}
@@ -659,6 +664,7 @@ Previously, moving media in the rich text editor required you to copy and paste 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](../../administration/pages/_index.md#support-mutual-tls-when-calling-the-gitlab-api) | [Related issue](https://gitlab.com/gitlab-org/gitlab-pages/-/issues/548)
 
 {{< /details >}}
@@ -674,7 +680,7 @@ From GitLab 17.1, you can configure a client certificate for GitLab Pages. This 
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/wiki/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/257892)
 
 {{< /details >}}
@@ -688,7 +694,7 @@ GitLab 17.1 introduces a significant enhancement to wiki page redirects. When yo
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/pages/_index.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/153250)
 
 {{< /details >}}
@@ -737,7 +743,7 @@ This improvement is generally available only on GitLab.com. Self-managed support
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/issue_board.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/468187)
 
 {{< /details >}}
@@ -751,7 +757,7 @@ You’ll now notice a smoother experience when updating issues on [boards](../..
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/project/time_tracking.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/438577)
 
 {{< /details >}}
@@ -765,7 +771,7 @@ With this release, you can now set time estimates and record time spent on tasks
 {{< details >}}
 
 - Tier: Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/group/epics/manage_epics.md#manage-issues-assigned-to-an-epic) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/5163)
 
 {{< /details >}}
@@ -779,7 +785,7 @@ You can now easily see the overall progress of an epic based on the weight compl
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/api_security_testing/configuration/variables.md) | [Related issue](https://gitlab.com/groups/gitlab-org/-/epics/14170)
 
 {{< /details >}}
@@ -801,7 +807,7 @@ DAST API was renamed API Security Testing in 16.10. Variable names now begin wit
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/container_scanning/_index.md) | [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/2340)
 
 {{< /details >}}
@@ -825,7 +831,7 @@ As always, we appreciate feedback on our newly released features. To provide fee
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../user/application_security/api_fuzzing/configuration/variables.md) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/442699)
 
 {{< /details >}}
@@ -845,7 +851,7 @@ These new variables provide greater customization and flexibility for ensuring s
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 - Links: [Documentation](../../ci/variables/_index.md#restrict-pipeline-variables) | [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/440338)
 
 {{< /details >}}
@@ -859,6 +865,7 @@ To better control who can override user-defined variables, we are introducing th
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
+- Offering: GitLab Self-Managed
 - Links: [Documentation](https://docs.gitlab.com/runner) | [Related issue](https://gitlab.com/gitlab-org/gitlab-runner/-/issues/36942)
 
 {{< /details >}}
