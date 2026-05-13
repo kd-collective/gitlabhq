@@ -145,6 +145,21 @@ RSpec.describe 'load_balancing', :delete, :reestablished_active_record_base, fea
             .to raise_error(Gitlab::Utils::ConcurrentRubyThreadIsUsedError)
         end
       end
+
+      it 'configures metrics_host_gauge_proc to set prometheus metrics', :reestablished_active_record_base do
+        expect(described_class).to receive(:metrics_host_gauge)
+                                     .with({}, 1).and_call_original
+
+        # Metric will be set once configured host list:
+        # - 1 host since we only have primary
+        # - this test will fail if running CI against replicas
+        model = Gitlab::Database::LoadBalancing.base_models.first
+        Gitlab::Database::LoadBalancing::Setup.new(model).setup
+
+        metric = ::Prometheus::Client.registry.get(:db_load_balancing_hosts)
+        expect(metric).not_to be_nil
+        expect(metric.values[{}].get).to eq(1)
+      end
     end
   end
 end

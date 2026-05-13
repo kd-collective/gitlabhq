@@ -222,6 +222,22 @@ RSpec.describe Gitlab::Database::Reflection, feature_category: :database do
 
       expect(queries.count).to eq(0)
     end
+
+    it 'uses the load balancer to retrieve the connection' do
+      database = described_class.new(Project)
+
+      expect(Project.load_balancer).to receive(:read).and_call_original
+
+      database.cached_column_exists?(:id)
+    end
+
+    it 'falls back to a direct connection when the load balancer is not set up' do
+      database = described_class.new(Project)
+
+      allow(Project).to receive(:respond_to?).with(:load_balancer).and_return(false)
+
+      expect(database.cached_column_exists?(:id)).to be_truthy
+    end
   end
 
   describe '#cached_table_exists?' do
@@ -248,6 +264,22 @@ RSpec.describe Gitlab::Database::Reflection, feature_category: :database do
       end
 
       expect(database.cached_table_exists?).to be(false)
+    end
+
+    it 'uses the load balancer to retrieve the connection' do
+      database = described_class.new(Project)
+
+      expect(Project.load_balancer).to receive(:read).and_call_original
+
+      database.cached_table_exists?
+    end
+
+    it 'falls back to a direct connection when the load balancer is not set up' do
+      database = described_class.new(Project)
+
+      allow(Project).to receive(:respond_to?).with(:load_balancer).and_return(false)
+
+      expect(database.cached_table_exists?).to be_truthy
     end
   end
 

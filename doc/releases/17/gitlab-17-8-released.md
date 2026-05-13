@@ -448,7 +448,7 @@ Your administrator must enable [the new look for epics](../../user/group/epics/_
 
 ### Add vulnerabilities as supported webhook events
 
-<!-- categories: Webhooks, Vulnerability Management -->
+<!-- categories: Notifications, Vulnerability Management -->
 
 {{< details >}}
 

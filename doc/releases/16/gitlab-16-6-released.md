@@ -166,7 +166,7 @@ Your [feedback for this change](https://gitlab.com/gitlab-org/gitlab/-/issues/42
 
 ### Runner Fleet Dashboard - Starter metrics (Beta)
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 
@@ -237,7 +237,7 @@ to import for a given group or project. For each item that wasn’t imported, yo
 
 ### Consistent navigation experience for all users
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -478,7 +478,7 @@ During the 16.6 release milestone, we enabled the following active checks for br
 
 ### macOS 14 (Sonoma) and Xcode 15 image support
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 

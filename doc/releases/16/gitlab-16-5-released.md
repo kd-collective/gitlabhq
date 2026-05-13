@@ -140,7 +140,7 @@ from `/opt/gitlab/embedded/selinux/rhel/7/` to `/opt/gitlab/embedded/selinux` to
 
 ### Reviewer information for merge requests in the Jira development panel
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -155,7 +155,7 @@ Previously, when a reviewer was assigned to a merge request, the reviewer inform
 
 ### Changing context just got easier
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -170,7 +170,7 @@ You can try it out by selecting the **Search or go to…** button or with a keyb
 
 ### Webhook now triggered when a release is deleted
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -202,7 +202,7 @@ It now matches more closely the regular issues list. Available features include:
 
 ### Geo adds bulk resync and reverify buttons for all components
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 

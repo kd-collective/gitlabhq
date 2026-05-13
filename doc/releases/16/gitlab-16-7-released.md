@@ -184,7 +184,7 @@ In GitLab 16.7, issues with code have become more discoverable. With advanced se
 
 ### Customize time format for display
 
-<!-- categories: Internationalization -->
+<!-- categories: User Profile -->
 
 {{< details >}}
 
@@ -208,7 +208,7 @@ In the following milestone we will [audit all timestamps](https://gitlab.com/gro
 
 ### Access the Admin Area from the left sidebar
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -370,7 +370,7 @@ Enable the **Added as approver** custom notification level to trigger an email a
 
 ### Beta support for OpenTofu
 
-<!-- categories: Infrastructure Cost Data -->
+<!-- categories: Infrastructure as Code -->
 
 {{< details >}}
 
@@ -578,7 +578,7 @@ We’re working on more SAST rule improvements in [epic 10907](https://gitlab.co
 
 ### `artifacts:public` CI/CD keyword now generally available
 
-<!-- categories: Build Artifacts -->
+<!-- categories: Job Artifacts -->
 
 {{< details >}}
 
@@ -592,7 +592,7 @@ Previously, the `artifacts:public` keyword was only available as a default disab
 
 ### Improved ability to keep the latest job artifacts
 
-<!-- categories: Build Artifacts -->
+<!-- categories: Job Artifacts -->
 
 {{< details >}}
 

@@ -54,7 +54,7 @@ to buy or maintain a third-party tool.
 
 ### Upsizing GitLab SaaS runners on Linux
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 
@@ -70,7 +70,7 @@ We’re excited to see pipelines run faster and boost productivity.
 
 ### GPU-enabled SaaS runners on Linux
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 
@@ -88,7 +88,7 @@ So why wait? Try out the new runner today and let us know what you think in this
 
 ### Apple silicon (M1) GitLab SaaS runners on macOS - Beta
 
-<!-- categories: GitLab Hosted Runnersit -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 
@@ -233,7 +233,7 @@ Now, token owners can use a `:rotate` API endpoint to programatically rotate per
 
 ### AI-powered workflow features
 
-<!-- categories: Code Suggestions, Workflow Automation, Intelligent Code Security -->
+<!-- categories: Code Suggestions, Duo Agent Platform, SAST -->
 
 {{< details >}}
 
@@ -273,7 +273,7 @@ Read more about these [improvements and what’s next](https://about.gitlab.com/
 
 ### Error Tracking is now generally available
 
-<!-- categories: Error Tracking -->
+<!-- categories: Observability -->
 
 {{< details >}}
 
@@ -511,7 +511,7 @@ With this new functionality, to-do items that have already been completed by ano
 
 ### Opt in to a new navigation experience
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -539,7 +539,7 @@ Administrators can remove the “Remember Me” option for users when signing in
 
 ### Authenticate with Jira personal access tokens
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -954,7 +954,7 @@ If you have any questions, feedback, or issues with the new Semgrep-based Scala 
 
 ### Create an instance runner in the Admin Area as a user
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 
@@ -999,7 +999,7 @@ When combined with the [`inputs`](../../ci/yaml/includes.md) keyword, a CI/CD co
 
 ### REST API endpoint to create a runner
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 
@@ -1027,7 +1027,7 @@ We previously introduced a single fallback cache to use when no cache is found, 
 
 ### Create a group runner as a user
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 
@@ -1056,7 +1056,7 @@ Previously, a single CI/CD configuration could include up to 150 files, but in G
 
 ### Create project runners as a user
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 

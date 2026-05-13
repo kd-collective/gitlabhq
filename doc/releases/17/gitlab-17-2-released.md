@@ -58,7 +58,7 @@ GitLab now ships with a log streaming view for pods and containers, so you can q
 
 ### GitLab Duo disabling input and output logging by default.
 
-<!-- categories: GitLab Duo Chat -->
+<!-- categories: Duo Chat -->
 
 {{< details >}}
 
@@ -204,7 +204,7 @@ We welcome feedback about these changes in [issue 438322](https://gitlab.com/git
 
 ### List groups that a group was invited to using the Groups API
 
-<!-- categories: API, Groups & Projects -->
+<!-- categories: Source Code Management, Groups & Projects -->
 
 {{< details >}}
 
@@ -256,7 +256,7 @@ user. For example, merge requests, issues, and notes.
 
 ### Deleted branches are removed from Jira development panel
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -523,7 +523,7 @@ Previously, you had to search other sources for this critical information, which
 
 ### Add type attribute to issues events webhook
 
-<!-- categories: Team Planning, Webhooks, Incident Management, Service Desk -->
+<!-- categories: Team Planning, Notifications, Incident Management, Service Desk -->
 
 {{< details >}}
 
@@ -669,7 +669,7 @@ You can now sort the pipeline schedules list by description, ref, next run, crea
 
 ### `rules:changes:compare_to` now supports CI/CD variables
 
-<!-- categories: Pipeline Composition, Variables -->
+<!-- categories: Pipeline Composition, Pipeline Composition -->
 
 {{< details >}}
 

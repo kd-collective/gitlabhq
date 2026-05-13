@@ -160,7 +160,7 @@ The same scoping is also applied to CSV-based reassignment, preventing accidenta
 
 ### Support for multiple workspaces in the GitLab for Slack app
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 

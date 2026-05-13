@@ -9,6 +9,9 @@ def configure_load_balancing!
   end
 
   Gitlab::Database::LoadBalancing::Callbacks.configure! do |callbacks|
+    hosts_gauge = Gitlab::Metrics.gauge(:db_load_balancing_hosts, 'Current number of load balancing hosts')
+
+    callbacks.metrics_host_gauge_proc = ->(labels, value) { hosts_gauge.set(labels, value) }
     callbacks.track_exception_proc = ->(exception) { Gitlab::ErrorTracking.track_exception(exception) }
   end
 end

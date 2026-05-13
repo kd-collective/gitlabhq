@@ -103,7 +103,7 @@ You can now enforce whether GitLab administrators are required to use two-factor
 
 ### Speed up your builds with the Maven dependency proxy
 
-<!-- categories: Dependency Proxy, Package Registry -->
+<!-- categories: Dependency Management, Package Registry -->
 
 {{< details >}}
 
@@ -463,7 +463,7 @@ If you use automation to work with merge requests in CI/CD pipelines, you might 
 
 ### Windows 2022 support for SaaS runners on Windows
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 

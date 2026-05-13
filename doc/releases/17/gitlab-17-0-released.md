@@ -332,7 +332,7 @@ In this release, we added an API endpoint that re-imports a named relation, skip
 
 ### View issues from multiple Jira projects in GitLab
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -353,7 +353,7 @@ To [create Jira issues for vulnerabilities](../../integration/jira/configure.md#
 
 ### Enable viewing Jira issues in GitLab with the REST API
 
-<!-- categories: API, Integrations -->
+<!-- categories: Source Code Management, Settings -->
 
 {{< details >}}
 

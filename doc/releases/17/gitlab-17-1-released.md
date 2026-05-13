@@ -400,7 +400,7 @@ Thank you [@imskr](https://gitlab.com/imskr) for this community contribution!
 
 ### Audit event on webhook creation
 
-<!-- categories: Webhooks, Audit Events -->
+<!-- categories: Notifications, Audit Events -->
 
 {{< details >}}
 
@@ -434,7 +434,7 @@ In this release, we’ve added the ability for Administrators to cancel a migrat
 
 ### Test group hooks with the REST API
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -489,7 +489,7 @@ the source GitLab instance.
 
 ### Use the REST API to set custom webhook headers
 
-<!-- categories: API, Webhooks -->
+<!-- categories: Source Code Management, Notifications -->
 
 {{< details >}}
 

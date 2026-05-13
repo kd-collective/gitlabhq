@@ -59669,9 +59669,6 @@ ALTER TABLE ONLY ml_model_version_metadata
 ALTER TABLE ONLY protected_environment_deploy_access_levels
     ADD CONSTRAINT fk_rails_5b9f6970fe FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
-ALTER TABLE ai_audit_events
-    ADD CONSTRAINT fk_rails_5bd1b97338 FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
-
 ALTER TABLE ONLY protected_branch_unprotect_access_levels
     ADD CONSTRAINT fk_rails_5be1abfc25 FOREIGN KEY (group_id) REFERENCES namespaces(id) ON DELETE CASCADE;
 
@@ -60094,9 +60091,6 @@ ALTER TABLE ONLY service_desk_custom_email_credentials
 
 ALTER TABLE ONLY software_license_policies
     ADD CONSTRAINT fk_rails_87b2247ce5 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
-
-ALTER TABLE ai_audit_events
-    ADD CONSTRAINT fk_rails_87b788d365 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY arkose_sessions
     ADD CONSTRAINT fk_rails_87ceb2456f FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;

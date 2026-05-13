@@ -48,7 +48,7 @@ We’ve introduced the new Planner role to give you tailored access to Agile pla
 
 ### Instance administrators can control which integrations can be enabled
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 

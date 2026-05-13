@@ -213,11 +213,13 @@ group:
   - create_jira_connect_subscription
   - create_project_fork
   - create_protected_branch
+  - create_virtual_registry
   - create_work_item_type
   - delete_custom_emoji
   - destroy_package
   - destroy_protected_branch
   - destroy_upload
+  - destroy_virtual_registry
   - enable_secret_push_protection
   - import_projects
   - modify_value_stream_dashboard_settings
@@ -246,6 +248,7 @@ group:
   - update_product_analytics_settings
   - update_protected_branch
   - update_secret_detection_validity_check
+  - update_virtual_registry
   - update_work_item_setting
   - update_work_item_type
   - update_work_item_type_visibility

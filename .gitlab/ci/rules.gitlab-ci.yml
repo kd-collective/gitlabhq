@@ -421,6 +421,10 @@
   - "lib/tasks/gitlab/docs/compile_deprecations.rake"
   - "lib/tasks/gitlab/docs/compile_windows.rake"
 
+.docs-release-note-categories-patterns: &docs-release-note-categories-patterns
+  - "doc/releases/**/*"
+  - "scripts/lint/validate_release_categories.py"
+
 .nodejs-patterns: &nodejs-patterns
   - '{package.json,*/package.json,*/*/package.json}'
   - '{yarn.lock,*/yarn.lock,*/*/yarn.lock}'
@@ -1500,6 +1504,11 @@
   rules:
     - <<: *if-default-refs
       changes: *docs-deprecations-and-removals-patterns
+
+.docs:rules:release-note-categories:
+  rules:
+    - <<: *if-default-refs
+      changes: *docs-release-note-categories-patterns
 
 .docs:rules:rubocop-docs-site:
   rules:

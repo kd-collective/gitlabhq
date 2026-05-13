@@ -16,7 +16,7 @@ To update the release notes for 19.0:
 
 1. Open the [`gitlab-19-0-released.md`](../../releases/19/gitlab-19-0-released.md) file
    in the `gitlab-org/gitlab` project.
-1. Copy the commented-out text at the top of the page. It's an `H3` heading, details, and a block of text.
+1. Copy the commented-out text at the top of the page. It's an `H3` heading, comment for the category, details, and a block of text.
 1. Paste the text into the section that makes the most sense: primary feature, or one of the three groups.
 
    Agentic Core includes:
@@ -48,6 +48,10 @@ To update the release notes for 19.0:
    - `data_access`
    - unlisted or unknown
 
+1. Add a `>` to the end of the category comment so it's properly formatted HTML: (`<!-- categories: <name value from categories.yml> -->`).
+   Add values that match the [categories.yml](https://gitlab.com/gitlab-com/www-gitlab-com/-/blob/master/data/categories.yml) file.
+   The value is case-sensitive.
+   Use comma separation for multiple values.
 1. Edit the text to reflect your feature announcement.
    - Use 125 words or fewer, and no images or videos.
    - Documentation links are allowed and must be relative.
@@ -140,6 +144,7 @@ Now create a file for the next version.
 
 1. In the `/doc/releases/` folder, create a Markdown file for the next release. For example, `19/gitlab-19-1-released.md`.
 1. Populate the file with the [template](#new-release-notes-file-template).
+1. Add a `>` to the end of the category comment so it's properly formatted HTML: `<!-- categories: <name value from categories.yml> -->`
 1. In the metadata and intro text, change the version number to the next version number.
 
 ### Update the index file
@@ -205,6 +210,8 @@ Update all the information as needed.
 
 ### Feature explanation here
 
+<!-- categories: <name value from categories.yml> --
+
 {{</* details */>}}
 
 - Tier: Free, Premium, Ultimate
@@ -228,6 +235,10 @@ The first person to add a feature in this area, please make the title visible an
 The first person to add a feature in this area, please make the title visible and delete this comment -->
 
 <!-- ## Scale and Deployments
+
+The first person to add a feature in this area, please make the title visible and delete this comment -->
+
+<!-- ## Unified DevOps and Security
 
 The first person to add a feature in this area, please make the title visible and delete this comment -->
 ```

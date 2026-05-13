@@ -92,6 +92,7 @@ group:
   - read_saved_replies
   - read_saved_view
   - read_subgroup_epic
+  - read_virtual_registry
   - read_wiki
   - read_work_item
   - set_new_issue_metadata

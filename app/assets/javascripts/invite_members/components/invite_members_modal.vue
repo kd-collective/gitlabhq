@@ -1,5 +1,13 @@
 <script>
-import { GlAlert, GlButton, GlCollapse, GlIcon } from '@gitlab/ui';
+import {
+  GlAlert,
+  GlButton,
+  GlCollapse,
+  GlFormGroup,
+  GlFormRadio,
+  GlFormRadioGroup,
+  GlIcon,
+} from '@gitlab/ui';
 import { partition, isString, uniqueId, isEmpty } from 'lodash-es';
 import SafeHtml from '~/vue_shared/directives/safe_html';
 import InviteModalBase from 'ee_else_ce/invite_members/components/invite_modal_base.vue';
@@ -22,6 +30,9 @@ import {
   BLOCKED_SEAT_OVERAGES_CTA_DOCS,
   MEMBER_MODAL_LABELS,
   INVITE_MEMBER_MODAL_TRACKING_CATEGORY,
+  MEMBERSHIP_RADIO_GROUP_LABEL,
+  MEMBERSHIP_THIS_GROUP_OR_PROJECT,
+  MEMBERSHIP_ALL_GROUPS_AND_PROJECTS,
 } from '../constants';
 import eventHub from '../event_hub';
 import { getInvalidFeedbackMessage } from '../utils/get_invalid_feedback_message';
@@ -39,6 +50,9 @@ export default {
     GlAlert,
     GlButton,
     GlCollapse,
+    GlFormGroup,
+    GlFormRadio,
+    GlFormRadioGroup,
     GlIcon,
     InviteModalBase,
     MembersTokenSelect,
@@ -111,6 +125,21 @@ export default {
       required: false,
       default: false,
     },
+    rootGroupName: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    isTopLevelGroup: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    canInviteToRootGroup: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   data() {
     return {
@@ -127,9 +156,19 @@ export default {
       isErrorsSectionExpanded: false,
       shouldShowEmptyInvitesAlert: false,
       hasIncompleteMemberInput: false,
+      inviteToRootGroup: false,
     };
   },
   computed: {
+    showMembershipRadio() {
+      return this.canInviteToRootGroup && !this.isTopLevelGroup && Boolean(this.rootGroupName);
+    },
+    membershipThisLabel() {
+      return sprintf(MEMBERSHIP_THIS_GROUP_OR_PROJECT, { sourceName: this.name });
+    },
+    membershipAllProjectsLabel() {
+      return sprintf(MEMBERSHIP_ALL_GROUPS_AND_PROJECTS, { groupName: this.rootGroupName });
+    },
     modalTitle() {
       return this.$options.labels.modal[this.mode].title;
     },
@@ -137,7 +176,17 @@ export default {
       return this.isProject ? 'toProject' : 'toGroup';
     },
     labelIntroText() {
+      if (this.inviteToRootGroup) {
+        return (
+          this.$options.labels.toGroup[this.mode]?.introText ||
+          this.$options.labels.toGroup.default.introText
+        );
+      }
+
       return this.$options.labels[this.inviteTo][this.mode].introText;
+    },
+    effectiveName() {
+      return this.inviteToRootGroup ? this.rootGroupName : this.name;
     },
     accessExpirationHelpLink() {
       return this.isProject
@@ -283,13 +332,16 @@ export default {
 
       this.isLoading = true;
 
-      const apiAddByInvite = this.isProject
-        ? Api.inviteProjectMembers.bind(Api)
-        : Api.inviteGroupMembers.bind(Api);
+      const apiAddByInvite =
+        this.inviteToRootGroup || !this.isProject
+          ? Api.inviteGroupMembers.bind(Api)
+          : Api.inviteProjectMembers.bind(Api);
+
+      const targetId = this.inviteToRootGroup ? this.rootId : this.id;
 
       try {
         const payload = this.getInvitePayload({ accessLevel, expiresAt, memberRoleId });
-        const response = await apiAddByInvite(this.id, payload);
+        const response = await apiAddByInvite(targetId, payload);
 
         const { error, message, usersWithWarning } = responseFromSuccess(response);
 
@@ -334,6 +386,7 @@ export default {
       this.shouldShowEmptyInvitesAlert = false;
       this.newUsersToInvite = [];
       this.hasIncompleteMemberInput = false;
+      this.inviteToRootGroup = false;
     },
     onInviteSuccess() {
       this.track('invite_successful', { label: this.source });
@@ -372,6 +425,7 @@ export default {
   labels: MEMBER_MODAL_LABELS,
   i18n: {
     BLOCKED_SEAT_OVERAGES_BODY,
+    MEMBERSHIP_RADIO_GROUP_LABEL,
   },
 };
 </script>
@@ -379,7 +433,7 @@ export default {
   <invite-modal-base
     :modal-id="modalId"
     :modal-title="modalTitle"
-    :name="name"
+    :name="effectiveName"
     :access-levels="staticRoles"
     :default-access-level="defaultAccessLevel"
     :default-member-role-id="defaultMemberRoleId"
@@ -473,6 +527,23 @@ export default {
 
     <template #active-trial-alert>
       <active-trial-notification :active-trial-dataset="activeTrialDataset" />
+    </template>
+
+    <template #membership-selector>
+      <gl-form-group
+        v-if="showMembershipRadio"
+        :label="$options.i18n.MEMBERSHIP_RADIO_GROUP_LABEL"
+        data-testid="membership-radio-group"
+      >
+        <gl-form-radio-group v-model="inviteToRootGroup" name="invite_membership_scope">
+          <gl-form-radio :value="false" data-testid="membership-current">
+            {{ membershipThisLabel }}
+          </gl-form-radio>
+          <gl-form-radio :value="true" data-testid="membership-root-group">
+            {{ membershipAllProjectsLabel }}
+          </gl-form-radio>
+        </gl-form-radio-group>
+      </gl-form-group>
     </template>
 
     <template #select="{ exceptionState, inputId }">

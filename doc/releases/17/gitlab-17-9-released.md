@@ -247,7 +247,7 @@ This enhanced control helps you run more effective security scans while maintain
 
 ### Automatic CI/CD pipeline cleanup
 
-<!-- categories: Continuous Integration (CI) Scaling -->
+<!-- categories: Continuous Integration (CI) -->
 
 {{< details >}}
 
@@ -267,7 +267,7 @@ This can help reduce the disk usage in projects that run lots of pipelines that 
 
 ### Composite identity for more secure AI connections
 
-<!-- categories: Duo Workflow -->
+<!-- categories: Duo Agent Platform -->
 
 {{< details >}}
 
@@ -301,7 +301,7 @@ Administrators can now control whether users have the option to make profiles pr
 
 ### Manage project integrations from a group with the REST API
 
-<!-- categories: API, Integrations -->
+<!-- categories: Source Code Management, Settings -->
 
 {{< details >}}
 

@@ -176,7 +176,7 @@ In this release, we added import results statistics for groups and projects. To 
 
 ### Enable Jira issues at the group level
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -190,7 +190,7 @@ With this release, you can enable Jira issues for all projects in a GitLab group
 
 ### REST API support for the GitLab for Slack app
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -234,7 +234,7 @@ Previously, Git access control options on GitLab.com relied on credentials set u
 
 ### Limit workspaces per user on the GitLab agent
 
-<!-- categories: Remote Development -->
+<!-- categories: Workspaces -->
 
 {{< details >}}
 

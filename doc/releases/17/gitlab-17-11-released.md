@@ -374,7 +374,7 @@ Share your experience with us in [issue 526013](https://gitlab.com/gitlab-org/gi
 
 ### All auto-disabled webhooks now automatically re-enable
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -474,7 +474,7 @@ To view your current usage and limits:
 
 ### Geo - New replicables view
 
-<!-- categories: Disaster Recovery, Geo-replication -->
+<!-- categories: Disaster Recovery, Geo Replication -->
 
 {{< details >}}
 

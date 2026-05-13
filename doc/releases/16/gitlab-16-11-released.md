@@ -117,7 +117,7 @@ While today all policies managed in a security policy project are enforced again
 
 ### Understand your users better with Product Analytics
 
-<!-- categories: Product Analytics Visualization -->
+<!-- categories: Product Analytics -->
 
 {{< details >}}
 
@@ -253,7 +253,7 @@ In addition, when deleting a group, the confirmation modal now lists the number 
 
 ### Custom webhook headers
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -278,7 +278,7 @@ Thanks to [Niklas](https://gitlab.com/Taucher2003) for [this community contribut
 
 ### Test project hooks with the REST API
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -294,7 +294,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 
 ### GitLab for Slack app configurable for groups and instances
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -332,7 +332,7 @@ of self-managed GitLab instances can now configure the number of import jobs acc
 
 ### Explore your Product Analytics data with GitLab Duo
 
-<!-- categories: Product Analytics Visualization -->
+<!-- categories: Product Analytics -->
 
 {{< details >}}
 

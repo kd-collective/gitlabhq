@@ -21,7 +21,12 @@ describe('InviteModalBase', () => {
   let wrapper;
   const dropdownItems = roleDropdownItems({ validRoles: propsData.accessLevels });
 
-  const createComponent = ({ props = {}, stubs = {}, mountFn = shallowMountExtended } = {}) => {
+  const createComponent = ({
+    props = {},
+    stubs = {},
+    slots = {},
+    mountFn = shallowMountExtended,
+  } = {}) => {
     const requiredStubs =
       mountFn === mountExtended
         ? {}
@@ -45,6 +50,7 @@ describe('InviteModalBase', () => {
         ...requiredStubs,
         ...stubs,
       },
+      slots,
     });
   };
 
@@ -296,5 +302,18 @@ describe('InviteModalBase', () => {
     findModal().vm.$emit('shown');
 
     expect(wrapper.emitted('shown')).toHaveLength(1);
+  });
+
+  describe('membership-selector slot', () => {
+    it('renders content passed to the membership-selector slot', () => {
+      createComponent({
+        stubs: { GlModal, GlFormGroup },
+        slots: {
+          'membership-selector': '<div data-testid="test-membership-slot">slot content</div>',
+        },
+      });
+
+      expect(wrapper.findByTestId('test-membership-slot').exists()).toBe(true);
+    });
   });
 });

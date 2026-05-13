@@ -142,7 +142,7 @@ With GitLab Pages, you can publish static websites directly from a repository in
 
 ### Offload CI traffic to Geo secondaries
 
-<!-- categories: Geo-replication -->
+<!-- categories: Geo Replication -->
 
 {{< details >}}
 
@@ -255,7 +255,7 @@ Now it’s easier to identify deleted projects in project lists. From GitLab 16.
 
 ### Threaded notifications supported in Google Chat
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -272,7 +272,7 @@ Thanks to [Robbie Demuth](https://gitlab.com/robbie-demuth) for [this community 
 
 ### Custom payload template for webhooks
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 

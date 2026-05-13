@@ -346,6 +346,8 @@ export default {
           />
         </gl-form-group>
 
+        <slot name="membership-selector"></slot>
+
         <div data-testid="temporary-access-section">
           <gl-button
             variant="link"

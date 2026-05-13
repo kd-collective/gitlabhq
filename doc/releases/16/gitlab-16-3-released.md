@@ -142,7 +142,7 @@ Previously, it was impossible to use the `needs` keyword to set [parallel matrix
 
 ### More powerful GitLab SaaS runners on Linux
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 
@@ -262,7 +262,7 @@ With these new application settings, both self-managed GitLab and GitLab.com adm
 
 ### New navigation has color themes available
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -305,7 +305,7 @@ GitLab SAML Group Sync now supports the Azure AD (now known as Entra ID) overage
 
 ### Geo verifies group wikis
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 

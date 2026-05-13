@@ -43,7 +43,7 @@ Thanks to Yuri for his valuable contribution!
 
 ### All new navigation experience
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -120,7 +120,7 @@ Customers in highly-regulated industries are unable to adopt multi-tenant SaaS o
 
 ### Manage job artifacts through the Artifacts page
 
-<!-- categories: Build Artifacts -->
+<!-- categories: Job Artifacts -->
 
 {{< details >}}
 
@@ -229,7 +229,7 @@ If you forget your GitLab password, you can now reset it by email with any verif
 
 ### SCIM identities included in users API response
 
-<!-- categories: System Access, API -->
+<!-- categories: System Access, Source Code Management -->
 
 {{< details >}}
 
@@ -359,7 +359,7 @@ Thanks to [Yuri Konotopov](https://gitlab.com/nE0sIghT) for this [community cont
 
 ### Geo adds filtering by replication status to all components
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 
@@ -372,7 +372,7 @@ Geo adds filtering by replication status to all components managed by the [self-
 
 ### Geo verifies Design repositories
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 
@@ -619,7 +619,7 @@ One of GitLab’s most used features is CI/CD. In 16.1, we focused on improving 
 
 ### Increased storage for GitLab SaaS runners on Linux
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 
@@ -651,7 +651,7 @@ To make this setting configurable through the REST API as well, [Gerardo Navarro
 
 ### Runner details - consolidate runners sharing a configuration
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 

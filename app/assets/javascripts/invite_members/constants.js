@@ -171,3 +171,9 @@ export const BLOCKED_SEAT_OVERAGES_BODY = s__(
 export const BLOCKED_SEAT_OVERAGES_CTA = s__('InviteMembersModal|Purchase more seats');
 export const BLOCKED_SEAT_OVERAGES_CTA_DOCS = s__('InviteMembersModal|Learn how to add seats');
 export const BLOCKED_SEAT_OVERAGES_ERROR_REASON = 'seat_limit_exceeded_error';
+
+export const MEMBERSHIP_RADIO_GROUP_LABEL = s__('InviteMembersModal|Membership');
+export const MEMBERSHIP_THIS_GROUP_OR_PROJECT = s__(`InviteMembersModal|%{sourceName} only`);
+export const MEMBERSHIP_ALL_GROUPS_AND_PROJECTS = s__(
+  'InviteMembersModal|%{groupName} group and all projects in it',
+);

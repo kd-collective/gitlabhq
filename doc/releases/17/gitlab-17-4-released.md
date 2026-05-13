@@ -79,7 +79,7 @@ The extension marketplace is disabled by default. To get started, you can enable
 
 ### Secure sudo access for workspaces
 
-<!-- categories: Remote Development -->
+<!-- categories: Workspaces -->
 
 {{< details >}}
 
@@ -193,7 +193,7 @@ To learn more, see [the announcement blog](https://about.gitlab.com/blog/gitlab-
 
 ### Hide CI/CD variable values in the UI
 
-<!-- categories: Variables -->
+<!-- categories: Pipeline Composition -->
 
 {{< details >}}
 
@@ -238,7 +238,7 @@ We added new endpoints to the Groups API and Projects API to retrieve the groups
 
 ### Restrict group access by domain with the Groups API
 
-<!-- categories: API, Groups & Projects -->
+<!-- categories: Source Code Management, Groups & Projects -->
 
 {{< details >}}
 
@@ -282,7 +282,7 @@ To disable this email, an administrator can disable the `duo_seat_assignment_ema
 
 ### Resend failed webhook requests with the API
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -311,7 +311,7 @@ Thanks to [Phawin](https://gitlab.com/lifez) for [this community contribution](h
 
 ### Idempotency keys for webhook requests
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 

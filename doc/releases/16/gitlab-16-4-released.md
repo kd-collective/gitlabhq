@@ -203,7 +203,7 @@ With GitLab 16.4, Elasticsearch index integrity is generally available for all G
 
 ### Add webhooks for added or revoked emoji reactions
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
@@ -233,7 +233,7 @@ When creating a custom role, you can now use the member roles API to add a name 
 
 ### Trigger Slack notifications for group mentions
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -287,7 +287,7 @@ provide feedback in [the feedback issue](https://gitlab.com/gitlab-org/gitlab/-/
 
 ### Geo supports unified URLs on Cloud Native Hybrid sites
 
-<!-- categories: Disaster Recovery, Geo-replication -->
+<!-- categories: Disaster Recovery, Geo Replication -->
 
 {{< details >}}
 
@@ -300,7 +300,7 @@ Geo now supports unified URLs on [Cloud Native Hybrid](../../administration/refe
 
 ### Geo verifies object storage
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 
@@ -479,7 +479,7 @@ We’ve added an API that allows you to download a CycloneDX SBOM, which lists a
 
 ### Users with the Maintainer role can view runner details
 
-<!-- categories: Runner Fleet -->
+<!-- categories: Fleet Visibility -->
 
 {{< details >}}
 
@@ -492,7 +492,7 @@ Users with the Maintainer role for a group can now view details for group runner
 
 ### macOS 13 (Ventura) image for SaaS runners on macOS
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 

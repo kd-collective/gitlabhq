@@ -77,6 +77,7 @@ group:
   - admin_service_account_member
   - admin_service_accounts
   - admin_setting_to_allow_resource_access_token_creation
+  - admin_virtual_registry
   - admin_web_hook
   - archive_group
   - ban_group_member

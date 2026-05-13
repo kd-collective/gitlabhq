@@ -18784,6 +18784,9 @@ msgstr ""
 msgid "ComplianceFramework|Choose a template"
 msgstr ""
 
+msgid "ComplianceFramework|Controls"
+msgstr ""
+
 msgid "ComplianceFramework|Create a new compliance framework from scratch to define your compliance requirements."
 msgstr ""
 
@@ -18791,6 +18794,9 @@ msgid "ComplianceFramework|Create blank framework"
 msgstr ""
 
 msgid "ComplianceFramework|Create from template"
+msgstr ""
+
+msgid "ComplianceFramework|Description"
 msgstr ""
 
 msgid "ComplianceFramework|Edit compliance framework"
@@ -18823,6 +18829,12 @@ msgstr ""
 msgid "ComplianceFramework|No compliance frameworks are set up yet"
 msgstr ""
 
+msgid "ComplianceFramework|No controls"
+msgstr ""
+
+msgid "ComplianceFramework|Requirements"
+msgstr ""
+
 msgid "ComplianceFramework|Select a template to prefill basic information and requirements."
 msgstr ""
 
@@ -18830,6 +18842,12 @@ msgid "ComplianceFramework|Start from a curated template (GDPR, SOC2, …) with 
 msgstr ""
 
 msgid "ComplianceFramework|Unable to determine the correct upload URL. Please try again."
+msgstr ""
+
+msgid "ComplianceFramework|Use template"
+msgstr ""
+
+msgid "ComplianceFramework|View details"
 msgstr ""
 
 msgid "ComplianceManagement|Framework"
@@ -39179,7 +39197,13 @@ msgstr ""
 msgid "InviteMembersModal| To get more members, the owner of this top-level group can %{trialLinkStart}start a trial%{trialLinkEnd} or %{upgradeLinkStart}upgrade%{upgradeLinkEnd} to a paid tier."
 msgstr ""
 
+msgid "InviteMembersModal|%{groupName} group and all projects in it"
+msgstr ""
+
 msgid "InviteMembersModal|%{linkStart}What are roles?%{linkEnd}"
+msgstr ""
+
+msgid "InviteMembersModal|%{sourceName} only"
 msgstr ""
 
 msgid "InviteMembersModal|Access expiration date"
@@ -39231,6 +39255,9 @@ msgid "InviteMembersModal|Manage members"
 msgstr ""
 
 msgid "InviteMembersModal|Members were successfully added."
+msgstr ""
+
+msgid "InviteMembersModal|Membership"
 msgstr ""
 
 msgid "InviteMembersModal|Please add members to invite"

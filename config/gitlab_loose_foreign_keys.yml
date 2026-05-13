@@ -1,4 +1,11 @@
 ---
+ai_audit_events:
+  - table: namespaces
+    column: namespace_id
+    on_delete: async_delete
+  - table: projects
+    column: project_id
+    on_delete: async_delete
 ai_conversation_messages:
   - table: ai_conversation_threads
     column: thread_id

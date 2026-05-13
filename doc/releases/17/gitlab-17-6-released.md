@@ -78,7 +78,7 @@ Enhanced reviewer assignments is the next evolution of applying intelligence to 
 
 ### Support for private container registries in workspaces
 
-<!-- categories: Remote Development -->
+<!-- categories: Workspaces -->
 
 {{< details >}}
 
@@ -94,7 +94,7 @@ This feature simplifies workflows, especially for teams that use custom or third
 
 ### Extension marketplace now available in workspaces
 
-<!-- categories: Remote Development -->
+<!-- categories: Workspaces -->
 
 {{< details >}}
 
@@ -110,7 +110,7 @@ The extension marketplace is disabled by default. To get started, go to your use
 
 ### Improved workspace lifecycle with delayed termination
 
-<!-- categories: Remote Development -->
+<!-- categories: Workspaces -->
 
 {{< details >}}
 
@@ -255,7 +255,7 @@ correctly ran in a project and the pipeline results has the correct resulting ar
 
 ### Project events for group webhooks
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 

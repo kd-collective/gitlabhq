@@ -80,7 +80,7 @@ To begin using keyless signing for your build artifacts, container images, and p
 
 ### Command palette
 
-<!-- categories: Navigation & Settings -->
+<!-- categories: Navigation -->
 
 {{< details >}}
 
@@ -183,7 +183,7 @@ With this release, we’ve extended Advanced Search to include [group-level wiki
 
 ### View deployments from Jira issues mentioned in GitLab commits
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -230,7 +230,7 @@ Feed tokens have been made more secure by only working for the URL they were gen
 
 ### GitLab for Slack app available on self-managed GitLab
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -322,7 +322,7 @@ Thanks to [Yuri Konotopov](https://gitlab.com/nE0sIghT) for this [community cont
 
 ### Geo add individual resync and reverification for all components
 
-<!-- categories: Geo-replication, Disaster Recovery -->
+<!-- categories: Geo Replication, Disaster Recovery -->
 
 {{< details >}}
 
@@ -687,7 +687,7 @@ In this release, we are expanding the power of the keyword so you can use `when:
 
 ### Medium SaaS runners on Linux available to all tiers
 
-<!-- categories: GitLab Runner SaaS -->
+<!-- categories: GitLab Hosted Runners -->
 
 {{< details >}}
 

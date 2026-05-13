@@ -1,4 +1,4 @@
-import { GlModal, GlSprintf, GlFormGroup, GlCollapse, GlIcon } from '@gitlab/ui';
+import { GlModal, GlSprintf, GlFormGroup, GlFormRadioGroup, GlCollapse, GlIcon } from '@gitlab/ui';
 import MockAdapter from 'axios-mock-adapter';
 import { nextTick } from 'vue';
 import { stubComponent } from 'helpers/stub_component';
@@ -36,6 +36,7 @@ import { helpPagePath } from '~/helpers/help_page_helper';
 import { GROUPS_INVITATIONS_PATH, invitationsApiResponse } from '../mock_data/api_responses';
 import {
   propsData,
+  rootGroupPropsData,
   emailPostData,
   postData,
   singleUserPostData,
@@ -133,6 +134,10 @@ describe('InviteMembersModal', () => {
   const findAccordion = () => wrapper.findComponent(GlCollapse);
   const findErrorsIcon = () => wrapper.findComponent(GlIcon);
   const findSeatOveragesAlert = () => wrapper.findByTestId('seat-overages-alert');
+  const findMembershipFormGroup = () => wrapper.findByTestId('membership-radio-group');
+  const findMembershipRadioGroup = () => wrapper.findComponent(GlFormRadioGroup);
+  const findMembershipCurrentRadio = () => wrapper.findByTestId('membership-current');
+  const findMembershipRootGroupRadio = () => wrapper.findByTestId('membership-root-group');
   const expectedErrorMessage = (index, errorType) => {
     const [username, message] = Object.entries(errorType.parsedMessage)[index];
     return `${username}: ${message}`;
@@ -849,6 +854,182 @@ describe('InviteMembersModal', () => {
           clickInviteButton();
 
           expect(Api.inviteGroupMembers).toHaveBeenCalledWith(propsData.id, singleUserPostData);
+        });
+      });
+    });
+
+    describe('membership radio buttons', () => {
+      describe('when canInviteToRootGroup is false', () => {
+        beforeEach(() => {
+          createComponent({ canInviteToRootGroup: false });
+        });
+
+        it('does not render the membership radio group', () => {
+          expect(findMembershipFormGroup().exists()).toBe(false);
+        });
+      });
+
+      describe('when isTopLevelGroup is true', () => {
+        beforeEach(() => {
+          createComponent({
+            ...rootGroupPropsData,
+            isTopLevelGroup: true,
+          });
+        });
+
+        it('does not render the membership radio group', () => {
+          expect(findMembershipFormGroup().exists()).toBe(false);
+        });
+      });
+
+      describe('when canInviteToRootGroup is true and isTopLevelGroup is false', () => {
+        describe('for a project', () => {
+          beforeEach(() => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: true,
+            });
+          });
+
+          it('renders the membership radio group', () => {
+            expect(findMembershipFormGroup().exists()).toBe(true);
+          });
+
+          it('defaults to the current project option', () => {
+            expect(wrapper.vm.inviteToRootGroup).toBe(false);
+          });
+
+          it('shows the "This project only" label', () => {
+            expect(findMembershipCurrentRadio().text()).toBe('test name only');
+          });
+
+          it('shows the "All projects in [group]" label', () => {
+            expect(findMembershipRootGroupRadio().text()).toContain(
+              rootGroupPropsData.rootGroupName,
+            );
+          });
+        });
+
+        describe('for a subgroup', () => {
+          beforeEach(() => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: false,
+            });
+          });
+
+          it('renders the membership radio group', () => {
+            expect(findMembershipFormGroup().exists()).toBe(true);
+          });
+
+          it('shows the "This group only" label', () => {
+            expect(findMembershipCurrentRadio().text()).toBe('test name only');
+          });
+        });
+
+        describe('when "All projects" is selected and invite is submitted', () => {
+          beforeEach(async () => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: true,
+              id: '5',
+              rootId: '1',
+            });
+
+            findMembershipRadioGroup().vm.$emit('input', true);
+            await nextTick();
+
+            await triggerMembersTokenSelect([user1, user2]);
+
+            jest.spyOn(Api, 'inviteGroupMembers').mockResolvedValue({ data: postData });
+            clickInviteButton();
+          });
+
+          it('calls Api.inviteGroupMembers with rootId', () => {
+            expect(Api.inviteGroupMembers).toHaveBeenCalledWith('1', expect.any(Object));
+          });
+        });
+
+        describe('when "This project only" is selected and invite is submitted from a project', () => {
+          beforeEach(async () => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: true,
+              id: '5',
+              rootId: '1',
+            });
+
+            await triggerMembersTokenSelect([user1, user2]);
+
+            jest.spyOn(Api, 'inviteProjectMembers').mockResolvedValue({ data: postData });
+            clickInviteButton();
+          });
+
+          it('calls Api.inviteProjectMembers with the current project id', () => {
+            expect(Api.inviteProjectMembers).toHaveBeenCalledWith('5', expect.any(Object));
+          });
+        });
+
+        describe('when "This group only" is selected and invite is submitted from a subgroup', () => {
+          beforeEach(async () => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: false,
+              id: '7',
+              rootId: '1',
+            });
+
+            await triggerMembersTokenSelect([user1, user2]);
+
+            jest.spyOn(Api, 'inviteGroupMembers').mockResolvedValue({ data: postData });
+            clickInviteButton();
+          });
+
+          it('calls Api.inviteGroupMembers with the current group id', () => {
+            expect(Api.inviteGroupMembers).toHaveBeenCalledWith('7', expect.any(Object));
+          });
+        });
+
+        describe('when resetFields is called', () => {
+          it('resets the radio selection to false', async () => {
+            createComponent({
+              ...rootGroupPropsData,
+              isProject: true,
+            });
+
+            findMembershipRadioGroup().vm.$emit('input', true);
+            await nextTick();
+
+            expect(wrapper.vm.inviteToRootGroup).toBe(true);
+
+            findModal().vm.$emit('hidden');
+            await nextTick();
+
+            expect(wrapper.vm.inviteToRootGroup).toBe(false);
+          });
+        });
+
+        describe('intro text updates when radio selection changes', () => {
+          beforeEach(() => {
+            createComponent(
+              {
+                ...rootGroupPropsData,
+                isProject: true,
+              },
+              { InviteModalBase, ContentTransition, GlSprintf },
+            );
+          });
+
+          it('shows project intro text by default', () => {
+            expect(findIntroText()).toContain(propsData.name);
+          });
+
+          it('shows root group intro text when root group is selected', async () => {
+            findMembershipRadioGroup().vm.$emit('input', true);
+            await nextTick();
+
+            expect(findIntroText()).toContain(rootGroupPropsData.rootGroupName);
+          });
         });
       });
     });

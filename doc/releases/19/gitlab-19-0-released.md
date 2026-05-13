@@ -55,9 +55,25 @@ without having to go to individual projects.
 For example, searching for `def authenticate repo:my-group/my-project` returns results
 only from that repository. You can also use partial paths or patterns to match multiple repositories.
 
+### Claude Opus 4.7 now available in GitLab Duo Agent Platform
+
+<!-- categories: Duo Agent Platform -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/duo_agent_platform/model_selection.md#supported-models), [Related issue](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/work_items/2177)
+
+{{< /details >}}
+
+Claude Opus 4.7 is now available in GitLab Duo Agent Platform. Opus 4.7 delivers meaningful improvements to complex, multistep tasks that require sustained reasoning, precise instruction following, and self-verification before surfacing results. This includes flows supporting CI/CD pipelines, code review, vulnerability resolution, and more.
+
 ## Scale and Deployments
 
 ### PostgreSQL 17 minimum requirement
+
+<!-- categories: Omnibus Package -->
 
 {{< details >}}
 
@@ -72,6 +88,8 @@ The minimum supported version of PostgreSQL is now version 17. If you use the pa
 before installing GitLab 19.0.
 
 ### Linux package support for Ubuntu 20.04 discontinued
+
+<!-- categories: Omnibus Package -->
 
 {{< details >}}
 
@@ -88,6 +106,8 @@ distribution. Before upgrading to GitLab 19.0, migrate to Ubuntu 22.04 or anothe
 
 ### Redis 6 support removed
 
+<!-- categories: Omnibus Package -->
+
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
@@ -101,6 +121,8 @@ to Redis 7.2 or Valkey 7.2 before upgrading. The bundled Redis included with the
 used Redis 7 since GitLab 16.2 and is not affected.
 
 ### Mattermost removed from the Linux package
+
+<!-- categories: Omnibus Package -->
 
 {{< details >}}
 
@@ -117,6 +139,8 @@ for migration instructions. Customers not using the bundled Mattermost are not i
 
 ### Linux package support for SUSE distributions discontinued
 
+<!-- categories: Omnibus Package -->
+
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
@@ -131,6 +155,8 @@ version with Linux packages for these distributions. To continue to use SUSE dis
 to a [Docker deployment of GitLab](../../install/docker/installation.md).
 
 ### Spamcheck removed from Linux package and GitLab Helm chart
+
+<!-- categories: Omnibus Package, Cloud Native Installation -->
 
 {{< details >}}
 
@@ -148,6 +174,8 @@ No data migration is required.
 
 ### NGINX Ingress replaced by Gateway API with Envoy Gateway
 
+<!-- categories: Cloud Native Installation -->
+
 {{< details >}}
 
 - Tier: Free, Premium, Ultimate
@@ -164,6 +192,8 @@ NGINX used in the Linux package, or Helm chart instances using an externally man
 Gateway API controller.
 
 ### Bundled PostgreSQL, Redis, and MinIO removed from GitLab Helm chart
+
+<!-- categories: Cloud Native Installation -->
 
 {{< details >}}
 
@@ -244,7 +274,7 @@ in a single pipeline run.
 
 ### Configure parallel pipeline limits for merge trains
 
-<!-- categories: Continuous Integration -->
+<!-- categories: Continuous Integration (CI) -->
 
 {{< details >}}
 

@@ -62,6 +62,19 @@ docs-lint markdown:
     reports:
       codequality: markdownlint-cli2-codequality.json
 
+# This job runs when release notes are added or changed.
+# It validates that every H3 feature heading has a <!-- categories: ... --> tag
+# and that the category name(s) exactly match a 'name' field in categories.yml in the www-gitlab-com repo.
+
+docs-lint release-note-categories:
+  extends:
+    - .docs:rules:release-note-categories
+  image: $DEFAULT_CI_IMAGE
+  stage: lint
+  needs: []
+  script:
+    - python3 scripts/lint/validate_release_categories.py --release-notes doc/releases/**/*.md
+
 docs-lint mermaid:
   extends:
     - .docs:rules:docs-lint

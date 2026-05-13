@@ -58,7 +58,7 @@ Root cause analysis is now generally available. With root cause analysis, you ca
 
 ### Health check for GitLab Duo in beta
 
-<!-- categories: Cloud Connector -->
+<!-- categories: Duo Chat -->
 
 {{< details >}}
 
@@ -217,7 +217,7 @@ When you enable advanced search in GitLab, you can now select **Index the instan
 
 ### Toggle inheriting settings for integrations by using the API
 
-<!-- categories: Integrations -->
+<!-- categories: Settings -->
 
 {{< details >}}
 
@@ -235,7 +235,7 @@ whether or not a project inherits integration settings. If not set, the default 
 
 ### List group or project webhook events with the API
 
-<!-- categories: Webhooks -->
+<!-- categories: Notifications -->
 
 {{< details >}}
 
