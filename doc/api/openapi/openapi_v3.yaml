@@ -1049,7 +1049,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_518c68f555bc"
+              "$ref": "#/components/schemas/RequestBody_9983fc9d3604"
       x-gitlab-lifecycle: experiment
   "/api/v4/ai/duo_workflows/code_review/custom_instructions":
     get:
@@ -1320,7 +1320,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_3a17126b07bd"
+              "$ref": "#/components/schemas/RequestBody_ec0cc1c37bb8"
     get:
       operationId: getApiV4AiDuoWorkflowsWorkflowsIdEvents
       summary: List all workflow events
@@ -4238,7 +4238,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_d2d687755fa0"
+              "$ref": "#/components/schemas/RequestBody_3a7cdcc6078e"
       x-gitlab-lifecycle: experiment
   "/api/v4/vulnerabilities/{id}":
     get:
@@ -4490,7 +4490,7 @@ paths:
         description: Google Cloud Project ID for the Artifact Registry
         schema:
           type: string
-          pattern: "\\A[a-z][a-z0-9-]{5,28}[a-z0-9]\\z"
+          pattern: "^[a-z][a-z0-9\\-]{5,28}[a-z0-9]$"
           nullable: true
         in: query
       x-gitlab-lifecycle: experiment
@@ -4523,7 +4523,7 @@ paths:
         description: ID of the Google Cloud project
         schema:
           type: string
-          pattern: "\\A[a-z][a-z0-9-]{5,28}[a-z0-9]\\z"
+          pattern: "^[a-z][a-z0-9\\-]{5,28}[a-z0-9]$"
           nullable: true
         in: query
       x-gitlab-lifecycle: experiment
@@ -27580,21 +27580,7 @@ paths:
         description: The version of the release, using the semantic versioning format
         schema:
           type: string
-          pattern: |2-
-
-                      (?x-mi:
-                      (?x-mi:
-                      (?<major>0|[1-9]\d*)
-                    )\.(?x-mi:
-                      (?<minor>0|[1-9]\d*)
-                    )\.(?x-mi:
-                      (?<patch>0|[1-9]\d*)
-                    )
-                    )(?x-mi:
-                      (?:-(?<prerelease>(?:\d*[a-zA-Z-][0-9a-zA-Z-]*|[1-9]\d*|0)(?:\.(?:\d*[a-zA-Z-][0-9a-zA-Z-]*|[1-9]\d*|0))*))?
-                      (?:\+(?<build>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?
-                    )
-                    x
+          pattern: "(?:(?:(0|[1-9]\\d*))\\.(?:(0|[1-9]\\d*))\\.(?:(0|[1-9]\\d*)))(?:(?:-((?:\\d*[a-zA-Z\\-][0-9a-zA-Z\\-]*|[1-9]\\d*|0)(?:\\.(?:\\d*[a-zA-Z\\-][0-9a-zA-Z\\-]*|[1-9]\\d*|0))*))?(?:\\+([0-9a-zA-Z\\-]+(?:\\.[0-9a-zA-Z\\-]+)*))?)"
           nullable: true
         in: query
         example: 1.0.0
@@ -28573,7 +28559,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_f7e232007bcb"
+              "$ref": "#/components/schemas/RequestBody_3f47974b9e0f"
   "/api/v4/projects/{id}/packages/pypi/authorize":
     post:
       operationId: postApiV4ProjectsIdPackagesPypiAuthorize
@@ -33639,7 +33625,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b40b053c714d"
+              "$ref": "#/components/schemas/RequestBody_240ff1bbe3f5"
     get:
       operationId: getApiV4ProjectsIdDebianDistributions
       summary: Get a list of Debian Distributions
@@ -33691,7 +33677,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: sid
@@ -33700,7 +33686,7 @@ paths:
         description: The Debian Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: unstable
@@ -33709,7 +33695,7 @@ paths:
         description: The Debian Origin
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: Grep
@@ -33718,7 +33704,7 @@ paths:
         description: The Debian Label
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: grep.be
@@ -33727,14 +33713,7 @@ paths:
         description: The Debian Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
           nullable: true
         in: query
         example: '12'
@@ -33813,7 +33792,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
     put:
@@ -33851,7 +33830,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
       requestBody:
@@ -33859,7 +33838,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b278d0d4eddc"
+              "$ref": "#/components/schemas/RequestBody_c66551e2db22"
     delete:
       operationId: deleteApiV4ProjectsIdDebianDistributionsCodename
       summary: Delete a Debian Distribution
@@ -33891,7 +33870,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
       - name: suite
@@ -33899,7 +33878,7 @@ paths:
         description: The Debian Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: unstable
@@ -33908,7 +33887,7 @@ paths:
         description: The Debian Origin
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: Grep
@@ -33917,7 +33896,7 @@ paths:
         description: The Debian Label
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: grep.be
@@ -33926,14 +33905,7 @@ paths:
         description: The Debian Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
           nullable: true
         in: query
         example: '12'
@@ -34012,7 +33984,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
   "/api/v4/projects/{id}/registry/protection/tag/rules":
@@ -36063,7 +36035,7 @@ paths:
         description: The NuGet package name
         schema:
           type: string
-          pattern: "\\A[-+\\.\\_a-zA-Z0-9]+\\z"
+          pattern: "^[\\-+._a-zA-Z0-9]+$"
           nullable: true
         in: query
         example: mynugetpkg
@@ -36095,7 +36067,7 @@ paths:
         description: The NuGet package name
         schema:
           type: string
-          pattern: "\\A[-+\\.\\_a-zA-Z0-9]+\\z"
+          pattern: "^[\\-+._a-zA-Z0-9]+$"
           nullable: true
         in: query
         example: mynugetpkg
@@ -50519,7 +50491,7 @@ paths:
         description: Helm channel
         schema:
           type: string
-          pattern: "\\A([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)\\z"
+          pattern: "^([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)$"
         in: path
         example: stable
   "/api/v4/projects/{id}/packages/helm/{channel}/charts/{file_name}.tgz":
@@ -50552,7 +50524,7 @@ paths:
         description: Helm channel
         schema:
           type: string
-          pattern: "\\A([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)\\z"
+          pattern: "^([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)$"
         in: path
         example: stable
       - name: file_name
@@ -50592,7 +50564,7 @@ paths:
         description: Helm channel
         schema:
           type: string
-          pattern: "\\A([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)\\z"
+          pattern: "^([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)$"
         in: path
         example: stable
   "/api/v4/projects/{id}/packages/helm/api/{channel}/charts":
@@ -50625,7 +50597,7 @@ paths:
         description: Helm channel
         schema:
           type: string
-          pattern: "\\A([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)\\z"
+          pattern: "^([a-zA-Z0-9](\\.|-|_)?){1,255}(?<!\\.|-|_)$"
         in: path
         example: stable
       requestBody:
@@ -51281,7 +51253,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b40b053c714d"
+              "$ref": "#/components/schemas/RequestBody_240ff1bbe3f5"
     get:
       operationId: getApiV4GroupsIdDashDebianDistributions
       summary: Get a list of Debian Distributions
@@ -51333,7 +51305,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: sid
@@ -51342,7 +51314,7 @@ paths:
         description: The Debian Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: unstable
@@ -51351,7 +51323,7 @@ paths:
         description: The Debian Origin
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: Grep
@@ -51360,7 +51332,7 @@ paths:
         description: The Debian Label
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: grep.be
@@ -51369,14 +51341,7 @@ paths:
         description: The Debian Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
           nullable: true
         in: query
         example: '12'
@@ -51455,7 +51420,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
     put:
@@ -51493,7 +51458,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
       requestBody:
@@ -51501,7 +51466,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_b278d0d4eddc"
+              "$ref": "#/components/schemas/RequestBody_c66551e2db22"
     delete:
       operationId: deleteApiV4GroupsIdDashDebianDistributionsCodename
       summary: Delete a Debian Distribution
@@ -51533,7 +51498,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
       - name: suite
@@ -51541,7 +51506,7 @@ paths:
         description: The Debian Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: unstable
@@ -51550,7 +51515,7 @@ paths:
         description: The Debian Origin
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: Grep
@@ -51559,7 +51524,7 @@ paths:
         description: The Debian Label
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         in: query
         example: grep.be
@@ -51568,14 +51533,7 @@ paths:
         description: The Debian Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
           nullable: true
         in: query
         example: '12'
@@ -51654,7 +51612,7 @@ paths:
         description: The Debian Codename
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: sid
   "/api/v4/groups/{id}/registry/repositories":
@@ -55564,7 +55522,7 @@ paths:
         description: The Debian Codename or Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: my-distro
       - name: letter
@@ -55579,7 +55537,7 @@ paths:
         description: The Debian Source Package Name
         schema:
           type: string
-          pattern: "\\A[a-z0-9][-+\\.a-z0-9]+\\z"
+          pattern: "^[a-z0-9][\\-+.a-z0-9]+$"
         in: path
         example: my-pkg
       - name: package_version
@@ -55587,14 +55545,7 @@ paths:
         description: The Debian Source Package Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
         in: path
         example: 1.0.0
       - name: file_name
@@ -55634,7 +55585,7 @@ paths:
         description: The Debian Codename or Suite
         schema:
           type: string
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
         in: path
         example: my-distro
       - name: letter
@@ -55649,7 +55600,7 @@ paths:
         description: The Debian Source Package Name
         schema:
           type: string
-          pattern: "\\A[a-z0-9][-+\\.a-z0-9]+\\z"
+          pattern: "^[a-z0-9][\\-+.a-z0-9]+$"
         in: path
         example: my-pkg
       - name: package_version
@@ -55657,14 +55608,7 @@ paths:
         description: The Debian Source Package Version
         schema:
           type: string
-          pattern: |2-
-
-                      \A(?:
-                        (?:([0-9]{1,9}):)?            (?# epoch)
-                        ([0-9][0-9a-z\.+~]*)          (?# version)
-                        (-[0-9a-z\.+~]+){0,14}        (?# -revision)
-                        (?<!-)
-                        )\zix
+          pattern: "(?:^(?:(?:([0-9]{1,9}):)?([0-9][+.0-9A-Za-z~\\u017F\\u212A]*)(-[+.0-9A-Za-z~\\u017F\\u212A]+){0,14}(?<!-))$)"
         in: path
         example: 1.0.0
       - name: file_name
@@ -55706,8 +55650,7 @@ paths:
         description: The filename
         schema:
           type: string
-          pattern: '{:value=>\A.*\.(deb|udeb|ddeb)\z, :message=>"Only debs, udebs
-            and ddebs can be directly added to a distribution"}'
+          pattern: "^(?:[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\n\\uD800-\\uDFFF])*\\.(deb|udeb|ddeb)$"
         in: path
         example: example_1.0.0~alpha2_amd64.deb
       requestBody:
@@ -55715,7 +55658,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_8c6460519010"
+              "$ref": "#/components/schemas/RequestBody_bf3c60bc1c2e"
   "/api/v4/projects/{id}/packages/debian/{file_name}/authorize":
     put:
       operationId: putApiV4ProjectsIdPackagesDebianFileNameAuthorize
@@ -55748,8 +55691,7 @@ paths:
         description: The filename
         schema:
           type: string
-          pattern: '{:value=>\A.*\.(deb|udeb|ddeb)\z, :message=>"Only debs, udebs
-            and ddebs can be directly added to a distribution"}'
+          pattern: "^(?:[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\n\\uD800-\\uDFFF])*\\.(deb|udeb|ddeb)$"
         in: path
         example: example_1.0.0~alpha2_amd64.deb
       requestBody:
@@ -55757,7 +55699,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_878426eec0dc"
+              "$ref": "#/components/schemas/RequestBody_3fe82b5b04f3"
   "/api/v4/databases/{database_name}/dictionary/tables":
     get:
       operationId: getApiV4DatabasesDatabaseNameDictionaryTables
@@ -62630,7 +62572,7 @@ paths:
         description: The version prefix of runners to return
         schema:
           type: string
-          pattern: "^[\\d+.]+"
+          pattern: "(?<=^|\\n(?!$))[\\d+.]+"
           nullable: true
         in: query
         example: "'15.1.' or '16.'"
@@ -62786,7 +62728,7 @@ paths:
         description: The version prefix of runners to return
         schema:
           type: string
-          pattern: "^[\\d+.]+"
+          pattern: "(?<=^|\\n(?!$))[\\d+.]+"
           nullable: true
         in: query
         example: "'15.1.' or '16.'"
@@ -63205,7 +63147,7 @@ paths:
         description: The version prefix of runners to return
         schema:
           type: string
-          pattern: "^[\\d+.]+"
+          pattern: "(?<=^|\\n(?!$))[\\d+.]+"
           nullable: true
         in: query
         example: "'15.1.' or '16.'"
@@ -63381,7 +63323,7 @@ paths:
         description: The version prefix of runners to return
         schema:
           type: string
-          pattern: "^[\\d+.]+"
+          pattern: "(?<=^|\\n(?!$))[\\d+.]+"
           nullable: true
         in: query
         example: "'15.1.' or '16.'"
@@ -85767,7 +85709,7 @@ components:
           nullable: true
       required:
       - events
-    RequestBody_518c68f555bc:
+    RequestBody_9983fc9d3604:
       type: object
       properties:
         project_id:
@@ -85781,6 +85723,10 @@ components:
         review_output:
           type: string
           description: The review output from LLM
+          nullable: true
+        workflow_id:
+          type: integer
+          description: The ID of the Duo Workflow session
           nullable: true
       required:
       - project_id
@@ -85982,7 +85928,7 @@ components:
       required:
       - thread_ts
       - checkpoint_writes
-    RequestBody_3a17126b07bd:
+    RequestBody_ec0cc1c37bb8:
       type: object
       properties:
         event_type:
@@ -86003,7 +85949,7 @@ components:
         correlation_id:
           type: string
           description: Correlation ID for tracking events
-          pattern: "\\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\zi"
+          pattern: "(?:^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$)"
           nullable: true
       required:
       - event_type
@@ -87132,7 +87078,7 @@ components:
           nullable: true
       required:
       - target_issue_iid
-    RequestBody_d2d687755fa0:
+    RequestBody_3a7cdcc6078e:
       type: object
       properties:
         confidence_score:
@@ -87147,7 +87093,7 @@ components:
         origin:
           type: string
           description: Origin of the AI detection
-          pattern: "\\A.{1,255}\\z"
+          pattern: "^(?:[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\n\\uD800-\\uDFFF]){1,255}$"
           nullable: true
       required:
       - confidence_score
@@ -94490,7 +94436,7 @@ components:
             nullable: true
           - type: integer
             nullable: true
-    RequestBody_f7e232007bcb:
+    RequestBody_3f47974b9e0f:
       type: object
       properties:
         content:
@@ -94517,7 +94463,7 @@ components:
           type: string
           description: SHA256 checksum of the package
           example: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
-          pattern: "\\A[0-9a-f]{64}\\zi"
+          pattern: "(?:^[0-9A-Fa-f]{64}$)"
           nullable: true
         metadata_version:
           type: string
@@ -98865,32 +98811,32 @@ components:
           type: boolean
           description: Whether to export in batches
           nullable: true
-    RequestBody_b40b053c714d:
+    RequestBody_240ff1bbe3f5:
       type: object
       properties:
         codename:
           type: string
           description: The Debian Codename
           example: sid
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         suite:
           type: string
           description: The Debian Suite
           example: unstable
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         origin:
           type: string
           description: The Debian Origin
           example: Grep
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         label:
           type: string
           description: The Debian Label
           example: grep.be
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         description:
           type: string
@@ -98917,26 +98863,26 @@ components:
           nullable: true
       required:
       - codename
-    RequestBody_b278d0d4eddc:
+    RequestBody_c66551e2db22:
       type: object
       properties:
         suite:
           type: string
           description: The Debian Suite
           example: unstable
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         origin:
           type: string
           description: The Debian Origin
           example: Grep
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         label:
           type: string
           description: The Debian Label
           example: grep.be
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         description:
           type: string
@@ -104669,7 +104615,7 @@ components:
           type: boolean
           description: Can deploy key push to the project's repository
           nullable: true
-    RequestBody_8c6460519010:
+    RequestBody_bf3c60bc1c2e:
       type: object
       properties:
         file:
@@ -104680,28 +104626,28 @@ components:
         distribution:
           type: string
           description: The Debian Codename or Suite
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         component:
           type: string
           description: The Debian Component
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\z"
+          pattern: "^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$"
           nullable: true
       required:
       - file
       - component
-    RequestBody_878426eec0dc:
+    RequestBody_3fe82b5b04f3:
       type: object
       properties:
         distribution:
           type: string
           description: The Debian Codename or Suite
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\zi"
+          pattern: "(?:^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$)"
           nullable: true
         component:
           type: string
           description: The Debian Component
-          pattern: "\\A(?i-mx:[a-z0-9][a-z0-9.-]*)\\z"
+          pattern: "^(?:[0-9A-Za-z\\u017F\\u212A][\\x2D.0-9A-Za-z\\u017F\\u212A]*)$"
           nullable: true
       required:
       - component

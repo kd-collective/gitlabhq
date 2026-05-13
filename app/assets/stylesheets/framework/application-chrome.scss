@@ -37,35 +37,6 @@
     @apply gl-bg-neutral-800 gl-border-neutral-800 dark:gl-bg-neutral-100 dark:gl-border-neutral-100 #{!important};
   }
 
-  // Super topbar
-  .super-topbar {
-    @apply gl-pl-3 sm:gl-pl-4 gl-pr-3;
-    height: var(--top-bar-height);
-
-    // Placeholder styles
-    .topbar-search-button-placeholder {
-      font-weight: 320;
-      line-height: 1.25;
-    }
-
-    // Search button
-    .topbar-search-button {
-      @apply gl-text-subtle gl-border-alpha-dark-24 #{!important};
-
-      kbd {
-        @apply gl-border-strong gl-font-semibold gl-text-subtle gl-shadow-none dark:gl-border-transparent;
-      }
-
-      @media (forced-colors: active) {
-        border: 1px solid !important;
-      }
-    }
-
-    .topbar-search-button:not(:hover):not(:focus):not(:active) {
-      @apply dark:gl-bg-alpha-light-8 dark:gl-border-alpha-light-16 #{!important};
-    }
-  }
-
   // Super sidebar
   .super-sidebar-wrapper {
     @apply gl-w-0 gl-h-0 lg:gl-h-auto;
@@ -565,8 +536,7 @@
     }
 
     .ai-panels,
-    .super-sidebar,
-    .super-topbar {
+    .super-sidebar {
       --theme-accent-badge-color: var(--theme-accent-color);
       --super-sidebar-accent-color-fg: hsl(from var(--theme-accent-color) h calc(s - 20) 20);
       --super-sidebar-nav-item-current-bg: hsla(from var(--theme-accent-color) h s l / 16%);
@@ -577,14 +547,6 @@
 
     .super-sidebar hr {
       border-color: var(--gl-color-alpha-dark-8);
-    }
-
-    .super-sidebar-main-separator {
-      @apply gl-mx-3;
-    }
-
-    .super-sidebar-is-icon-only .super-sidebar-main-separator {
-      border-color: var(--gl-border-color-strong);
     }
 
     .super-sidebar .super-sidebar-nav-item:not(.super-sidebar-nav-item-current) .badge {
@@ -634,26 +596,13 @@
     }
 
     .ai-panels,
-    .super-sidebar,
-    .super-topbar {
+    .super-sidebar {
       --theme-accent-badge-color: hsl(from var(--theme-accent-color) h calc(s - 10) calc(l + 20));
       --super-sidebar-nav-item-current-bg: hsla(from var(--theme-accent-color) h s calc(l + 20) / 25%);
       --super-sidebar-accent-color-fg: hsl(from var(--theme-accent-color) h s 88);
       --super-sidebar-nav-item-hover-bg: hsla(from var(--theme-accent-color) h calc(s - 30) l / 16%);
       --super-sidebar-accent-color-badge: hsl(from var(--theme-accent-color) h s 85);
       --super-sidebar-accent-color-bg: hsla(from var(--theme-accent-color) h s l / 32%);
-    }
-
-    .super-sidebar hr {
-      border-color: var(--gl-color-alpha-light-16);
-    }
-
-    .super-sidebar-main-separator {
-      @apply gl-mx-3;
-    }
-
-    .super-sidebar-is-icon-only .super-sidebar-main-separator {
-      border-color: var(--gl-border-color-strong);
     }
 
     .super-sidebar .super-sidebar-nav-item:not(.super-sidebar-nav-item-current) .badge {

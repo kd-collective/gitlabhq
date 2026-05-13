@@ -1199,7 +1199,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
       end
 
       it 'returns the correct schema with pattern' do
-        expect(converter.schema).to eq({ nullable: true, type: 'string', pattern: '^[\d+.]+' })
+        expect(converter.schema).to eq({ nullable: true, type: 'string', pattern: '(?<=^|\n(?!$))[\d+.]+' })
       end
     end
 
@@ -1214,7 +1214,98 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
       end
 
       it 'extracts pattern correctly' do
-        expect(converter.schema[:pattern]).to eq('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        expect(converter.schema[:pattern])
+          .to eq('(?<=^|\n(?!$))[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}(?=$|\n)')
+      end
+    end
+
+    context 'when regex uses Ruby-only constructs (\\A, \\z, inline flags)' do
+      let(:validations) do
+        [{
+          attributes: [:distribution],
+          options: /\A(?i-mx:[a-z0-9][a-z0-9.-]*)\z/,
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'converts to an ECMA-262 compatible pattern with case-folding baked in' do
+        expect(converter.schema[:pattern]).to eq('^(?:[0-9A-Za-z\u017F\u212A][\x2D.0-9A-Za-z\u017F\u212A]*)$')
+      end
+    end
+
+    context 'when regex options are wrapped in a Hash (long form)' do
+      let(:validations) do
+        [{
+          attributes: [:name],
+          options: { value: /\A[a-z]+\z/, message: 'must be lowercase letters' },
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'extracts the regex from the Hash and converts it' do
+        expect(converter.schema[:pattern]).to eq('^[a-z]+$')
+      end
+    end
+
+    context 'when regex options are a Hash with no Regexp value' do
+      let(:validations) do
+        [{
+          attributes: [:name],
+          options: { message: 'invalid' },
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'omits the pattern entirely' do
+        expect(converter.schema).not_to have_key(:pattern)
+      end
+    end
+
+    context 'when regex contains a negative lookbehind' do
+      let(:validations) do
+        [{
+          attributes: [:channel],
+          options: /\A([a-zA-Z0-9](\.|-|_)?){1,255}(?<!\.|-|_)\z/,
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'preserves the lookbehind in the ECMA-262 pattern' do
+        expect(converter.schema[:pattern]).to eq('^([a-zA-Z0-9](\.|-|_)?){1,255}(?<!\.|-|_)$')
+      end
+    end
+
+    context 'when regex options is neither a Regexp nor a Hash' do
+      let(:validations) do
+        [{
+          attributes: [:name],
+          options: 'not a regex',
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'omits the pattern entirely' do
+        expect(converter.schema).not_to have_key(:pattern)
+      end
+    end
+
+    context 'when regex has an outer /i flag' do
+      let(:validations) do
+        [{
+          attributes: [:distribution],
+          options: /\A[a-z0-9][a-z0-9.-]*\z/i,
+          required: false,
+          validator_class: Grape::Validations::Validators::RegexpValidator
+        }]
+      end
+
+      it 'folds the case-insensitive flag into the pattern' do
+        expect(converter.schema[:pattern]).to eq('(?:^[0-9A-Za-z\u017F\u212A][\x2D.0-9A-Za-z\u017F\u212A]*$)')
       end
     end
 
@@ -1237,7 +1328,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
       end
 
       it 'only includes the regex pattern' do
-        expect(converter.schema).to eq({ nullable: true, type: 'string', pattern: '^[\d+.]+' })
+        expect(converter.schema).to eq({ nullable: true, type: 'string', pattern: '(?<=^|\n(?!$))[\d+.]+' })
       end
     end
 
@@ -1287,7 +1378,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
         expect(converter.schema).to eq({
           type: 'string',
           default: 'v1.0',
-          pattern: '^v[\d+.]+',
+          pattern: '(?<=^|\n(?!$))v[\d+.]+',
           nullable: true
         })
       end
@@ -1329,7 +1420,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
         expect(converter.schema).to eq({
           type: 'string',
           format: 'date-time',
-          pattern: '^\d{4}-\d{2}-\d{2}',
+          pattern: '(?<=^|\n(?!$))\d{4}-\d{2}-\d{2}',
           nullable: true
         })
       end
@@ -1347,7 +1438,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
         end
 
         it 'returns the correct schema values' do
-          expect(parameter.schema).to eq({ nullable: true, type: 'string', pattern: '^[\d+.]+' })
+          expect(parameter.schema).to eq({ nullable: true, type: 'string', pattern: '(?<=^|\n(?!$))[\d+.]+' })
         end
       end
 
@@ -1725,7 +1816,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Converters::ParameterConverter do
       end
 
       it "falls back to default schema generation with pattern" do
-        expect(converter.schema).to eq({ type: "string", pattern: "^[a-z]+$", nullable: true })
+        expect(converter.schema).to eq({ type: "string", pattern: "(?<=^|\\n(?!$))[a-z]+(?=$|\\n)", nullable: true })
       end
     end
 

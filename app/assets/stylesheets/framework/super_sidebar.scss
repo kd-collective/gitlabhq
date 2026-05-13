@@ -20,7 +20,6 @@ $command-palette-spacing: px-to-rem(14px);
   z-index: $super-sidebar-skip-to-z-index;
 }
 
-.super-topbar,
 .super-sidebar,
 .application-chrome {
   --body-background-color: var(--gl-background-color-strong);
@@ -35,7 +34,6 @@ $command-palette-spacing: px-to-rem(14px);
   --super-sidebar-hr-mix-blend-mode: multiply;
 }
 
-.gl-dark .super-topbar,
 .gl-dark .super-sidebar,
 .gl-dark.application-chrome {
   --body-background-color: var(--gl-background-color-subtle);
@@ -59,7 +57,6 @@ $command-palette-spacing: px-to-rem(14px);
   $accent-color-badge: $accent-color-fg,
   $accent-notification-dot: $accent-color-fg,
 ) {
-  .super-topbar,
   .super-sidebar,
   &.application-chrome {
     --theme-color: #{$theme-color};
@@ -290,6 +287,7 @@ html:not(.application-chrome) .super-sidebar {
   }
 
   hr {
+    border-color: var(--gl-color-alpha-light-16);
     mix-blend-mode: var(--super-sidebar-hr-mix-blend-mode);
   }
 

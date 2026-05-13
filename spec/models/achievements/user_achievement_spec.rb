@@ -28,8 +28,8 @@ RSpec.describe Achievements::UserAchievement, type: :model, feature_category: :u
   end
 
   describe 'scopes' do
-    let_it_be(:user_achievement) { create(:user_achievement) }
-    let_it_be(:revoked_user_achievement) { create(:user_achievement, :revoked) }
+    let_it_be(:user_achievement) { create(:user_achievement, show_on_profile: true) }
+    let_it_be(:revoked_user_achievement) { create(:user_achievement, :revoked, show_on_profile: true) }
     let_it_be(:hidden_user_achievement) { create(:user_achievement, show_on_profile: false) }
 
     describe '.not_revoked' do

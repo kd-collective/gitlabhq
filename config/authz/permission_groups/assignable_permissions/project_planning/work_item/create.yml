@@ -26,6 +26,7 @@ permissions:
   - create_issue_link
   - create_issue_note
   - create_issue_note_award_emoji
+  - create_iteration_cadence
   - create_merge_request_award_emoji
   - create_merge_request_note
   - create_merge_request_note_award_emoji

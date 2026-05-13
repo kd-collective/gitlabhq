@@ -8,8 +8,14 @@ RSpec.describe 'UserAchievements', feature_category: :user_profile do
   let_it_be(:user) { create(:user) }
   let_it_be(:group) { create(:group, :public, guests: user) }
   let_it_be(:achievement) { create(:achievement, namespace: group) }
-  let_it_be(:non_revoked_achievement) { create(:user_achievement, achievement: achievement, user: user) }
-  let_it_be(:revoked_achievement) { create(:user_achievement, :revoked, achievement: achievement, user: user) }
+  let_it_be(:non_revoked_achievement) do
+    create(:user_achievement, achievement: achievement, user: user, show_on_profile: true)
+  end
+
+  let_it_be(:revoked_achievement) do
+    create(:user_achievement, :revoked, achievement: achievement, user: user, show_on_profile: true)
+  end
+
   let_it_be(:hidden_achievement) do
     create(:user_achievement, achievement: achievement, user: user, show_on_profile: false)
   end
@@ -76,7 +82,7 @@ RSpec.describe 'UserAchievements', feature_category: :user_profile do
 
   context 'when user_achievement has priority set' do
     let_it_be(:achievement_with_priority) do
-      create(:user_achievement, achievement: achievement, user: user, priority: 0)
+      create(:user_achievement, achievement: achievement, user: user, priority: 0, show_on_profile: true)
     end
 
     let(:userquery_fields) do

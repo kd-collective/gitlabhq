@@ -2461,9 +2461,6 @@ msgstr ""
 msgid "AIAgents|An error has occurred when saving the agent."
 msgstr ""
 
-msgid "AIAgents|Create agent"
-msgstr ""
-
 msgid "AIAgents|New agent"
 msgstr ""
 
@@ -4822,6 +4819,9 @@ msgstr ""
 msgid "Achievements"
 msgstr ""
 
+msgid "Achievements|%{accept_link} to show it on your profile. If you do not wish to accept, simply ignore this email."
+msgstr ""
+
 msgid "Achievements|%{namespace_full_path} awarded you the %{achievement_name} achievement"
 msgstr ""
 
@@ -4832,6 +4832,15 @@ msgid "Achievements|%{namespace_link} awarded you the %{bold_start}%{achievement
 msgstr ""
 
 msgid "Achievements|%{userCount} awarded users"
+msgstr ""
+
+msgid "Achievements|Accept"
+msgstr ""
+
+msgid "Achievements|Accept achievement"
+msgstr ""
+
+msgid "Achievements|Accept this achievement"
 msgstr ""
 
 msgid "Achievements|Achievement description cannot be longer than %{length} characters."
@@ -4853,6 +4862,9 @@ msgid "Achievements|Achievement name is required."
 msgstr ""
 
 msgid "Achievements|Achievements"
+msgstr ""
+
+msgid "Achievements|Are you sure you want to accept the %{bold_start}%{achievement_name}%{bold_end} achievement? It will be shown on your profile."
 msgstr ""
 
 msgid "Achievements|Are you sure you want to delete %{name}? This action cannot be undone."
@@ -4894,6 +4906,9 @@ msgstr ""
 msgid "Achievements|File is too large. Maximum file size is 200 KiB."
 msgstr ""
 
+msgid "Achievements|If you do not wish to accept, simply ignore this email."
+msgstr ""
+
 msgid "Achievements|More actions"
 msgstr ""
 
@@ -4909,10 +4924,7 @@ msgstr ""
 msgid "Achievements|There are currently no achievements."
 msgstr ""
 
-msgid "Achievements|View your achievements on your %{link_start}profile%{link_end}."
-msgstr ""
-
-msgid "Achievements|View your achievements on your profile."
+msgid "Achievements|To show this achievement on your profile, accept it: %{url}"
 msgstr ""
 
 msgid "Achievements|You're awarding users the %{achievementName} achievement"
@@ -7581,15 +7593,6 @@ msgid "AggregationEngine|metric `%{identifier}` must be requested to filter by i
 msgstr ""
 
 msgid "AggregationEngine|the specified identifier is not available: '%{identifier}'"
-msgstr ""
-
-msgid "AiAgents|Agent Name"
-msgstr ""
-
-msgid "AiAgents|Create and manage your AI Agents"
-msgstr ""
-
-msgid "AiAgents|Create your own AI Agents"
 msgstr ""
 
 msgid "AiAnalytics|the ClickHouse data store is not available"
@@ -27840,6 +27843,9 @@ msgstr ""
 msgid "DuoChat|👋 I am GitLab Duo Chat, your personal AI-powered assistant. How can I help you today?"
 msgstr ""
 
+msgid "DuoCodeReviewFeedback|View agent session"
+msgstr ""
+
 msgid "DuoCodeReview|:warning: %{user_reference}, you don't have permission to create a pipeline for Code Review Flow in this project. Contact your administrator to update your permissions."
 msgstr ""
 
@@ -28351,6 +28357,30 @@ msgid "DuoWorkflowSettings|Scan and log results, but do not block requests."
 msgstr ""
 
 msgid "DuoWorkflowSettings|Turn off scanning entirely. No prompt data is sent to third-party services."
+msgstr ""
+
+msgid "DuoWorkflow|A Duo session in %{project} is paused and waiting for your input."
+msgstr ""
+
+msgid "DuoWorkflow|A Duo session in %{strong_start}%{project}%{strong_end} is paused and waiting for your input."
+msgstr ""
+
+msgid "DuoWorkflow|A Duo session is paused and waiting for your input."
+msgstr ""
+
+msgid "DuoWorkflow|Flow:"
+msgstr ""
+
+msgid "DuoWorkflow|Goal:"
+msgstr ""
+
+msgid "DuoWorkflow|Pending action:"
+msgstr ""
+
+msgid "DuoWorkflow|Review session"
+msgstr ""
+
+msgid "DuoWorkflow|Your Duo session needs your input"
 msgstr ""
 
 msgid "Duo|Select a project to store shared custom instructions for Duo Code Review."
@@ -37292,10 +37322,10 @@ msgstr ""
 msgid "IdentityVerification|If you don't have access to the primary email address, you can %{sendToSecondaryEmailButtonStart}%{sendToSecondaryEmailButtonEnd}, or you can %{supportLinkStart}try to verify another way.%{supportLinkEnd}"
 msgstr ""
 
-msgid "IdentityVerification|If you have not recently tried to sign into GitLab, we recommend %{password_link_start}changing your password%{link_end} and %{two_fa_link_start}setting up Two-Factor Authentication%{link_end} to keep your account safe. Your verification code expires after %{expires_in_minutes} minutes."
+msgid "IdentityVerification|If you have not recently tried to sign into GitLab, we recommend changing your password and setting up Two-Factor Authentication to keep your account safe."
 msgstr ""
 
-msgid "IdentityVerification|If you have not recently tried to sign into GitLab, we recommend changing your password (%{password_link}) and setting up Two-Factor Authentication (%{two_fa_link}) to keep your account safe."
+msgid "IdentityVerification|If you have not recently tried to sign into GitLab, we recommend changing your password and setting up Two-Factor Authentication to keep your account safe. Your verification code expires after %{expires_in_minutes} minutes."
 msgstr ""
 
 msgid "IdentityVerification|If you have not tried to sign into your account, we recommend %{password_link_start}changing your password%{link_end} and %{two_fa_link_start}setting up Two-Factor Authentication%{link_end} to keep your account safe."
@@ -48404,6 +48434,9 @@ msgid "Notify|You were added as a reviewer on %{long_mr} by %{name}."
 msgstr ""
 
 msgid "Notify|Your CSV import for project %{project_link} has been completed."
+msgstr ""
+
+msgid "Notify|Your Duo session needs your input"
 msgstr ""
 
 msgid "Notify|Your account has been created successfully."
@@ -86606,6 +86639,9 @@ msgid "You don’t have access to Productivity Analytics in this group"
 msgstr ""
 
 msgid "You don’t have access to Value Stream Analytics for this group"
+msgstr ""
+
+msgid "You have accepted the achievement. It will now appear on your profile."
 msgstr ""
 
 msgid "You have already reported this user"

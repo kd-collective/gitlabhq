@@ -30,6 +30,8 @@ permissions:
   - update_issue_note
   - update_epic_discussion
   - update_epic_discussion_note
+  - update_iteration
+  - update_iteration_cadence
   - update_merge_request_note
   - update_milestone
   - update_snippet_discussion

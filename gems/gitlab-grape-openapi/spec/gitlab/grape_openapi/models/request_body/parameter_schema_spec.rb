@@ -857,7 +857,29 @@ RSpec.describe Gitlab::GrapeOpenapi::Models::RequestBody::ParameterSchema do
           expect(method_call).to eq(
             type: 'string',
             description: 'Username',
-            pattern: '^[a-z0-9_]+$',
+            pattern: '(?<=^|\n(?!$))[a-z0-9_]+(?=$|\n)',
+            nullable: true
+          )
+        end
+      end
+
+      context 'with regex validation using Ruby-only constructs' do
+        let(:param_options) { { type: 'String', desc: 'Distribution', required: true } }
+        let(:validations) do
+          [
+            {
+              attributes: [:field],
+              options: /\A(?i-mx:[a-z0-9][a-z0-9.-]*)\z/,
+              validator_class: Grape::Validations::Validators::RegexpValidator
+            }
+          ]
+        end
+
+        it 'converts the pattern to ECMA-262 syntax with case-folding baked in' do
+          expect(method_call).to eq(
+            type: 'string',
+            description: 'Distribution',
+            pattern: '^(?:[0-9A-Za-z\u017F\u212A][\x2D.0-9A-Za-z\u017F\u212A]*)$',
             nullable: true
           )
         end
@@ -890,7 +912,7 @@ RSpec.describe Gitlab::GrapeOpenapi::Models::RequestBody::ParameterSchema do
             default: 'guest',
             description: 'Username',
             example: 'john_doe',
-            pattern: '^[a-z_]+$',
+            pattern: '(?<=^|\n(?!$))[a-z_]+(?=$|\n)',
             nullable: true
           )
         end
@@ -1121,7 +1143,8 @@ RSpec.describe Gitlab::GrapeOpenapi::Models::RequestBody::ParameterSchema do
         end
 
         it "falls back to default schema generation with pattern" do
-          expect(method_call).to eq({ type: "string", description: "A name", pattern: "^[a-z]+$", nullable: true })
+          expect(method_call).to eq({ type: "string", description: "A name", pattern: "(?<=^|\\n(?!$))[a-z]+(?=$|\\n)",
+nullable: true })
         end
       end
 

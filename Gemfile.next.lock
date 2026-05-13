@@ -87,6 +87,7 @@ PATH
     gitlab-grape-openapi (0.1.0)
       grape (~> 2.0.0)
       grape-entity (~> 1.0.1)
+      js_regex (~> 3.8)
 
 PATH
   remote: gems/gitlab-housekeeper

@@ -741,6 +741,10 @@ packages_build_infos:
     column: pipeline_id
     on_delete: async_nullify
     worker_class: LooseForeignKeys::CiPipelinesBuildsCleanupCronWorker
+packages_debian_project_component_file_states:
+  - table: packages_debian_project_component_files
+    column: packages_debian_project_component_file_id
+    on_delete: async_delete
 packages_helm_metadata_caches:
   - table: projects
     column: project_id

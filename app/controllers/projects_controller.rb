@@ -198,6 +198,7 @@ class ProjectsController < Projects::ApplicationController
       format.atom do
         load_events
         @events = @events.select { |event| event.visible_to_user?(current_user) }
+        Events::RenderService.new(current_user).execute(@events, atom_request: true)
         render layout: 'xml'
       end
     end

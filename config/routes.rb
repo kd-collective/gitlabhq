@@ -238,6 +238,13 @@ InitializerConnections.warn_if_database_connection do
           end
         end
 
+        resources :awarded_achievements, only: [], constraints: { id: %r{[^/]+} }, module: :achievements do
+          member do
+            get :accept
+            post :accept
+          end
+        end
+
         # Spam reports
         resources :abuse_reports, only: [:create] do
           collection do

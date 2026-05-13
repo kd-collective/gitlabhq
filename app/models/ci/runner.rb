@@ -131,14 +131,6 @@ module Ci
 
     scope :with_recent_runner_queue, -> { where(arel_table[:contacted_at].gt(recent_queue_deadline)) }
 
-    # Remove with FF `ci_read_job_execution_status_from_running_builds`
-    scope :with_executing_builds, -> do
-      where_exists(
-        ::Ci::Build.executing
-          .where("#{::Ci::Build.quoted_table_name}.runner_id = #{quoted_table_name}.id")
-      )
-    end
-
     # BACKWARD COMPATIBILITY: There are needed to maintain compatibility with `AVAILABLE_SCOPES` used by `lib/api/runners.rb`
     scope :deprecated_shared, -> { instance_type }
     scope :deprecated_specific, -> { project_type.or(group_type) }

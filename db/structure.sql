@@ -13764,7 +13764,7 @@ CREATE TABLE ai_self_hosted_models (
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     model smallint NOT NULL,
-    endpoint text NOT NULL,
+    endpoint text,
     name text NOT NULL,
     encrypted_api_token bytea,
     encrypted_api_token_iv bytea,
@@ -24836,6 +24836,23 @@ CREATE SEQUENCE note_diff_files_id_seq
 
 ALTER SEQUENCE note_diff_files_id_seq OWNED BY note_diff_files.id;
 
+CREATE TABLE note_duo_metadata (
+    note_id bigint NOT NULL,
+    workflow_id bigint NOT NULL,
+    namespace_id bigint NOT NULL,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone
+);
+
+CREATE SEQUENCE note_duo_metadata_note_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE note_duo_metadata_note_id_seq OWNED BY note_duo_metadata.note_id;
+
 CREATE TABLE note_metadata (
     note_id bigint NOT NULL,
     email_participant text,
@@ -26019,6 +26036,29 @@ CREATE SEQUENCE packages_debian_project_architectures_id_seq
     CACHE 1;
 
 ALTER SEQUENCE packages_debian_project_architectures_id_seq OWNED BY packages_debian_project_architectures.id;
+
+CREATE TABLE packages_debian_project_component_file_states (
+    id bigint NOT NULL,
+    verification_started_at timestamp with time zone,
+    verification_retry_at timestamp with time zone,
+    verified_at timestamp with time zone,
+    packages_debian_project_component_file_id bigint NOT NULL,
+    project_id bigint NOT NULL,
+    verification_state smallint DEFAULT 0 NOT NULL,
+    verification_retry_count smallint DEFAULT 0 NOT NULL,
+    verification_checksum bytea,
+    verification_failure text,
+    CONSTRAINT check_c4ce9c5ee5 CHECK ((char_length(verification_failure) <= 255))
+);
+
+CREATE SEQUENCE packages_debian_project_component_file_states_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE packages_debian_project_component_file_states_id_seq OWNED BY packages_debian_project_component_file_states.id;
 
 CREATE TABLE packages_debian_project_component_files (
     id bigint NOT NULL,
@@ -31826,7 +31866,7 @@ CREATE TABLE user_achievements (
     revoked_at timestamp with time zone,
     priority integer,
     namespace_id bigint,
-    show_on_profile boolean DEFAULT true NOT NULL,
+    show_on_profile boolean DEFAULT false NOT NULL,
     CONSTRAINT check_2236a10887 CHECK ((namespace_id IS NOT NULL))
 );
 
@@ -36505,6 +36545,8 @@ ALTER TABLE ONLY non_sql_service_pings ALTER COLUMN id SET DEFAULT nextval('non_
 
 ALTER TABLE ONLY note_diff_files ALTER COLUMN id SET DEFAULT nextval('note_diff_files_id_seq'::regclass);
 
+ALTER TABLE ONLY note_duo_metadata ALTER COLUMN note_id SET DEFAULT nextval('note_duo_metadata_note_id_seq'::regclass);
+
 ALTER TABLE ONLY note_metadata ALTER COLUMN note_id SET DEFAULT nextval('note_metadata_note_id_seq'::regclass);
 
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
@@ -36608,6 +36650,8 @@ ALTER TABLE ONLY packages_debian_group_distribution_keys ALTER COLUMN id SET DEF
 ALTER TABLE ONLY packages_debian_group_distributions ALTER COLUMN id SET DEFAULT nextval('packages_debian_group_distributions_id_seq'::regclass);
 
 ALTER TABLE ONLY packages_debian_project_architectures ALTER COLUMN id SET DEFAULT nextval('packages_debian_project_architectures_id_seq'::regclass);
+
+ALTER TABLE ONLY packages_debian_project_component_file_states ALTER COLUMN id SET DEFAULT nextval('packages_debian_project_component_file_states_id_seq'::regclass);
 
 ALTER TABLE ONLY packages_debian_project_component_files ALTER COLUMN id SET DEFAULT nextval('packages_debian_project_component_files_id_seq'::regclass);
 
@@ -40289,6 +40333,9 @@ ALTER TABLE ONLY non_sql_service_pings
 ALTER TABLE ONLY note_diff_files
     ADD CONSTRAINT note_diff_files_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY note_duo_metadata
+    ADD CONSTRAINT note_duo_metadata_pkey PRIMARY KEY (note_id);
+
 ALTER TABLE ONLY note_metadata
     ADD CONSTRAINT note_metadata_pkey PRIMARY KEY (note_id);
 
@@ -40528,6 +40575,9 @@ ALTER TABLE ONLY packages_debian_group_distributions
 
 ALTER TABLE ONLY packages_debian_project_architectures
     ADD CONSTRAINT packages_debian_project_architectures_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY packages_debian_project_component_file_states
+    ADD CONSTRAINT packages_debian_project_component_file_states_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY packages_debian_project_component_files
     ADD CONSTRAINT packages_debian_project_component_files_pkey PRIMARY KEY (id);
@@ -44888,6 +44938,8 @@ CREATE UNIQUE INDEX idx_namespace_settings_on_default_compliance_framework_id ON
 
 CREATE INDEX idx_namespace_settings_on_last_dormant_members_review_at ON namespace_settings USING btree (last_dormant_member_review_at) WHERE (remove_dormant_members = true);
 
+CREATE UNIQUE INDEX idx_note_duo_metadata_note_and_workflow ON note_duo_metadata USING btree (note_id, workflow_id);
+
 CREATE UNIQUE INDEX idx_o11y_log_issue_conn_on_issue_id_logs_search_metadata ON observability_logs_issues_connections USING btree (issue_id, service_name, severity_number, log_timestamp, log_fingerprint, trace_identifier);
 
 CREATE UNIQUE INDEX idx_o11y_metric_issue_conn_on_issue_id_metric_type_name ON observability_metrics_issues_connections USING btree (issue_id, metric_type, metric_name);
@@ -48226,6 +48278,10 @@ CREATE UNIQUE INDEX index_note_diff_files_on_diff_note_id ON note_diff_files USI
 
 CREATE INDEX index_note_diff_files_on_namespace_id ON note_diff_files USING btree (namespace_id);
 
+CREATE INDEX index_note_duo_metadata_on_namespace_id ON note_duo_metadata USING btree (namespace_id);
+
+CREATE INDEX index_note_duo_metadata_on_workflow_id ON note_duo_metadata USING btree (workflow_id);
+
 CREATE INDEX index_note_metadata_on_namespace_id ON note_metadata USING btree (namespace_id);
 
 CREATE INDEX index_note_metadata_on_note_id ON note_metadata USING btree (note_id);
@@ -48821,6 +48877,20 @@ CREATE INDEX index_personal_access_tokens_on_user_id_and_id ON personal_access_t
 CREATE INDEX index_pipeline_metadata_on_name_text_pattern_pipeline_id ON ci_pipeline_metadata USING btree (name text_pattern_ops, pipeline_id);
 
 CREATE INDEX index_pipl_users_on_initial_email_sent_at ON pipl_users USING btree (initial_email_sent_at);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_failed_verification ON packages_debian_project_component_file_states USING btree (verification_retry_at NULLS FIRST) WHERE (verification_state = 3);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_needs_verification ON packages_debian_project_component_file_states USING btree (packages_debian_project_component_file_id) WHERE ((verification_state = 0) OR (verification_state = 3));
+
+CREATE UNIQUE INDEX index_pkg_deb_proj_comp_file_states_on_fk ON packages_debian_project_component_file_states USING btree (packages_debian_project_component_file_id);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_on_project_id ON packages_debian_project_component_file_states USING btree (project_id);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_on_verification_started ON packages_debian_project_component_file_states USING btree (packages_debian_project_component_file_id, verification_started_at) WHERE (verification_state = 1);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_on_verification_state ON packages_debian_project_component_file_states USING btree (verification_state);
+
+CREATE INDEX index_pkg_deb_proj_comp_file_states_pending_verification ON packages_debian_project_component_file_states USING btree (verified_at NULLS FIRST) WHERE (verification_state = 0);
 
 CREATE UNIQUE INDEX index_plan_limits_on_plan_id ON plan_limits USING btree (plan_id);
 
@@ -55230,6 +55300,8 @@ CREATE TRIGGER p_ci_pipelines_loose_fk_trigger AFTER DELETE ON p_ci_pipelines RE
 
 CREATE TRIGGER p_ci_workloads_loose_fk_trigger AFTER DELETE ON p_ci_workloads REFERENCING OLD TABLE AS old_table FOR EACH STATEMENT EXECUTE FUNCTION insert_into_loose_foreign_keys_deleted_records_override_table('p_ci_workloads');
 
+CREATE TRIGGER packages_debian_project_component_files_loose_fk_trigger AFTER DELETE ON packages_debian_project_component_files REFERENCING OLD TABLE AS old_table FOR EACH STATEMENT EXECUTE FUNCTION insert_into_loose_foreign_keys_deleted_records();
+
 CREATE TRIGGER packages_nuget_symbols_loose_fk_trigger AFTER DELETE ON packages_nuget_symbols REFERENCING OLD TABLE AS old_table FOR EACH STATEMENT EXECUTE FUNCTION insert_into_loose_foreign_keys_deleted_records();
 
 CREATE TRIGGER packages_package_files_loose_fk_trigger AFTER DELETE ON packages_package_files REFERENCING OLD TABLE AS old_table FOR EACH STATEMENT EXECUTE FUNCTION insert_into_loose_foreign_keys_deleted_records();
@@ -56806,6 +56878,9 @@ ALTER TABLE ONLY ai_active_context_tasks
 ALTER TABLE ONLY enabled_foundational_flows
     ADD CONSTRAINT fk_4b4e102eb8 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY packages_debian_project_component_file_states
+    ADD CONSTRAINT fk_4b6fa8564d FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
+
 ALTER TABLE ONLY sbom_occurrences
     ADD CONSTRAINT fk_4b88e5b255 FOREIGN KEY (component_version_id) REFERENCES sbom_component_versions(id) ON DELETE CASCADE;
 
@@ -57540,6 +57615,9 @@ ALTER TABLE ONLY work_item_dates_sources
 
 ALTER TABLE ONLY work_item_custom_lifecycle_statuses
     ADD CONSTRAINT fk_8a6dadaf44 FOREIGN KEY (status_id) REFERENCES work_item_custom_statuses(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY note_duo_metadata
+    ADD CONSTRAINT fk_8a960d1aeb FOREIGN KEY (workflow_id) REFERENCES duo_workflows_workflows(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY targeted_message_namespaces
     ADD CONSTRAINT fk_8ba73cd32a FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
@@ -58480,6 +58558,9 @@ ALTER TABLE ONLY web_hooks
 ALTER TABLE ONLY oauth_applications
     ADD CONSTRAINT fk_e2fdb31d70 FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY note_duo_metadata
+    ADD CONSTRAINT fk_e3011352d9 FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
+
 ALTER TABLE ONLY approval_merge_request_rules
     ADD CONSTRAINT fk_e33a9aaf67 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
@@ -59382,6 +59463,9 @@ ALTER TABLE ONLY approval_project_rules_groups
 
 ALTER TABLE ONLY custom_fields
     ADD CONSTRAINT fk_rails_39d50cbb4e FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY note_duo_metadata
+    ADD CONSTRAINT fk_rails_3a5a528775 FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY chat_teams
     ADD CONSTRAINT fk_rails_3b543909cb FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;

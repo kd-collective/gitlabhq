@@ -800,8 +800,8 @@ class NotificationService
     end
   end
 
-  def new_achievement_email(user, achievement)
-    mailer.new_achievement_email(user, achievement)
+  def new_achievement_email(user, achievement, user_achievement)
+    mailer.new_achievement_email(user, achievement, user_achievement)
   end
 
   def project_scheduled_for_deletion(project)

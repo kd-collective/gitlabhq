@@ -49,26 +49,16 @@ module Types
         ::Ci::RunnerManager::EXECUTOR_TYPE_TO_NAMES[runner_manager.executor_type&.to_sym]
       end
 
-      # rubocop: disable GraphQL/ResolverMethodLength -- Temporary until feature flag removed
       def job_execution_status
         BatchLoader::GraphQL.for(runner_manager.id).batch(key: :running_builds_exist) do |runner_manager_ids, loader|
-          if Feature.enabled?(:ci_read_job_execution_status_from_running_builds, Feature.current_request)
-            # We ignore `canceling` builds because they're short-lived
-            active_ids = ::Ci::RunnerManager.ids_with_running_builds(runner_manager_ids).to_set
+          # We ignore `canceling` builds because they're short-lived
+          active_ids = ::Ci::RunnerManager.ids_with_running_builds(runner_manager_ids).to_set
 
-            runner_manager_ids.each do |runner_manager_id|
-              loader.call(runner_manager_id, active_ids.include?(runner_manager_id) ? :active : :idle)
-            end
-          else
-            statuses = ::Ci::RunnerManager.id_in(runner_manager_ids).with_executing_builds.index_by(&:id)
-
-            runner_manager_ids.each do |runner_manager_id|
-              loader.call(runner_manager_id, statuses[runner_manager_id] ? :active : :idle)
-            end
+          runner_manager_ids.each do |runner_manager_id|
+            loader.call(runner_manager_id, active_ids.include?(runner_manager_id) ? :active : :idle)
           end
         end
       end
-      # rubocop: enable GraphQL/ResolverMethodLength
     end
   end
 end

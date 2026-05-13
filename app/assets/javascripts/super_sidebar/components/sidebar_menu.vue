@@ -280,7 +280,7 @@ export default {
     <hr
       v-if="supportsPins"
       aria-hidden="true"
-      class="super-sidebar-main-separator gl-my-4"
+      class="gl-mx-3 gl-my-4"
       data-testid="main-menu-separator"
     />
     <ul

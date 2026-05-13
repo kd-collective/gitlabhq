@@ -8,6 +8,7 @@ module Gitlab
         include Concerns::Serializable
         include Concerns::LimitResolver
         include Concerns::FailFastAnnotatable
+        include Concerns::RegexConverter
 
         attr_reader :name, :options, :validations, :route
 
@@ -129,7 +130,8 @@ module Gitlab
           validation = validations&.find { |v| v[:validator_class] == Grape::Validations::Validators::RegexpValidator }
           return unless validation
 
-          schema[:pattern] = validation[:options].inspect.delete("/")
+          pattern = regexp_to_pattern(validation[:options])
+          schema[:pattern] = pattern if pattern
         end
 
         def convert

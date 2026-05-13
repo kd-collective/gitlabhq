@@ -43,6 +43,7 @@ permissions:
   - read_issue_user_agent_detail
   - read_issue_weight_event
   - read_iteration
+  - read_iteration_cadence
   - read_merge_request_award_emoji
   - read_merge_request_milestone_event
   - read_merge_request_note

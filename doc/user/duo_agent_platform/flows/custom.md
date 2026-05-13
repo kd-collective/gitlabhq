@@ -29,6 +29,7 @@ title: Custom flows
 - Enabling directly in projects as a maintainer [introduced](https://gitlab.com/groups/gitlab-org/-/work_items/20743) in GitLab 18.10 [with a flag](../../../administration/feature_flags/_index.md) named `ai_catalog_project_level_enablement`. Enabled on GitLab.com, GitLab Self-Managed, and GitLab Dedicated by default.
 - Available on the Free tier on GitLab.com with GitLab Credits in GitLab 18.10.
 - Feature flag `ai_catalog_project_level_enablement` removed in GitLab 18.11.
+- **Merge request ready** trigger event type [introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/592454) in GitLab 19.0 with a [flag](../../../administration/feature_flags/_index.md) named `merge_request_ready_flow_trigger`. Disabled by default.
 
 {{< /history >}}
 
@@ -166,6 +167,7 @@ To enable a flow:
      as a reviewer to a merge request.
    - **Pipeline events**: When a pipeline changes state.
      The possible states are `created`, `started`, `succeeded`, and `failed`.
+   - **Merge request ready**: When a draft merge request is marked as ready for review.
 1. Select **Enable**.
 
 {{< /tab >}}
@@ -186,6 +188,7 @@ To enable a flow:
      to an issue or merge request.
    - **Assign reviewer**: When the service account user is assigned
      as a reviewer to a merge request.
+   - **Merge request ready**: When a draft merge request is marked as ready for review.
 1. Select **Enable**.
 
 {{< /tab >}}
@@ -220,6 +223,7 @@ To enable a flow in a project:
      to an issue or merge request.
    - **Assign reviewer**: When the service account user is assigned
      as a reviewer to a merge request.
+   - **Merge request ready**: When a draft merge request is marked as ready for review.
 1. Select **Enable**.
 
 The flow appears in the project's **AI** > **Flows** list.

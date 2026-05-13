@@ -95,17 +95,6 @@ module Ci
       where(system_xid: system_xid)
     end
 
-    # Remove with FF `ci_read_job_execution_status_from_running_builds`
-    scope :with_executing_builds, -> do
-      where_exists(
-        Ci::Build
-          .joins(:runner_manager_build)
-          .executing
-          .where("#{::Ci::Build.quoted_table_name}.runner_id = #{quoted_table_name}.runner_id")
-          .where("#{::Ci::RunnerManagerBuild.quoted_table_name}.runner_machine_id = #{quoted_table_name}.id")
-      )
-    end
-
     scope :order_id_desc, -> { order(id: :desc) }
     scope :order_contacted_at_desc, -> { order(arel_table[:contacted_at].desc.nulls_last) }
 

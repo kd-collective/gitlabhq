@@ -69,6 +69,20 @@ only from that repository. You can also use partial paths or patterns to match m
 
 Claude Opus 4.7 is now available in GitLab Duo Agent Platform. Opus 4.7 delivers meaningful improvements to complex, multistep tasks that require sustained reasoning, precise instruction following, and self-verification before surfacing results. This includes flows supporting CI/CD pipelines, code review, vulnerability resolution, and more.
 
+### Expanded open source model support in GitLab Duo Agent Platform
+
+<!-- categories: Self-Hosted Models -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#supported-models), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/21186)
+
+{{< /details >}}
+
+GitLab Duo Agent Platform now supports additional open source models for self-hosted deployments, including Devstral 2 123B, GLM-5.1-FP8, and others. This helps customers power agentic workflows across a variety of environments, including offline and network-restricted deployments.
+
 ## Scale and Deployments
 
 ### PostgreSQL 17 minimum requirement

@@ -640,6 +640,62 @@ RSpec.describe API::NugetProjectPackages, feature_category: :package_registry do
     end
   end
 
+  describe 'X-NuGet-Warning header' do
+    context 'with an unauthorized request' do
+      let(:url) { "/projects/#{target.id}/packages/nuget/metadata/Dummy.Package/index.json" }
+      let(:expected_status) { :unauthorized }
+
+      subject { get api(url) }
+
+      before do
+        update_visibility_to(Gitlab::VisibilityLevel::PRIVATE)
+      end
+
+      it_behaves_like 'setting the X-NuGet-Warning header on error responses',
+        expected_warning: '401 Unauthorized'
+    end
+
+    context 'with a forbidden request' do
+      include_context 'workhorse headers'
+
+      let(:url) { "/projects/#{target.id}/packages/nuget/authorize" }
+      let(:expected_status) { :forbidden }
+
+      subject do
+        put api(url),
+          headers: basic_auth_header(user.username, personal_access_token.token).merge(workhorse_headers)
+      end
+
+      before do
+        target.add_guest(user)
+      end
+
+      it_behaves_like 'setting the X-NuGet-Warning header on error responses',
+        expected_warning: '403 Forbidden'
+    end
+
+    context 'with a not found request' do
+      let(:url) { "/projects/#{non_existing_record_id}/packages/nuget/metadata/Dummy.Package/index.json" }
+      let(:expected_status) { :not_found }
+
+      subject { get api(url), headers: basic_auth_header(user.username, personal_access_token.token) }
+
+      it_behaves_like 'setting the X-NuGet-Warning header on error responses',
+        expected_warning: '404 Not Found'
+    end
+
+    context 'with a successful request' do
+      let(:url) { "/projects/#{target.id}/packages/nuget/index.json" }
+
+      it 'does not include the X-NuGet-Warning header' do
+        get api(url)
+
+        expect(response).to have_gitlab_http_status(:success)
+        expect(response.headers['X-NuGet-Warning']).to be_nil
+      end
+    end
+  end
+
   def update_visibility_to(visibility)
     project.update!(visibility_level: visibility)
   end

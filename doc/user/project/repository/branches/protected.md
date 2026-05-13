@@ -44,6 +44,12 @@ Configure protected branches for individual projects or for all projects in a gr
 > for most settings.
 > For more information, see
 > [rules across groups and projects](protection_rules.md#rules-across-groups-and-projects).
+<!-- -->
+> [!tip]
+> When you protect a branch name or pattern, consider also protecting the same
+> name or pattern for tags. Git allows branches and tags to share the same name, so
+> protecting both ensures consistent access controls across all references.
+> For more information, see [protected tags](../../protected_tags.md).
 
 ### In a project
 

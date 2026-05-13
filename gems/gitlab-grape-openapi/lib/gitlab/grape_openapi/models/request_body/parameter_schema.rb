@@ -9,6 +9,7 @@ module Gitlab
           include Concerns::Serializable
           include Concerns::LimitResolver
           include Concerns::FailFastAnnotatable
+          include Concerns::RegexConverter
 
           def initialize(route:, key:, param_options:)
             @route = route
@@ -216,7 +217,10 @@ module Gitlab
               v[:validator_class] == Grape::Validations::Validators::RegexpValidator
             end
 
-            schema[:pattern] = validation[:options].inspect.delete("/") if validation
+            if validation
+              pattern = regexp_to_pattern(validation[:options])
+              schema[:pattern] = pattern if pattern
+            end
 
             schema
           end

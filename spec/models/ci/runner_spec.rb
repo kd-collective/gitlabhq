@@ -2566,34 +2566,6 @@ RSpec.describe Ci::Runner, type: :model, factory_default: :keep, feature_categor
       end
     end
 
-    describe '.with_executing_builds' do
-      subject(:scope) { described_class.with_executing_builds }
-
-      let_it_be(:runners_by_status) do
-        Ci::HasStatus::AVAILABLE_STATUSES.index_with { |_status| create(:ci_runner) }
-      end
-
-      let_it_be(:busy_runners) do
-        Ci::HasStatus::EXECUTING_STATUSES.map { |status| runners_by_status[status] }
-      end
-
-      context 'with no builds running' do
-        it { is_expected.to be_empty }
-      end
-
-      context 'with builds' do
-        before_all do
-          pipeline = create(:ci_pipeline, :running)
-
-          Ci::HasStatus::AVAILABLE_STATUSES.each do |status|
-            create(:ci_build, status, runner: runners_by_status[status], pipeline: pipeline)
-          end
-        end
-
-        it { is_expected.to match_array(busy_runners) }
-      end
-    end
-
     describe '.ids_with_running_builds' do
       subject(:result) { described_class.ids_with_running_builds(ids) }
 

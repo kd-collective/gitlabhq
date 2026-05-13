@@ -2150,13 +2150,21 @@ RSpec.describe ProjectsController, feature_category: :groups_and_projects do
       expect(assigns(:events)).to eq([event])
     end
 
-    it 'filters by calling event.visible_to_user?' do
-      get :show, format: :atom, params: { id: public_project, namespace_id: public_project.namespace }
+    context 'with rendered views' do
+      render_views
 
-      expect(response).to have_gitlab_http_status(:success)
-      expect(response).to render_template(:show)
-      expect(response).to render_template(layout: :xml)
-      expect(assigns(:events)).to eq([event])
+      let!(:note_with_line_break) { create(:note, project: public_project, note: "foo\\\nbar") }
+      let!(:event_with_line_break) { create(:event, :commented, project: public_project, target: note_with_line_break) }
+
+      it 'renders note line breaks as self-closing XHTML br tags' do
+        get :show, format: :atom, params: { id: public_project, namespace_id: public_project.namespace }
+
+        expect(response).to have_gitlab_http_status(:success)
+        # Banzai emits self-closing br tags, potentially with attributes like data-sourcepos,
+        # e.g. `<br data-sourcepos="1:4-1:5" />`. Match any self-closing <br .../> form.
+        expect(response.body).to match(%r{<br[^>]*/\s*>})
+        expect(response.body).not_to match(%r{<br>})
+      end
     end
   end
 

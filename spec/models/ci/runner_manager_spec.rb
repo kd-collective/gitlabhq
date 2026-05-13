@@ -302,35 +302,6 @@ RSpec.describe Ci::RunnerManager, feature_category: :fleet_visibility, type: :mo
     end
   end
 
-  describe '.with_executing_builds' do
-    subject(:scope) { described_class.with_executing_builds }
-
-    let_it_be(:runner) { create(:ci_runner) }
-    let_it_be(:runner_managers_by_status) do
-      Ci::HasStatus::AVAILABLE_STATUSES.index_with { |_status| create(:ci_runner_machine, runner: runner) }
-    end
-
-    let_it_be(:busy_runner_managers) do
-      Ci::HasStatus::EXECUTING_STATUSES.map { |status| runner_managers_by_status[status] }
-    end
-
-    context 'with no builds running' do
-      it { is_expected.to be_empty }
-    end
-
-    context 'with builds' do
-      before_all do
-        Ci::HasStatus::AVAILABLE_STATUSES.each do |status|
-          runner_manager = runner_managers_by_status[status]
-          build = create(:ci_build, status, runner: runner)
-          create(:ci_runner_machine_build, runner_manager: runner_manager, build: build)
-        end
-      end
-
-      it { is_expected.to match_array(busy_runner_managers) }
-    end
-  end
-
   describe '.ids_with_running_builds' do
     subject(:result) { described_class.ids_with_running_builds(ids) }
 

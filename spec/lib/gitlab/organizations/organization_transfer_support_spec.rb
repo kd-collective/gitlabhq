@@ -17,7 +17,6 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       abuse_reports
       admin_roles
       agent_organization_authorizations
-      ai_catalog_item_consumers
       ai_catalog_item_version_dependencies
       ai_catalog_items
       ai_code_suggestion_events
@@ -37,7 +36,6 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       dependency_list_export_part_uploads
       dependency_list_export_parts
       dependency_list_export_uploads
-      group_upload_states
       import_failures
       import_offline_configurations
       issue_tracker_data
@@ -61,8 +59,6 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       personal_access_token_last_used_ips
       pool_repositories
       project_topic_uploads
-      project_upload_states
-      project_uploads
       queries_service_pings
       raw_usage_data
       sbom_component_versions
@@ -112,7 +108,7 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
 
   let(:org_sharded_tables) do
     Gitlab::Database::Dictionary.entries.select do |entry|
-      entry.sharding_key.is_a?(Hash) && entry.sharding_key.key?('organization_id')
+      sharded_by_organization?(entry)
     end
   end
 
@@ -162,6 +158,10 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
         expect(entry).to be_present,
           "Table '#{table_name}' is in allowed_todo_tables but doesn't exist in the database dictionary."
 
+        expect(sharded_by_organization?(entry)).to be(true),
+          "Table '#{table_name}' is in allowed_todo_tables but is not sharded by organization " \
+            "(sharding_key: #{entry.sharding_key}). Only tables sharded by organization belong here."
+
         transfer_support = entry.organization_transfer_support
 
         expect(transfer_support).to eq('todo'),
@@ -193,6 +193,10 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
         expect(entry).to be_present,
           "Table '#{table_name}' is in allowed_no_work_needed_tables but doesn't exist in the database dictionary."
 
+        expect(sharded_by_organization?(entry)).to be(true),
+          "Table '#{table_name}' is in allowed_no_work_needed_tables but is not sharded by organization " \
+            "(sharding_key: #{entry.sharding_key}). Only tables sharded by organization belong here."
+
         transfer_support = entry.organization_transfer_support
 
         expect(transfer_support).to eq('no_work_needed'),
@@ -200,6 +204,14 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
             "Remove it from allowed_no_work_needed_tables or update its value to 'no_work_needed'."
       end
     end
+  end
+
+  def sharded_by_organization?(entry)
+    # skip 'organizations' table because we're not transferring any data from it
+    return unless entry.table_name != "organizations"
+    return unless entry.sharding_key.is_a?(Hash)
+
+    entry.sharding_key.invert["organizations"].present?
   end
 
   # These tests validate that:
