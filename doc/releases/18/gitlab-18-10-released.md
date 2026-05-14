@@ -70,11 +70,11 @@ We welcome your feedback in [issue 583697](https://gitlab.com/gitlab-org/gitlab/
 - Tier: Free
 - Offering: GitLab.com
 - Add-ons: GitLab Credits
-- Links: [Documentation](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom) | [Related epic](https://gitlab.com/groups/gitlab-org/-/work_items/20165)
+- Links: [Documentation](../../subscriptions/gitlab_credits.md#for-the-free-tier) | [Related epic](https://gitlab.com/groups/gitlab-org/-/work_items/20165)
 
 {{< /details >}}
 
-Free tier group Owners on GitLab.com can now unlock AI with GitLab Credits. Purchase a monthly credit amount, commit to an annual term, and get access to [GitLab Duo Agent Platform agents and flows](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom). Credits refresh automatically each month, so your team always has what it needs to build faster and smarter.
+Free tier group Owners on GitLab.com can now unlock AI with GitLab Credits. Purchase a monthly credit amount, commit to an annual term, and get access to [GitLab Duo Agent Platform agents and flows](../../subscriptions/gitlab_credits.md#for-the-free-tier). Credits refresh automatically each month, so your team always has what it needs to build faster and smarter.
 
 Key highlights:
 

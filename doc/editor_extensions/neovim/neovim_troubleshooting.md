@@ -6,6 +6,13 @@ description: Connect and use GitLab Duo in Neovim.
 title: Troubleshooting Neovim
 ---
 
+{{< details >}}
+
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+
+{{< /details >}}
+
 When troubleshooting the GitLab plugin for Neovim, you should confirm that the issue occurs
 in isolation from other Neovim plugins and settings. First, run the Neovim [testing steps](#test-your-neovim-configuration),
 then the troubleshooting steps for GitLab Duo Code Suggestions.

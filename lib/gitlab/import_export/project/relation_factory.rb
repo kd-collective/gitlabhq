@@ -97,6 +97,7 @@ module Gitlab
           @object = preload_keys(@object, USER_REFERENCES, @user)
 
           @object.work_item_type = @work_item_type if @object && @work_item_type
+          attach_missing_work_item_type_label
           @object
         end
 
@@ -225,6 +226,7 @@ module Gitlab
             matched = provider.find_by_name(name)
             return matched if matched&.can_user_create_items?
 
+            @missing_work_item_type_name = name
             return provider.default_issue_type
           end
 
@@ -232,6 +234,15 @@ module Gitlab
           # Also used when the `work_item_configurable_types` feature flag is disabled.
           base_type = work_item_type_hash&.dig('base_type') || issue_type
           provider.find_by_base_type(base_type) if base_type
+        end
+
+        def attach_missing_work_item_type_label
+          return unless @object && @missing_work_item_type_name
+
+          label_id = MissingWorkItemTypeLabel.new(@importable).id_for(@missing_work_item_type_name)
+          return unless label_id
+
+          @object.label_links.build(label_id: label_id)
         end
 
         def setup_release

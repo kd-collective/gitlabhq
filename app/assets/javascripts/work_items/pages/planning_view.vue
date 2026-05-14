@@ -140,6 +140,7 @@ import InfoBanner from '../list/components/info_banner.vue';
 import NewSavedViewModal from '../list/components/work_items_new_saved_view_modal.vue';
 import WorkItemsOnboardingModal from '../components/work_items_onboarding_modal/work_items_onboarding_modal.vue';
 import WorkItemDetailPanel from '../components/work_item_detail_panel.vue';
+import WorkItemDisplaySettingsDrawer from '../list/components/work_item_display_settings_drawer.vue';
 
 import {
   WORK_ITEM_TYPE_NAME_TICKET,
@@ -193,6 +194,7 @@ export default {
     CreateWorkItemModal,
     FilteredSearchBar,
     UserPreferences,
+    WorkItemDisplaySettingsDrawer,
     EmptyStateWithAnyIssues,
     EmptyStateWithoutAnyIssues,
     EmptyStateWithAnyTickets,
@@ -291,6 +293,7 @@ export default {
       isSortKeyInitialized: !loggedIn,
       currentWorkItemsCount: 0,
       currentWorkItemIds: [],
+      isDisplayDrawerOpen: false,
     };
   },
 
@@ -488,6 +491,9 @@ export default {
   },
 
   computed: {
+    isDisplaySettingsDrawerEnabled() {
+      return Boolean(this.glFeatures.workItemListDisplaySettingsDrawer);
+    },
     workItemDetailPanelEnabled() {
       return this.displaySettings?.commonPreferences?.shouldOpenItemsInSidePanel ?? true;
     },
@@ -1792,6 +1798,14 @@ export default {
       >
         <!-- eslint-enable vue/v-on-event-hyphenation -->
         <template #user-preference>
+          <gl-button
+            v-if="isDisplaySettingsDrawerEnabled"
+            icon="preferences"
+            data-testid="display-settings-button"
+            @click="isDisplayDrawerOpen = true"
+          >
+            {{ __('Display') }}
+          </gl-button>
           <user-preferences
             :namespace-preferences="displaySettingsSoT.namespacePreferences"
             :common-preferences="displaySettings.commonPreferences"
@@ -1836,6 +1850,14 @@ export default {
             >
               <!-- eslint-enable vue/v-on-event-hyphenation -->
               <template #user-preference>
+                <gl-button
+                  v-if="isDisplaySettingsDrawerEnabled"
+                  icon="preferences"
+                  data-testid="display-settings-button"
+                  @click="isDisplayDrawerOpen = true"
+                >
+                  {{ __('Display') }}
+                </gl-button>
                 <user-preferences
                   :namespace-preferences="displaySettingsSoT.namespacePreferences"
                   :common-preferences="displaySettings.commonPreferences"
@@ -2030,5 +2052,10 @@ export default {
         </empty-state-without-any-issues>
       </template>
     </list-view>
+    <work-item-display-settings-drawer
+      v-if="isDisplaySettingsDrawerEnabled"
+      :open="isDisplayDrawerOpen"
+      @close="isDisplayDrawerOpen = false"
+    />
   </div>
 </template>

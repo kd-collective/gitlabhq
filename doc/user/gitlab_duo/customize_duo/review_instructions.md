@@ -142,14 +142,9 @@ To configure custom merge request review instructions:
 
 {{< history >}}
 
-- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/230090) in GitLab 19.0 [with a flag](../../../administration/feature_flags/_index.md) named `duo_code_review_group_level_instructions`. Disabled by default.
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/230090) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of this feature is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 You can define custom review instructions for a group by specifying a project to use as a template.
 The template project must contain a `.gitlab/duo/mr-review-instructions.yaml` file with review

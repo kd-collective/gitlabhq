@@ -525,7 +525,7 @@ describe('app_index.vue', () => {
 
           if (currentSha && previousSha && currentSha !== previousSha) {
             expect(previousReleaseSha).toBe(previousSha);
-            expect(comparePath).toContain(`-/compare/${previousSha}...${currentSha}`);
+            expect(comparePath).toBe(`/${projectPath}/-/compare/${previousSha}...${currentSha}`);
           }
         }
       });

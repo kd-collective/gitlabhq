@@ -206,6 +206,13 @@ RSpec.describe Gitlab::ImportExport::Project::TreeRestorer, :clean_gitlab_redis_
           expect(other_issue_types).to all(eq(issue_type.id))
         end
 
+        it 'tags issues with unresolvable work item type names with the missing type label' do
+          unknown_issue_by_name = Issue.find_by(title: 'unknown type by name')
+
+          expect(unknown_issue_by_name.labels.map(&:title))
+            .to include("#{_('imported')}:Non-existent type")
+        end
+
         it 'preserves updated_at on issues' do
           issue = Issue.find_by(description: 'Aliquam enim illo et possimus.')
 
@@ -371,7 +378,7 @@ RSpec.describe Gitlab::ImportExport::Project::TreeRestorer, :clean_gitlab_redis_
         end
 
         it 'has project labels' do
-          expect(ProjectLabel.count).to eq(3)
+          expect(ProjectLabel.count).to eq(4)
           expect(ProjectLabel.pluck(:group_id).compact).to be_empty
         end
 

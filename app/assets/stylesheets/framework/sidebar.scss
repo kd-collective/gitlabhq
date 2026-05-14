@@ -251,7 +251,7 @@
 @mixin right-sidebar {
   position: fixed;
   bottom: $calc-application-footer-height;
-  right: 0;
+  right: var(--scrollbar-width, 0);
   @apply gl-bg-default;
   z-index: 200;
   overflow: hidden;

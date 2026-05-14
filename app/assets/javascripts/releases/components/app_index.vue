@@ -5,7 +5,8 @@ import { historyPushState } from '~/lib/utils/common_utils';
 import { helpPagePath } from '~/helpers/help_page_helper';
 import { scrollUp } from '~/lib/utils/scroll_utils';
 import { setUrlParams, getParameterByName } from '~/lib/utils/url_utility';
-import { i18n, PAGE_SIZE, DEFAULT_SORT, COMPARE_PATH_SEGMENT } from '~/releases/constants';
+import { projectComparePath } from '~/lib/utils/path_helpers/repository';
+import { i18n, PAGE_SIZE, DEFAULT_SORT } from '~/releases/constants';
 import { convertAllReleasesGraphQLResponse } from '~/releases/util';
 import { popDeleteReleaseNotification } from '~/releases/release_notification_service';
 
@@ -211,7 +212,7 @@ export default {
           previousReleaseSha = previousRelease?.commit?.sha || '';
 
           if (previousReleaseSha && this.projectPath) {
-            comparePath = `${this.projectPath}${COMPARE_PATH_SEGMENT}${previousReleaseSha}...${currentSha}`;
+            comparePath = projectComparePath(this.projectPath, previousReleaseSha, currentSha);
           }
         }
 

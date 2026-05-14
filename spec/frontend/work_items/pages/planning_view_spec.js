@@ -85,6 +85,7 @@ import FilteredSearchBar from '~/vue_shared/components/filtered_search_bar/filte
 import WorkItemsSavedViewsSelectors from '~/work_items/list/components/work_items_saved_views_selectors.vue';
 import WorkItemsNewSavedViewModal from '~/work_items/list/components/work_items_new_saved_view_modal.vue';
 import WorkItemUserPreferences from '~/work_items/list/components/work_item_user_preferences.vue';
+import WorkItemDisplaySettingsDrawer from '~/work_items/list/components/work_item_display_settings_drawer.vue';
 import InfoBanner from '~/work_items/list/components/info_banner.vue';
 import WorkItemListActions from '~/work_items/list/components/work_item_list_actions.vue';
 import EmptyStateWithAnyTickets from '~/work_items/list/components/empty_state_with_any_tickets.vue';
@@ -233,6 +234,8 @@ const findWorkItemsSavedViewsSelectors = () => wrapper.findComponent(WorkItemsSa
 const findViewNotFoundModal = () => wrapper.findByTestId('view-not-found-modal');
 const findViewLimitWarningModal = () => wrapper.findByTestId('view-limit-warning-modal');
 const findWorkItemUserPreferences = () => wrapper.findComponent(WorkItemUserPreferences);
+const findDisplaySettingsDrawer = () => wrapper.findComponent(WorkItemDisplaySettingsDrawer);
+const findDisplaySettingsButton = () => wrapper.findByTestId('display-settings-button');
 const findServiceDeskInfoBanner = () => wrapper.findComponent(InfoBanner);
 const findWorkItemListActions = () => wrapper.findComponent(WorkItemListActions);
 const findBulkEditStartButton = () => wrapper.findByTestId('bulk-edit-start-button');
@@ -2607,6 +2610,63 @@ describe('planning-view', () => {
         await waitForPromises();
 
         expect(findListView().props('queryVariables')).toMatchObject({ sort: UPDATED_ASC });
+      });
+    });
+  });
+
+  describe('display settings drawer', () => {
+    describe('when work_item_list_display_settings_drawer is enabled', () => {
+      beforeEach(async () => {
+        mountComponent({
+          provide: {
+            glFeatures: { workItemListDisplaySettingsDrawer: true },
+          },
+        });
+        await waitForPromises();
+      });
+
+      it('renders the Display button', () => {
+        expect(findDisplaySettingsButton().exists()).toBe(true);
+      });
+
+      it('renders the drawer closed by default', () => {
+        expect(findDisplaySettingsDrawer().props('open')).toBe(false);
+      });
+
+      it('opens the drawer when the Display button is clicked', async () => {
+        findDisplaySettingsButton().vm.$emit('click');
+        await nextTick();
+
+        expect(findDisplaySettingsDrawer().props('open')).toBe(true);
+      });
+
+      it('closes the drawer when the drawer emits close', async () => {
+        findDisplaySettingsButton().vm.$emit('click');
+        await nextTick();
+
+        findDisplaySettingsDrawer().vm.$emit('close');
+        await nextTick();
+
+        expect(findDisplaySettingsDrawer().props('open')).toBe(false);
+      });
+    });
+
+    describe('when work_item_list_display_settings_drawer is disabled', () => {
+      beforeEach(async () => {
+        mountComponent();
+        await waitForPromises();
+      });
+
+      it('does not render the Display button', () => {
+        expect(findDisplaySettingsButton().exists()).toBe(false);
+      });
+
+      it('does not render the drawer', () => {
+        expect(findDisplaySettingsDrawer().exists()).toBe(false);
+      });
+
+      it('still renders the existing user preferences dropdown', () => {
+        expect(findWorkItemUserPreferences().exists()).toBe(true);
       });
     });
   });

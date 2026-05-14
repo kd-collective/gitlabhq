@@ -27,7 +27,7 @@ You can turn Agent Platform on or off:
 
 {{< details >}}
 
-- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 
 {{< /details >}}
 
@@ -83,7 +83,7 @@ You can turn GitLab Duo on or off:
 
 {{< details >}}
 
-- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 
 {{< /details >}}
 
@@ -199,7 +199,7 @@ when you upgrade to GitLab 18.0 or later, to use GitLab Duo Core, you must turn 
 
 {{< details >}}
 
-- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 
 {{< /details >}}
 
@@ -252,7 +252,7 @@ These features are subject to the [Testing Agreement](https://handbook.gitlab.co
 
 {{< details >}}
 
-- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 
 {{< /details >}}
 

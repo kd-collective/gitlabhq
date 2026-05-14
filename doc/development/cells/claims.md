@@ -251,7 +251,7 @@ Some models should not claim every attribute value. For example:
 
 Use the `if:` option on `cells_claims_attribute` to control which values are claimed.
 The `if:` option accepts a lambda that receives the record and returns a boolean.
-When `if:` returns `false`, the value is not sent to Topology Service on create.
+When `if:` returns `false`, the value is not sent to Topology Service on create and destroy.
 
 ```ruby
 class Route < ApplicationRecord
@@ -271,9 +271,7 @@ In this example, only routes without a `/` in the path are claimed.
 - **Save (update):** The old value is always destroyed, even if `if:` returned
   `false` when the old value was saved. The new value is created only when
   `if:` returns `true`.
-- **Record destroy:** Destroy requests are always sent, regardless of `if:`.
-  Topology Service treats missing claims as a no-op, so this is safe and
-  prevents stale claims.
+- **Record destroy:** Destroy requests are sent only when `if:` returns true.
 - **Verification:** `cells_claims_metadata` excludes entries where `if:`
   returns `false`, so the verification service does not create claims for
   non-claimable values.

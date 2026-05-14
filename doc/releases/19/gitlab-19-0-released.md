@@ -8,6 +8,12 @@ description: "Summary of features included in 19.0"
 The following features are being delivered for GitLab 19.0.
 These features are now available on GitLab.com.
 
+We'd also like to announce this month's [Notable Contributor](https://contributors.gitlab.com/notable-contributors):
+Norman Debald!
+
+We are excited to recognize [Norman](https://gitlab.com/Modjo85), a Level 3 contributor
+with more than 40 merged improvements across GitLab since joining in May 2022.
+
 <!-- Copy this template, and paste it into the doc section where it belongs:
 
 Primary feature, Agentic Core, Scale and Deployments, or Unified DevOps and Security.
@@ -30,9 +36,55 @@ Use phrases that start with, "In previous versions of GitLab, you couldn't... No
 Use present tense, and speak about "you" instead of "the user."
 -->
 
-<!-- ## Primary features
+## Primary features
 
-The first person to add a feature in this area, please make the title visible and delete this comment -->
+### Group-level custom review instructions for GitLab Duo
+
+<!-- categories: Duo Code Review -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Add-ons: Duo Enterprise
+- Links: [Documentation](../../user/gitlab_duo/customize_duo/review_instructions.md#configure-custom-review-instructions-for-a-group), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/21504)
+
+{{< /details >}}
+
+In previous versions of GitLab, you could only define custom review instructions for
+GitLab Duo at the project level. Teams working across many projects in the
+same group had to duplicate the same instructions in every project.
+
+Now you can configure shared custom review instructions for an entire group and its subgroups.
+
+Select a project in your group to use as a template. When GitLab Duo performs a code review, it combines the group-level `.gitlab/duo/mr-review-instructions.yaml` file with any instructions defined in the individual project.
+
+Both Code Review Flow and GitLab Duo Code Review support group-level custom instructions.
+
+### GitLab Secrets Manager now available in open beta
+
+<!-- categories: Secrets Management -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
+- Links: [Documentation](../../ci/secrets/secrets_manager/_index.md), [Related epic](https://gitlab.com/groups/gitlab-org/-/epics/21731)
+
+{{< /details >}}
+
+In previous versions of GitLab, the GitLab Secrets Manager was available only to a closed beta
+cohort. Most teams relied on external services such as HashiCorp Vault or AWS Secrets Manager.
+
+The GitLab Secrets Manager is now available in open beta for Premium and Ultimate customers on
+GitLab.com and GitLab Self-Managed. When the GitLab Secrets Manager is enabled, project and group Owners
+can store, retrieve, and reference CI/CD secrets in GitLab. Secrets are scoped to a project or group
+and are accessible to only pipeline jobs that explicitly request them.
+
+During open beta, GitLab Secrets Manager follows the
+[beta support policy](../../policy/development_stages_support.md#beta) and might not be ready for production use.
+
+To share feedback, see [issue 598100](https://gitlab.com/gitlab-org/gitlab/-/issues/598100).
 
 ## Agentic Core
 
@@ -54,6 +106,27 @@ without having to go to individual projects.
 
 For example, searching for `def authenticate repo:my-group/my-project` returns results
 only from that repository. You can also use partial paths or patterns to match multiple repositories.
+
+### Duo Developer enhancements for merge request workflows
+
+<!-- categories: Duo Agent Platform -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/duo_agent_platform/flows/foundational_flows/developer.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228817)
+
+{{< /details >}}
+
+GitLab Duo Developer now supports multiple trigger methods: assign it to an issue, select
+**Generate MR**, or `@mention` it in any issue or MR discussion thread to turn feedback,
+To-do items, and design questions into code changes, follow-up MRs, or research summaries.
+
+With `AGENTS.md` and `agent-config.yml`
+configured, GitLab Duo Developer runs your tests and checks before committing. After a top-level
+group or instance administrator enables the Developer Flow, GitLab automatically adds mention and assign triggers
+to eligible projects.
 
 ### Claude Opus 4.7 now available in GitLab Duo Agent Platform
 
@@ -82,6 +155,62 @@ Claude Opus 4.7 is now available in GitLab Duo Agent Platform. Opus 4.7 delivers
 {{< /details >}}
 
 GitLab Duo Agent Platform now supports additional open source models for self-hosted deployments, including Devstral 2 123B, GLM-5.1-FP8, and others. This helps customers power agentic workflows across a variety of environments, including offline and network-restricted deployments.
+
+### Per-session tool approvals with admin controls
+
+<!-- categories: Duo Agent Platform, Duo Chat -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/gitlab_duo_chat/agentic_chat.md#tool-approvals), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/596366)
+
+{{< /details >}}
+
+Before GitLab Duo Agentic Chat can use a tool on your behalf, it requires your approval. Each tool
+invocation requires a separate approval.
+
+Now, you can approve a trusted tool once for an entire session and streamline your workflows.
+
+Administrators control whether tool approval for sessions is available. The following settings
+cascade from instance to group to project:
+
+- **On by default**
+- **Off by default**
+- **Always off**
+
+Groups and subgroups can modify the setting unless an administrator sets it to **Always off**.
+
+The default setting is **Off by default**, ensuring each tool invocation requires explicit approval
+unless an administrator changes it.
+
+### Resolve merge conflicts with GitLab Duo (Beta)
+
+<!-- categories: Duo Agent Platform, Code Review Workflow -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/project/merge_requests/conflicts.md#resolve-conflicts-with-gitlab-duo), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/20688)
+
+{{< /details >}}
+
+In previous versions of GitLab, you had to resolve merge conflicts manually in
+the GitLab UI or from the command line, even for straightforward cases.
+
+Now GitLab Duo can autonomously analyze merge conflicts, edit the conflicting
+files, create a commit, and push to the source branch. Trigger conflict
+resolution from the **Resolve conflicts** page or directly from the merge
+request widget. When complete, GitLab Duo posts a summary comment so reviewers
+can see what changed.
+
+GitLab Duo respects branch protection rules and does not force-push to
+protected branches.
+
+This feature is in beta and is gated behind the `mr_ai_resolve_conflicts` feature flag,
+disabled by default.
 
 ## Scale and Deployments
 
@@ -381,3 +510,50 @@ and that the payload has not been modified. By also validating the timestamp, yo
 
 Thanks to [Van Anderson](https://gitlab.com/van.m.anderson) and
 [Norman Debald](https://gitlab.com/Modjo85) for their community contributions!
+
+### Cross-project pushes using CI/CD job tokens
+
+<!-- categories: Continuous Integration (CI) -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated, GitLab Dedicated for Government
+- Links: [Documentation](../../ci/jobs/ci_job_token.md#allow-cross-project-git-push-requests-from-allowlisted-projects), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/issues/479907)
+
+{{< /details >}}
+
+In previous versions of GitLab, you could only use a CI/CD job token (`CI_JOB_TOKEN`) to push
+to the same repository where the pipeline runs. Cross-project pushes required a personal access
+token or deploy token.
+
+You can now use a job token to push to another project when:
+
+1. The target project opts in.
+1. The user who starts the pipeline has at least the Developer role in the target project.
+
+This feature is behind the `allow_push_to_allowlisted_projects` feature flag, disabled by default
+in GitLab 19.0. Ask your administrator to enable it.
+
+### Rapid Diffs for merge request reviews (Beta)
+
+<!-- categories: Code Review Workflow -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
+- Links: [Documentation](../../user/project/merge_requests/changes.md#rapid-diffs), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/18457)
+
+{{< /details >}}
+
+In previous versions of GitLab, you would have to wait for the **Changes** tab to load all files before you could begin reviewing, which slowed down large reviews.
+
+Now you can use Rapid Diffs to review merge requests with faster initial load, smoother
+scrolling, and more responsive interactions across files. Rapid Diffs uses the same
+technology that already powers the commits page.
+
+Rapid Diffs is in beta. Some features from the classic diff experience aren't yet available. You can switch back at any time.
+
+[Watch the overview video](https://www.youtube.com/watch?v=S-IzJnhoH6U) and share your
+experience in the [feedback issue](https://gitlab.com/gitlab-org/gitlab/-/issues/596236).

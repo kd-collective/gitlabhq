@@ -438,6 +438,35 @@ module API
       error!('404 Not Found', 404)
     end
   end
+
+  class TrackAPIRequestFromPersonalAccessToken < ::Grape::Middleware::Base
+    delegate :endpoint_id, to: :context
+
+    def after
+      token_info = ::Current.token_info
+      return unless token_info.is_a?(Hash) && token_info[:token_type] == 'PersonalAccessToken'
+
+      # NOTE: use instance_variable_get to avoid triggering lazy current_user evaluation
+      user = context.instance_variable_get(:@current_user)
+
+      return unless user
+      return unless Feature.enabled?(:track_api_request_from_personal_access_token, user)
+
+      ::Gitlab::InternalEvents.track_event(
+        'use_pat',
+        user: user,
+        additional_properties: {
+          label: endpoint_id,
+          pat_type: token_info[:pat_type],
+          response_code: context.status
+        }
+      )
+
+      # Explicit nil is needed or the api call return value will be overwritten
+      nil
+    end
+  end
 end
 
+API::API.use API::TrackAPIRequestFromPersonalAccessToken
 API::API.prepend_mod

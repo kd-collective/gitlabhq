@@ -122,7 +122,7 @@ To resolve this issue:
 ## Troubleshooting GitLab Duo on GitLab Dedicated
 
 GitLab Duo Core should work out-of-the-box on GitLab 18.3 and later for Premium
-and Ultimate customers.
+and Ultimate customers, for all GitLab Duo features excluding GitLab Duo Non-Agentic Chat.
 
 Pre-production GitLab Dedicated instances do not support GitLab Duo Core by design.
 
@@ -181,6 +181,8 @@ you can also do the following:
 - If you have GitLab Duo Core, verify that you have:
   - A Premium or Ultimate subscription.
   - [Turned on IDE features](turn_on_off.md#turn-gitlab-duo-core-on-or-off).
+  > [!note]
+  > GitLab Duo Non-Agentic Chat is not available for GitLab Duo Core users.
 - If you have GitLab Duo Pro or Enterprise:
   - Verify that [a subscription add-on has been purchased](../../subscriptions/subscription-add-ons.md#purchase-gitlab-duo).
   - Ensure that [seats are assigned to users](../../subscriptions/subscription-add-ons.md#assign-gitlab-duo-seats).

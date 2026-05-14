@@ -2996,6 +2996,9 @@ msgstr ""
 msgid "AICatalog|Immediate security threat"
 msgstr ""
 
+msgid "AICatalog|In the AI Catalog, only show agents and flows created or owned by projects in this group hierarchy, or foundational agents and flows. Agents and flows from outside this group hierarchy are hidden, and cannot be enabled or used."
+msgstr ""
+
 msgid "AICatalog|Input cannot exceed %{value} characters."
 msgstr ""
 
@@ -3195,6 +3198,9 @@ msgid "AICatalog|Report to admin"
 msgstr ""
 
 msgid "AICatalog|Research Assistant, Creative Writer, Code Helper"
+msgstr ""
+
+msgid "AICatalog|Restrict the AI Catalog to this group"
 msgstr ""
 
 msgid "AICatalog|Save changes"
@@ -3483,6 +3489,9 @@ msgid "AICatalog|cannot be enabled because your top-level group settings block e
 msgstr ""
 
 msgid "AICatalog|flow"
+msgstr ""
+
+msgid "AICatalog|flow definition must be validated by Duo Workflow Service before saving"
 msgstr ""
 
 msgid "AICatalog|flows"
@@ -78909,6 +78918,9 @@ msgstr ""
 msgid "UsageBilling|An error occurred while fetching usage data"
 msgstr ""
 
+msgid "UsageBilling|Automated flow"
+msgstr ""
+
 msgid "UsageBilling|Blocked usage"
 msgstr ""
 
@@ -84057,6 +84069,9 @@ msgstr ""
 msgid "Work items"
 msgstr ""
 
+msgid "Work items with this label were imported with a work item type name that could not be resolved in this namespace. They were assigned the default issue type instead."
+msgstr ""
+
 msgid "WorkItemCustomFields|Failed to load custom fields."
 msgstr ""
 
@@ -84127,6 +84142,9 @@ msgid "WorkItems|Ancestors not available"
 msgstr ""
 
 msgid "WorkItems|Blocked/Blocking"
+msgstr ""
+
+msgid "WorkItems|Display"
 msgstr ""
 
 msgid "WorkItems|Display options"
@@ -88742,6 +88760,9 @@ msgid "impersonation tokens"
 msgstr ""
 
 msgid "import flow"
+msgstr ""
+
+msgid "imported"
 msgstr ""
 
 msgid "in"

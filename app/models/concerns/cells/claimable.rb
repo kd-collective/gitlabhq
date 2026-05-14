@@ -180,6 +180,7 @@ module Cells
 
       self.class.cells_claims_attributes.each do |attribute, config|
         next unless self.class.cells_claims_enabled_for_attribute?(attribute)
+        next unless cells_claims_attribute_claimable?(config)
 
         transaction_record.destroy_record(
           cells_claims_metadata_for(config[:type], public_send(attribute))) # rubocop:disable GitlabSecurity/PublicSend -- developer hard coded

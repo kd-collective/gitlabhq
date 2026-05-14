@@ -8,7 +8,7 @@ title: Code Suggestions
 
 {{< details >}}
 
-- Tier: [Free](../../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 - Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 
 {{< /details >}}
@@ -37,6 +37,7 @@ title: Code Suggestions
 - [Changed](https://gitlab.com/gitlab-org/gitlab/-/issues/545489) the default model for code generation to Claude Sonnet 4 in GitLab 18.2.
 - [Removed](https://gitlab.com/gitlab-org/gitlab/-/issues/462750) feature flag `code_suggestions_context` in GitLab 18.6.
 - Available on the Free tier on GitLab.com with GitLab Credits in GitLab 18.10.
+- Changed GitLab Duo Core user access to Code Suggestions. Now available as part of the GitLab Duo Agent Platform starting in GitLab 19.0.
 
 {{< /history >}}
 
@@ -44,7 +45,7 @@ title: Code Suggestions
 > Code Suggestions is available for:
 >
 > - GitLab Duo Agent Platform. Billing is [usage-based](../../../subscriptions/gitlab_credits.md).
-> - GitLab Duo Core, Pro, or Enterprise, GitLab Duo with Amazon Q. Billing is based on your add-on.
+> - GitLab Duo Pro or Enterprise, GitLab Duo with Amazon Q. Billing is based on your add-on.
 
 Use GitLab Duo Code Suggestions to write code more efficiently by using generative AI to suggest code while you're developing.
 

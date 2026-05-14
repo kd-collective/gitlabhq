@@ -65,7 +65,7 @@ To use the Agent Platform in your local environment:
 
 These features are generally available and consume [GitLab Credits](../../subscriptions/gitlab_credits.md) when used.
 
-Features available on the Free tier for GitLab.com customers require the purchase of [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom).
+Features available on the Free tier require the purchase of [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier).
 
 | Feature | Free | Premium | Ultimate |
 |---------|---------|---------|---------|
@@ -93,7 +93,7 @@ Features available on the Free tier for GitLab.com customers require the purchas
 
 These features are either beta or experiment and do not consume GitLab Credits.
 
-For [GitLab.com users on the Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom) tier, beta and experimental features don't consume credits,
+For [users on the Free](../../subscriptions/gitlab_credits.md#for-the-free-tier) tier, beta and experimental features do not consume credits,
 but you require credits in your Monthly Commitment Pool to access them.
 
 > [!warning]

@@ -31,7 +31,9 @@ Credits are calculated based on the features and models you use, as listed in th
 You are billed for features that are [generally available](../policy/development_stages_support.md#generally-available).
 
 Billing occurs at the root namespace or top-level group level, not at the project level.
-Credit usage is attributed to the user who performs the action, regardless of which project they are using the features in.
+Credit usage is attributed to the subject who performs the action, regardless of which project they are using the features in.
+A subject is either a human user or a non-human subject (for example, a service account or a bot running an automated flow).
+For more information, see [Non-human subject usage](#non-human-subject-usage).
 All usage in a root namespace or top-level group is consolidated for billing purposes.
 
 GitLab provides three ways to obtain credits:
@@ -53,6 +55,10 @@ Included credits reset at the beginning of each month.
 Unused credits do not roll over to the next month.
 
 [Community program subscriptions](community_programs.md) do not receive included credits.
+
+Non-human subjects, such as service accounts and bots, do not receive included credits.
+Their consumption is billed at the namespace level from the Monthly Commitment Pool and On-Demand credits.
+For more information, see [Non-human subject usage](#non-human-subject-usage).
 
 For more information about included credits, see [GitLab Promotions Terms & Conditions](https://about.gitlab.com/pricing/terms/).
 
@@ -125,22 +131,23 @@ To request credits, [contact the Sales team](https://about.gitlab.com/sales/).
 
 If you're on the Free tier and want to try credits, you can start an [Ultimate trial](free_trials.md).
 
-## For the Free tier on GitLab.com
+## For the Free tier
 
 {{< details >}}
 
 - Tier: Free
-- Offering: GitLab.com
+- Offering: GitLab.com, GitLab Self-Managed
 
 {{< /details >}}
 
 {{< history >}}
 
-- [Introduced](https://gitlab.com/groups/gitlab-org/-/work_items/20165) in GitLab 18.10.
+- [Introduced](https://gitlab.com/groups/gitlab-org/-/work_items/20165) in GitLab 18.10 for GitLab.com.
+- Enabled on GitLab Self-Managed in GitLab 19.0.
 
 {{< /history >}}
 
-Users on the Free tier on GitLab.com can purchase a Monthly Commitment Pool of GitLab Credits for their group namespace. This provides access to a set of [GitLab Duo Agent Platform features](../user/duo_agent_platform/_index.md), without needing a Premium or Ultimate subscription.
+Users on the Free tier can purchase a Monthly Commitment Pool of GitLab Credits for their instance or group namespace. This provides access to a set of [GitLab Duo Agent Platform features](../user/duo_agent_platform/_index.md), without needing a Premium or Ultimate subscription.
 
 On-demand usage for Free namespaces is capped at $25,000 for each calendar month. Upon reaching this limit, on-demand usage is automatically turned off and resets at the beginning of the following month.
 
@@ -200,9 +207,21 @@ Prerequisites:
 - You must be an administrator.
 - Your instance must be able to synchronize your subscription data with GitLab.
 
+On the Premium and Ultimate tier:
+
 1. In the upper-right corner, select **Admin**.
 1. In the left sidebar, select **GitLab Credits**.
 1. Select **Purchase monthly commitment** or **Increase monthly commitment**.
+1. In the Customers Portal form, enter the number of credits you want to buy.
+1. Select **Review order**. Verify that the number of credits, customer information, and payment method are correct.
+1. Select **Confirm purchase**.
+
+On the Free tier:
+
+1. In the upper-right corner, select **Admin**.
+1. In the left sidebar, select **Subscription**.
+1. On the GitLab Credits card, select **Purchase credits**.
+1. If you do not have a Customers Portal account, first complete the steps to create an account. Then use your credentials to sign in.
 1. In the Customers Portal form, enter the number of credits you want to buy.
 1. Select **Review order**. Verify that the number of credits, customer information, and payment method are correct.
 1. Select **Confirm purchase**.
@@ -408,6 +427,33 @@ Prerequisites:
 
 By default, individual user data is not displayed in the GitLab Credits dashboard.
 To display it, you must enable this setting for your [group](../user/group/manage.md#display-gitlab-credits-user-data) or [instance](../administration/settings/visibility_and_access_controls.md#display-gitlab-credits-user-data).
+
+### Non-human subject usage
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/596238) in GitLab 19.0.
+
+{{< /history >}}
+
+Credit consumption can be triggered by either a human user or a non-human subject,
+such as a service account or a bot running an automated flow
+(for example, the SAST False Positive Detection Flow or the
+SAST Vulnerability Resolution Flow).
+
+To help you identify where credits are consumed, the **Usage by user** tab
+of the GitLab Credits dashboard displays an **Automated flow** badge next to
+any row that represents a non-human subject. Rows without the badge represent
+human users.
+
+Non-human subjects do not receive [included credits](#included-credits).
+All of their consumption is drawn from the namespace's Monthly Commitment Pool
+first, and then from On-Demand credits, in the same [usage order](#usage-order)
+as human users.
+
+Display of **Automated flow** rows is controlled by the same setting as human-user
+rows. To show them, enable [**Display GitLab Credits user data**](../user/group/manage.md#display-gitlab-credits-user-data)
+for your group or [instance](../administration/settings/visibility_and_access_controls.md#display-gitlab-credits-user-data).
 
 ### Usage caps
 

@@ -71,6 +71,30 @@ RSpec.shared_examples 'a redacted search results' do
     end
   end
 
+  context 'for work_items' do
+    let(:readable) { create(:work_item, project: accessible_project) }
+    let(:unreadable) { create(:work_item, project: inaccessible_project) }
+    let(:unredacted_results) { ar_relation(WorkItem, readable, unreadable) }
+    let(:scope) { 'work_items' }
+
+    it 'redacts the inaccessible work item' do
+      expect(search_service.send(:logger))
+        .to receive(:error)
+        .with(
+          hash_including(
+            message: "redacted_search_results",
+            filtered: array_including(
+              [
+                { class_name: 'WorkItem', id: unreadable.id, ability: :read_work_item }
+              ]
+            )
+          )
+        )
+
+      expect(result).to contain_exactly(readable)
+    end
+  end
+
   context 'for notes' do
     let(:readable_merge_request) do
       create(:merge_request_with_diffs, target_project: accessible_project, source_project: accessible_project)

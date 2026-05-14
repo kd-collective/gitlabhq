@@ -3,8 +3,6 @@ import { __, s__ } from '~/locale';
 export const MAX_MILESTONES_TO_DISPLAY = 5;
 
 export const BACK_URL_PARAM = 'back_url';
-// eslint-disable-next-line @gitlab/no-hardcoded-urls -- Vue Router route path segment, not a GitLab URL
-export const COMPARE_PATH_SEGMENT = '/-/compare/';
 
 export const ASSET_LINK_TYPE = Object.freeze({
   OTHER: 'other',

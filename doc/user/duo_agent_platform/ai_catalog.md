@@ -8,7 +8,7 @@ title: AI Catalog
 
 {{< details >}}
 
-- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), Premium, Ultimate
+- Tier: [Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), Premium, Ultimate
 - Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 
 {{< /details >}}
@@ -164,6 +164,42 @@ To make your group or project use the latest version of an agent or flow:
    - **AI** > **Flows**
 1. Select the agent or flow you want to update.
 1. Review the latest version carefully. To update, select **View latest version** > **Update to `<x.y.z>`**.
+
+## Restrict the AI Catalog to a group hierarchy
+
+{{< details >}}
+
+- Offering: GitLab.com
+
+{{< /details >}}
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/594617) in GitLab 19.0.
+
+{{< /history >}}
+
+In a top-level group, you can restrict the AI Catalog visibility so that users in that group:
+
+- Can see and use:
+  - Foundational agents and flows maintained by GitLab.
+  - Agents, external agents, and flows created by projects in this hierarchy.
+- Cannot see or use agents, external agents, or flows that were created by projects not in this hierarchy.
+
+You can configure this setting only on a top-level group.
+Changes to this setting are recorded in the audit log.
+
+Prerequisites:
+
+- You must have the Owner role for the top-level group.
+
+To restrict the AI Catalog to your group hierarchy:
+
+1. In the top bar, select **Search or go to** and find your top-level group.
+1. Select **Settings** > **GitLab Duo**.
+1. Select **Change configuration**.
+1. In the **Data and privacy** section, under **AI Catalog**, select the **Restrict the AI Catalog to this group** checkbox.
+1. Select **Save changes**.
 
 ## Related topics
 

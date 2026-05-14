@@ -274,19 +274,31 @@ RSpec.describe Cells::Claimable, feature_category: :cell do
     end
 
     describe '#cells_claims_destroy_changes' do
-      context 'when if: returns false' do
-        it 'still sends destroy (unconditional)' do
-          record = conditional_klass.create!(path: 'group/subpath')
+      context 'when if: returns true' do
+        it 'destroys the claim' do
+          claimable_instance = conditional_klass.create!(path: 'claimable')
 
           allow(Cells::TransactionRecord)
-            .to receive(:current_transaction).with(record.connection).and_return(transaction_record)
+            .to receive(:current_transaction).with(claimable_instance.connection).and_return(transaction_record)
           expect(transaction_record).to receive(:destroy_record).with(
             a_hash_including(bucket: {
-              type: Cells::Claimable::CLAIMS_BUCKET_TYPE::ORGANIZATION_PATH, value: 'group/subpath'
+              type: Cells::Claimable::CLAIMS_BUCKET_TYPE::ORGANIZATION_PATH, value: 'claimable'
             })
           )
 
-          record.destroy!
+          claimable_instance.destroy!
+        end
+      end
+
+      context 'when if: returns false' do
+        it 'does not destroy the claim' do
+          non_claimable_instance = conditional_klass.create!(path: 'group/project')
+
+          allow(Cells::TransactionRecord)
+            .to receive(:current_transaction).with(non_claimable_instance.connection).and_return(transaction_record)
+          expect(transaction_record).not_to receive(:destroy_record)
+
+          non_claimable_instance.destroy!
         end
       end
     end
