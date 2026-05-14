@@ -12,7 +12,11 @@ module Import
         export_configuration = export.offline_export.configuration
 
         client = offline_storage_client(export_configuration)
-        client.store_file(offline_storage_filename(export_configuration), compressed_filename)
+        object_key = offline_storage_filename(export_configuration)
+
+        validate_upload_url!(client.request_url(object_key))
+
+        client.store_file(object_key, compressed_filename)
       end
 
       private
@@ -36,6 +40,13 @@ module Import
 
       def extension
         "#{File.extname(exported_filename)}#{COMPRESSED_FILE_EXTENSION}"
+      end
+
+      def validate_upload_url!(url)
+        ::Gitlab::HTTP_V2::UrlBlocker.validate!(
+          url,
+          **Import::Framework::UrlBlockerParams.new.to_h
+        )
       end
     end
   end

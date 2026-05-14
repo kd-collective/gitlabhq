@@ -712,7 +712,7 @@ You can use this information to:
 - Understand which projects are using your catalog resources.
 - Make informed decisions about component maintenance and deprecation.
 
-## View component usage details
+### View component usage details
 
 {{< details >}}
 
@@ -723,13 +723,9 @@ You can use this information to:
 
 {{< history >}}
 
-- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/579460) in GitLab 19.0 [with a flag](../../administration/feature_flags/_index.md) named `ci_component_analytics`. Disabled by default.
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/579460) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of this feature is controlled by a feature flag.
-> For more information, see the history.
 
 If you maintain CI/CD catalog component projects, you can view detailed component usage information to understand which projects use the components and which versions they use.
 This helps you plan upgrades, communicate deprecations, and identify projects that use outdated versions.

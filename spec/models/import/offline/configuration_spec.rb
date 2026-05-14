@@ -247,6 +247,33 @@ RSpec.describe Import::Offline::Configuration, feature_category: :importers do
     end
   end
 
+  describe '#endpoint' do
+    context 'when credentials include an endpoint' do
+      it 'returns the endpoint' do
+        configuration = build(:offline_configuration, :s3_compatible)
+
+        expect(configuration.endpoint).to eq('https://minio.example.com')
+      end
+    end
+
+    context 'when credentials do not include an endpoint' do
+      it 'returns nil' do
+        configuration = build(:offline_configuration, :aws_s3)
+
+        expect(configuration.endpoint).to be_nil
+      end
+    end
+
+    context 'when credentials are not present' do
+      it 'returns nil' do
+        configuration = build(:offline_configuration)
+        allow(configuration).to receive(:object_storage_credentials).and_return(nil)
+
+        expect(configuration.endpoint).to be_nil
+      end
+    end
+  end
+
   describe '#entity_prefix_for_path' do
     let(:configuration) do
       build(:offline_configuration, entity_prefix_mapping: {

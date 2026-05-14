@@ -41,16 +41,16 @@ module Import
         entity_prefix_mapping[source_full_path]
       end
 
+      def endpoint
+        object_storage_credentials.with_indifferent_access[:endpoint] if object_storage_credentials.present?
+      end
+
       private
 
       def generate_export_prefix
         return if export_prefix.present?
 
         self.export_prefix = "#{Time.current.strftime('%F_%H-%M-%S')}_export_#{SecureRandom.alphanumeric(8)}"
-      end
-
-      def endpoint
-        object_storage_credentials.with_indifferent_access[:endpoint] if object_storage_credentials.present?
       end
 
       def supported_providers

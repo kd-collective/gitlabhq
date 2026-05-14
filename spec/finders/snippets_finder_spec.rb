@@ -447,13 +447,13 @@ RSpec.describe SnippetsFinder do
       end
 
       context 'when including project snippets' do
-        it 'returns project snippets regardless of organization' do
+        it 'returns only project snippets from the specified organization' do
           snippets = described_class.new(user_org1, scope: :all, organization_id: org1.id).execute
 
-          # Should include both org1 personal snippets AND all visible project snippets
-          expect(snippets).to include(snippet_org1_private, snippet_org1_public, project_snippet_org1, project_snippet_org2)
-          # Should NOT include personal snippets from other orgs
-          expect(snippets).not_to include(snippet_org2_private, snippet_org2_public)
+          # Should include org1 personal snippets AND org1 project snippets
+          expect(snippets).to include(snippet_org1_private, snippet_org1_public, project_snippet_org1)
+          # Should NOT include snippets from other orgs (personal OR project)
+          expect(snippets).not_to include(snippet_org2_private, snippet_org2_public, project_snippet_org2)
         end
       end
 

@@ -203,8 +203,14 @@ RSpec.describe Gitlab::Database::Reflection, feature_category: :database do
       expect(database.postgresql_minimum_supported_version?).to eq(false)
     end
 
-    it 'returns true when using PostgreSQL 16' do
+    it 'returns false when using PostgreSQL 16' do
       allow(database).to receive(:version).and_return('16')
+
+      expect(database.postgresql_minimum_supported_version?).to eq(false)
+    end
+
+    it 'returns true when using PostgreSQL 17' do
+      allow(database).to receive(:version).and_return('17')
 
       expect(database.postgresql_minimum_supported_version?).to eq(true)
     end

@@ -1,8 +1,8 @@
-# Release post item
+# Release notes item
 
 <!-- Set the correct label and milestone using autocomplete for guidance. Please @mention only the DRI(s) for each stage or group rather than an entire department. -->
 
-/label ~"release post" ~"release post item" ~"Technical Writing" ~"devops::" ~"group::"
+/label ~"release post" ~"release post item" ~"Technical Writing" ~"type::maintenance" ~"maintenance::refactor" ~"devops::" ~"group::"
 
 Team members for review and approval: Engineer(s): `@engineers` | Product Marketing: `@PMM` | Tech Writer: `@TW`  | Product Designer(s): `@ProductDesigners`
 
@@ -23,7 +23,9 @@ Engineering Manager to merge when the feature is deployed and enabled: `@EM`
 | ------------------------------------- | ------------------------------------------------------------ | ------ |
 | Monday of milestone week or earlier   | PMs                                                          | Draft all release post item content and submit for review |
 | Thursday of milestone week or earlier | TWs (required); PMM and PM Director/Group Manager (optional) | Complete reviews of release post item content |
-| Friday of milestone week or earlier   | EMs or TWs                                                   | Merge content by 00:00 UTC (midnight) |
+| Friday of milestone week or earlier   | TWs or EMs                                                   | Merge content by 00:00 UTC (midnight) |
+
+Note: Not all EMs have Maintainer role, so the EM needs to rely on the TW in this case. If necessary, make the MR dependent on the code MR.
 
 Draft your content as soon as possible to avoid missing the cutoff!
 
@@ -59,7 +61,8 @@ Draft your content as soon as possible to avoid missing the cutoff!
   - Ensure the documentation is updated and clearly talks about the feature.
   - Ensure all links to `docs.gitlab.com` content are relative URLs.
 - [ ] For any [primary features](https://handbook.gitlab.com/handbook/marketing/blog/release-posts/#primary-vs-secondary):
-  - Be sure to include or revise the features.yml file as needed, as described in the [Handbook](https://handbook.gitlab.com/handbook/marketing/blog/release-posts/#features).
+  - Be sure to include or revise the [`features.yml` file](https://gitlab.com/gitlab-com/www-gitlab-com/-/blob/master/data/features.yml) as needed, as described in the [Handbook](https://handbook.gitlab.com/handbook/marketing/blog/release-posts/#features).
+  - A category is required, matching an entry in the [`categories.yml` file](https://gitlab.com/gitlab-com/www-gitlab-com/-/blob/master/data/categories.yml). If needed, add or update a category as [described in the handbook](https://handbook.gitlab.com/handbook/product/categories/#category-and-feature-changes).
   - [Update the pricing theme, if a Premium or Ultimate feature](https://gitlab.com/gitlab-com/www-gitlab-com/-/blob/master/.gitlab/merge_request_templates/pricing-theme-primary-feature.md).
 - [ ] Add Reviewers: When the above are complete, add the Tech Writer, PMM, and Group Manager or Director as Reviewers.
 - [ ] If this MR is a community contribution, consider nominating the contributor for MVP.
@@ -147,9 +150,9 @@ Notes:
   - [ ] Confirm the feature is in the release. Use a dependent MR if the release notes are dependent on the feature being merged.
     - Be aware that merging code to `master` **does not guarantee that the feature will be in the release** ([source](https://handbook.gitlab.com/handbook/engineering/workflow/#product-development-timeline)).
     - If in doubt, confirm the feature commits are in the `x-y-stable-ee` branch (for example, `13-12-stable-ee`).
-    - Changes merged into `master` 1+ day prior to `x-y-stable-ee` branch being created will likely be included in the release and release post for those features can be merged, unless there are incident blocking pipelines or a broken master.
+    - Changes merged into `master` 1+ day prior to `x-y-stable-ee` branch being created will likely be included in the release and release notes for those features can be merged, unless there are incident blocking pipelines or a broken master.
     - You can also use the chatops command `/chatops run release check [MR_URL] [RELEASE]` to check if the MR will be included in the release.
-    - Note: For any MRs merged close to the cutoff date, the results are not definitive until the stable branch is cut. If the code is not in the release or the deadline has passed, ensure the release notes do not include references to the feature.
+    - Note: For any MRs merged close to the cutoff date, the results are not definitive until the stable branch is cut.
   - [ ] If the feature is behind a feature flag, ensure it is enabled by default.
 
 </details>

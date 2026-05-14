@@ -48,11 +48,11 @@ RSpec.describe Snippet, feature_category: :source_code_management do
       let_it_be(:project) { create(:project, organization: organization) }
       let_it_be(:other_project) { create(:project, organization: other_organization) }
 
-      # Personal snippets for the organization
+      # Personal snippets
       let_it_be(:personal_snippet_in_org) { create(:personal_snippet, organization: organization) }
       let_it_be(:personal_snippet_other_org) { create(:personal_snippet, organization: other_organization) }
 
-      # Project snippets (should always be included regardless of organization)
+      # Project snippets
       let_it_be(:project_snippet) { create(:project_snippet, project: project) }
       let_it_be(:project_snippet_other_org) { create(:project_snippet, project: other_project) }
 
@@ -66,17 +66,16 @@ RSpec.describe Snippet, feature_category: :source_code_management do
         expect(subject).not_to include(personal_snippet_other_org)
       end
 
-      it 'returns all project snippets regardless of organization' do
-        expect(subject).to include(project_snippet, project_snippet_other_org)
+      it 'returns project snippets for the specified organization' do
+        expect(subject).to include(project_snippet)
       end
 
-      it 'returns the correct snippets' do
-        # This combines the expectations above for clarity
-        expect(subject).to contain_exactly(
-          personal_snippet_in_org,
-          project_snippet,
-          project_snippet_other_org
-        )
+      it 'does not return project snippets from other organizations' do
+        expect(subject).not_to include(project_snippet_other_org)
+      end
+
+      it 'returns only snippets belonging to the organization' do
+        expect(subject).to contain_exactly(personal_snippet_in_org, project_snippet)
       end
     end
   end

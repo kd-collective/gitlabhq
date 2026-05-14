@@ -82,9 +82,9 @@ RSpec.describe 'admin/registrations/groups/new', feature_category: :onboarding d
     expect(rendered).to have_button('Continue')
   end
 
-  it 'renders a skip link to the dashboard' do
+  it 'renders a skip link to the profile step' do
     render
 
-    expect(rendered).to have_link('Skip', href: '/dashboard/home')
+    expect(rendered).to have_link('Skip', href: '/admin/registrations/profile/new')
   end
 end

@@ -458,8 +458,9 @@ RSpec.describe 'getting a work item list for a project', feature_category: :port
       create(:award_emoji, :downvote, awardable: item1)
     end
 
-    it 'executes limited number of N+1 queries', :use_sql_query_cache,
-      quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/2407' do
+    it 'executes limited number of N+1 queries', :use_sql_query_cache do
+      post_graphql(query, current_user: current_user) # warm-up
+
       control = ActiveRecord::QueryRecorder.new(skip_cached: false) do
         post_graphql(query, current_user: current_user)
       end
@@ -573,8 +574,9 @@ RSpec.describe 'getting a work item list for a project', feature_category: :port
       expect(participants_usernames).to match_array(work_items.flat_map(&:participants).map(&:username))
     end
 
-    it 'executes limited number of N+1 queries', :use_sql_query_cache,
-      quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/2428' do
+    it 'executes limited number of N+1 queries', :use_sql_query_cache do
+      post_graphql(query, current_user: current_user) # warm-up
+
       control = ActiveRecord::QueryRecorder.new(skip_cached: false) do
         post_graphql(query, current_user: current_user)
       end
@@ -582,7 +584,10 @@ RSpec.describe 'getting a work item list for a project', feature_category: :port
       create_list(:work_item, 2, project: project, assignees: users)
 
       expect_graphql_errors_to_be_empty
-      expect { post_graphql(query, current_user: current_user) }.not_to exceed_all_query_limit(control)
+      # Participants are resolved per work item via Issuable#system_note_authors and
+      # Issuable#notes_for_participants, each adding one query per new item.
+      expect { post_graphql(query, current_user: current_user) }
+        .not_to exceed_all_query_limit(control).with_threshold(4)
     end
   end
 

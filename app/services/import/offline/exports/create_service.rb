@@ -43,7 +43,9 @@ module Import
           Import::Offline::ExportWorker.perform_async(offline_export.id)
 
           ServiceResponse.success(payload: offline_export)
-        rescue Import::Clients::ObjectStorage::ConnectionError, ActiveRecord::RecordInvalid => e
+        rescue Import::Clients::ObjectStorage::ConnectionError,
+          Gitlab::HTTP_V2::UrlBlocker::BlockedUrlError,
+          ActiveRecord::RecordInvalid => e
           service_error(e.message)
         end
 
@@ -71,9 +73,20 @@ module Import
         end
 
         def validate_object_storage!
-          offline_export.configuration.validate! # Validate before attempting to connect using this configuration
+          offline_export.configuration.validate!
+          validate_endpoint_url! if offline_export.configuration.s3_compatible?
 
           client.test_connection!
+        end
+
+        def validate_endpoint_url!
+          endpoint = offline_export.configuration.endpoint
+          return unless endpoint.present?
+
+          ::Gitlab::HTTP_V2::UrlBlocker.validate!(
+            endpoint,
+            **Import::Framework::UrlBlockerParams.new.to_h
+          )
         end
 
         def create_self_relation_exports!

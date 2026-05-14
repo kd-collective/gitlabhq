@@ -16,8 +16,8 @@ module Gitlab
               end
             end
 
-            def arguments_to_filters(engine_class, arguments)
-              engine_class.filters
+            def arguments_to_filters(filters, arguments)
+              filters
                 .map { |filter| build_filter(filter, arguments) }
                 .reject { |f| f[:values].blank? }
             end

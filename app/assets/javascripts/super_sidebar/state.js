@@ -21,8 +21,7 @@ export const duoChatGlobalState = observable('duo_chat_global_state', {
   isShown: false,
   isAgenticChatShown: false,
   chatMode: CHAT_MODES.CLASSIC, // CHAT_MODES.CLASSIC or CHAT_MODES.AGENTIC - single source of truth for chat mode
-  activeTab: null, // For embedded mode: which tab is active in the AI panel ('chat', 'history', etc.)
-  focusChatInput: false, // // Set to true to force the chat input to focus when the chat is expanded
+  focusChatInput: false, // Set to true to force the chat input to focus when the chat is expanded
   lastRoutePerTab: {}, // Tracks the last visited route for each tab (e.g., { sessions: '/agent-sessions/123' })
   activeThread: undefined, // Persisted across component recreations when overlay closes/reopens
   multithreadedView: 'chat', // Persisted view state: 'chat' or 'list'

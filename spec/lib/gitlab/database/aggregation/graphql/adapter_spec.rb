@@ -100,21 +100,18 @@ RSpec.describe Gitlab::Database::Aggregation::Graphql::Adapter, feature_category
   end
 
   describe '.arguments_to_filters' do
-    let(:engine_class) do
-      exact_match = Gitlab::Database::Aggregation::ClickHouse::ExactMatchFilter.new(:status, :string)
-      metric_exact_match = Gitlab::Database::Aggregation::ClickHouse::MetricExactMatchFilter.new(
-        :session_count, :integer
-      )
-      metric_range = Gitlab::Database::Aggregation::ClickHouse::MetricRangeFilter.new(
-        :session_duration, :integer
-      )
-
-      Class.new do
-        define_singleton_method(:filters) { [exact_match, metric_exact_match, metric_range] }
-      end
+    let(:exact_match) { Gitlab::Database::Aggregation::ClickHouse::ExactMatchFilter.new(:status, :string) }
+    let(:metric_exact_match) do
+      Gitlab::Database::Aggregation::ClickHouse::MetricExactMatchFilter.new(:session_count, :integer)
     end
 
-    it 'builds filter configurations for both regular and metric filters' do
+    let(:metric_range) do
+      Gitlab::Database::Aggregation::ClickHouse::MetricRangeFilter.new(:session_duration, :integer)
+    end
+
+    let(:filters) { [exact_match, metric_exact_match, metric_range] }
+
+    it 'builds filter configurations for the provided filters' do
       arguments = {
         status: %w[active],
         session_count: [1, 2, 3],
@@ -122,12 +119,24 @@ RSpec.describe Gitlab::Database::Aggregation::Graphql::Adapter, feature_category
         session_duration_to: 20
       }
 
-      expect(described_class.arguments_to_filters(engine_class, arguments))
+      expect(described_class.arguments_to_filters(filters, arguments))
         .to contain_exactly(
           { identifier: :status, values: %w[active] },
           { identifier: :session_count, values: [1, 2, 3] },
           { identifier: :session_duration, values: 10..20 }
         )
+    end
+
+    it 'only builds filters for the subset of filters passed in' do
+      arguments = {
+        status: %w[active],
+        session_count: [1, 2, 3],
+        session_duration_from: 10,
+        session_duration_to: 20
+      }
+
+      expect(described_class.arguments_to_filters([exact_match], arguments))
+        .to contain_exactly({ identifier: :status, values: %w[active] })
     end
   end
 end

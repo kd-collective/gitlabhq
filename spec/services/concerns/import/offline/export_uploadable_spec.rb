@@ -27,6 +27,8 @@ RSpec.describe Import::Offline::ExportUploadable, feature_category: :importers d
 
   before do
     allow(instance).to receive(:offline_storage_client).with(offline_export.configuration).and_return(client)
+    allow(client).to receive(:request_url)
+      .and_return('https://s3.example.com/bucket/exports/project_1/self.json.gz')
   end
 
   describe '#upload_directly_to_object_storage' do
@@ -83,6 +85,32 @@ RSpec.describe Import::Offline::ExportUploadable, feature_category: :importers d
         )
 
         instance.upload_directly_to_object_storage
+      end
+    end
+
+    context 'when the upload URL is blocked' do
+      before do
+        stub_application_setting(deny_all_requests_except_allowed?: true)
+      end
+
+      let(:export) do
+        build(:bulk_import_export,
+          project: project,
+          relation: 'self',
+          offline_export: offline_export,
+          user: user
+        )
+      end
+
+      let(:exported_filename) { '/tmp/export/self.json' }
+      let(:compressed_filename) { "#{exported_filename}.gz" }
+      let(:instance) { dummy_class.new(export, exported_filename, compressed_filename, project, 'self') }
+
+      it 'raises before store_file is called' do
+        expect(client).not_to receive(:store_file)
+
+        expect { instance.upload_directly_to_object_storage }
+          .to raise_error(Gitlab::HTTP_V2::UrlBlocker::BlockedUrlError)
       end
     end
 
