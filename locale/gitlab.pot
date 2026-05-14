@@ -63927,6 +63927,9 @@ msgstr ""
 msgid "SecretsManager|Add secret"
 msgstr ""
 
+msgid "SecretsManager|Allow GitLab Secrets Manager to be used in groups and projects."
+msgstr ""
+
 msgid "SecretsManager|An error occurred while fetching secrets manager data. Please try again."
 msgstr ""
 
@@ -63939,10 +63942,16 @@ msgstr ""
 msgid "SecretsManager|Cannot connect to OpenBao"
 msgstr ""
 
+msgid "SecretsManager|Charges may be incurred at the end of open beta"
+msgstr ""
+
 msgid "SecretsManager|Delete secret"
 msgstr ""
 
 msgid "SecretsManager|Edit %{name}"
+msgstr ""
+
+msgid "SecretsManager|Enable Secrets Manager for this instance. When enabled, the secrets manager can be turned on for any project or group in the instance."
 msgstr ""
 
 msgid "SecretsManager|Enter a new value to update secret"
@@ -63957,7 +63966,19 @@ msgstr ""
 msgid "SecretsManager|Failed to connect with OpenBao. Secrets are currently unavailable, please try again later."
 msgstr ""
 
+msgid "SecretsManager|Failed to load Secrets Manager enrollment state."
+msgstr ""
+
+msgid "SecretsManager|Failed to update Secrets Manager enrollment."
+msgstr ""
+
 msgid "SecretsManager|GitLab Secrets Manager"
+msgstr ""
+
+msgid "SecretsManager|GitLab Secrets Manager is free during open beta, but will consume %{linkStart}GitLab Credits%{linkEnd} when released as generally available (GA). Credits will only be consumed if you opt in, and we'll give you advance notice before GA."
+msgstr ""
+
+msgid "SecretsManager|Learn more about GitLab Secrets Manager."
 msgstr ""
 
 msgid "SecretsManager|Maximum 200 characters."
@@ -63997,6 +64018,15 @@ msgid "SecretsManager|Secret update failed. Retry the update or delete the secre
 msgstr ""
 
 msgid "SecretsManager|Secrets"
+msgstr ""
+
+msgid "SecretsManager|Secrets Manager"
+msgstr ""
+
+msgid "SecretsManager|Secrets Manager is disabled."
+msgstr ""
+
+msgid "SecretsManager|Secrets Manager is enabled."
 msgstr ""
 
 msgid "SecretsManager|Secrets can be items like API tokens, database credentials, or private keys. Unlike CI/CD variables, secrets must be explicitly requested by a job."
@@ -68707,9 +68737,6 @@ msgid "SecurityProfiles|Profile applied successfully."
 msgstr ""
 
 msgid "SecurityProfiles|Profile disabled successfully."
-msgstr ""
-
-msgid "SecurityProfiles|Recommended solution"
 msgstr ""
 
 msgid "SecurityProfiles|Root cause"
@@ -73466,9 +73493,6 @@ msgid "System started"
 msgstr ""
 
 msgid "Systems Administrator"
-msgstr ""
-
-msgid "TODO"
 msgstr ""
 
 msgid "TXT"
@@ -84701,7 +84725,7 @@ msgstr ""
 msgid "WorkItem|Enable list item"
 msgstr ""
 
-msgid "WorkItem|Enable this type automatically for all existing projects and any new projects."
+msgid "WorkItem|Enable this type automatically for any new projects."
 msgstr ""
 
 msgid "WorkItem|Enabled"

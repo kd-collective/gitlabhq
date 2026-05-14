@@ -11,43 +11,8 @@ class AddFkToMergeRequestDiffFiles99208b8fac < Gitlab::Database::Migration[2.3]
   FK_PROJECT_ID = :fk_rails_ebcce501f5
   FK_MR_DIFF_ID = :fk_rails_6fff895059
 
-  def up
-    add_concurrent_partitioned_foreign_key(
-      TABLE_NAME,
-      :projects,
-      column: :project_id,
-      on_delete: :cascade,
-      validate: false
-    )
-
-    add_concurrent_partitioned_foreign_key(
-      TABLE_NAME,
-      :merge_request_diffs,
-      column: :merge_request_diff_id,
-      on_delete: :cascade,
-      validate: false
-    )
-
-    # Prepare async validation immediately after adding FKs to ensure all
-    # partitions that have the FK are scheduled for validation
-    prepare_partitioned_async_foreign_key_validation TABLE_NAME, :project_id, name: FK_PROJECT_ID
-    prepare_partitioned_async_foreign_key_validation TABLE_NAME, :merge_request_diff_id, name: FK_MR_DIFF_ID
-  end
-
-  def down
-    unprepare_partitioned_async_foreign_key_validation TABLE_NAME, :project_id, name: FK_PROJECT_ID
-    unprepare_partitioned_async_foreign_key_validation TABLE_NAME, :merge_request_diff_id, name: FK_MR_DIFF_ID
-
-    remove_partitioned_foreign_key(
-      TABLE_NAME,
-      :projects,
-      column: :project_id
-    )
-
-    remove_partitioned_foreign_key(
-      TABLE_NAME,
-      :merge_request_diffs,
-      column: :merge_request_diff_id
-    )
+  def change
+    # no-op: This caused timeouts on Group and Project deletion due to the missing indices.
+    #  We would have to re-introduce the FK once the index creation has been completed.
   end
 end

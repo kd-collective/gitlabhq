@@ -193,7 +193,7 @@ RSpec.describe Groups::TransferService, :sidekiq_inline, feature_category: :grou
       context 'when there is a group with the same path' do
         let_it_be(:group) { create(:group, :public, :nested, path: 'not-unique') }
 
-        before do
+        before_all do
           create(:group, path: 'not-unique')
         end
 
@@ -1145,7 +1145,7 @@ RSpec.describe Groups::TransferService, :sidekiq_inline, feature_category: :grou
     let_it_be(:new_parent_group) { create(:group, :public) }
 
     let_it_be_with_reload(:group) { create(:group, :public, parent: current_parent_group) }
-    let!(:new_parent_group_member) { create(:group_member, :owner, group: new_parent_group, user: user) }
+    let_it_be(:new_parent_group_member) { create(:group_member, :owner, group: new_parent_group, user: user) }
 
     subject(:schedule) { transfer_service.schedule_async_transfer(new_parent_group) }
 

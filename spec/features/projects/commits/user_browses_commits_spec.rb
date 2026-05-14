@@ -4,6 +4,7 @@ require 'spec_helper'
 
 RSpec.describe 'User browses commits', feature_category: :source_code_management do
   include RepoHelpers
+  include FilteredSearchHelpers
 
   let_it_be(:user) { create(:user) }
   let_it_be(:project) { create(:project, :public, :repository, namespace: user.namespace) }
@@ -217,7 +218,7 @@ RSpec.describe 'User browses commits', feature_category: :source_code_management
 
           expect(page).to have_content(project.name)
             .and have_content(commit.message[0..12])
-            .and have_content(commit.short_id)
+          .and have_content(commit.short_id)
         end
       end
 
@@ -385,6 +386,8 @@ RSpec.describe 'User browses commits', feature_category: :source_code_management
       stub_feature_flags(project_commits_refactor: true)
     end
 
+    it_behaves_like 'single commit page features'
+
     it 'renders breadcrumbs on specific commit path' do
       visit project_commits_path(project, project.repository.root_ref + '/files/ruby/regex.rb', limit: 5)
 
@@ -399,41 +402,36 @@ RSpec.describe 'User browses commits', feature_category: :source_code_management
 
       it_behaves_like 'commits list common features', branch_name: 'feature-refactored'
 
-      context 'filtered search bar', :js do
-        before do
-          visit_commits_page
-        end
+      it 'renders the filtered search bar correctly', :js do
+        visit_commits_page
 
-        it 'renders the filtered search bar correctly' do
-          expect(page).to have_css('.vue-filtered-search-bar-container')
-        end
+        expect(page).to have_css('.vue-filtered-search-bar-container')
+      end
 
-        it 'displays Author and Message filter tokens in search hints' do
-          page.within('.vue-filtered-search-bar-container .gl-search-box-by-click') do
-            find_by_testid('filtered-search-term-input').click
+      it 'displays Author, Message, Committed after and Committed before filter tokens in search hints', :js do
+        visit_commits_page
 
-            expect(page).to have_selector('.gl-filtered-search-suggestion-list')
+        click_filtered_search_bar
 
-            hints = page.find_all('.gl-filtered-search-suggestion-list > li')
-            expect(hints.length).to eq(4)
-            expect(hints[0]).to have_content('Author')
-            expect(hints[1]).to have_content('Message')
-          end
-        end
+        expect_visible_suggestions_list
+        expect_suggestion_count(4)
+        expect_suggestion('Author')
+        expect_suggestion('Message')
+        expect_suggestion('Committed after')
+        expect_suggestion('Committed before')
+      end
 
-        it 'searches commit' do
-          page.within('.vue-filtered-search-bar-container .gl-search-box-by-click') do
-            find_by_testid('filtered-search-term-input').click
-            click_button 'Message'
-          end
+      it 'searches commit', :js do
+        visit_commits_page
 
-          find_by_testid('filtered-search-token-segment-input').send_keys('submodules')
-          page.find('.gl-search-box-by-click-search-button').click
-          wait_for_requests
+        click_filtered_search_bar
+        select_tokens('Message', submit: false)
+        find_by_testid('filtered-search-token-segment-input').send_keys('submodules')
+        send_keys :enter
+        wait_for_requests
 
-          expect(page).to have_content 'More submodules'
-          expect(page).not_to have_content 'Change some files'
-        end
+        expect(page).to have_content 'More submodules'
+        expect(page).not_to have_content 'Change some files'
       end
 
       it 'renders commits atom feed' do
@@ -463,23 +461,22 @@ RSpec.describe 'User browses commits', feature_category: :source_code_management
         it 'searches commit', :js do
           expect(page).to have_content(message)
 
-          find_by_testid('filtered-search-term-input').click
-          click_button 'Message'
-
+          click_filtered_search_bar
+          select_tokens('Message', submit: false)
           find_by_testid('filtered-search-token-segment-input').send_keys('bogus12345')
-          page.find('.gl-search-box-by-click-search-button').click
+          send_keys :enter
           wait_for_requests
 
           expect(page).to have_content "No commits found"
 
           click_button 'Clear'
-          wait_for_requests
 
-          find_by_testid('filtered-search-token-segment-input').click
+          within_testid('filtered-search-input') do
+            find_by_testid('filtered-search-token-segment-input').click
+          end
           click_button 'Message'
-
           find_by_testid('filtered-search-token-segment-input').send_keys('Glob')
-          page.find('.gl-search-box-by-click-search-button').click
+          send_keys :enter
           wait_for_requests
 
           expect(page).to have_content message

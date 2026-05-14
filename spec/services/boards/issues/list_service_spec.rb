@@ -42,7 +42,7 @@ RSpec.describe Boards::Issues::ListService, feature_category: :portfolio_managem
 
       let(:parent) { project }
 
-      before do
+      before_all do
         project.add_developer(user)
       end
 
@@ -97,9 +97,12 @@ RSpec.describe Boards::Issues::ListService, feature_category: :portfolio_managem
             create(:labeled_issue, :task, project: task_project, labels: [task_list.label])
           end
 
+          before_all do
+            task_project.add_developer(user)
+          end
+
           before do
             stub_feature_flags(work_item_tasks_on_boards: true)
-            task_project.add_developer(user)
           end
 
           it 'only returns the task type' do
@@ -232,7 +235,7 @@ RSpec.describe Boards::Issues::ListService, feature_category: :portfolio_managem
       end
 
       context 'user can move issues' do
-        before do
+        before_all do
           project.add_developer(user)
         end
 
