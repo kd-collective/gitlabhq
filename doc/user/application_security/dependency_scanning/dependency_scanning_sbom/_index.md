@@ -8,8 +8,7 @@ title: Dependency scanning by using SBOM
 {{< details >}}
 
 - Tier: Ultimate
-- Offering: GitLab.com, GitLab Self-Managed
-- Status: Limited Availability (GitLab.com and GitLab Self-Managed)
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
 
 {{< /details >}}
 
@@ -21,6 +20,7 @@ title: Dependency scanning by using SBOM
 - Feature flag `dependency_scanning_using_sbom_reports` removed in GitLab 17.10.
 - [Changed](https://gitlab.com/groups/gitlab-org/-/work_items/15960) from beta to limited availability for GitLab.com only with a new [V2 CI/CD dependency scanning template](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/201175/) in GitLab 18.5 [with a feature flag](../../../../administration/feature_flags/_index.md) named `dependency_scanning_sbom_scan_api`. Disabled by default.
 - Feature flag `dependency_scanning_using_sbom_reports` [enabled by default](https://gitlab.com/gitlab-org/gitlab/-/work_items/551861) in GitLab 18.10.
+- [Generally available](https://gitlab.com/groups/gitlab-org/-/work_items/20456) in GitLab 19.0.
 
 {{< /history >}}
 
@@ -97,12 +97,67 @@ To turn on dependency scanning through the GitLab UI:
 
 1. Select **Commit changes**.
 
+## Available container images
+
+This feature relies on container images to run CI jobs. The default CI job
+definitions reference these images by their major version tag (for example,
+`dependency-scanning:2`), so you automatically receive patch and minor updates
+without changing your CI/CD configuration.
+
+### Maintenance policy
+
+GitLab follows the [release and maintenance policy](../../../../policy/maintenance.md),
+to provide bug fixes for the current stable release and security fixes for the
+previous two monthly releases.
+
+CI/CD jobs reference images by their major version tag
+(for example, `dependency-scanning:2`), so fixes are automatically available to all
+GitLab versions compatible with that major image version.
+
+This applies to the images listed below.
+Previous images are not covered by this policy.
+
+### Current images
+
+| CI/CD job                               | Production image                                                                                        | GitLab version |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------- | -------------- |
+| `dependency-scanning`                   | `registry.gitlab.com/security-products/dependency-scanning:2`                                           | `19.x`         |
+| `dependency-scanning:maven-resolution`  | `registry.gitlab.com/security-products/dependency-resolution/ubi9/openjdk-21:1`                         | `18.x`, `19.x` |
+| `dependency-scanning:gradle-resolution` | `registry.gitlab.com/security-products/dependency-resolution/ubi9/openjdk-17-with-gradle-8:1`           | `19.x`         |
+| `dependency-scanning:python-resolution` | `registry.gitlab.com/security-products/dependency-resolution/ubi9/python-312-minimal-with-piptools-7:9` | `18.x`,`19.x`  |
+
+Current images are regularly rebuilt to incorporate upstream patches from base image vendors.
+
+### Previous images
+
+These images are deprecated and no longer receive bug fixes or new features.
+They remain available on the container registry and continue to work with their
+corresponding GitLab version. Using a deprecated image with a newer GitLab version
+is not supported and might produce unexpected results.
+
+| CI/CD job             | Production image                                              | GitLab version | Deprecated in |
+| --------------------- | ------------------------------------------------------------- | -------------- | ------------- |
+| `dependency-scanning` | `registry.gitlab.com/security-products/dependency-scanning:1` | `18.x`         | `19.0`        |
+| `dependency-scanning` | `registry.gitlab.com/security-products/dependency-scanning:0` | `18.x`         | `19.0`        |
+
+### FIPS compliance
+
+The dependency scanning analyzer image and all [dependency resolution images](#dependency-resolution)
+are based on [Red Hat UBI](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) that
+use a FIPS 140-validated cryptographic module. No additional configuration is required for
+FIPS-enabled environments.
+
 ## Understanding the results
 
 Dependency scanning analyzer outputs:
 
 - A CycloneDX SBOM for each supported lockfile or dependency graph export detected.
 - A single dependency scanning report for all scanned SBOM documents (GitLab.com and GitLab Self-Managed only).
+
+> [!note]
+> If the analyzer does not find any [supported file](#supported-languages-and-files),
+> the dependency scanning job completes successfully and prints a warning in the CI/CD job log.
+> No CycloneDX SBOM or dependency scanning reports are generated in this case.
 
 ### CycloneDX Software Bill of Materials
 
@@ -334,18 +389,19 @@ The following spec inputs can be used in combination with the `Dependency-Scanni
 | `additional_ca_cert_bundle`                 | string  |                                                                                                           | CA certificate bundle to trust. The CA bundle provided here is added to the system's certificates and also used by other tools during the scanning process. For more details, see [Custom TLS certificate authority](#custom-tls-certificate-authority).              |
 | `pip_manifest_file_name_pattern`            | string  |                                                                                                           | Custom pip manifest file name pattern to use for dependency resolution and manifest scanning. The pattern should match file names only, not directory paths. See [doublestar library](https://www.github.com/bmatcuk/doublestar/tree/v1#patterns) for syntax details. |
 | `pipcompile_lockfile_file_name_pattern`     | string  |                                                                                                           | Custom pip-compile lockfile file name pattern to use when analyzing. The pattern should match file names only, not directory paths. See [doublestar library](https://www.github.com/bmatcuk/doublestar/tree/v1#patterns) for syntax details.                          |
-| `pipcompile_requirements_file_name_pattern` | string  |                                                                                                           | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/598796) in GitLab 19.0: use `pipcompile_lockfile_file_name_pattern` instead.                                                                                                                                                                                                      |
+| `pipcompile_requirements_file_name_pattern` | string  |                                                                                                           | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/598796) in GitLab 19.0: use `pipcompile_lockfile_file_name_pattern` instead.                                                                                                                           |
 | `max_scan_depth`                            | number  | `2`                                                                                                       | Defines how many directory levels analyzer should search for supported files. A value of -1 means the analyzer will search all directories regardless of depth.                                                                                                       |
 | `excluded_paths`                            | string  | `"**/spec,**/test,**/tests,**/tmp"`                                                                       | A comma-separated list of paths (globs supported) to exclude from the scan.                                                                                                                                                                                           |
 | `include_dev_dependencies`                  | boolean | `true`                                                                                                    | Include development/test dependencies when scanning a supported file.                                                                                                                                                                                                 |
 | `enable_static_reachability`                | boolean | `false`                                                                                                   | Enable [static reachability](../static_reachability.md).                                                                                                                                                                                                              |
+| `enable_manifest_fallback`                  | boolean | `true`                                                                                                    | Enable [manifest fallback](#manifest-fallback).                                                                                                                                                                                                                       |
 | `analyzer_log_level`                        | string  | `"info"`                                                                                                  | Logging level for dependency scanning. The options are fatal, error, warn, info, debug.                                                                                                                                                                               |
 | `enable_vulnerability_scan`                 | boolean | `true`                                                                                                    | Enable the vulnerability analysis of generated SBOMs                                                                                                                                                                                                                  |
 | `api_timeout`                               | number  | `10`                                                                                                      | Dependency scanning SBOM API request timeout in seconds.                                                                                                                                                                                                              |
 | `api_scan_download_delay`                   | number  | `3`                                                                                                       | Dependency scanning SBOM API initial delay in seconds before downloading scan results.                                                                                                                                                                                |
 | `resolution_jobs_stage`                     | string  | `.pre`                                                                                                    | The stage for the dependency resolution jobs.                                                                                                                                                                                                                         |
 | `resolution_jobs_allow_failure`             | boolean | `true`                                                                                                    | When `true`, a failed resolution job does not fail the pipeline. When `false`, a resolution failure blocks the pipeline.                                                                                                                                              |
-| `disabled_resolution_jobs`                  | string  | `""`                                                                                                      | Comma-separated list of resolution jobs to disable (for example, `"maven, python"`). By default, all available resolution jobs are enabled. Possible values are: `maven`,`gradle`,`python`.                                                                           |
+| `disabled_resolution_jobs`                  | string  | `""`                                                                                                      | Comma-separated list of resolution jobs to disable (for example, `"maven, python"`). By default, all available resolution jobs are enabled. Possible values are: `maven`,`gradle`,`python`. See [dependency resolution](#dependency-resolution)                       |
 | `maven_resolution_job_name`                 | string  | `"dependency-scanning:maven-resolution"`                                                                  | The name of the job for Maven dependency resolution.                                                                                                                                                                                                                  |
 | `maven_resolution_image`                    | string  | `"registry.gitlab.com/security-products/dependency-resolution/ubi9/openjdk-21:1"`                         | The image used by the Maven dependency resolution job.                                                                                                                                                                                                                |
 | `maven_dependency_plugin_version`           | string  | `"3.7.0"`                                                                                                 | The version of `maven-dependency-plugin` used during Maven dependency resolution. Must be `3.7.0` or later.                                                                                                                                                           |
@@ -368,9 +424,9 @@ These variables can replace spec inputs and are also compatible with the beta `l
 | `DS_MAX_DEPTH`                                 | Defines how many directory levels deep that the analyzer should search for supported files to scan. A value of `-1` scans all directories regardless of depth. Default: `2`.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `DS_INCLUDE_DEV_DEPENDENCIES`                  | When set to `"false"`, development dependencies are not reported. Only projects using Composer, Conda, Gradle, Maven, npm, pnpm, Pipenv, Poetry, or uv are supported. Default: `"true"`                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `DS_PIP_MANIFEST_FILE_NAME_PATTERN`            | Defines which pip manifest files to process for dependency resolution and manifest scanning, using glob pattern matching (for example, `custom-requirements.txt` or `*-requirements.txt`). The pattern should match filenames only, not directory paths. See [glob pattern documentation](https://github.com/bmatcuk/doublestar/tree/v1?tab=readme-ov-file#patterns) for syntax details.                                                                                                                                                                                                         |
-| `PIP_REQUIREMENTS_FILE`                        | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/588580) in GitLab 19.0: use `DS_PIP_MANIFEST_FILE_NAME_PATTERN` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `PIP_REQUIREMENTS_FILE`                        | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/588580) in GitLab 19.0: use `DS_PIP_MANIFEST_FILE_NAME_PATTERN` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN`     | Defines which pip-compile lockfiles to process using glob pattern matching (for example, `requirements*.txt` or `*-requirements.txt`). The pattern should match filenames only, not directory paths. See [glob pattern documentation](https://github.com/bmatcuk/doublestar/tree/v1?tab=readme-ov-file#patterns) for syntax details.                                                                                                                                                                                                                                                             |
-| `DS_PIPCOMPILE_REQUIREMENTS_FILE_NAME_PATTERN` | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/598796) in GitLab 19.0: use `DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `DS_PIPCOMPILE_REQUIREMENTS_FILE_NAME_PATTERN` | [Deprecated](https://gitlab.com/gitlab-org/gitlab/-/work_items/598796) in GitLab 19.0: use `DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `SECURE_ANALYZERS_PREFIX`                      | Override the name of the Docker registry providing the official default images (proxy).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `DS_FF_LINK_COMPONENTS_TO_GIT_FILES`           | Link components in the dependency list to files committed to the repository rather than lockfiles and graph files generated dynamically in a CI/CD pipeline. This ensures all components are linked to a source file in the repository. Default: `"false"`.                                                                                                                                                                                                                                                                                                                                      |
 | `SEARCH_IGNORE_HIDDEN_DIRS`                    | Ignore hidden directories. Works both for dependency scanning and static reachability. Default: `"true"`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -422,7 +478,7 @@ variables:
 {{< history >}}
 
 - [Introduced](https://gitlab.com/groups/gitlab-org/-/work_items/20461) for Maven and Python in GitLab 18.11, disabled by default.
-- [Added](https://gitlab.com/gitlab-org/gitlab/-/work_items/590734) support for Gradle in GitLab 19.0, disabled by default.
+- [Added](https://gitlab.com/gitlab-org/gitlab/-/work_items/590734) support for Gradle. Enabled by default for all supported projects in GitLab 19.0.
 
 {{< /history >}}
 
@@ -438,24 +494,11 @@ alternatives (such as `eclipse-temurin:jdk-21`) or custom images containing the 
 
 The following ecosystems support dependency resolution:
 
-| Language    | Package manager | Manifest files detected                                                                                                           | Resolution command         | Output artifact       |
-| ----------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------- |
-| Java        | Maven           | `pom.xml`                                                                                                                         | `mvn dependency:tree`      | `maven.graph.json`    |
-| Java/Kotlin | Gradle          | `build.gradle`, `build.gradle.kts`                                                                                                | `gradle dependencies`      | `gradle.graph.txt`    |
-| Python      | pip, setuptools | `requirements.txt`, `requirements.in`, `requirements.pip`, `requires.txt`, `setup.py`, `setup.cfg`, `pyproject.toml` (non-Poetry) | `pip-compile`              | `pipcompile.lock.txt` |
-
-> [!warning]
-> Dependency resolution is disabled by default during the limited availability stage.
-
-To enable dependency resolution, set the `DS_DISABLED_RESOLUTION_JOBS` CI/CD variable to `""`:
-
-```yaml
-variables:
-  DS_DISABLED_RESOLUTION_JOBS: ""
-
-include:
-  - template: Jobs/Dependency-Scanning.v2.gitlab-ci.yml
-```
+| Language    | Package manager | Manifest files detected                                                                                                           | Resolution command    | Output artifact       |
+| ----------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------- | --------------------- |
+| Java        | Maven           | `pom.xml`                                                                                                                         | `mvn dependency:tree` | `maven.graph.json`    |
+| Java/Kotlin | Gradle          | `build.gradle`, `build.gradle.kts`                                                                                                | `gradle dependencies` | `gradle.graph.txt`    |
+| Python      | pip, setuptools | `requirements.txt`, `requirements.in`, `requirements.pip`, `requires.txt`, `setup.py`, `setup.cfg`, `pyproject.toml` (non-Poetry) | `pip-compile`         | `pipcompile.lock.txt` |
 
 ### Customizing dependency resolution
 
@@ -488,6 +531,7 @@ Alternatively, you can set the following CI/CD variables:
 
 To disable dependency resolution for a specific ecosystem, use the
 `DS_DISABLED_RESOLUTION_JOBS` CI/CD variable or the `disabled_resolution_jobs` input.
+Possible values are: `maven`,`gradle`,`python`.
 
 For instance, to disable dependency resolution for maven:
 
@@ -1069,13 +1113,9 @@ build:
 - [Introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/585886) in GitLab 18.9. Only Maven manifest files supported, disabled by default.
 - [Updated](https://gitlab.com/gitlab-org/gitlab/-/work_items/586921) in GitLab 18.9. Support for Python requirements file added, disabled by default.
 - [Updated](https://gitlab.com/gitlab-org/gitlab/-/work_items/588788) in GitLab 18.10. Support for Gradle manifest files added, disabled by default.
+- Enabled by default in GitLab 19.0
 
 {{< /history >}}
-
-> [!warning]
-> Manifest fallback is disabled by default during the limited availability stage.
-
-To enable manifest fallback, set the `DS_ENABLE_MANIFEST_FALLBACK` CI/CD variable to `"true"`.
 
 When a supported lockfile or dependency graph export is not available, the dependency scanning analyzer can extract dependencies from supported manifest files as a fallback.
 
@@ -1093,6 +1133,18 @@ The following manifest files are supported:
 >
 > - No transitive dependencies: Only direct dependencies are detected.
 > - Exact resolved versions cannot always be determined.
+
+### Disable manifest fallback
+
+To disable manifest fallback, use the `DS_ENABLE_MANIFEST_FALLBACK` CI/CD variable or the `enable_manifest_fallback` input.
+
+```yaml
+variables:
+  DS_ENABLE_MANIFEST_FALLBACK: "false"
+
+include:
+  - template: Jobs/Dependency-Scanning.v2.gitlab-ci.yml
+```
 
 ## How it scans an application
 
@@ -1193,18 +1245,13 @@ To run dependency scanning in an offline environment you must have:
 
 To use the dependency scanning analyzer:
 
-1. Import the following default dependency scanning analyzer images from `registry.gitlab.com` into
-   your [local Docker container registry](../../../packages/container_registry/_index.md):
-
-   ```plaintext
-   registry.gitlab.com/security-products/dependency-scanning:1
-   ```
-
+1. Import the [current images](#current-images) from `registry.gitlab.com` into
+   your [local Docker container registry](../../../packages/container_registry/_index.md).
    The process for importing Docker images into a local offline Docker registry depends on
    **your network security policy**. Consult your IT staff to find an accepted and approved
    process by which external resources can be imported or temporarily accessed.
-   These scanners are [periodically updated](../../detect/vulnerability_scanner_maintenance.md)
-   with new definitions, and you may want to download them regularly. In case your offline instance
+   These images are regularly updated with new features, bug fixes and patches,
+   and you might want to download them regularly. In case your offline instance
    has access to the GitLab registry you can use the [Security-Binaries template](../../offline_deployments/_index.md#using-the-official-gitlab-template) to download the latest dependency scanning analyzer image.
 
 1. Configure GitLab CI/CD to use the local analyzers.

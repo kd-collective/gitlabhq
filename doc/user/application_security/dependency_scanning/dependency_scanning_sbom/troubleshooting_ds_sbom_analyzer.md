@@ -66,6 +66,21 @@ to [capture service container logs](../../../../ci/services/_index.md#capturing-
 If necessary, you can [disable dependency resolution](_index.md#disable-dependency-resolution) and
 use a manually generated lockfile instead.
 
+## Dependency scanning job succeeds but produces no reports
+
+If the dependency scanning job completes successfully but does not produce any SBOM or dependency
+scanning report artifacts, the project likely does not contain any
+[supported file](_index.md#supported-languages-and-files).
+
+Check the CI/CD job log for a warning message similar to:
+
+```plaintext
+No compatible file found in <directory>.
+```
+
+To resolve this issue, add a supported lockfile or dependency graph export to your project. For instructions, see
+[Create lockfile or dependency graph export manually](_index.md#create-lockfile-or-dependency-graph-export-manually).
+
 ## Error: `failed to verify certificate: x509: certificate signed by unknown authority`
 
 When the dependency scanning analyzer connects to a host the following error might occur. The cause of this

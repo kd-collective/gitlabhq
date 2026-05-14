@@ -4,7 +4,6 @@ import Step3 from '~/organizations/index/components/reconciliation/steps/step_3.
 import BaseStep from '~/organizations/index/components/reconciliation/steps/base_step.vue';
 import OrganizationCard from '~/organizations/index/components/reconciliation/organization_card.vue';
 import OrganizationGroupCard from '~/organizations/index/components/reconciliation/organization_group_card.vue';
-import { mockDefaultOrganization } from 'jest/organizations/shared/mock_data';
 import {
   mockOrganizations,
   organizationWithGroups,
@@ -146,14 +145,6 @@ describe('ReconciliationStep3', () => {
 
     it('does render deleted section', () => {
       expect(findDeletedSection().exists()).toBe(true);
-    });
-  });
-
-  describe('default organization', () => {
-    it('excludes the default organization from the deleted organizations list', () => {
-      createComponent({ props: { organizations: [mockDefaultOrganization] } });
-
-      expect(findDeletedSection().exists()).toBe(false);
     });
   });
 });

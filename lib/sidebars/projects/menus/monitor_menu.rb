@@ -99,7 +99,6 @@ module Sidebars
         end
 
         def observability_portal_allowed?
-          return false unless ::Feature.enabled?(:project_observability_menu_items, context.project)
           return false unless context.project.group
 
           ::Feature.enabled?(:observability_sass_features, context.project.group) &&

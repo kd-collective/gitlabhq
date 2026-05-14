@@ -4946,6 +4946,22 @@ RETURN NEW;
 END
 $$;
 
+CREATE FUNCTION trigger_cbb818bdb3e8() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+IF NEW."project_id" IS NULL THEN
+  SELECT "project_id"
+  INTO NEW."project_id"
+  FROM "project_import_export_relation_export_upload_uploads"
+  WHERE "project_import_export_relation_export_upload_uploads"."id" = NEW."project_import_export_relation_export_upload_upload_id";
+END IF;
+
+RETURN NEW;
+
+END
+$$;
+
 CREATE FUNCTION trigger_cca6a43d90dd() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
@@ -28106,6 +28122,29 @@ CREATE SEQUENCE project_import_data_id_seq
 
 ALTER SEQUENCE project_import_data_id_seq OWNED BY project_import_data.id;
 
+CREATE TABLE project_import_export_relation_export_upload_upload_states (
+    id bigint NOT NULL,
+    verification_started_at timestamp with time zone,
+    verification_retry_at timestamp with time zone,
+    verified_at timestamp with time zone,
+    project_import_export_relation_export_upload_upload_id bigint NOT NULL,
+    project_id bigint NOT NULL,
+    verification_state smallint DEFAULT 0 NOT NULL,
+    verification_retry_count smallint DEFAULT 0 NOT NULL,
+    verification_checksum bytea,
+    verification_failure text,
+    CONSTRAINT check_414175ad03 CHECK ((char_length(verification_failure) <= 255))
+);
+
+CREATE SEQUENCE project_import_export_relation_export_upload_upload_stat_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE project_import_export_relation_export_upload_upload_stat_id_seq OWNED BY project_import_export_relation_export_upload_upload_states.id;
+
 CREATE TABLE project_import_export_relation_export_upload_uploads (
     id bigint DEFAULT nextval('uploads_id_seq'::regclass) NOT NULL,
     size bigint NOT NULL,
@@ -36779,6 +36818,8 @@ ALTER TABLE ONLY project_group_links ALTER COLUMN id SET DEFAULT nextval('projec
 
 ALTER TABLE ONLY project_import_data ALTER COLUMN id SET DEFAULT nextval('project_import_data_id_seq'::regclass);
 
+ALTER TABLE ONLY project_import_export_relation_export_upload_upload_states ALTER COLUMN id SET DEFAULT nextval('project_import_export_relation_export_upload_upload_stat_id_seq'::regclass);
+
 ALTER TABLE ONLY project_mirror_data ALTER COLUMN id SET DEFAULT nextval('project_mirror_data_id_seq'::regclass);
 
 ALTER TABLE ONLY project_push_rules ALTER COLUMN id SET DEFAULT nextval('project_push_rules_id_seq'::regclass);
@@ -40818,6 +40859,9 @@ ALTER TABLE ONLY project_group_links
 
 ALTER TABLE ONLY project_import_data
     ADD CONSTRAINT project_import_data_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY project_import_export_relation_export_upload_upload_states
+    ADD CONSTRAINT project_import_export_relation_export_upload_upload_states_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY project_import_export_relation_export_upload_uploads
     ADD CONSTRAINT project_import_export_relation_export_upload_uploads_pkey PRIMARY KEY (id, model_type);
@@ -45040,6 +45084,20 @@ CREATE INDEX idx_pat_last_used_ips_on_pat_id ON personal_access_token_last_used_
 
 CREATE INDEX idx_personal_access_tokens_on_previous_personal_access_token_id ON personal_access_tokens USING btree (previous_personal_access_token_id);
 
+CREATE INDEX idx_piere_upload_upload_states_failed_verification ON project_import_export_relation_export_upload_upload_states USING btree (verification_retry_at NULLS FIRST) WHERE (verification_state = 3);
+
+CREATE INDEX idx_piere_upload_upload_states_needs_verification_id ON project_import_export_relation_export_upload_upload_states USING btree (project_import_export_relation_export_upload_upload_id) WHERE ((verification_state = 0) OR (verification_state = 3));
+
+CREATE INDEX idx_piere_upload_upload_states_on_project_id ON project_import_export_relation_export_upload_upload_states USING btree (project_id);
+
+CREATE UNIQUE INDEX idx_piere_upload_upload_states_on_upload_upload_id ON project_import_export_relation_export_upload_upload_states USING btree (project_import_export_relation_export_upload_upload_id);
+
+CREATE INDEX idx_piere_upload_upload_states_on_verification_started ON project_import_export_relation_export_upload_upload_states USING btree (project_import_export_relation_export_upload_upload_id, verification_started_at) WHERE (verification_state = 1);
+
+CREATE INDEX idx_piere_upload_upload_states_on_verification_state ON project_import_export_relation_export_upload_upload_states USING btree (verification_state);
+
+CREATE INDEX idx_piere_upload_upload_states_pending_verification ON project_import_export_relation_export_upload_upload_states USING btree (verified_at NULLS FIRST) WHERE (verification_state = 0);
+
 CREATE INDEX idx_pipeline_execution_schedules_on_project_id ON security_pipeline_execution_project_schedules USING btree (project_id);
 
 CREATE INDEX idx_pipeline_execution_schedules_security_policy_id_and_id ON security_pipeline_execution_project_schedules USING btree (security_policy_id, id);
@@ -45109,6 +45167,8 @@ CREATE INDEX idx_project_control_statuses_on_namespace_id ON project_control_com
 CREATE INDEX idx_project_control_statuses_on_project_id ON project_control_compliance_statuses USING btree (project_id);
 
 CREATE INDEX idx_project_control_statuses_on_requirement_id ON project_control_compliance_statuses USING btree (compliance_requirement_id);
+
+CREATE UNIQUE INDEX idx_project_import_export_relation_export_upload_uploads_on_id ON project_import_export_relation_export_upload_uploads USING btree (id);
 
 CREATE INDEX idx_project_namespace_id_from_namespace_path_timestamp_and_id ON ONLY ai_code_suggestion_events USING btree ((("substring"(namespace_path, '([0-9]+)[^0-9]*$'::text))::bigint), "timestamp", id);
 
@@ -55758,6 +55818,8 @@ CREATE TRIGGER trigger_cac7c0698291 BEFORE INSERT OR UPDATE ON evidences FOR EAC
 
 CREATE TRIGGER trigger_catalog_resource_sync_event_on_project_update AFTER UPDATE ON projects FOR EACH ROW WHEN ((((old.name)::text IS DISTINCT FROM (new.name)::text) OR (old.description IS DISTINCT FROM new.description) OR (old.visibility_level IS DISTINCT FROM new.visibility_level))) EXECUTE FUNCTION insert_catalog_resource_sync_event();
 
+CREATE TRIGGER trigger_cbb818bdb3e8 BEFORE INSERT OR UPDATE ON project_import_export_relation_export_upload_upload_states FOR EACH ROW EXECUTE FUNCTION trigger_cbb818bdb3e8();
+
 CREATE TRIGGER trigger_cca6a43d90dd BEFORE INSERT OR UPDATE ON achievement_uploads FOR EACH ROW EXECUTE FUNCTION trigger_cca6a43d90dd();
 
 CREATE TRIGGER trigger_cd50823537a3 BEFORE INSERT OR UPDATE ON issuable_slas FOR EACH ROW EXECUTE FUNCTION trigger_cd50823537a3();
@@ -56044,6 +56106,9 @@ ALTER TABLE ONLY project_requirement_compliance_statuses
 ALTER TABLE ONLY requirements_management_test_reports
     ADD CONSTRAINT fk_05094e3d87 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY project_import_export_relation_export_upload_upload_states
+    ADD CONSTRAINT fk_0561f84c19 FOREIGN KEY (project_import_export_relation_export_upload_upload_id) REFERENCES project_import_export_relation_export_upload_uploads(id) ON DELETE CASCADE;
+
 ALTER TABLE ONLY jira_tracker_data
     ADD CONSTRAINT fk_05895afb4c FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE NOT VALID;
 
@@ -56166,6 +56231,9 @@ ALTER TABLE ONLY merge_request_diff_files
 
 ALTER TABLE ONLY security_policy_project_links
     ADD CONSTRAINT fk_0eba4d5d71 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY project_repository_states
+    ADD CONSTRAINT fk_0f2298ca8a FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE NOT VALID;
 
 ALTER TABLE ONLY import_placeholder_user_details
     ADD CONSTRAINT fk_0f2747626d FOREIGN KEY (placeholder_user_id) REFERENCES users(id) ON DELETE CASCADE;
@@ -56998,6 +57066,9 @@ ALTER TABLE ONLY merge_request_diffs
 ALTER TABLE ONLY ml_candidates
     ADD CONSTRAINT fk_56d6ed4d3d FOREIGN KEY (experiment_id) REFERENCES ml_experiments(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY project_repository_states
+    ADD CONSTRAINT fk_57201a9be7 FOREIGN KEY (project_repository_id) REFERENCES project_repositories(id) ON DELETE CASCADE NOT VALID;
+
 ALTER TABLE ONLY workspace_tokens
     ADD CONSTRAINT fk_5724f2499d FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
@@ -57054,6 +57125,9 @@ ALTER TABLE ONLY issue_email_participants
 
 ALTER TABLE ONLY boards_epic_lists
     ADD CONSTRAINT fk_5cbb450986 FOREIGN KEY (group_id) REFERENCES namespaces(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY project_import_export_relation_export_upload_upload_states
+    ADD CONSTRAINT fk_5cf0bc85f9 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY dast_scanner_profiles_builds
     ADD CONSTRAINT fk_5d46286ad3 FOREIGN KEY (dast_scanner_profile_id) REFERENCES dast_scanner_profiles(id) ON DELETE CASCADE;
@@ -57417,6 +57491,9 @@ ALTER TABLE ONLY project_relation_exports
 
 ALTER TABLE ONLY lists
     ADD CONSTRAINT fk_7a5553d60f FOREIGN KEY (label_id) REFERENCES labels(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY project_repositories
+    ADD CONSTRAINT fk_7a810d4121 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE NOT VALID;
 
 ALTER TABLE ONLY protected_branches
     ADD CONSTRAINT fk_7a9c6d93e7 FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;

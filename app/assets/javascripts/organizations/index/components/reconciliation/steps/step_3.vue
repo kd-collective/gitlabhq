@@ -1,5 +1,4 @@
 <script>
-import { isDefaultOrganization } from '~/organizations/shared/utils';
 import OrganizationGroupCard from '../organization_group_card.vue';
 import OrganizationCard from '../organization_card.vue';
 import BaseStep from './base_step.vue';
@@ -22,9 +21,7 @@ export default {
       return this.organizations.filter((org) => org.groups.nodes.length > 0);
     },
     deletedOrganizations() {
-      return this.organizations.filter(
-        (org) => org.groups.nodes.length === 0 && !isDefaultOrganization(org),
-      );
+      return this.organizations.filter((org) => org.groups.nodes.length === 0);
     },
   },
 };

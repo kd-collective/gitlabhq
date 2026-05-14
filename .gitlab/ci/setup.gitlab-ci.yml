@@ -196,7 +196,7 @@ detect-system-tests-duo-experiment:
     - if: '$GLCI_DUO_SYSTEM_TESTS_DISABLED == "true"'
       when: never
     - !reference [".prevent-tier-1", rules]
-    - !reference [".allow-on-tier-3", rules]  # always run on tier-3 for metrics, even when Duo output won't influence test selection
+    - !reference [".rails:rules:tier-3-with-test-env", rules]  # tier-3 for predictive metrics only, when setup-test-env runs
     - !reference [".prevent-on-full-system-changes", rules]  # full system suite already runs in main pipeline for core-backend and workhorse changes
     - !reference [".prevent-run-all-rspec", rules]  # all rspec tests already run; no need for Duo selection
     - !reference [".prevent-spec-only", rules]  # spec files already directly identified by detect-tests; Duo adds nothing

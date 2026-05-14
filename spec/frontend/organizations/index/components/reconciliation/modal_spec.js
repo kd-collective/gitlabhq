@@ -13,6 +13,7 @@ import organizationsForReconciliationQuery from '~/organizations/index/graphql/q
 import Step1 from '~/organizations/index/components/reconciliation/steps/step_1.vue';
 import Step2 from '~/organizations/index/components/reconciliation/steps/step_2.vue';
 import Step3 from '~/organizations/index/components/reconciliation/steps/step_3.vue';
+import { mockDefaultOrganization } from 'jest/organizations/shared/mock_data';
 import {
   mockOrganizations,
   organizationWithGroupsIndex,
@@ -28,6 +29,14 @@ Vue.use(VueApollo);
 describe('OrganizationReconciliationModal', () => {
   let wrapper;
   let mockApollo;
+
+  const organizationsWithDefault = [
+    mockDefaultOrganization,
+    ...organizationsForReconciliationResponse.data.organizations.nodes,
+  ];
+  const responseWithDefault = {
+    data: { organizations: { nodes: organizationsWithDefault } },
+  };
 
   const successHandler = jest.fn().mockResolvedValue(organizationsForReconciliationResponse);
   const GlModalStub = stubComponent(GlModal, { template: RENDER_ALL_SLOTS_TEMPLATE });
@@ -343,6 +352,49 @@ describe('OrganizationReconciliationModal', () => {
         await nextTick();
 
         expect(wrapper.findComponent(Step2).exists()).toBe(true);
+      });
+    });
+
+    describe('default organization exclusion', () => {
+      const handlerWithDefault = jest.fn().mockResolvedValue(responseWithDefault);
+
+      beforeEach(async () => {
+        createComponent({ props: { visible: true }, handler: handlerWithDefault });
+
+        await waitForPromises();
+      });
+
+      it('excludes default organization from step 1', () => {
+        const step1Orgs = findStep1().props('organizations');
+
+        expect(step1Orgs).not.toEqual(
+          expect.arrayContaining([expect.objectContaining({ id: mockDefaultOrganization.id })]),
+        );
+      });
+
+      it('includes default organization in step 2', async () => {
+        findNextButton().vm.$emit('click');
+        await nextTick();
+
+        const step2Orgs = findStep2().props('organizations');
+
+        expect(step2Orgs).toEqual(
+          expect.arrayContaining([expect.objectContaining({ id: mockDefaultOrganization.id })]),
+        );
+      });
+
+      it('excludes default organization from step 3', async () => {
+        findNextButton().vm.$emit('click');
+        await nextTick();
+
+        findNextButton().vm.$emit('click');
+        await nextTick();
+
+        const step3Orgs = findStep3().props('organizations');
+
+        expect(step3Orgs).not.toEqual(
+          expect.arrayContaining([expect.objectContaining({ id: mockDefaultOrganization.id })]),
+        );
       });
     });
   });

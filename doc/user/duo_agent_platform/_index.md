@@ -107,3 +107,4 @@ but you require credits in your Monthly Commitment Pool to access them.
 | [CI Expert Agent](agents/foundational_agents/ci_expert_agent.md) <br /> Create, debug, and optimize GitLab CI/CD pipelines. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [External MCP servers](../gitlab_duo/model_context_protocol/ai_catalog_mcp_servers.md) <br /> Connect custom agents to external data sources and third-party services using MCP servers. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [Knowledge Graph](../project/repository/knowledge_graph/_index.md) <br /> Create structured, queryable representations of code repositories to power AI features. | {{< no >}} |{{< yes >}} | {{< yes >}} |
+| [Resolve merge conflicts](../project/merge_requests/conflicts.md#resolve-conflicts-with-gitlab-duo) <br /> Autonomously analyze merge conflicts, edit conflicting files, and push a resolution commit. | {{< no >}} | {{< yes >}} | {{< yes >}} |

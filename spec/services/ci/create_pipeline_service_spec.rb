@@ -2047,14 +2047,23 @@ RSpec.describe Ci::CreatePipelineService, :clean_gitlab_redis_cache, feature_cat
       expect(result[:trigger_api_request]).to be true
     end
 
+    it 'returns suspend_options when provided' do
+      suspend_options = { 'key' => 'value' }
+      result = service.send(:extra_options, suspend_options: suspend_options)
+
+      expect(result[:suspend_options]).to eq(suspend_options)
+    end
+
     it 'returns all provided options' do
       definition = { 'key' => 'value' }
+      suspend_options = { 'suspend' => true }
       result = service.send(:extra_options,
         content: 'test content',
         dry_run: true,
         linting: true,
         duo_workflow_definition: definition,
-        trigger_api_request: true
+        trigger_api_request: true,
+        suspend_options: suspend_options
       )
 
       expect(result).to include(
@@ -2062,7 +2071,8 @@ RSpec.describe Ci::CreatePipelineService, :clean_gitlab_redis_cache, feature_cat
         dry_run: true,
         linting: true,
         duo_workflow_definition: definition,
-        trigger_api_request: true
+        trigger_api_request: true,
+        suspend_options: suspend_options
       )
     end
   end

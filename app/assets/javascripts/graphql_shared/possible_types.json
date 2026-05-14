@@ -279,6 +279,7 @@
     "PackagesNugetSymbolRegistry",
     "PagesDeploymentRegistry",
     "PipelineArtifactRegistry",
+    "ProjectImportExportRelationExportUploadUploadRegistry",
     "ProjectRepositoryRegistry",
     "ProjectUploadRegistry",
     "ProjectWikiRepositoryRegistry",

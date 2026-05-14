@@ -1,9 +1,0 @@
----
-name: project_observability_menu_items
-description: Replace legacy Tracing/Metrics/Logs sidebar items with new observability controller links
-feature_issue_url: https://gitlab.com/gitlab-org/embody-team/experimental-observability/documentation/-/work_items/68
-introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/233717
-milestone: '19.0'
-group: group::embody
-type: wip
-default_enabled: false

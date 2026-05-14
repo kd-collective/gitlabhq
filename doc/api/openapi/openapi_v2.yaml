@@ -73833,6 +73833,28 @@ definitions:
         type: string
       bulk_import_export_upload_uploads_oldest_unsynced_time:
         type: string
+      project_import_export_relation_export_upload_uploads_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_checksum_total_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_checksummed_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_checksum_failed_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_synced_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_failed_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_registry_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_verification_total_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_verified_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_verification_failed_count:
+        type: string
+      project_import_export_relation_export_upload_uploads_oldest_unsynced_time:
+        type: string
       ai_vectorizable_file_uploads_count:
         type: string
       ai_vectorizable_file_uploads_checksum_total_count:
@@ -74108,6 +74130,10 @@ definitions:
       bulk_import_export_upload_uploads_synced_in_percentage:
         type: string
       bulk_import_export_upload_uploads_verified_in_percentage:
+        type: string
+      project_import_export_relation_export_upload_uploads_synced_in_percentage:
+        type: string
+      project_import_export_relation_export_upload_uploads_verified_in_percentage:
         type: string
       ai_vectorizable_file_uploads_synced_in_percentage:
         type: string
@@ -74443,6 +74469,17 @@ definitions:
     - bulk_import_export_upload_uploads_verified_count
     - bulk_import_export_upload_uploads_verification_failed_count
     - bulk_import_export_upload_uploads_oldest_unsynced_time
+    - project_import_export_relation_export_upload_uploads_count
+    - project_import_export_relation_export_upload_uploads_checksum_total_count
+    - project_import_export_relation_export_upload_uploads_checksummed_count
+    - project_import_export_relation_export_upload_uploads_checksum_failed_count
+    - project_import_export_relation_export_upload_uploads_synced_count
+    - project_import_export_relation_export_upload_uploads_failed_count
+    - project_import_export_relation_export_upload_uploads_registry_count
+    - project_import_export_relation_export_upload_uploads_verification_total_count
+    - project_import_export_relation_export_upload_uploads_verified_count
+    - project_import_export_relation_export_upload_uploads_verification_failed_count
+    - project_import_export_relation_export_upload_uploads_oldest_unsynced_time
     - ai_vectorizable_file_uploads_count
     - ai_vectorizable_file_uploads_checksum_total_count
     - ai_vectorizable_file_uploads_checksummed_count
@@ -74581,6 +74618,8 @@ definitions:
     - vulnerability_archive_export_uploads_verified_in_percentage
     - bulk_import_export_upload_uploads_synced_in_percentage
     - bulk_import_export_upload_uploads_verified_in_percentage
+    - project_import_export_relation_export_upload_uploads_synced_in_percentage
+    - project_import_export_relation_export_upload_uploads_verified_in_percentage
     - ai_vectorizable_file_uploads_synced_in_percentage
     - ai_vectorizable_file_uploads_verified_in_percentage
     - import_export_upload_uploads_synced_in_percentage

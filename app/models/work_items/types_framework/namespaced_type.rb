@@ -71,9 +71,12 @@ module WorkItems
         enabled && !delegation_source.archived? && visible_in_context?
       end
 
+      attr_reader :enabled
+
       private
 
-      attr_accessor :enabled, :is_a_group, :tasks_on_boards, :namespace
+      attr_writer :enabled
+      attr_accessor :is_a_group, :tasks_on_boards, :namespace
 
       # Archived types are unavailable everywhere; disabled types are unavailable
       # only at project level (a type disabled at the group may still be enabled

@@ -2,6 +2,7 @@
 import { GlButton, GlModal, GlSprintf } from '@gitlab/ui';
 import { s__, __ } from '~/locale';
 import { createAlert } from '~/alert';
+import { isDefaultOrganization } from '~/organizations/shared/utils';
 import organizationsForReconciliationQuery from '~/organizations/index/graphql/queries/organizations_for_reconciliation.query.graphql';
 import SkeletonLoader from './skeleton_loader.vue';
 import Step1 from './steps/step_1.vue';
@@ -56,6 +57,16 @@ export default {
   computed: {
     loading() {
       return this.$apollo.queries.organizations.loading;
+    },
+    organizationsWithoutDefault() {
+      return this.organizations.filter((org) => !isDefaultOrganization(org));
+    },
+    stepOrganizations() {
+      if (this.currentStep === 2) {
+        return this.organizations;
+      }
+
+      return this.organizationsWithoutDefault;
     },
     stepComponent() {
       return this.$options.stepComponents[this.currentStep - 1];
@@ -117,7 +128,7 @@ export default {
           <template #totalSteps>{{ totalSteps }}</template>
         </gl-sprintf>
       </div>
-      <component :is="stepComponent" :organizations="organizations" @update="onUpdate" />
+      <component :is="stepComponent" :organizations="stepOrganizations" @update="onUpdate" />
     </template>
     <template #modal-footer>
       <div class="gl-flex gl-w-full gl-justify-center gl-gap-3">

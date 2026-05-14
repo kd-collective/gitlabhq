@@ -348,11 +348,6 @@ module MergeRequests
       end
     end
 
-    # Call merge request webhook with update branches
-    def execute_mr_web_hooks(merge_request)
-      execute_hooks(merge_request, 'update', old_rev: @push.oldrev)
-    end
-
     # If the merge requests closes any issues, save this information in the
     # `MergeRequestsClosingIssues` model (as a performance optimization).
     # rubocop: disable CodeReuse/ActiveRecord

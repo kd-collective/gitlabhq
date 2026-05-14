@@ -83,7 +83,7 @@ RSpec.describe Sidebars::Projects::Menus::MonitorMenu, feature_category: :naviga
       let(:user) { project.first_owner }
 
       before do
-        stub_feature_flags(project_observability_menu_items: project, observability_sass_features: project.group)
+        stub_feature_flags(observability_sass_features: project.group)
         allow(Ability).to receive(:allowed?).and_call_original
         allow(Ability).to receive(:allowed?)
           .with(user, :read_observability_portal, project.group)
@@ -100,14 +100,6 @@ RSpec.describe Sidebars::Projects::Menus::MonitorMenu, feature_category: :naviga
             allow(Ability).to receive(:allowed?)
               .with(nil, :read_observability_portal, project.group)
               .and_return(false)
-          end
-
-          it { is_expected.to be_nil }
-        end
-
-        context 'when project_observability_menu_items feature flag is disabled' do
-          before do
-            stub_feature_flags(project_observability_menu_items: false)
           end
 
           it { is_expected.to be_nil }

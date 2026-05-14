@@ -32879,6 +32879,12 @@ msgstr ""
 msgid "Geo|Registry information"
 msgstr ""
 
+msgid "Geo|Relation Export File Upload"
+msgstr ""
+
+msgid "Geo|Relation Export File Uploads"
+msgstr ""
+
 msgid "Geo|Remove %{siteType} site"
 msgstr ""
 

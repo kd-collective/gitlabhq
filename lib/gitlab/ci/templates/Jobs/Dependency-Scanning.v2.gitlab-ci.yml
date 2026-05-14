@@ -30,7 +30,7 @@ spec:
       description: "The repository of the analyzer image used by the dependency-scanning job."
     analyzer_image_version:
       type: string
-      default: "1"
+      default: "2"
       description: "The version of the analyzer image used by the dependency-scanning job."
 
     # Settings for DS analyzer behavior.
@@ -84,7 +84,7 @@ spec:
       description: "Vulnerability scanning API initial delay in seconds before downloading scan results."
     enable_manifest_fallback:
       type: boolean
-      default: false
+      default: true
       description: "Enable manifest fallback for dependency scanning."
 
     # Settings for all dependency resolution jobs.
@@ -144,8 +144,6 @@ variables:
   # Variable used to track the template/component introducing DS analyzer. Please do not override.
   # This is an internal variable.
   INTERNAL_DS_ANALYZER_CI_INTEGRATION: "template::v2"
-  # Temporary override for feature rollout. This will be removed when releasing the feature.
-  DS_DISABLED_RESOLUTION_JOBS: "maven, python, gradle"
 
 # ----------------------------------------------------------------
 # Main Dependency Scanning job

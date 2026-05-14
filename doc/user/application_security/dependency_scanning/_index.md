@@ -61,7 +61,7 @@ For details, see [Analyze dependencies for behaviors](experiment_libbehave_depen
 
 | Method                             | Status               | Trigger            | Best for                                                   |
 | ---------------------------------- | -------------------- | ------------------ | ---------------------------------------------------------- |
-| Dependency Scanning using SBOM     | Limited Availability | Pipeline           | New projects, SBOM-first workflows                         |
+| Dependency Scanning using SBOM     | General Availability | Pipeline           | New projects, SBOM-first workflows                         |
 | Continuous Dependency Scanning     | General Availability | Advisory DB update | Catching newly disclosed CVEs without re-running pipelines |
 | Dependency Scanning with Gemnasium | Deprecated (17.9)    | Pipeline           | Existing projects pending migration                        |
 | Analyze dependencies for behaviors | Experiment           | Pipeline           | Detecting malicious package behavior                       |
