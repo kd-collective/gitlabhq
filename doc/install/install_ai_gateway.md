@@ -798,7 +798,7 @@ Autoscaling is not mandatory but is recommended for environments with variable w
   - Enterprises with over 200 users and variable, high-concurrency workloads.
   - Use HPA to scale pods based on real-time demand, combined with node autoscaling for cluster-wide resource adjustments.
 
-## What specs does the AI Gateway container have access to, and how does resource allocation affect performance?
+## AI Gateway container specs and resource allocation
 
 The AI Gateway operates effectively under the following resource allocations:
 

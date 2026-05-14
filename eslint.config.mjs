@@ -792,6 +792,9 @@ export default [
         createPortalElement: 'readonly',
         assignRouter: 'readonly',
         fullMount: 'readonly',
+        capturedRequests: 'readonly',
+        resetCapturedRequests: 'readonly',
+        captureRequest: 'readonly',
       },
     },
 

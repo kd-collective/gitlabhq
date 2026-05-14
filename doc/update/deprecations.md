@@ -854,7 +854,7 @@ The **Limit access _from_ this project** setting is disabled by default for all 
 In GitLab 16.0 and later, you cannot re-enable this setting after it is disabled in any project.
 Instead, use the **Authorized groups and projects** setting to control job token access to your projects.
 
-### DAST `dast_crawl_extract_element_timeout` and `dast_crawl_search_element_timeout` variables are deprecated
+### DAST `dast_crawl_extract_element_timeout` and `dast_crawl_search_element_timeout` variables
 
 - Announced in GitLab 17.9
 - Removal in GitLab 18.0

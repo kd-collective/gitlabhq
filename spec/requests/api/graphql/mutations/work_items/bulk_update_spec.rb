@@ -253,15 +253,15 @@ RSpec.describe 'Bulk update work items', feature_category: :team_planning do
       }
     end
 
-    it 'updates all specified attributes',
-      quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/4077' do
+    it 'updates all specified attributes' do
       expect do
         post_graphql_mutation(mutation, current_user: current_user)
         updatable_work_items.each(&:reload)
       end.to change { updatable_work_items.map(&:confidential) }.from([false, false]).to([true, true])
          .and change { updatable_work_items.flat_map(&:assignee_ids) }.from([]).to([assignee.id] * 2)
          .and change { updatable_work_items.map(&:milestone_id) }.from([nil, nil]).to([milestone.id] * 2)
-         .and change { updatable_work_items.flat_map(&:label_ids) }.from([label1.id] * 2).to([label1.id, label2.id] * 2)
+         .and change { updatable_work_items.flat_map { |wi| wi.label_ids.sort } }
+                .from([label1.id] * 2).to([label1.id, label2.id].sort * 2)
          .and change { updatable_work_items.map(&:state) }.from(%w[opened opened]).to(%w[closed closed])
          .and change { updatable_work_items.all? { |wi| wi.subscribed?(current_user, project) } }.from(false).to(true)
 

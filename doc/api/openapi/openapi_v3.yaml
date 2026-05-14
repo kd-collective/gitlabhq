@@ -15951,7 +15951,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_02a2c6e64d09"
+              "$ref": "#/components/schemas/RequestBody_e58b9549fa19"
   "/api/v4/service_accounts":
     post:
       operationId: postApiV4ServiceAccounts
@@ -78226,6 +78226,10 @@ components:
           description: Elasticsearch index settings.
           items:
             "$ref": "#/components/schemas/APIEntitiesElasticIndexSetting"
+        built_in_project_templates_enabled:
+          type: boolean
+        lock_built_in_project_templates_enabled:
+          type: boolean
     APIEntitiesServiceAccount:
       type: object
       properties:
@@ -90186,7 +90190,7 @@ components:
           nullable: true
       required:
       - avatar
-    RequestBody_02a2c6e64d09:
+    RequestBody_e58b9549fa19:
       type: object
       properties:
         admin_mode:
@@ -91447,6 +91451,14 @@ components:
                 nullable: true
             required:
             - features
+          nullable: true
+        built_in_project_templates_enabled:
+          type: boolean
+          description: Enable built-in project templates for project creation
+          nullable: true
+        lock_built_in_project_templates_enabled:
+          type: boolean
+          description: Enforce the built-in project templates setting for all groups
           nullable: true
         allow_local_requests_from_web_hooks_and_services:
           type: string

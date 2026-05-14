@@ -267,7 +267,7 @@ gem 'tanuki_emoji', '~> 0.13', feature_category: :markdown
 gem 'unicode-emoji', '~> 4.0', feature_category: :markdown
 
 # Calendar rendering
-gem 'icalendar', '~> 2.10.1', feature_category: :team_planning
+gem 'icalendar', '~> 2.12.0', feature_category: :team_planning
 
 # Diffs
 gem 'diffy', '~> 3.4', feature_category: :shared # rubocop:todo Gemfile/MissingFeatureCategory -- https://gitlab.com/gitlab-org/gitlab/-/issues/581839

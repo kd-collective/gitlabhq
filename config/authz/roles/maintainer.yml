@@ -163,6 +163,8 @@ project:
   - update_approvers
   - update_branch_rule
   - update_cluster
+  - update_cvs_for_container_scanning
+  - update_cvs_for_dependency_scanning
   - update_freeze_period
   - update_pages
   - update_pipeline_variable_override_setting
