@@ -729,23 +729,8 @@ RSpec.describe MergeRequests::BuildService, feature_category: :code_review_workf
         project.add_developer(user)
       end
 
-      context 'when the feature flag is disabled' do
-        before do
-          stub_feature_flags(mr_default_title_template: false)
-          project.mr_default_title_template = '%{source_branch}'
-          stub_compare
-        end
-
-        let(:commits) { Commit.decorate([commit_2], project) }
-
-        it 'ignores the template and uses the default cascade' do
-          expect(merge_request.title).to eq(commit_2.safe_message.split("\n").first)
-        end
-      end
-
       context 'when the project has a title template configured' do
         before do
-          stub_feature_flags(mr_default_title_template: project)
           project.mr_default_title_template = title_template
           stub_compare
         end

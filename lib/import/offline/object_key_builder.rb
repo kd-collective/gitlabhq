@@ -14,6 +14,8 @@
 module Import
   module Offline
     class ObjectKeyBuilder
+      BATCH_FILE_NAME_REGEX = Gitlab::UntrustedRegexp.new('\Abatch_(?P<number>\d+)\..+\z')
+
       ObjectKeyError = Class.new(StandardError)
 
       def initialize(configuration)
@@ -55,6 +57,39 @@ module Import
         object_key(relation, extension, entity_prefix, batch_number: batch_number)
       end
 
+      # Builds the object key prefix for a relation using the batched relation format. E.g.
+      # '2026-04-16_19-39-00_export_dJtnb3CV/project_1/issues' is the batched object prefix for the object key
+      # '2026-04-16_19-39-00_export_dJtnb3CV/project_1/issues/batch_1.ndjson'
+      #
+      # @param relation [String] the relation name (e.g., "issues", "merge_requests")
+      # @param entity_prefix [String] the entity directory prefix (e.g., "project_1")
+      # @return [String] the prefix (e.g., "2026-04-16_export_abc/project_1/issues")
+      def batched_object_key_prefix(relation:, entity_prefix:)
+        [configuration.export_prefix, entity_prefix, relation].join(::Import::Clients::ObjectStorage::PREFIX_SEPARATOR)
+      end
+
+      # Returns whether the given object key represents an unbatched (single-file) export
+      # for the specified relation by checking if the filename without extension matches
+      # the relation name exactly (e.g., "milestones.ndjson" matches relation "milestones").
+      #
+      # @param object_key [String] the full object key
+      # @param relation [String] the relation name to check against
+      # @return [Boolean]
+      def unbatched_relation_key?(object_key, relation)
+        filename(object_key).split('.').first == relation
+      end
+
+      # Extracts the batch number from a batched export object key.
+      # Parses the filename against the pattern "batch_<number>.<ext>".
+      #
+      # @param object_key [String] the full object key (e.g., ".../issues/batch_3.ndjson")
+      # @return [Integer, nil] the batch number, or nil if the key is not a batched file
+      def batch_number(object_key)
+        regexp_match = BATCH_FILE_NAME_REGEX.match(filename(object_key))
+
+        regexp_match[:number].to_i if regexp_match
+      end
+
       private
 
       attr_reader :configuration
@@ -72,6 +107,10 @@ module Import
         end
 
         filename_parts.join(::Import::Clients::ObjectStorage::PREFIX_SEPARATOR)
+      end
+
+      def filename(object_key)
+        object_key.split(::Import::Clients::ObjectStorage::PREFIX_SEPARATOR).last
       end
     end
   end

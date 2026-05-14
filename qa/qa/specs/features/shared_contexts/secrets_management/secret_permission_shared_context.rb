@@ -29,6 +29,10 @@ module QA
         project.find_member(owner.username).present?
       end
 
+      # SM availability now requires (FF AND enrollment). Enroll the instance
+      # so the SM section renders in project settings.
+      enroll_instance_in_secrets_manager
+
       Flow::Login.while_signed_in(as: owner) do
         skip "OpenBao instance is not reachable" unless openbao_healthy?
         project.visit!

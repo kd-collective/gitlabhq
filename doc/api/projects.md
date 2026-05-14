@@ -116,13 +116,9 @@ Use the alternative attributes instead.
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Retrieves the specified project. This endpoint can be accessed without authentication if
 the project is publicly accessible.
@@ -558,12 +554,12 @@ List projects and project attributes.
 
 - `web_based_commit_signing_enabled` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194650) in GitLab 18.2 [with a flag](../administration/feature_flags/_index.md) named `use_web_based_commit_signing_enabled`. Disabled by default.
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
 
 > [!flag]
-> The availability of the `web_based_commit_signing_enabled` and `mr_default_title_template` attributes
-> are controlled by feature flags.
+> The availability of the `web_based_commit_signing_enabled` attribute is controlled by a feature flag.
 > For more information, see the history.
 > This feature is available for testing, but not ready for production use.
 
@@ -938,13 +934,9 @@ Example response:
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Lists all personal projects for a specified user. The following restrictions apply:
 
@@ -1427,13 +1419,9 @@ Example response:
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Lists all contributions to visible projects for a specified user. Returns only contributions in
 the past year. For more information about what counts as a contribution, see
@@ -2241,13 +2229,9 @@ see [Project feature visibility level](#project-feature-visibility-level).
 - `packages_enabled` [deprecated](https://gitlab.com/gitlab-org/gitlab/-/issues/454759) in GitLab 17.10.
 - `package_registry_access_level` [introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/454759) in GitLab 18.5.
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Creates a project for a user.
 
@@ -2342,13 +2326,9 @@ see [Project feature visibility level](#project-feature-visibility-level).
 - `package_registry_access_level` [introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/454759) in GitLab 18.5.
 - `protect_merge_request_pipelines` and `ci_display_pipeline_variables` [introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/584488) in GitLab 18.10.
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Updates an existing project.
 
@@ -2532,13 +2512,9 @@ Example responses:
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Archives the specified project.
 
@@ -2693,13 +2669,9 @@ Example response:
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Unarchives the specified project.
 
@@ -2905,13 +2877,9 @@ Supported attributes:
 {{< history >}}
 
 - `mr_default_title_template` [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default.
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of the `mr_default_title_template` attribute is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Transfers a project to a new namespace.
 

@@ -64545,7 +64545,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_3cadcd8792c9"
+              "$ref": "#/components/schemas/RequestBody_5f076d7d8e3f"
   "/api/v4/groups/{id}":
     put:
       operationId: putApiV4GroupsId
@@ -64575,7 +64575,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_9daa0539fd8e"
+              "$ref": "#/components/schemas/RequestBody_a9a057b49e5d"
     get:
       operationId: getApiV4GroupsId
       summary: Get a single group, with containing projects.
@@ -105709,7 +105709,7 @@ components:
           example:
             environment: production
           nullable: true
-    RequestBody_3cadcd8792c9:
+    RequestBody_5f076d7d8e3f:
       type: object
       properties:
         name:
@@ -105989,6 +105989,11 @@ components:
               type: boolean
               description: Enable AI usage data collection for this namespace
               nullable: true
+            ai_catalog_restricted_to_group_hierarchy:
+              type: boolean
+              description: Restrict the AI Catalog to items within this top-level
+                group hierarchy
+              nullable: true
             foundational_agents_default_enabled:
               type: boolean
               description: Whether new foundational agents are enabled by default
@@ -106059,7 +106064,7 @@ components:
       required:
       - name
       - path
-    RequestBody_9daa0539fd8e:
+    RequestBody_a9a057b49e5d:
       type: object
       properties:
         name:
@@ -106339,6 +106344,11 @@ components:
             ai_usage_data_collection_enabled:
               type: boolean
               description: Enable AI usage data collection for this namespace
+              nullable: true
+            ai_catalog_restricted_to_group_hierarchy:
+              type: boolean
+              description: Restrict the AI Catalog to items within this top-level
+                group hierarchy
               nullable: true
             foundational_agents_default_enabled:
               type: boolean

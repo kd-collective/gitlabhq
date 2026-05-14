@@ -358,8 +358,7 @@ module MergeRequests
     end
 
     def mr_title_template_enabled?
-      Feature.enabled?(:mr_default_title_template, target_project) &&
-        target_project.mr_default_title_template.present?
+      target_project.mr_default_title_template.present?
     end
 
     # Memoized because it is shared between replace_variables_in_description

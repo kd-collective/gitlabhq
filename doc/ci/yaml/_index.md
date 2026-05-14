@@ -2747,9 +2747,9 @@ You should not combine `dependencies` with `needs` in the same job.
 **Example of `dependencies`**:
 
 ```yaml
-build osx:
+build mac:
   stage: build
-  script: make build:osx
+  script: make build:mac
   artifacts:
     paths:
       - binaries/
@@ -2761,11 +2761,11 @@ build linux:
     paths:
       - binaries/
 
-test osx:
+test mac:
   stage: test
-  script: make test:osx
+  script: make test:mac
   dependencies:
-    - build osx
+    - build mac
 
 test linux:
   stage: test
@@ -2779,8 +2779,8 @@ deploy:
   environment: production
 ```
 
-In this example, two jobs have artifacts: `build osx` and `build linux`. When `test osx` is executed,
-the artifacts from `build osx` are downloaded and extracted in the context of the build.
+In this example, two jobs have artifacts: `build mac` and `build linux`. When `test mac` is executed,
+the artifacts from `build mac` are downloaded and extracted in the context of the build.
 The same thing happens for `test linux` and artifacts from `build linux`.
 
 The `deploy` job downloads artifacts from all previous jobs because of
@@ -2788,7 +2788,8 @@ the [stage](#stages) precedence.
 
 **Additional details**:
 
-- The job status does not matter. If a job fails or it's a manual job that isn't triggered, no error occurs.
+- If the earlier job does not generate artifacts, or is a manual job that didn't run,
+  the dependent job still runs and does not generate an error.
 - If the artifacts of a dependent job are [expired](#artifactsexpire_in) or
   [deleted](../jobs/job_artifacts.md#delete-job-log-and-artifacts), then the job fails.
 

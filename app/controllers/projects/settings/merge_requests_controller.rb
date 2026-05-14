@@ -56,10 +56,9 @@ module Projects
           :merge_method,
           :merge_commit_template_or_default,
           :squash_commit_template_or_default,
-          :suggestion_commit_message
+          :suggestion_commit_message,
+          :mr_default_title_template
         ]
-
-        attrs << :mr_default_title_template if Feature.enabled?(:mr_default_title_template, project)
 
         attrs + [project_setting_attributes: project_setting_attributes]
       end

@@ -312,4 +312,90 @@ RSpec.describe Import::Clients::ObjectStorage, feature_category: :importers do
       end
     end
   end
+
+  describe '#object_keys_for_prefix' do
+    let(:object_key_prefix) { 'exports/group_1/labels' }
+    let(:storage) { Fog::Storage.new(provider: 'AWS', **credentials) }
+    let(:directory) { storage.directories.new(key: bucket) }
+    let(:object_keys) { [] }
+
+    before do
+      stub_object_storage(
+        connection_params: { provider: provider }.merge(credentials),
+        remote_directory: bucket
+      )
+
+      object_keys.each do |key|
+        directory.files.create(key: key, body: 'file content') # rubocop:disable Rails/SaveBang -- fog file collections do not use ActiveRecord
+      end
+    end
+
+    context 'when objects exist under the prefix' do
+      let(:object_keys) do
+        [
+          "#{object_key_prefix}/batch_1.ndjson.gz",
+          "#{object_key_prefix}/batch_2.ndjson.gz",
+          "#{object_key_prefix}.ndjson.gz"
+        ]
+      end
+
+      it 'returns the object keys' do
+        result = client.object_keys_for_prefix(object_key_prefix)
+
+        expect(result).to match_array(object_keys)
+      end
+    end
+
+    context 'when no objects exist under the prefix' do
+      it 'returns an empty array' do
+        expect(client.object_keys_for_prefix(object_key_prefix)).to be_empty
+      end
+    end
+
+    context 'when Fog raises an error' do
+      let(:fog_error) { Fog::Errors::Error.new('connection refused') }
+
+      before do
+        allow_next_instance_of(Fog::Storage) do |storage|
+          allow(storage).to receive(:directories).and_raise(fog_error)
+        end
+      end
+
+      it 'tracks exception and raises ConnectionError' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception).with(
+          fog_error,
+          provider: provider,
+          bucket: bucket,
+          object_key_prefix: object_key_prefix
+        )
+
+        expect { client.object_keys_for_prefix(object_key_prefix) }.to raise_error(
+          described_class::ConnectionError, 'Unable to list objects in prefix'
+        )
+      end
+    end
+
+    context 'when Excon raises an error' do
+      let(:excon_error) { Excon::Error.new('socket timeout') }
+
+      before do
+        allow_next_instance_of(Fog::Storage) do |storage|
+          allow(storage).to receive(:directories).and_raise(excon_error)
+        end
+      end
+
+      it 'tracks exception and raises DownloadError' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception).with(
+          excon_error,
+          provider: provider,
+          bucket: bucket,
+          object_key_prefix: object_key_prefix
+        )
+
+        expect { client.object_keys_for_prefix(object_key_prefix) }.to raise_error(
+          described_class::ConnectionError, 'Unable to list objects in prefix'
+        )
+      end
+    end
+  end
 end

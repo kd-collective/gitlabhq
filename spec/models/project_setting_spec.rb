@@ -50,18 +50,6 @@ RSpec.describe ProjectSetting, type: :model, feature_category: :groups_and_proje
         setting = build(:project_setting, mr_default_title_template: '%{source_branch} - %{first_commit}')
         expect(setting).to be_valid
       end
-
-      context 'when mr_default_title_template feature flag is disabled' do
-        before do
-          stub_feature_flags(mr_default_title_template: false)
-        end
-
-        it 'does not run the single-line validation' do
-          setting = build(:project_setting, mr_default_title_template: "first line\nsecond line")
-          setting.valid?
-          expect(setting.errors[:mr_default_title_template]).not_to include('must be a single line')
-        end
-      end
     end
 
     it 'validates the length of merge_request_title_regex_description' do

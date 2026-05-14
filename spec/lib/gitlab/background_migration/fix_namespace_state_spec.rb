@@ -248,7 +248,9 @@ RSpec.describe Gitlab::BackgroundMigration::FixNamespaceState, feature_category:
 
       context 'when state is NULL but group is archived' do
         before do
-          group.update!(state: nil)
+          without_not_null_constraint do
+            group.update!(state: nil)
+          end
           namespace_settings.create!(namespace_id: group.id, archived: true)
         end
 
@@ -765,5 +767,16 @@ RSpec.describe Gitlab::BackgroundMigration::FixNamespaceState, feature_category:
   def fetch_metadata(namespace_id)
     details = namespace_details.find_by(namespace_id: namespace_id)
     details&.state_metadata || {}
+  end
+
+  def without_not_null_constraint
+    connection = ApplicationRecord.connection
+    connection.execute('ALTER TABLE namespaces DROP CONSTRAINT IF EXISTS check_9d490f2140')
+
+    yield
+  ensure
+    connection.execute(
+      'ALTER TABLE namespaces ADD CONSTRAINT check_9d490f2140 CHECK (state IS NOT NULL) NOT VALID'
+    )
   end
 end

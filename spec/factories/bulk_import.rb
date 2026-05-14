@@ -34,6 +34,7 @@ FactoryBot.define do
     end
 
     trait :with_offline_configuration do
+      source_type { :offline_export }
       offline_configuration { association(:import_offline_configuration, bulk_import: instance) }
     end
   end

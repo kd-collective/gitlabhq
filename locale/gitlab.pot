@@ -3479,6 +3479,9 @@ msgstr ""
 msgid "AICatalog|can't be made private because it is used by at least one flow"
 msgstr ""
 
+msgid "AICatalog|cannot be enabled because your top-level group settings block enabling items outside of its hierarchy"
+msgstr ""
+
 msgid "AICatalog|flow"
 msgstr ""
 
@@ -14408,6 +14411,9 @@ msgstr ""
 msgid "CICD|Allow Git push requests to the repository"
 msgstr ""
 
+msgid "CICD|Allow cross-project Git push requests from allowlisted projects"
+msgstr ""
+
 msgid "CICD|Allow pipeline variables by default"
 msgstr ""
 
@@ -14439,6 +14445,9 @@ msgid "CICD|CI/CD job token allowlist"
 msgstr ""
 
 msgid "CICD|CI/CD job token can be used to authenticate a Git push to this repository, using the permissions of the user that started the job."
+msgstr ""
+
+msgid "CICD|CI/CD job tokens from projects on the allowlist with the admin_repositories permission can push to this repository."
 msgstr ""
 
 msgid "CICD|Configure CI job log settings for all projects."
@@ -49417,6 +49426,12 @@ msgstr ""
 msgid "OfflineTransfer|Export failed. You do not have permission to export the following resources or they do not exist: %{paths}"
 msgstr ""
 
+msgid "OfflineTransfer|Export files not found for relation: %{relation}"
+msgstr ""
+
+msgid "OfflineTransfer|Export relation batch file not found for relation: %{relation}, batch: %{batch_number}"
+msgstr ""
+
 msgid "OfflineTransfer|Import"
 msgstr ""
 
@@ -84311,6 +84326,9 @@ msgstr ""
 msgid "WorkItem|An error occurred while updating the status."
 msgstr ""
 
+msgid "WorkItem|An error occurred while updating work item settings."
+msgstr ""
+
 msgid "WorkItem|Analyze items"
 msgstr ""
 
@@ -87733,6 +87751,9 @@ msgid "can only be changed by a group admin."
 msgstr ""
 
 msgid "can only be set for root group namespace"
+msgstr ""
+
+msgid "can only be set for top-level groups"
 msgstr ""
 
 msgid "can only have a maximum of %{limit} active custom fields."

@@ -17,13 +17,9 @@ title: Merge request title templates
 {{< history >}}
 
 - [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/228442) in GitLab 18.11 [with a feature flag](../../../administration/feature_flags/_index.md) named `mr_default_title_template`. Disabled by default. This feature is in [beta](../../../policy/development_stages_support.md#beta).
+- Feature flag `mr_default_title_template` [removed](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235642) in GitLab 19.0.
 
 {{< /history >}}
-
-> [!flag]
-> The availability of this feature is controlled by a feature flag.
-> For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 Merge request title templates define the default title for new merge requests in a project.
 Use templates to standardize merge request naming conventions across your team.

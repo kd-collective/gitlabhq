@@ -97,7 +97,7 @@ pipeline.
 After completing these steps, you can:
 
 - Learn more about how to evaluate the [vulnerability results](#vulnerability-results).
-- Review [optimization tips](#optimization).
+- Review [scan performance tips](#improve-scanning-performance).
 - Plan a [rollout to more projects](#roll-out).
 
 ## Vulnerability results
@@ -192,14 +192,11 @@ When analyzing PHP code, GitLab Advanced SAST has the following known issues:
   is not fully supported in cross-file analysis. See
   [issue 526528](https://gitlab.com/gitlab-org/gitlab/-/issues/526528).
 
-## Optimization
+## Improve scanning performance
 
-GitLab Advanced SAST scan duration is determined by multiple factors but primarily code coverage and
-runner resources. To optimize GitLab Advanced SAST scan duration, you can tune code coverage and
-runner resources.
-
-You can optionally [report unverified vulnerabilities](#report-unverified-vulnerabilities), where
-the full path from source to sink is not identified.
+GitLab Advanced SAST scanning performance is determined primarily by code coverage and runner
+resources. To improve GitLab Advanced SAST scan performance, you can tune code coverage and runner
+resources.
 
 ### Tune code coverage
 
@@ -209,6 +206,9 @@ scan these files. An automated
 [transition process](#transitioning-from-semgrep-to-gitlab-advanced-sast) removes duplicate findings
 when both analyzers detect the same vulnerability.
 
+You can optionally [report unverified vulnerabilities](#report-unverified-vulnerabilities), where
+the full path from source to sink is not identified.
+
 By default, GitLab Advanced SAST scans the entire repository. You can tune code coverage by using
 the following methods:
 
@@ -217,6 +217,24 @@ the following methods:
   dependent files).
 - Turn on incremental scanning, which caches the results of prior scanning and so reduces the
   computational load.
+
+Diff-based scanning and incremental scanning can be used independently or together to improve scan performance.
+
+Diff-based scanning
+: Scans only changed files and their dependents in merge request associated pipelines
+  (merge request pipelines or branch pipelines associated with a merge request), trading full
+  coverage for speed.
+
+Incremental scanning
+: Caches prior scan results and reuses them in subsequent pipelines, reducing scan duration
+  while maintaining full file coverage. Available in all pipelines.
+
+| Configuration                     | Merge request associated pipelines              | All other pipelines                  |
+|-----------------------------------|-------------------------------------------------|--------------------------------------|
+| No optimization                   | Standard. Scans all files, no cache.            | Standard. Scans all files, no cache. |
+| Incremental scanning only         | Fast. Scans all files with cache.               | Fast. Scans all files with cache.    |
+| Diff-based scanning only          | Faster. Scans only changed files, no cache.     | Standard. Scans all files, no cache. |
+| Diff-based + incremental scanning | Fastest. Scans only changed files with cache.   | Fast. Scans all files with cache.    |
 
 #### Exclude paths
 
@@ -429,6 +447,55 @@ The cache is stored as a compressed CI/CD artifact. Artifact size limits apply:
 - GitLab Self-Managed: 100 MB default maximum artifact size. An administrator can adjust this
   limit in [CI/CD settings](../../../administration/settings/continuous_integration.md#set-maximum-artifacts-size).
 
+##### Store cache in external object storage
+
+As an alternative to CI/CD artifact storage, you can store the incremental scanning cache in
+external object storage. Use this storage method when artifact storage limits are a constraint
+or when you want to manage cache lifecycle independently. AWS S3 is supported.
+
+Authentication uses [OpenID Connect (OIDC)](../../../ci/cloud_services/_index.md) to
+exchange short-lived tokens with your cloud provider. You do not need to store long-lived credentials as
+CI/CD variables.
+
+Prerequisites:
+
+- An S3 bucket.
+- An [IAM OIDC identity provider configured for GitLab](../../../ci/cloud_services/aws/_index.md).
+- An IAM role with the following permissions on the bucket:
+  - `s3:GetObject`
+  - `s3:PutObject`
+  - `s3:HeadObject`
+- The IAM role's trust policy should be scoped to the projects or groups that require access
+  (for example, `project_path:myorg/*` for all projects in a group).
+
+To store the cache in S3:
+
+1. Add this configuration to your `.gitlab-ci.yml`:
+
+   ```yaml
+   gitlab-advanced-sast:
+     id_tokens:
+       GITLAB_ADV_SAST_INCR_SCAN_OIDC_TOKEN:
+         aud: https://gitlab.com
+     variables:
+       GITLAB_ADV_SAST_INCR_SCAN: "true"
+       GITLAB_ADV_SAST_INCR_SCAN_STORAGE: "s3"
+       GITLAB_ADV_SAST_INCR_SCAN_S3_BUCKET: "advanced-sast-cache"
+       GITLAB_ADV_SAST_INCR_SCAN_S3_REGION: "us-east-1"
+       GITLAB_ADV_SAST_INCR_SCAN_S3_ROLE_ARN: "arn:aws:iam::<account-id>:role/<role-name>"
+   ```
+
+1. For GitLab Self-Managed or GitLab Dedicated, replace `aud: https://gitlab.com` with your GitLab instance URL.
+1. Configure an [S3 lifecycle policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)
+   to auto-expire cache objects.
+   
+   The expiry should be aligned with the `GITLAB_ADV_SAST_INCR_SCAN_SEARCH_PERIOD` value (default: 3 days) to avoid
+   retaining stale cache files.
+
+The cache is stored in S3 at `<project-path>/<commit-sha>/ts-cache.sqlite.gz`.
+The analyzer searches parent commits for the most recent cache, matching
+artifact-based caching behavior.
+
 ### Report unverified vulnerabilities
 
 {{< details >}}
@@ -556,6 +623,10 @@ You can adjust GitLab Advanced SAST behavior using the following variables:
 | `GITLAB_ADV_SAST_INCR_SCAN`                 | `false`                | Enable [incremental scanning](#incremental-scanning) to cache taint signatures between pipeline runs.                                                                                           |
 | `GITLAB_ADV_SAST_INCR_SCAN_SEARCH_PERIOD`   | `3 days`               | How far back to search for a cached taint signature artifact. Supported format: number followed by `d`, `day`, or `days` (for example, `7 days`). Should not exceed the artifact expiry period. |
 | `GITLAB_ADV_SAST_INCR_SCAN_CUSTOM_JOB_NAME` | `gitlab-advanced-sast` | Custom job name for cache artifact lookup. Set this if you renamed the `gitlab-advanced-sast` job.                                                                                              |
+| `GITLAB_ADV_SAST_INCR_SCAN_STORAGE`         | Not set                | Cache storage backend. Set to `s3` to store the cache in AWS S3 instead of CI/CD artifacts. For details, see [store cache in external object storage](#store-cache-in-external-object-storage).           |
+| `GITLAB_ADV_SAST_INCR_SCAN_S3_BUCKET`       | Not set                | S3 bucket name for cache storage. Required when `GITLAB_ADV_SAST_INCR_SCAN_STORAGE` is `s3`.                                                                                                   |
+| `GITLAB_ADV_SAST_INCR_SCAN_S3_REGION`       | Not set                | AWS region of the S3 bucket. Required when `GITLAB_ADV_SAST_INCR_SCAN_STORAGE` is `s3`.                                                                                                        |
+| `GITLAB_ADV_SAST_INCR_SCAN_S3_ROLE_ARN`     | Not set                | ARN of the IAM role to assume through OIDC. Required when `GITLAB_ADV_SAST_INCR_SCAN_STORAGE` is `s3`.                                                                                              |
 
 GitLab Advanced SAST scanning is disabled by default. To explicitly disable it when enabled at a
 higher level (for example, for a group), set `GITLAB_ADVANCED_SAST_ENABLED` (or

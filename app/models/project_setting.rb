@@ -137,7 +137,6 @@ class ProjectSetting < ApplicationRecord
   end
 
   def mr_default_title_template_no_newlines
-    return unless Feature.enabled?(:mr_default_title_template, project)
     return if mr_default_title_template.blank?
 
     return unless mr_default_title_template.match?(/[\r\n]/)

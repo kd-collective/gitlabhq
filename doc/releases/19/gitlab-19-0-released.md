@@ -303,6 +303,32 @@ This makes it easy to restart services on multiple instances, build multiple Doc
 run tests with multiple tag combinations, or perform any operation across multiple targets
 in a single pipeline run.
 
+### Detailed CI/CD Catalog component usage analytics
+
+<!-- categories: Component Catalog -->
+
+{{< details >}}
+
+- Tier: Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../ci/components/_index.md#view-component-usage-details), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/579460)
+
+{{< /details >}}
+
+When you manage a CI/CD component in the GitLab Catalog, usage details are critical for
+managing upgrades, enforcing compliance, and communicating breaking changes.
+You need to know which projects use your components, and which versions they are using.
+Previously, this information was not available, making it difficult to notify
+the right maintainers, plan deprecations safely, or ensure projects stay
+current with the latest security patches.
+
+The component usage details view in the catalog resource page now shows
+exactly which projects use each component, the version they are running,
+and whether they are on the latest version or an outdated one. Projects
+using older versions are surfaced at the top, so you can prioritize
+outreach, drive adoption of security fixes, and ensure a smooth upgrade
+path across your organization.
+
 ### Configure parallel pipeline limits for merge trains
 
 <!-- categories: Continuous Integration (CI) -->

@@ -9,6 +9,7 @@ module Import
       UploadError = Class.new(StandardError)
       ConnectionError = Class.new(StandardError)
 
+      LIST_OBJECT_KEYS_PAGE_SIZE = 1000
       MULTIPART_THRESHOLD = 100.megabytes
       PREFIX_SEPARATOR = '/'
 
@@ -32,6 +33,25 @@ module Import
       def test_connection!
         wrapped_object_storage_errors(ConnectionError, s_('OfflineTransfer|Unable to access object storage bucket.')) do
           storage.head_bucket(bucket).status == 200
+        end
+      end
+
+      # Returns all object keys in the bucket matching the given prefix.
+      #
+      # Uses Fog's lazy pagination to fetch keys in batches of LIST_OBJECT_KEYS_PAGE_SIZE.
+      # Only object metadata is retrieved; file contents are not downloaded.
+      #
+      # @param object_key_prefix [String] the prefix to filter object keys by
+      # @return [Array<String>] list object keys with the provided prefix
+      # @raise [ConnectionError] if the object storage bucket cannot be accessed
+      def object_keys_for_prefix(object_key_prefix)
+        wrapped_object_storage_errors(ConnectionError, 'Unable to list objects in prefix',
+          extra_log_context: { object_key_prefix: object_key_prefix }) do
+          directory = storage.directories.new(key: bucket)
+          directory.files.prefix = object_key_prefix
+          directory.files.max_keys = LIST_OBJECT_KEYS_PAGE_SIZE
+
+          directory.files.map(&:key)
         end
       end
 

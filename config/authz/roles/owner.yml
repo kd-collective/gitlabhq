@@ -91,10 +91,12 @@ group:
   - create_group_link
   - create_placeholder_reassignment
   - create_runners
+  - create_secrets_manager_enrollment
   - create_service_account
   - create_subgroup
   - delete_enterprise_user
   - delete_group_link
+  - delete_secrets_manager_enrollment
   - delete_secrets_permission
   - delete_service_account
   - delete_subgroup
@@ -132,6 +134,7 @@ group:
   - read_runners
   - read_runners_registration_token
   - read_saml_user
+  - read_secrets_manager_enrollment
   - read_service_account
   - read_subscription_usage
   - read_usage_quotas

@@ -35,7 +35,7 @@ class Namespace < ApplicationRecord
   ignore_column :file_template_project_id, remove_with: '19.2', remove_after: '2026-06-18'
   ignore_column :custom_project_templates_group_id, remove_with: '19.2', remove_after: '2026-06-18'
 
-  columns_changing_default :organization_id, :state
+  columns_changing_default :organization_id
 
   # Tells ActiveRecord not to store the full class name, in order to save some space
   # https://gitlab.com/gitlab-org/gitlab/-/merge_requests/69794

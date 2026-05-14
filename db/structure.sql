@@ -15043,6 +15043,7 @@ CREATE TABLE application_settings (
     active_context_settings jsonb DEFAULT '{}'::jsonb NOT NULL,
     duo_settings jsonb DEFAULT '{}'::jsonb NOT NULL,
     mcp_server_settings jsonb DEFAULT '{}'::jsonb NOT NULL,
+    secrets_manager_instance_enrolled boolean DEFAULT false NOT NULL,
     CONSTRAINT app_settings_container_reg_cleanup_tags_max_list_size_positive CHECK ((container_registry_cleanup_tags_service_max_list_size >= 0)),
     CONSTRAINT app_settings_dep_proxy_ttl_policies_worker_capacity_positive CHECK ((dependency_proxy_ttl_group_policy_worker_capacity >= 0)),
     CONSTRAINT app_settings_ext_pipeline_validation_service_url_text_limit CHECK ((char_length(external_pipeline_validation_service_url) <= 255)),
@@ -30108,6 +30109,22 @@ CREATE SEQUENCE secrets_management_recovery_keys_id_seq
 
 ALTER SEQUENCE secrets_management_recovery_keys_id_seq OWNED BY secrets_management_recovery_keys.id;
 
+CREATE TABLE secrets_manager_namespace_enrollments (
+    id bigint NOT NULL,
+    namespace_id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+CREATE SEQUENCE secrets_manager_namespace_enrollments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE secrets_manager_namespace_enrollments_id_seq OWNED BY secrets_manager_namespace_enrollments.id;
+
 CREATE TABLE security_attributes (
     id bigint NOT NULL,
     namespace_id bigint NOT NULL,
@@ -36972,6 +36989,8 @@ ALTER TABLE ONLY secret_rotation_infos ALTER COLUMN id SET DEFAULT nextval('secr
 
 ALTER TABLE ONLY secrets_management_recovery_keys ALTER COLUMN id SET DEFAULT nextval('secrets_management_recovery_keys_id_seq'::regclass);
 
+ALTER TABLE ONLY secrets_manager_namespace_enrollments ALTER COLUMN id SET DEFAULT nextval('secrets_manager_namespace_enrollments_id_seq'::regclass);
+
 ALTER TABLE ONLY security_attributes ALTER COLUMN id SET DEFAULT nextval('security_attributes_id_seq'::regclass);
 
 ALTER TABLE ONLY security_categories ALTER COLUMN id SET DEFAULT nextval('security_categories_id_seq'::regclass);
@@ -39174,6 +39193,9 @@ ALTER TABLE ONLY group_type_ci_runners
 ALTER TABLE abuse_reports
     ADD CONSTRAINT check_95e5f0c300 CHECK ((char_length(message) <= 2048)) NOT VALID;
 
+ALTER TABLE namespaces
+    ADD CONSTRAINT check_9d490f2140 CHECK ((state IS NOT NULL)) NOT VALID;
+
 ALTER TABLE related_epic_links
     ADD CONSTRAINT check_a6d9d7c276 CHECK ((issue_link_id IS NOT NULL)) NOT VALID;
 
@@ -41141,6 +41163,9 @@ ALTER TABLE ONLY secret_rotation_infos
 
 ALTER TABLE ONLY secrets_management_recovery_keys
     ADD CONSTRAINT secrets_management_recovery_keys_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY secrets_manager_namespace_enrollments
+    ADD CONSTRAINT secrets_manager_namespace_enrollments_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY security_attributes
     ADD CONSTRAINT security_attributes_pkey PRIMARY KEY (id);
@@ -51238,6 +51263,8 @@ CREATE UNIQUE INDEX uniq_idx_project_compliance_framework_on_project_framework O
 
 CREATE UNIQUE INDEX uniq_idx_security_policy_requirements_on_requirement_and_policy ON security_policy_requirements USING btree (compliance_framework_security_policy_id, compliance_requirement_id);
 
+CREATE UNIQUE INDEX uniq_idx_sm_namespace_enrollments_on_namespace_id ON secrets_manager_namespace_enrollments USING btree (namespace_id);
+
 CREATE UNIQUE INDEX uniq_idx_streaming_destination_id_and_namespace_id ON audit_events_streaming_instance_namespace_filters USING btree (external_streaming_destination_id, namespace_id);
 
 CREATE UNIQUE INDEX uniq_idx_streaming_group_destination_id_and_namespace_id ON audit_events_streaming_group_namespace_filters USING btree (external_streaming_destination_id, namespace_id);
@@ -61046,6 +61073,9 @@ ALTER TABLE ONLY audit_events_streaming_instance_event_type_filters
 
 ALTER TABLE ONLY work_item_text_field_values
     ADD CONSTRAINT fk_rails_e846cf23c6 FOREIGN KEY (custom_field_id) REFERENCES custom_fields(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY secrets_manager_namespace_enrollments
+    ADD CONSTRAINT fk_rails_e8851cce67 FOREIGN KEY (namespace_id) REFERENCES namespaces(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY audit_events_streaming_event_type_filters
     ADD CONSTRAINT fk_rails_e8bd011129 FOREIGN KEY (external_audit_event_destination_id) REFERENCES audit_events_external_audit_event_destinations(id) ON DELETE CASCADE;

@@ -49105,6 +49105,10 @@ definitions:
           ai_usage_data_collection_enabled:
             type: boolean
             description: Enable AI usage data collection for this namespace
+          ai_catalog_restricted_to_group_hierarchy:
+            type: boolean
+            description: Restrict the AI Catalog to items within this top-level group
+              hierarchy
           foundational_agents_default_enabled:
             type: boolean
             description: Whether new foundational agents are enabled by default
@@ -49407,6 +49411,10 @@ definitions:
           ai_usage_data_collection_enabled:
             type: boolean
             description: Enable AI usage data collection for this namespace
+          ai_catalog_restricted_to_group_hierarchy:
+            type: boolean
+            description: Restrict the AI Catalog to items within this top-level group
+              hierarchy
           foundational_agents_default_enabled:
             type: boolean
             description: Whether new foundational agents are enabled by default
@@ -50357,6 +50365,7 @@ definitions:
     - suggestion_commit_message
     - merge_commit_template
     - squash_commit_template
+    - mr_default_title_template
     - issue_branch_template
     - warn_about_potentially_unwanted_characters
     - autoclose_referenced_issues
@@ -69110,6 +69119,7 @@ definitions:
     - suggestion_commit_message
     - merge_commit_template
     - squash_commit_template
+    - mr_default_title_template
     - issue_branch_template
     - warn_about_potentially_unwanted_characters
     - autoclose_referenced_issues

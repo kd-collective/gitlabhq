@@ -10,6 +10,7 @@ module Namespaces
       include StatePreservation
       include TransitionValidation
       include ::Gitlab::TenantContainerLifecycle::Stateful::TransitionLogging
+      include StateQuerying
 
       attribute :state, :integer, limit: 2, default: 0
 
@@ -23,18 +24,6 @@ module Namespaces
         maintenance: 6,
         transfer_scheduled: 7
       }, instance_methods: false
-
-      # TODO: We're overriding the scopes defined by `enum :state` in `StateQuerying`.
-      # Move with the above include statements above after BBM is finalized
-      # https://gitlab.com/gitlab-org/gitlab/-/issues/588431 and remove the scopes in `StateQuerying`.
-      include StateQuerying
-
-      # During migration, both NULL and 0 represent ancestor_inherited in the database.
-      # Override the state reader so that NULL is treated as ancestor_inherited (value 0).
-      # TODO: Remove after NULL->0 backfill is complete https://gitlab.com/gitlab-org/gitlab/-/issues/588431
-      def state(...)
-        super || 'ancestor_inherited'
-      end
 
       state_machine :state, initial: :ancestor_inherited do
         state :creation_in_progress

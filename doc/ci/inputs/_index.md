@@ -80,6 +80,10 @@ scan-website:
 
 In this example, the inputs are `job-stage` and `environment`.
 
+You can only use inputs values in the file with the `spec` section.
+To use an input value from a different file added with `include`,
+[pass it to the included file explicitly](#for-configuration-added-with-include).
+
 With `spec:inputs`:
 
 - Inputs are mandatory if `default` is not specified.
@@ -574,6 +578,10 @@ In this example, the inputs for the included configuration are:
 | `concurrency`    | `2`             | Must be a numeric value to match the `spec:inputs:type` set to `number` in the included configuration. Overrides the default value. |
 | `version`        | `v1.3.2`        | Must be explicitly defined, and must match the regular expression in the `spec:inputs:regex` in the included configuration. |
 | `export_results` | `false`         | Must be either `true` or `false` to match the `spec:inputs:type` set to `boolean` in the included configuration. Overrides the default value. |
+
+Input values are only available in the same file as the `spec` section defining them.
+A file added with `include` cannot access inputs defined in other files, or the including file.
+To use a value from an included file, pass it explicitly with `include:inputs`.
 
 #### With multiple `include` entries
 
