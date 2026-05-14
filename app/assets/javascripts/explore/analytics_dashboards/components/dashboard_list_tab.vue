@@ -4,15 +4,14 @@ import { s__ } from '~/locale';
 import { joinPaths } from '~/lib/utils/url_utility';
 import * as Sentry from '~/sentry/sentry_browser_wrapper';
 import DashboardsList from '~/vue_shared/components/dashboards_list/dashboards_list.vue';
-import { getIdFromGraphQLId } from '~/graphql_shared/utils';
-import { TYPENAME_ANALYTICS_CUSTOM_DASHBOARD } from '~/graphql_shared/constants';
 import EmptyState from '~/vue_shared/components/dashboards_list/empty_state.vue';
+import { getDashboardIdFromGraphQLId } from '../utils';
 import getDashboardsQuery from '../graphql/get_dashboards.query.graphql';
 
 export default {
   name: 'DashboardListTab',
   components: { DashboardsList, EmptyState, GlSkeletonLoader, GlTab, GlAlert },
-  inject: ['organizationId', 'exploreAnalyticsDashboardsPath'],
+  inject: ['exploreAnalyticsDashboardsPath'],
   props: {
     title: {
       type: String,
@@ -55,7 +54,7 @@ export default {
         ...data,
         dashboardUrl: joinPaths(
           this.exploreAnalyticsDashboardsPath,
-          String(getIdFromGraphQLId(data.id, TYPENAME_ANALYTICS_CUSTOM_DASHBOARD)),
+          String(getDashboardIdFromGraphQLId(data.id)),
         ),
         isStarred: false,
       }));
@@ -66,7 +65,6 @@ export default {
       query: getDashboardsQuery,
       variables() {
         return {
-          organizationId: this.organizationId,
           search: this.search,
           scope: this.scope || undefined,
         };

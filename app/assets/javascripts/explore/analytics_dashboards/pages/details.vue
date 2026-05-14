@@ -1,15 +1,13 @@
 <script>
 import { GlDashboardLayout, GlSkeletonLoader } from '@gitlab/ui';
 import { createAlert } from '~/alert';
-import { convertToGraphQLId } from '~/graphql_shared/utils';
-import { TYPENAME_ANALYTICS_CUSTOM_DASHBOARD } from '~/graphql_shared/constants';
 import { s__ } from '~/locale';
 import {
   GRID_HEIGHT_COMPACT,
   GRID_HEIGHT_COMPACT_CELL_HEIGHT,
   GRID_HEIGHT_COMPACT_MIN_CELL_HEIGHT,
 } from '../constants';
-import { getUniquePanelId } from '../utils';
+import { getUniquePanelId, convertToDashboardGraphQLId } from '../utils';
 import getDashboardQuery from '../graphql/get_dashboard.query.graphql';
 
 export default {
@@ -21,7 +19,7 @@ export default {
   },
   computed: {
     dashboardId() {
-      return convertToGraphQLId(TYPENAME_ANALYTICS_CUSTOM_DASHBOARD, this.$route?.params.slug);
+      return convertToDashboardGraphQLId(this.$route?.params.slug);
     },
     dashboardConfig() {
       if (!this.dashboard?.config) return {};

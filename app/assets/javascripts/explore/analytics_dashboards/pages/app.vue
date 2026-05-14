@@ -2,10 +2,6 @@
 export default {
   name: 'ExploreAnalyticsDashboards',
   inject: {
-    organizationId: {
-      type: String,
-      required: true,
-    },
     currentUserId: {
       type: Number,
       required: true,
@@ -15,5 +11,5 @@ export default {
 </script>
 
 <template>
-  <router-view :organization-id="organizationId" :current-user-id="currentUserId" />
+  <router-view :current-user-id="currentUserId" />
 </template>

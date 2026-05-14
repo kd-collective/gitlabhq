@@ -285,7 +285,7 @@ Prerequisites:
 
 To migrate a Go project:
 
-- Ensure that your project provides a `go.mod` and a `go.graph` files. Configure the [`go mod graph` command](https://go.dev/ref/mod#go-mod-graph) from the Go Toolchains in a preceding CI/CD job (for example: `build`) to dynamically generate the `dependencies.lock` file and export it as an [artifact](../../../ci/jobs/job_artifacts.md) prior to running the dependency scanning job.
+- Ensure that your project provides a `go.mod` and a `go.graph` files. Configure the [`go mod graph` command](https://go.dev/ref/mod#go-mod-graph) from the Go Toolchains in a preceding CI/CD job (for example: `build`) to dynamically generate the `go.graph` file and export it as an [artifact](../../../ci/jobs/job_artifacts.md) prior to running the dependency scanning job.
 
 See the [enablement instructions for Go](dependency_scanning_sbom/_index.md#go) for more details and examples.
 
@@ -318,7 +318,7 @@ Prerequisites:
 To migrate a Gradle project, choose one of the following options:
 
 - For the most accurate results, ensure that your project provides a dependency graph export file.
-  Configure the [Gradle dependendencies task](https://docs.gradle.org/current/userguide/viewing_debugging_dependencies.html) in a preceding CI/CD job (for example: `build`)
+  Configure the [Gradle dependencies task](https://docs.gradle.org/current/userguide/viewing_debugging_dependencies.html) in a preceding CI/CD job (for example: `build`)
   to dynamically generate the `gradle.graph.txt` file and export it as an [artifact](../../../ci/jobs/job_artifacts.md) prior to running the dependency scanning job.
   Alternatively, you can select another [supported lockfile or graph export](dependency_scanning_sbom/_index.md#supported-languages-and-files).
   When you generate a lockfile or graph export dynamically, disable automatic dependency resolution by adding `gradle` to
@@ -498,7 +498,7 @@ Prerequisites:
 - Complete [the generic migration steps](#migrate-to-dependency-scanning-using-sbom) required for all projects.
 - The Developer, Maintainer, or Owner role for the project.
 
-There is no additional steps to migrate a pnpm project to use the dependency scanning analyzer.
+There are no additional steps to migrate a `pnpm` project to use the dependency scanning analyzer.
 
 ### sbt
 

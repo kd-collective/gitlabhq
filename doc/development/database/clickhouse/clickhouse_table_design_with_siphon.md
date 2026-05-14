@@ -114,7 +114,58 @@ The configuration fields are:
 - **`replication_targets`**: Specifies destination details:
   - **`name`**: Must be `clickhouse_main` for ClickHouse replication.
   - **`target`**: The destination table name in ClickHouse.
-  - **`priority`** *(optional)*: Lower values replicate first during the initial snapshot.
+  - **`priority`** *(optional)*: Lower values replicate first during the initial snapshot (used only in GDK).
+  - **`dedup_by`** *(optional)*: Columns the consumer uses to locate existing rows when applying `UPDATE`
+    and `DELETE` events. Must match the PostgreSQL primary key columns. Required when the ClickHouse
+    primary key includes columns beyond the PostgreSQL primary key (for example, `traversal_path`).
+  - **`dedup_by_table`** *(optional)*: A different ClickHouse table to inspect for matching primary keys
+    when the `target` is not the table that stores the rows (for example, when `target` is a `Null`
+    landing table and the actual storage table has a different name). The configured table's primary
+    keys must contain the PostgreSQL primary key columns at the end.
+  - **`dedup_by_columns_lookup_table`** *(optional)*: A secondary ClickHouse table used to look up the
+    full primary key from the PostgreSQL primary key columns. The lookup table's primary keys must
+    start with the PostgreSQL primary key columns. Use this when the main `target` table's primary key
+    starts with columns that are not part of the PostgreSQL primary key (for example, ordering by
+    `(merge_request_diff_id, relative_order, traversal_path)` while the PostgreSQL primary key is
+    `(merge_request_diff_id, relative_order)`).
+  - **`reconcile`** *(optional)*: Configuration for the periodic consistency check job that repairs
+    denormalized columns.
+    - **`column`**: The denormalized column to reconcile (for example, `traversal_path`).
+    - **`expression_key_columns`**: The source columns used to compute the denormalized value. Must
+      match the sharding key columns defined in `db/docs/<table>.yml`.
+
+The following example replicates `merge_requests` and reconciles the `traversal_path` column from
+`target_project_id`:
+
+```yaml
+table: merge_requests
+database: main
+replication_targets:
+  - name: clickhouse_main
+    target: siphon_merge_requests
+    dedup_by_table: merge_requests
+    dedup_by:
+      - id
+    reconcile:
+      column: traversal_path
+      expression_key_columns:
+        - target_project_id
+```
+
+The following example uses a separate lookup table to resolve the full ClickHouse primary key from the
+PostgreSQL primary key columns:
+
+```yaml
+table: merge_request_diff_files_99208b8fac
+database: main
+replication_targets:
+  - name: clickhouse_main
+    target: siphon_merge_request_diff_files
+    dedup_by_columns_lookup_table: siphon_merge_request_diff_files_pg_pkey_ordered
+    dedup_by:
+      - merge_request_diff_id
+      - relative_order
+```
 
 After creating the file, apply the configuration and restart Siphon:
 

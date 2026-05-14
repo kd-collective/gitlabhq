@@ -17,7 +17,6 @@ describe('ExploreAnalyticsDashboard', () => {
   let wrapper;
 
   const defaultPropsData = {
-    organizationId: 'gid://gitlab/Organizations::Organization/1',
     currentUserId: 1,
   };
 

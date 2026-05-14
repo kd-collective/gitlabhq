@@ -1322,6 +1322,19 @@ PRIMARY KEY (traversal_path, merge_request_diff_id, relative_order)
 ORDER BY (traversal_path, merge_request_diff_id, relative_order)
 SETTINGS index_granularity = 2048, deduplicate_merge_projection_mode = 'rebuild';
 
+CREATE TABLE siphon_merge_request_diff_files_pg_pkey_ordered
+(
+    `merge_request_diff_id` Int64 CODEC(DoubleDelta, ZSTD(1)),
+    `relative_order` Int64 CODEC(DoubleDelta, ZSTD(1)),
+    `traversal_path` String DEFAULT '0/' CODEC(ZSTD(3)),
+    `_siphon_replicated_at` DateTime64(6, 'UTC') DEFAULT now64(6, 'UTC') CODEC(Delta(8), ZSTD(1)),
+    `_siphon_deleted` Bool DEFAULT false CODEC(ZSTD(1))
+)
+ENGINE = ReplacingMergeTree(_siphon_replicated_at, _siphon_deleted)
+PRIMARY KEY (merge_request_diff_id, relative_order, traversal_path)
+ORDER BY (merge_request_diff_id, relative_order, traversal_path)
+SETTINGS index_granularity = 1024;
+
 CREATE TABLE siphon_merge_request_diffs
 (
     `id` Int64 CODEC(DoubleDelta, ZSTD(1)),
@@ -3616,6 +3629,22 @@ SELECT
     namespaces_cte.deleted
 FROM cte
 INNER JOIN namespaces_cte ON namespaces_cte.id = cte.project_namespace_id;
+
+CREATE MATERIALIZED VIEW siphon_merge_request_diff_files_pg_pkey_ordered_mv TO siphon_merge_request_diff_files_pg_pkey_ordered
+(
+    `merge_request_diff_id` Int64,
+    `relative_order` Int64,
+    `traversal_path` String,
+    `_siphon_replicated_at` DateTime64(6, 'UTC'),
+    `_siphon_deleted` Bool
+)
+AS SELECT
+    merge_request_diff_id,
+    relative_order,
+    traversal_path,
+    _siphon_replicated_at,
+    _siphon_deleted
+FROM siphon_merge_request_diff_files;
 
 CREATE MATERIALIZED VIEW user_addon_assignments_history_mv TO user_addon_assignments_history
 (

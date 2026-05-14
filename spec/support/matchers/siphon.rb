@@ -189,6 +189,20 @@ RSpec::Matchers.define :have_correct_replication_target do |clickhouse_table_nam
         "the PostgreSQL table's primary keys (#{postgresql_primary_keys.join(', ')})"
     end
 
+    lookup_table = target['dedup_by_columns_lookup_table']
+    if lookup_table
+      if clickhouse_table_names.exclude?(lookup_table)
+        @errors << "dedup_by_columns_lookup_table '#{lookup_table}' does not exist"
+      else
+        lookup_primary_keys = ch_primary_keys(lookup_table)
+        if lookup_primary_keys.first(postgresql_primary_keys.length) != postgresql_primary_keys
+          @errors << "the ClickHouse lookup table '#{lookup_table}' primary keys " \
+            "(#{lookup_primary_keys.join(', ')}) don't start with the PostgreSQL table's primary keys " \
+            "(#{postgresql_primary_keys.join(', ')})"
+        end
+      end
+    end
+
     Array(target['refresh_on_change']).each do |roc|
       target_identifier = roc['target_stream_identifier']
       target_path = Rails.root.join('db', 'siphon', 'tables', "#{target_identifier}.yml")

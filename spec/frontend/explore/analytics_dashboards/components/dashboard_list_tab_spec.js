@@ -38,7 +38,6 @@ describe('DashboardListTab', () => {
           ...props,
         },
         provide: {
-          organizationId: 'gid://gitlab/Organizations::Organization/1',
           exploreAnalyticsDashboardsPath: '/explore/analytics_dashboards',
         },
         apolloProvider: requestHandlers || mockResolvedQuery(),

@@ -6,7 +6,7 @@ import { injectVueAppBreadcrumbs } from '~/lib/utils/breadcrumbs';
 import { convertObjectPropsToCamelCase } from '~/lib/utils/common_utils';
 import { observable } from '~/lib/utils/observable';
 import { convertToGraphQLId } from '~/graphql_shared/utils';
-import { TYPE_ORGANIZATION, TYPENAME_USER } from '~/graphql_shared/constants';
+import { TYPENAME_USER } from '~/graphql_shared/constants';
 import App from './pages/app.vue';
 import createRouter from './router';
 
@@ -24,7 +24,6 @@ export default () => {
     defaultClient: createDefaultClient(),
   });
 
-  const organizationId = convertToGraphQLId(TYPE_ORGANIZATION, gon.current_organization?.id);
   const currentUserId = convertToGraphQLId(TYPENAME_USER, gon.current_user_id);
 
   // This is a mini state to help the breadcrumb have the correct name
@@ -44,7 +43,6 @@ export default () => {
     apolloProvider,
     router,
     provide: {
-      organizationId,
       currentUserId,
       exploreAnalyticsDashboardsPath,
       breadcrumbState,

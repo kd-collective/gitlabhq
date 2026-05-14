@@ -84,16 +84,19 @@ Use the **Projects** list to view:
 
 ### Explore all projects on an instance
 
+{{< history >}}
+
+- Trending projects tab [removed](https://gitlab.com/groups/gitlab-org/-/work_items/18493) in GitLab 19.0. Feature flags `retire_trending_projects` enabled by default.
+
+{{< /history >}}
+
 View all projects on your GitLab instance. Filter the
-list by active,
-inactive, and trending projects:
+list by active and inactive projects:
 
 - Active projects are projects with recent activity
   or ongoing development.
 - Inactive projects are projects that are archived or
   scheduled for deletion.
-- Trending projects are public projects that are considered popular
-  based on the amount of comments they received in the previous 30 days.
 
 If you are not authenticated,
 the list shows public projects only.

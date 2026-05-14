@@ -2,9 +2,8 @@
 import { GlButton, GlModal, GlFormGroup, GlFormInput, GlFormTextarea, GlAlert } from '@gitlab/ui';
 import { s__ } from '~/locale';
 import { visitUrl, joinPaths } from '~/lib/utils/url_utility';
-import { getIdFromGraphQLId } from '~/graphql_shared/utils';
-import { TYPENAME_ANALYTICS_CUSTOM_DASHBOARD } from '~/graphql_shared/constants';
 import createCustomDashboardMutation from '../graphql/create_custom_dashboard.mutation.graphql';
+import { getDashboardIdFromGraphQLId } from '../utils';
 
 export default {
   name: 'NewDashboardButton',
@@ -85,7 +84,7 @@ export default {
           return;
         }
 
-        const dashboardId = getIdFromGraphQLId(dashboard.id, TYPENAME_ANALYTICS_CUSTOM_DASHBOARD);
+        const dashboardId = getDashboardIdFromGraphQLId(dashboard.id);
 
         visitUrl(joinPaths(this.$router.options.base, `${dashboardId}`));
       } catch (error) {

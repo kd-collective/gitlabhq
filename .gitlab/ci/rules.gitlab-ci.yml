@@ -3179,6 +3179,31 @@
     - <<: *if-default-refs
       changes: *docs-patterns
 
+.reports:rules:gitlab-advanced-sast:
+  rules:
+    - <<: *if-merge-request-labels-pipeline-expedite
+      when: never
+    - if: $SAST_DISABLED
+      when: never
+    - if: $SAST_EXCLUDED_ANALYZERS =~ /gitlab-advanced-sast/
+      when: never
+    - <<: *if-default-refs
+      changes:
+        # this list should match https://gitlab.com/gitlab-org/gitlab/blob/aa896069360f/lib/gitlab/ci/templates/Jobs/SAST.gitlab-ci.yml#L53-53
+        - '**/*.py'
+        - '**/*.go'
+        - '**/*.java'
+        - '**/*.jsp'
+        - '**/*.js'
+        - '**/*.jsx'
+        - '**/*.ts'
+        - '**/*.tsx'
+        - '**/*.cjs'
+        - '**/*.mjs'
+        - '**/*.cs'
+        - '**/*.rb'
+        - '**/*.php'
+
 .reports:rules:semgrep-sast:
   rules:
     - <<: *if-merge-request-labels-pipeline-expedite
