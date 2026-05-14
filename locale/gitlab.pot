@@ -7610,13 +7610,52 @@ msgstr ""
 msgid "AiGovernance|AI Governance"
 msgstr ""
 
+msgid "AiGovernance|Action"
+msgstr ""
+
 msgid "AiGovernance|Agent artifacts"
+msgstr ""
+
+msgid "AiGovernance|Allow"
+msgstr ""
+
+msgid "AiGovernance|Ask"
+msgstr ""
+
+msgid "AiGovernance|Category"
 msgstr ""
 
 msgid "AiGovernance|Control how your AI-powered features are used."
 msgstr ""
 
+msgid "AiGovernance|Deny"
+msgstr ""
+
+msgid "AiGovernance|Failed to load tool rules."
+msgstr ""
+
+msgid "AiGovernance|Failed to update tool rule. Please try again."
+msgstr ""
+
+msgid "AiGovernance|Local access"
+msgstr ""
+
+msgid "AiGovernance|Local access is not currently enforced."
+msgstr ""
+
+msgid "AiGovernance|No tool rules found."
+msgstr ""
+
+msgid "AiGovernance|Source"
+msgstr ""
+
 msgid "AiGovernance|Tool management"
+msgstr ""
+
+msgid "AiGovernance|Tool name"
+msgstr ""
+
+msgid "AiGovernance|Web access"
 msgstr ""
 
 msgid "AiImpactAnalytics|Agent Platform chats"
@@ -7784,6 +7823,18 @@ msgstr ""
 msgid "AiPowered|Allow GitLab to process your code and project data for AI-native features in this group. Your data is sent to GitLab Duo. Groups, subgroups, and projects can opt out individually."
 msgstr ""
 
+msgid "AiPowered|Allow custom agents"
+msgstr ""
+
+msgid "AiPowered|Allow custom agents in projects. Users with the Maintainer or Owner role can create new agents."
+msgstr ""
+
+msgid "AiPowered|Allow custom flows"
+msgstr ""
+
+msgid "AiPowered|Allow custom flows in projects. Users with the Maintainer or Owner role can create new flows."
+msgstr ""
+
 msgid "AiPowered|Allow users to approve tools for a session in the IDE and CLI."
 msgstr ""
 
@@ -7893,6 +7944,9 @@ msgid "AiPowered|Control who can access AI-native features executed with or with
 msgstr ""
 
 msgid "AiPowered|Create group"
+msgstr ""
+
+msgid "AiPowered|Custom agents and flows"
 msgstr ""
 
 msgid "AiPowered|Data and privacy"
@@ -27014,6 +27068,9 @@ msgstr ""
 msgid "DuoAgenticChat|Purchase more credits or turn off the Agentic toggle to start a new conversation."
 msgstr ""
 
+msgid "DuoAgenticChat|Repurchase Agent Platform"
+msgstr ""
+
 msgid "DuoAgenticChat|Responses may be inaccurate. Verify before use."
 msgstr ""
 
@@ -27083,7 +27140,16 @@ msgstr ""
 msgid "DuoAgenticChat|Upgrade to a paid subscription or turn off the Agentic toggle to start a new conversation."
 msgstr ""
 
+msgid "DuoAgenticChat|Your GitLab Duo Agent Platform subscription has been cancelled"
+msgstr ""
+
 msgid "DuoAgenticChat|Your GitLab Duo Agent Platform trial has ended"
+msgstr ""
+
+msgid "DuoAgenticChat|Your subscription has been cancelled. Repurchase to resume using GitLab Duo Agent Platform."
+msgstr ""
+
+msgid "DuoAgenticChat|Your subscription has ended"
 msgstr ""
 
 msgid "DuoAgenticChat|Your trial has ended. Repurchase to resume using GitLab Duo Agent Platform."

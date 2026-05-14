@@ -651,6 +651,7 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
 
     before do
       allow(self).to receive(:current_user).and_return(user)
+      stub_feature_flags(search_projects_autocomplete_use_search_service: false)
     end
 
     context 'when the user does not have access to projects' do
@@ -698,6 +699,29 @@ RSpec.describe SearchHelper, :with_current_organization, feature_category: :glob
         it 'returns all projects matching the term' do
           expect(projects_autocomplete(search_term).pluck(:id)).to match_array([project_2.id, project_3.id])
         end
+      end
+    end
+
+    context 'when search_projects_autocomplete_use_search_service feature flag is enabled' do
+      before_all do
+        project_2.add_developer(user)
+      end
+
+      before do
+        stub_feature_flags(search_projects_autocomplete_use_search_service: user)
+      end
+
+      it 'delegates to search_using_search_service with projects scope' do
+        expect(self).to receive(:search_using_search_service).with(user, 'projects', search_term, 5).and_call_original
+
+        projects_autocomplete(search_term)
+      end
+
+      it 'returns results in the expected format' do
+        results = projects_autocomplete(search_term)
+
+        expect(results).to all(include(:category, :id, :value, :label, :url, :avatar_url))
+        expect(results.first[:category]).to eq('Projects')
       end
     end
   end

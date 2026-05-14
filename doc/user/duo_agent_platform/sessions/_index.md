@@ -68,6 +68,43 @@ After cancellation:
 - The session status changes to **Stopped**.
 - The session cannot be resumed or restarted.
 
+## Review and control agent actions
+
+{{< details >}}
+
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+
+{{< /details >}}
+
+Prerequisites:
+
+- Your custom flow must include a [`HumanInputComponent`](https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/blob/main/docs/flow_registry/v1.md#humaninputcomponent) in its flow definition YAML.
+
+When a flow reaches a human interaction checkpoint, execution pauses and the session waits for your input.
+
+### Approval notifications
+
+When a flow pauses at a checkpoint, GitLab notifies you in two ways:
+
+- **To-Do item**: A to-do item labeled **Duo Workflow approval required** is added to
+  **Your work** > **To-Do List**. The item links directly to the session where you can take action.
+  GitLab marks the to-do item as done automatically when you approve, reject, or modify the
+  request, or when the workflow is canceled or stopped.
+- **Email**: An email notification is sent with the workflow name, the project it belongs to,
+  a summary of completed actions and the pending request, and a direct link to the approval UI.
+
+### Respond to an agent checkpoint
+
+To review and respond to an agent checkpoint:
+
+1. On the GitLab Duo sidebar, select **Sessions**.
+1. Select the session that is waiting for your review.
+1. Review the agent's completed actions and its proposed next steps.
+1. Select one of the following:
+   - **Approve**: Allow the agent to continue with its planned actions.
+   - **Reject**: Stop the flow execution immediately.
+   - **Modify**: Send feedback or a suggestion to the agent. The agent returns to the checkpoint for another review.
+
 ## Session retention
 
 Sessions are automatically deleted 30 days after the last activity.

@@ -109,7 +109,7 @@ RSpec.describe 'Cursor based batched background migrations', feature_category: :
         )
       end
 
-      it 'migrates correctly' do
+      it 'migrates correctly', quarantine: 'https://gitlab.com/gitlab-org/quality/test-failure-issues/-/issues/9459' do
         runner.run_entire_migration(migration)
         expect(model.where('backfilled >= 1').count).to eq(11)
         expect(migration.batched_jobs.count).to eq(2)

@@ -61,6 +61,24 @@ Select a project in your group to use as a template. When GitLab Duo performs a 
 
 Both Code Review Flow and GitLab Duo Code Review support group-level custom instructions.
 
+### Configure work item types
+
+<!-- categories: Team Planning -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/work_items/configurable_work_item_types.md), [Related epic](https://gitlab.com/groups/gitlab-org/-/work_items/9365)
+
+{{< /details >}}
+
+Previously, work item types could be either an **Issue** or a **Task**. You can now configure custom work item types in a project to match the way your team plans and tracks work.
+
+You can create or rename types to **User Story**, **Bug**, or **Maintenance**. Each work items displays with it's type name and a unique icon. The new types support custom fields and status lifecycles, and appear in your saved views and issue boards. Type configuration in the top-level group (GitLab.com) or organization (GitLab Self-Managed) cascades down to all projects.
+
+You can also control which types are available for each project. Enable or disable a type across all projects at once, or let individual projects manage their own type visibility. When you disable a type in a project, existing work items are not affected.
+
 ### GitLab Secrets Manager now available in open beta
 
 <!-- categories: Secrets Management -->
@@ -86,28 +104,7 @@ During open beta, GitLab Secrets Manager follows the
 
 To share feedback, see [issue 598100](https://gitlab.com/gitlab-org/gitlab/-/issues/598100).
 
-## Agentic Core
-
-### Filter exact code search results by repository
-
-<!-- categories: Global Search -->
-
-{{< details >}}
-
-- Tier: Premium, Ultimate
-- Offering: GitLab.com, GitLab Self-Managed
-- Links: [Documentation](../../user/search/exact_code_search.md#syntax), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/488467)
-
-{{< /details >}}
-
-You can now filter exact code search results by repository. With the `repo:` syntax,
-you can directly scope your search query to specific repositories or repository patterns
-without having to go to individual projects.
-
-For example, searching for `def authenticate repo:my-group/my-project` returns results
-only from that repository. You can also use partial paths or patterns to match multiple repositories.
-
-### Duo Developer enhancements for merge request workflows
+### GitLab Duo Developer enhancements for merge request workflows
 
 <!-- categories: Duo Agent Platform -->
 
@@ -127,6 +124,73 @@ With `AGENTS.md` and `agent-config.yml`
 configured, GitLab Duo Developer runs your tests and checks before committing. After a top-level
 group or instance administrator enables the Developer Flow, GitLab automatically adds mention and assign triggers
 to eligible projects.
+
+### Dependency scanning by using SBOM generally available
+
+<!-- categories: Software Composition Analysis -->
+
+{{< details >}}
+
+- Tier: Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/application_security/dependency_scanning/dependency_scanning_sbom/_index.md), [Related epic](https://gitlab.com/groups/gitlab-org/-/work_items/20456)
+
+{{< /details >}}
+
+The GitLab SBOM-based dependency scanner is now generally available. Maven, Gradle, and Python
+projects now have complete visibility into vulnerabilities across their full dependency tree,
+including vulnerable packages introduced transitively, not just those declared directly.
+
+The analyzer now includes automatic dependency resolution for Maven, Gradle, and Python projects.
+When a lockfile or resolved dependency graph is not present, the analyzer automatically invokes tooling
+to resolve the full transitive dependency graph before scanning. Dependency resolution is enabled by
+default and requires little-to-no additional configuration beyond including the v2 Dependency Scanning template.
+
+For projects where dependency resolution is not possible, the analyzer falls back to
+manifest scanning. It parses `pom.xml`, `requirements.txt`, `build.gradle`, and
+`build.gradle.kts` to identify direct dependencies. Manifest scanning ensures teams
+always get a starting point for vulnerability coverage, even for projects without
+lock or build files.
+
+Manifest scanning is enabled by default and returns direct dependencies only.
+For full transitive coverage, enable dependency resolution or provide a dependency lockfile or graph export manually.
+
+## Agentic Core
+
+### GitLab Duo Core moves to usage-based billing
+
+<!-- categories: Duo Agent Platform, Duo Chat, Code Suggestions -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../subscriptions/subscription-add-ons.md#gitlab-duo-core), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/600144)
+
+{{< /details >}}
+
+Starting in GitLab 19.0, GitLab Duo Core moves to usage-based billing. Code Suggestions in the Web IDE and desktop IDEs now consume [GitLab Credits](../../subscriptions/gitlab_credits.md).
+
+GitLab Duo Chat is also changing. For GitLab Duo Core users, Chat is now agentic and runs on GitLab Duo Agent Platform. To use GitLab Duo Chat in the GitLab UI or desktop IDEs, enable GitLab Duo Agent Platform for your instance or top-level group.
+
+### Filter exact code search results by repository
+
+<!-- categories: Global Search -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
+- Links: [Documentation](../../user/search/exact_code_search.md#syntax), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/488467)
+
+{{< /details >}}
+
+You can now filter exact code search results by repository. With the `repo:` syntax,
+you can directly scope your search query to specific repositories or repository patterns
+without having to go to individual projects.
+
+For example, searching for `def authenticate repo:my-group/my-project` returns results
+only from that repository. You can also use partial paths or patterns to match multiple repositories.
 
 ### Claude Opus 4.7 now available in GitLab Duo Agent Platform
 
@@ -211,6 +275,20 @@ protected branches.
 
 This feature is in beta and is gated behind the `mr_ai_resolve_conflicts` feature flag,
 disabled by default.
+
+### Restrict the AI Catalog to a group hierarchy
+
+<!-- categories: AI Catalog -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/duo_agent_platform/ai_catalog.md#restrict-the-ai-catalog-to-a-group-hierarchy), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/594617)
+
+{{< /details >}}
+
+Top-level group Owners can now restrict the AI Catalog to show only agents and flows owned by projects within their group hierarchy. This blocks agents, external agents, or flows not in this hierarchy from being visible or enabled by any user in that group.
 
 ## Scale and Deployments
 
@@ -478,6 +556,28 @@ You can set the limit per project or instance-wide.
 Setting the limit to 1 means each merge request runs one at a time, against a clean target branch.
 
 Thanks to [Norman Debald (@Modjo85)](https://gitlab.com/Modjo85) for this community contribution.
+
+### Customize default merge request titles
+
+<!-- categories: Code Review Workflow -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
+- Links: [Documentation](../../user/project/merge_requests/title_templates.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/16080)
+
+{{< /details >}}
+
+In previous versions of GitLab, the default title for a new merge request came from the
+source branch or first commit, and you couldn't enforce a consistent naming convention
+across your project.
+
+Now you can configure a default merge request title template per project. Templates
+support variables for the source branch, target branch, first commit subject, linked
+issue ID, issue title, and a human-readable version of the source branch name. For example, the template
+`Resolve %{issue_id} "%{issue_title}"` produces titles like `Resolve 123 "Fix login bug"`.
+You can still edit the title before creating the merge request.
 
 ### Secure webhooks with HMAC signing tokens
 

@@ -42,7 +42,7 @@ tout au long du cycle de vie du développement logiciel.
 Pour commencer, consultez
 [Premiers pas avec GitLab Duo Agent Platform](../get_started/get_started_agent_platform.md).
 
-## Prérequis
+## Prérequis {#prerequisites}
 
 Pour utiliser Agent Platform :
 
@@ -61,11 +61,11 @@ Pour utiliser Agent Platform dans votre environnement local :
 - Disposez d'un projet dans un [espace de noms de groupe](../namespace/_index.md).
 - Disposez du rôle Développeur, Mainteneur ou Propriétaire.
 
-## Fonctionnalités généralement disponibles
+## Fonctionnalités généralement disponibles {#generally-available-features}
 
 Ces fonctionnalités sont généralement disponibles et consomment des [GitLab Credits](../../subscriptions/gitlab_credits.md) lors de leur utilisation.
 
-Les fonctionnalités disponibles dans le niveau Free pour les clients GitLab.com nécessitent l'achat de [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom).
+Les fonctionnalités disponibles dans le niveau Free nécessitent l'achat de [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier).
 
 | Fonctionnalité | Free | Premium | Ultimate |
 |---------|---------|---------|---------|
@@ -89,11 +89,11 @@ Les fonctionnalités disponibles dans le niveau Free pour les clients GitLab.com
 
 1. Les clients MCP ne consomment pas directement de crédits. Toutefois, toute utilisation d'Agent Platform, telle que les requêtes de modèle effectuées via un client MCP, peut consommer des crédits.
 
-## Fonctionnalités bêta et expérimentales
+## Fonctionnalités bêta et expérimentales {#beta-and-experiment-features}
 
 Ces fonctionnalités sont en version bêta ou expérimentale et ne consomment pas de GitLab Credits.
 
-Pour les [utilisateurs GitLab.com sur le niveau Free](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom), les fonctionnalités bêta et expérimentales ne consomment pas de crédits,
+Pour les [utilisateurs sur le niveau Free](../../subscriptions/gitlab_credits.md#for-the-free-tier), les fonctionnalités bêta et expérimentales ne consomment pas de crédits,
 mais vous devez disposer de crédits dans votre pool d'engagement mensuel pour y accéder.
 
 > [!warning]
@@ -107,3 +107,4 @@ mais vous devez disposer de crédits dans votre pool d'engagement mensuel pour y
 | [CI Expert Agent](agents/foundational_agents/ci_expert_agent.md) <br /> Créez, déboguez et optimisez les pipelines GitLab CI/CD. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [Serveurs MCP externes](../gitlab_duo/model_context_protocol/ai_catalog_mcp_servers.md) <br /> Connectez des agents personnalisés à des sources de données externes et à des services tiers via des serveurs MCP. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [Knowledge Graph](../project/repository/knowledge_graph/_index.md) <br /> Créez des représentations structurées et interrogeables des dépôts de code pour alimenter les fonctionnalités IA. | {{< no >}} |{{< yes >}} | {{< yes >}} |
+| [Résoudre les conflits de merge requests](../project/merge_requests/conflicts.md#resolve-conflicts-with-gitlab-duo) <br /> Analysez de manière autonome les conflits de merge requests, modifiez les fichiers en conflit et poussez un commit de résolution. | {{< no >}} | {{< yes >}} | {{< yes >}} |

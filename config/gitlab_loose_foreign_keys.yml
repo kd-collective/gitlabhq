@@ -985,6 +985,10 @@ terraform_state_versions:
     column: ci_build_id
     on_delete: async_nullify
     worker_class: LooseForeignKeys::CiPipelinesBuildsCleanupCronWorker
+upload_states:
+  - table: uploads
+    column: upload_id
+    on_delete: async_delete
 user_details:
   - table: namespaces
     column: provisioned_by_group_id

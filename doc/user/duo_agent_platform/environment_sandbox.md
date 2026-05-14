@@ -153,12 +153,36 @@ If you use a custom image without SRT,
 no network restrictions are applied and the flow can access any domain
 reachable from the runner.
 
-To allow or deny additional domains, add a `network_policy` to your
-`agent-config.yml` file.
-
 > [!note]
-> The `network_policy` does not allow `"*"` in the `allowed_domains` or the `denied_domains`. SRT does not support turning on all network traffic.
-> However, wildcards are allowed as part of domains, for example `"*.domain.com"`.
+> The `network_policy` does not allow `"*"` in the `allowed_domains` or the `denied_domains`. SRT does not
+> support turning on all network traffic. However, wildcards are allowed as part of domains,
+> for example `"*.domain.com"`.
+
+#### Administrator network policy controls
+
+When a top-level group owner on GitLab.com or instance administrator on GitLab Self-Managed configures network access
+controls, those settings define the baseline policy for all flows. The **Allow projects to extend network sandbox settings**
+checkbox determines which settings are applied when project owners configure them in `agent-config.yml`.
+
+**Flexible mode** (**Allow projects to extend network sandbox settings** enabled):
+
+- `allowed_domains` from `agent-config.yml` are merged with the admin allow-list.
+- `denied_domains` from `agent-config.yml` are merged with the admin deny-list.
+- `include_recommended_allowed` in `agent-config.yml` overrides the admin setting.
+- `allow_all_unix_sockets` in `agent-config.yml` overrides the admin setting.
+
+**Strict mode** (**Allow projects to extend network sandbox settings** disabled):
+
+- `denied_domains` from `agent-config.yml` are merged with the admin deny-list.
+- `include_recommended_allowed` can only be set to `false` to tighten a setting the admin enabled.
+  It has no effect when the admin has it disabled.
+- `allow_all_unix_sockets` can only be set to `false` to tighten a setting the admin enabled.
+  It has no effect when the admin has it disabled.
+- `allowed_domains` from `agent-config.yml` are ignored.
+
+#### Configure project-level settings
+
+To allow or deny additional domains, add a `network_policy` to your `agent-config.yml` file:
 
 ```yaml
 network_policy:
@@ -172,7 +196,8 @@ network_policy:
 
 #### Allow Unix socket access
 
-Use the `allow_all_unix_sockets` setting to grant the flow access to all Unix domain sockets on the host. This is disabled by default.
+Use the `allow_all_unix_sockets` setting to grant the flow access to all Unix domain sockets on
+the host. This is disabled by default.
 
 > [!warning]
 > Enabling `allow_all_unix_sockets` grants access to all Unix sockets. Enable this only when necessary and only in trusted environments.
@@ -182,10 +207,17 @@ Use the `allow_all_unix_sockets` setting to grant the flow access to all Unix do
 To give your flows access to a set of external domains used for package registries and development tools,
 turn on the `include_recommended_allowed` setting.
 
-This setting is disabled by default (`false`). To turn it on, in your `agent-config.yml` file, set `include_recommended_allowed` to `true`.
+This setting is disabled by default (`false`). To turn it on, in your `agent-config.yml` file,
+set `include_recommended_allowed` to `true`.
+
+When network access controls are enabled in strict mode (**Allow projects to extend network sandbox settings** disabled),
+you can only disable `include_recommended_allowed`. Setting it to `true` has no effect when the
+admin has it disabled.
 
 > [!warning]
-> Enabling `include_recommended_allowed` permits network access to a broad set of external domains. These egress endpoints could potentially be used to exfiltrate data from your environment. Enable this only when necessary and only in trusted environments.
+> Enabling `include_recommended_allowed` permits network access to a broad set of external domains.
+> These egress endpoints could potentially be used to exfiltrate data from your environment.
+> Enable this only when necessary and only in trusted environments.
 
 This setting turns on access to the following domains:
 

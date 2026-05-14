@@ -38,7 +38,7 @@ GitLab Duo Agent Platform은 소프트웨어 개발 라이프사이클 전반에
 
 시작하려면 [GitLab Duo Agent Platform 시작하기](../get_started/get_started_agent_platform.md)를 참조하세요.
 
-## 사전 요구 사항
+## 사전 요구 사항 {#prerequisites}
 
 Agent Platform을 사용하려면 다음이 필요합니다.
 
@@ -56,11 +56,11 @@ Agent Platform을 사용하려면 다음이 필요합니다.
 - [그룹 네임스페이스](../namespace/_index.md)에 프로젝트가 있어야 합니다.
 - Developer, Maintainer, 또는 Owner 역할이 있어야 합니다.
 
-## 정식 출시 기능
+## 정식 출시 기능 {#generally-available-features}
 
 다음 기능은 정식 출시되었으며, 사용 시 [GitLab Credits](../../subscriptions/gitlab_credits.md)를 소비합니다.
 
-GitLab.com 프리 티어 고객이 사용할 수 있는 기능은 [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom) 구매가 필요합니다.
+프리 티어에서 사용 가능한 기능은 [GitLab Credits](../../subscriptions/gitlab_credits.md#for-the-free-tier) 구매가 필요합니다.
 
 | 기능 | Free | Premium | Ultimate |
 |---------|---------|---------|---------|
@@ -84,11 +84,11 @@ GitLab.com 프리 티어 고객이 사용할 수 있는 기능은 [GitLab Credit
 
 1. MCP 클라이언트는 크레딧을 직접 소비하지 않습니다. 단, MCP 클라이언트를 통한 모델 요청 등 Agent Platform 사용은 크레딧을 소비할 수 있습니다.
 
-## 베타 및 실험 기능
+## 베타 및 실험 기능 {#beta-and-experiment-features}
 
 다음 기능은 베타 또는 실험 단계이며 GitLab Credits를 소비하지 않습니다.
 
-[프리 티어의 GitLab.com 사용자](../../subscriptions/gitlab_credits.md#for-the-free-tier-on-gitlabcom)의 경우, 베타 및 실험적 기능은 크레딧을 소비하지 않지만 액세스하려면 월간 약정 풀에 크레딧이 있어야 합니다.
+[프리 티어 사용자](../../subscriptions/gitlab_credits.md#for-the-free-tier)의 경우, 베타 및 실험적 기능은 크레딧을 소비하지 않지만 액세스하려면 월간 약정 풀에 크레딧이 있어야 합니다.
 
 > [!warning]
 > 기능이 정식 출시되면, 모든 GitLab 버전 및 모든 오퍼링에서 해당 기능 사용 시 GitLab Credits가 소비되기 시작합니다.
@@ -101,3 +101,4 @@ GitLab.com 프리 티어 고객이 사용할 수 있는 기능은 [GitLab Credit
 | [CI Expert Agent](agents/foundational_agents/ci_expert_agent.md) <br /> GitLab CI/CD 파이프라인을 생성, 디버그 및 최적화합니다. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [외부 MCP 서버](../gitlab_duo/model_context_protocol/ai_catalog_mcp_servers.md) <br /> MCP 서버를 사용하여 커스텀 에이전트를 외부 데이터 소스 및 서드파티 서비스에 연결합니다. | {{< no >}} | {{< yes >}} | {{< yes >}} |
 | [Knowledge Graph](../project/repository/knowledge_graph/_index.md) <br /> AI 기능을 지원하기 위해 코드 저장소의 구조화된 쿼리 가능한 표현을 생성합니다. | {{< no >}} |{{< yes >}} | {{< yes >}} |
+| [머지 충돌 해결](../project/merge_requests/conflicts.md#resolve-conflicts-with-gitlab-duo) <br /> 머지 충돌을 자율적으로 분석하고, 충돌 파일을 편집하며, 해결 커밋을 push합니다. | {{< no >}} | {{< yes >}} | {{< yes >}} |

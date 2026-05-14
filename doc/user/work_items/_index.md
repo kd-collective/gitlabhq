@@ -36,6 +36,10 @@ GitLab supports the following work item types:
 - [Objectives and key results](../okrs.md): Track strategic goals and their measurable outcomes.
 - [Test cases](../../ci/test_cases/_index.md): Integrate test planning directly into your GitLab workflows.
 
+You can also [configure work item types](configurable_work_item_types.md)
+to create new types and control their availability across
+groups and projects.
+
 ## View all work items
 
 {{< history >}}

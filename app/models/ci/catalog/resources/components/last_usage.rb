@@ -15,6 +15,9 @@ module Ci
           scope :for_catalog_resource_with_component_versions, ->(catalog_resource_id) {
             where(catalog_resource_id: catalog_resource_id).includes(component: :version)
           }
+          scope :by_version_id, ->(id) {
+            joins(:component).where(catalog_resource_components: { version_id: id })
+          }
           scope :by_version_ids, ->(ids) {
             joins(:component).where(catalog_resource_components: { version_id: ids })
           }
