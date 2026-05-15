@@ -89,6 +89,32 @@ describe('convertGraphQLVarsToRestParams', () => {
     });
   });
 
+  describe('search within (in parameter)', () => {
+    it('maps TITLE to lowercase title', () => {
+      const params = convertGraphQLVarsToRestParams({ in: 'TITLE' });
+
+      expect(params.get('in')).toBe('title');
+    });
+
+    it('maps DESCRIPTION to lowercase description', () => {
+      const params = convertGraphQLVarsToRestParams({ in: 'DESCRIPTION' });
+
+      expect(params.get('in')).toBe('description');
+    });
+
+    it('handles lowercase values by converting to lowercase', () => {
+      const params = convertGraphQLVarsToRestParams({ in: 'title' });
+
+      expect(params.get('in')).toBe('title');
+    });
+
+    it('does not add in parameter when not provided', () => {
+      const params = convertGraphQLVarsToRestParams({});
+
+      expect(params.has('in')).toBe(false);
+    });
+  });
+
   describe('filters', () => {
     it.each([
       ['authorUsername', 'author_username', 'root'],

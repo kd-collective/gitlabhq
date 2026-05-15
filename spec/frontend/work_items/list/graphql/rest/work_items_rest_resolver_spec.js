@@ -7,7 +7,15 @@ const FULL_PATH = 'gitlab-org/gitlab-shell';
 const ENCODED_PATH = encodeURIComponent(FULL_PATH);
 const ENDPOINT = `/api/v4/namespaces/${ENCODED_PATH}/-/work_items`;
 
-const makeNamespace = (fullPath = FULL_PATH) => ({ fullPath });
+const makeNamespace = (
+  fullPath = FULL_PATH,
+  id = 'gid://gitlab/Namespaces::ProjectNamespace/26',
+) => ({
+  id,
+  fullPath,
+  name: 'Gitlab Shell',
+  __typename: 'Namespace',
+});
 
 const makeRestItem = (overrides = {}) => ({
   global_id: 'gid://gitlab/WorkItem/1',
@@ -94,6 +102,42 @@ describe('workItemsRestResolver', () => {
       expect(node.webPath).toBe(item.web_path);
     });
 
+    it('maps confidential field with default value of false', async () => {
+      const item = makeRestItem();
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+
+      expect(nodes[0].confidential).toBe(false);
+    });
+
+    it('maps confidential field when true', async () => {
+      const item = makeRestItem({ confidential: true });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+
+      expect(nodes[0].confidential).toBe(true);
+    });
+
+    it('maps hidden field with default value of false', async () => {
+      const item = makeRestItem();
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+
+      expect(nodes[0].hidden).toBe(false);
+    });
+
+    it('maps hidden field when true', async () => {
+      const item = makeRestItem({ hidden: true });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+
+      expect(nodes[0].hidden).toBe(true);
+    });
+
     it('maps author to UserCore shape', async () => {
       const item = makeRestItem();
       mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
@@ -107,16 +151,23 @@ describe('workItemsRestResolver', () => {
       expect(author.username).toBe(item.author.username);
     });
 
-    it('maps namespace to Namespace shape', async () => {
+    it('maps namespace from resolver context to Namespace shape', async () => {
       const item = makeRestItem();
-      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+      const testNamespace = makeNamespace(
+        'test-org/test-project',
+        'gid://gitlab/Namespaces::ProjectNamespace/99',
+      );
+      const testEndpoint = `/api/v4/namespaces/${encodeURIComponent('test-org/test-project')}/-/work_items`;
+      mockAxios.onGet(testEndpoint).reply(HTTP_STATUS_OK, [item], {});
 
-      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const { nodes } = await workItemsRestResolver(testNamespace, {});
       const { namespace } = nodes[0];
 
-      expect(namespace).toMatchObject({ __typename: 'Namespace' });
-      expect(namespace.id).toBe(`gid://gitlab/Namespace/${item.namespace.id}`);
-      expect(namespace.fullPath).toBe(item.namespace.full_path);
+      expect(namespace).toMatchObject({
+        __typename: 'Namespace',
+        id: 'gid://gitlab/Namespaces::ProjectNamespace/99',
+        fullPath: 'test-org/test-project',
+      });
     });
 
     it('maps workItemType to WorkItemType shape', async () => {
@@ -174,17 +225,6 @@ describe('workItemsRestResolver', () => {
   });
 
   describe('LABELS widget mapping', () => {
-    it('returns an empty LABELS widget when features is null', async () => {
-      const item = makeRestItem({ features: null });
-      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
-
-      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
-      const labelsWidget = nodes[0].widgets.find((w) => w.type === 'LABELS');
-
-      expect(labelsWidget).toMatchObject({ __typename: 'WorkItemWidgetLabels' });
-      expect(labelsWidget.labels.nodes).toEqual([]);
-    });
-
     it('maps labels from features.labels to the LABELS widget', async () => {
       const item = makeRestItem({
         features: {
@@ -207,6 +247,7 @@ describe('workItemsRestResolver', () => {
       const { nodes } = await workItemsRestResolver(makeNamespace(), {});
       const labelsWidget = nodes[0].widgets.find((w) => w.type === 'LABELS');
 
+      expect(labelsWidget).toMatchObject({ __typename: 'WorkItemWidgetLabels' });
       expect(labelsWidget.allowsScopedLabels).toBe(true);
       expect(labelsWidget.labels.nodes).toHaveLength(1);
       expect(labelsWidget.labels.nodes[0]).toMatchObject({
@@ -406,6 +447,62 @@ describe('workItemsRestResolver', () => {
         dueDate: null,
         startDate: null,
         webPath: null,
+      });
+    });
+  });
+
+  describe('START_AND_DUE_DATE widget mapping', () => {
+    it('does not include START_AND_DUE_DATE widget when features.start_and_due_date is not present', async () => {
+      const item = makeRestItem({ features: null });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const startAndDueDateWidget = nodes[0].widgets.find((w) => w.type === 'START_AND_DUE_DATE');
+
+      expect(startAndDueDateWidget).toBeUndefined();
+    });
+
+    it('maps start_date and due_date to the START_AND_DUE_DATE widget', async () => {
+      const item = makeRestItem({
+        features: {
+          start_and_due_date: {
+            start_date: '2024-01-01',
+            due_date: '2024-01-31',
+          },
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const startAndDueDateWidget = nodes[0].widgets.find((w) => w.type === 'START_AND_DUE_DATE');
+
+      expect(startAndDueDateWidget).toMatchObject({
+        __typename: 'WorkItemWidgetStartAndDueDate',
+        type: 'START_AND_DUE_DATE',
+        startDate: '2024-01-01',
+        dueDate: '2024-01-31',
+      });
+    });
+
+    it('handles null start_date and due_date', async () => {
+      const item = makeRestItem({
+        features: {
+          start_and_due_date: {
+            start_date: null,
+            due_date: null,
+          },
+        },
+      });
+      mockAxios.onGet(ENDPOINT).reply(HTTP_STATUS_OK, [item], {});
+
+      const { nodes } = await workItemsRestResolver(makeNamespace(), {});
+      const startAndDueDateWidget = nodes[0].widgets.find((w) => w.type === 'START_AND_DUE_DATE');
+
+      expect(startAndDueDateWidget).toMatchObject({
+        __typename: 'WorkItemWidgetStartAndDueDate',
+        type: 'START_AND_DUE_DATE',
+        startDate: null,
+        dueDate: null,
       });
     });
   });

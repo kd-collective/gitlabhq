@@ -254,33 +254,6 @@ RSpec.describe Banzai::Filter::References::UserReferenceFilter, feature_category
         expect(doc.css('a').first.attr('href')).to eq urls.user_url(org_user_detail.user)
       end
     end
-
-    context 'when organization_users_internal FF is disabled' do
-      before do
-        stub_feature_flags(organization_users_internal: false)
-      end
-
-      it 'does not support mentioning users aliased within organization' do
-        reference = org_user_detail.to_reference
-        doc = reference_filter("Hey #{reference}", project: project)
-
-        expect(doc.css('a')).to be_empty
-      end
-
-      context 'in group context' do
-        let(:group) { create(:group, developers: [group_member]) }
-        let(:group_member) { create(:user) }
-        let(:org_user_detail) { create(:organization_user_detail, organization: group.organization) }
-        let(:context) { { author: group_member, project: nil, group: group } }
-
-        it 'does not support mentioning a single user' do
-          reference = org_user_detail.to_reference
-          doc = reference_filter("Hey #{reference}", context)
-
-          expect(doc.css('a')).to be_empty
-        end
-      end
-    end
   end
 
   context 'checking N+1' do

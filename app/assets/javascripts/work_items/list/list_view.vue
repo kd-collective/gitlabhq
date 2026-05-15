@@ -270,7 +270,9 @@ export default {
   watch: {
     workItems: {
       handler(value) {
-        this.checkDetailPanelParams();
+        if (!this.shouldLoad) {
+          this.checkDetailPanelParams();
+        }
         this.$emit('work-items-changed', {
           count: value.length,
           ids: value.map((i) => i.id),

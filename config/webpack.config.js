@@ -117,6 +117,12 @@ const alias = {
   vendor: path.join(ROOT_PATH, 'vendor/assets/javascripts'),
   jquery$: 'jquery/dist/jquery.slim.js',
   lodash: 'lodash-es',
+
+  // `raphael/raphael.no-deps` declares `eve` as an external dependency
+  // (the package was renamed to `eve-raphael` years ago, but Raphael's
+  // UMD wrapper still does `require("eve")`). Alias the bare name to
+  // the actual installed package so both webpack and Vite resolve it.
+  eve$: 'eve-raphael',
   shared_queries: path.join(ROOT_PATH, 'app/graphql/queries'),
 
   // Mermaid v11's transitive deps use package.json "exports" without "main"

@@ -79,8 +79,6 @@ module Banzai
         # check for users that have an aliased name within an organization,
         # for example the bot users created by Users::Internal
         def org_user_details
-          return {} unless Feature.enabled?(:organization_users_internal, organization)
-
           Organizations::OrganizationUserDetail.for_references
                                                .in_organization(organization)
                                                .with_usernames(usernames)

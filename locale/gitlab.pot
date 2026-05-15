@@ -2458,9 +2458,6 @@ msgstr ""
 msgid "AIAgents|An error has occurred when saving the agent."
 msgstr ""
 
-msgid "AIAgents|New agent"
-msgstr ""
-
 msgid "AIAgents|The requested agent was not found."
 msgstr ""
 
@@ -6155,6 +6152,9 @@ msgstr ""
 msgid "AdminSettings|Allow all integrations"
 msgstr ""
 
+msgid "AdminSettings|Allow connection to GitLab"
+msgstr ""
+
 msgid "AdminSettings|Allow contribution mapping to administrators %{allow_contribution_mapping_to_admins_link_start}%{icon}%{allow_contribution_mapping_to_admins_link_end}"
 msgstr ""
 
@@ -6402,6 +6402,9 @@ msgid "AdminSettings|Let's Encrypt email"
 msgstr ""
 
 msgid "AdminSettings|Limit the amount of namespace and project data to index"
+msgstr ""
+
+msgid "AdminSettings|MCP client access"
 msgstr ""
 
 msgid "AdminSettings|Make new users' profiles private by default"
@@ -6693,6 +6696,9 @@ msgid "AdminSettings|When selected, built-in templates are available in the temp
 msgstr ""
 
 msgid "AdminSettings|When to delete dormant projects"
+msgstr ""
+
+msgid "AdminSettings|When you turn on this setting, the GitLab Duo Agent Platform and external applications can access your data through MCP clients."
 msgstr ""
 
 msgid "AdminSettings|Wildcard domain used by the Web IDE to isolate and test VS Code extensions and third-party code."
@@ -7685,9 +7691,6 @@ msgstr ""
 msgid "AiImpactAnalytics|Code Suggestions usage"
 msgstr ""
 
-msgid "AiImpactAnalytics|Code Suggestions users"
-msgstr ""
-
 msgid "AiImpactAnalytics|Data available after upgrade to GitLab 18.0. %{linkStart}Learn more%{linkEnd}."
 msgstr ""
 
@@ -7709,6 +7712,9 @@ msgstr ""
 msgid "AiImpactAnalytics|GitLab Duo agent/flow users"
 msgstr ""
 
+msgid "AiImpactAnalytics|GitLab Duo power users"
+msgstr ""
+
 msgid "AiImpactAnalytics|No query found for metric: %{metric}"
 msgstr ""
 
@@ -7727,10 +7733,10 @@ msgstr ""
 msgid "AiImpactAnalytics|Number of chat sessions initiated through GitLab Duo Agent Platform."
 msgstr ""
 
-msgid "AiImpactAnalytics|Number of users who used Code Suggestions."
+msgid "AiImpactAnalytics|Number of users that used at least three GitLab Duo features."
 msgstr ""
 
-msgid "AiImpactAnalytics|Number of users who used Code Suggestions. %{linkStart}Learn more%{linkEnd}."
+msgid "AiImpactAnalytics|Number of users who used Code Suggestions."
 msgstr ""
 
 msgid "AiImpactAnalytics|Number of users who used Duo Chat (non-agentic)."
@@ -54808,6 +54814,9 @@ msgstr ""
 msgid "Preferences|Beta"
 msgstr ""
 
+msgid "Preferences|Billable Orbit namespace"
+msgstr ""
+
 msgid "Preferences|Choose a color mode."
 msgstr ""
 
@@ -54916,6 +54925,9 @@ msgstr ""
 msgid "Preferences|Light color scheme"
 msgstr ""
 
+msgid "Preferences|MCP and API calls to Orbit require a namespace to assign usage to."
+msgstr ""
+
 msgid "Preferences|Maintain indentation"
 msgstr ""
 
@@ -54956,6 +54968,9 @@ msgid "Preferences|Project overview content"
 msgstr ""
 
 msgid "Preferences|Render whitespace characters in the Web IDE"
+msgstr ""
+
+msgid "Preferences|Select a billable Orbit namespace..."
 msgstr ""
 
 msgid "Preferences|Select a default Duo namespace..."

@@ -28,6 +28,11 @@ const STATE_MAP = {
 // eslint-disable-next-line @gitlab/require-i18n-strings
 const WILDCARD_MAP = { ANY: 'Any', NONE: 'None', UPCOMING: 'Upcoming', STARTED: 'Started' };
 
+const SEARCH_IN_MAP = {
+  TITLE: 'title',
+  DESCRIPTION: 'description',
+};
+
 function appendParam(params, key, value) {
   if (value === null || value === undefined) return;
   if (Array.isArray(value)) {
@@ -74,7 +79,10 @@ export function convertGraphQLVarsToRestParams(vars) {
   appendParam(params, 'cursor', vars.after ?? vars.afterCursor);
   appendParam(params, 'per_page', vars.first ?? vars.firstPageSize);
   appendParam(params, 'search', vars.search);
-  appendParam(params, 'in', vars.in);
+
+  if (vars.in) {
+    appendParam(params, 'in', SEARCH_IN_MAP[vars.in] ?? vars.in.toLowerCase());
+  }
 
   if (vars.iid) {
     appendParam(params, 'iids[]', vars.iid);

@@ -243,3 +243,4 @@ header to expand it. Select any work item to open it in a drawer.
 - [Iterations](../group/iterations/_index.md)
 - [Milestones](../project/milestones/_index.md)
 - [Custom fields](custom_fields.md)
+- [Configurable work item types](configurable_work_item_types.md)

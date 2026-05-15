@@ -560,6 +560,15 @@ RSpec.describe API::Search, :clean_gitlab_redis_rate_limiting, feature_category:
 
         it_behaves_like 'apdex recorded', scope: 'snippet_titles', level: 'global'
 
+        it 'passes organization_id to SearchService', :with_current_organization do
+          expect(SearchService).to receive(:new).with(
+            user,
+            hash_including(organization_id: current_organization.id)
+          ).and_call_original
+
+          get api(endpoint, user), params: { scope: 'snippet_titles', search: 'awesome' }
+        end
+
         describe 'pagination' do
           before do
             create(:personal_snippet, :public, title: 'another snippet', content: 'snippet content')

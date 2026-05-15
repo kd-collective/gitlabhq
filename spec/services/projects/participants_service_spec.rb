@@ -4,12 +4,15 @@ require 'spec_helper'
 
 RSpec.describe Projects::ParticipantsService, feature_category: :groups_and_projects do
   describe '#execute' do
-    let_it_be(:user) { create(:user) }
+    # Use explicit usernames to guarantee deterministic sort order.
+    # project_members are sorted by the user's actual username (not the org_user_detail username),
+    # so 'aaa_participant' sorts before 'zzz_org_user' ensuring a stable expected order.
+    let_it_be(:user) { create(:user, username: 'aaa_participant') }
     let_it_be(:project) { create(:project, :public) }
     let_it_be(:noteable) { create(:issue, project: project) }
     let_it_be(:other_organization) { create(:organization) }
     let_it_be(:org_user_detail) do
-      create(:organization_user_detail, username: 'spec_bot')
+      create(:organization_user_detail, user: create(:user, username: 'zzz_org_user'), username: 'spec_bot')
     end
 
     let_it_be(:other_org_user_detail) do
@@ -140,22 +143,6 @@ RSpec.describe Projects::ParticipantsService, feature_category: :groups_and_proj
           username: other_org_user_detail.username,
           original_username: other_org_user_detail.user.username
         ))
-      end
-
-      context 'when organization_users_internal FF is disabled' do
-        before do
-          stub_feature_flags(organization_users_internal: false)
-        end
-
-        it { is_expected.to be_empty }
-
-        it 'returns results in correct order' do
-          group = create(:group, owners: user)
-
-          expect(run_service.pluck(:username)).to eq([
-            noteable.author.username, user.username, org_user_detail.user.username, group.full_path
-          ])
-        end
       end
 
       context 'including other item types' do

@@ -96,7 +96,9 @@ query getWorkItemsRest(
           webPath
         }
         closedAt
+        confidential
         createdAt
+        hidden
         iid
         namespace {
           id
@@ -108,7 +110,7 @@ query getWorkItemsRest(
         updatedAt
         webPath
         state
-        widgets(onlyTypes: [LABELS, ASSIGNEES, MILESTONE]) {
+        widgets(onlyTypes: [LABELS, ASSIGNEES, MILESTONE, START_AND_DUE_DATE]) {
           type
           ... on WorkItemWidgetLabels {
             allowsScopedLabels
@@ -138,6 +140,10 @@ query getWorkItemsRest(
               title
               webPath
             }
+          }
+          ... on WorkItemWidgetStartAndDueDate {
+            dueDate
+            startDate
           }
         }
         workItemType {

@@ -73,11 +73,20 @@ function mapWidgetsFromFeatures(features) {
         }
       : null,
   });
+  const startAndDueDateData = features?.start_and_due_date;
+  if (startAndDueDateData) {
+    widgets.push({
+      __typename: 'WorkItemWidgetStartAndDueDate',
+      type: 'START_AND_DUE_DATE',
+      dueDate: startAndDueDateData.due_date ?? null,
+      startDate: startAndDueDateData.start_date ?? null,
+    });
+  }
 
   return widgets;
 }
 
-function mapWorkItemToGraphQL(item) {
+function mapWorkItemToGraphQL(item, namespace) {
   return {
     __typename: 'WorkItem',
     id: item.global_id,
@@ -88,6 +97,8 @@ function mapWorkItemToGraphQL(item) {
     createdAt: item.created_at,
     updatedAt: item.updated_at,
     closedAt: item.closed_at ?? null,
+    confidential: item.confidential ?? false,
+    hidden: item.hidden ?? false,
     reference: item.reference ?? null,
     webPath: item.web_path ?? null,
     author: item.author
@@ -100,13 +111,11 @@ function mapWorkItemToGraphQL(item) {
           webPath: item.author.web_path ?? null,
         }
       : null,
-    namespace: item.namespace
-      ? {
-          __typename: 'Namespace',
-          id: item.namespace.id ? `gid://gitlab/Namespace/${item.namespace.id}` : null,
-          fullPath: item.namespace.full_path ?? null,
-        }
-      : null,
+    namespace: {
+      __typename: 'Namespace',
+      id: namespace.id,
+      fullPath: namespace.fullPath,
+    },
     workItemType: item.work_item_type
       ? {
           __typename: 'WorkItemType',
@@ -141,10 +150,9 @@ export async function workItemsRestResolver(namespace, args) {
 
   restParams.set(
     'fields',
-    'id,iid,global_id,title,title_html,state,created_at,updated_at,closed_at,reference,web_path,author,work_item_type',
+    'id,iid,global_id,title,title_html,state,created_at,updated_at,closed_at,reference,web_path,author,work_item_type,confidential,hidden',
   );
-  // eslint-disable-next-line @gitlab/require-i18n-strings
-  restParams.set('features', 'labels,assignees,milestone');
+  restParams.set('features', 'labels,assignees,milestone,start_and_due_date');
 
   const url = buildApiUrl(WORK_ITEMS_PATH).replace(':full_path', encodeURIComponent(fullPath));
 
@@ -156,7 +164,7 @@ export async function workItemsRestResolver(namespace, args) {
     throw error;
   }
 
-  const nodes = (response.data ?? []).map(mapWorkItemToGraphQL);
+  const nodes = (response.data ?? []).map((item) => mapWorkItemToGraphQL(item, namespace));
   const pageInfo = parsePageInfo(response.headers);
   return {
     __typename: 'WorkItemConnection',

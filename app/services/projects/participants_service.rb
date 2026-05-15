@@ -43,8 +43,6 @@ module Projects
     # of the User model for rendering username, display_name, and other details
     # details should be pre-loaded to avoid N+1 queries
     def organization_user_details_for_participants(participants)
-      return participants unless Feature.enabled?(:organization_users_internal, organization)
-
       participants.map do |participant|
         next participant unless participant.is_a?(User)
 

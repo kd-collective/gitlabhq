@@ -226,6 +226,20 @@ This feature is behind the `merge_request_ready_flow_trigger` feature flag, disa
 
 Claude Opus 4.7 is now available in GitLab Duo Agent Platform. Opus 4.7 delivers meaningful improvements to complex, multistep tasks that require sustained reasoning, precise instruction following, and self-verification before surfacing results. This includes flows supporting CI/CD pipelines, code review, vulnerability resolution, and more.
 
+### Support for self-hosted Gemini models
+
+<!-- categories: Self-Hosted Models -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../administration/gitlab_duo_self_hosted/supported_models_and_hardware_requirements.md#compatible-models), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/21186)
+
+{{< /details >}}
+
+GitLab Duo Agent Platform Self-Hosted is now compatible with Gemini models. Gemini models support multiple flows, including the Code Review Flow, SAST Vulnerability Resolution Flow, Fix CI/CD Pipeline Flow, and more.
+
 ### Expanded open source model support in GitLab Duo Agent Platform
 
 <!-- categories: Self-Hosted Models -->

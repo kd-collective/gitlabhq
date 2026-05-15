@@ -605,6 +605,14 @@ Grants the ability to resume duo workflows.
 | ------ | ------ | ------ | ---- |
 | Resume | User | `POST` | `/ai/duo_workflows/workflows/:workflow_id/resume` |
 
+#### Third Party Agent Direct Access Token
+
+Grants the ability to create direct access tokens for third-party agents
+
+| Action | Access | Method | Path |
+| ------ | ------ | ------ | ---- |
+| Create | User | `POST` | `/ai/third_party_agents/direct_access` |
+
 ### Geo resources
 
 #### Geo Node

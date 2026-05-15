@@ -23,6 +23,7 @@ module API
 
     before do
       authenticate!
+      set_current_organization
 
       check_rate_limit!(
         :search_rate_limit,
@@ -58,7 +59,10 @@ module API
           # Skip legacy scope conversion for API requests to maintain backward compatibility
           SearchService.new(
             current_user,
-            search_params.merge(additional_params).merge(skip_legacy_scope_conversion: true)
+            search_params.merge(additional_params).merge(
+              organization_id: Current.organization.id,
+              skip_legacy_scope_conversion: true
+            )
           )
         end
       end

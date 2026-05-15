@@ -51,6 +51,12 @@ module ApplicationSettingsHelper
     Gitlab::CurrentSettings.enabled_git_access_protocol.blank?
   end
 
+  # The instance-level MCP toggle only applies to self-managed. On GitLab.com,
+  # MCP availability is controlled by the top-level group setting instead.
+  def mcp_server_setting_available?
+    !Gitlab.com? && Feature.enabled?(:mcp_server_availability_setting, :instance)
+  end
+
   def ssh_enabled?
     all_protocols_enabled? || enabled_protocol == 'ssh'
   end
@@ -681,6 +687,7 @@ module ApplicationSettingsHelper
         settings << :deactivate_dormant_users_period
         settings << :nuget_skip_metadata_url_validation
         settings << :helm_max_packages_count
+        settings << :mcp_server_enabled
       end
     end
   end
