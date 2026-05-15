@@ -1,8 +1,8 @@
 ---
-source_checksum: 5be6680c1783c1e3
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: d8c986681e4fe92c
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Sidekiq Workers Principles
 
@@ -14,7 +14,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Set `data_consistency` explicitly on every worker (RuboCop enforces this).
 - Define a known `feature_category` on every Sidekiq worker.
 - Mark workers as `idempotent!` unless there is a documented reason they cannot be.
-- Use `deduplicate :until_executing` (default) or `until_executed` strategy alongside `idempotent!`.
+- Use `deduplicate :until_executing` (default) or `:until_executed` alongside `idempotent!`; pass `including_scheduled: true` if future-scheduled jobs should also be deduplicated.
 - DO NOT mark a worker as both `urgency :high` and `worker_has_external_dependencies!`.
 - DO NOT mark a worker as both `urgency :high` and `worker_resource_boundary :memory`.
 - Prepend `::Geo::SkipSecondary` to workers that attempt database writes if they can be enqueued on Geo secondary sites.
@@ -37,6 +37,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Set a `concurrency_limit` for all workers to prevent system overload.
 - Use only boolean (fully on/off) feature flags when rolling out a concurrency limit — DO NOT use percentage-based rollouts with `Feature.current_request`.
 - Use a lambda returning `nil` or `0` to disable the limit; use a negative number to pause execution.
+- Use `max_concurrency_limit_percentage` to override the default shard capacity percentage when the GitLab.com default is not appropriate for the worker.
 
 ### Job Urgency
 
@@ -49,6 +50,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `data_consistency :delayed` for jobs where delayed execution is acceptable (cache expiration, webhooks); DO NOT use `:delayed` for cron jobs where retry is disabled.
 - Use `data_consistency :always` only for jobs with documented edge cases around primary stickiness; it is strongly discouraged.
 - Use `overrides:` keyword with `data_consistency` when a worker's database usage is skewed toward a specific decomposed database (e.g., `ci`).
+- Use the `feature_flag:` property with `data_consistency` to safely toggle load balancing for a specific job; DO NOT use actor-based feature gates (project, group, user) — use percentage-of-time rollout only.
 
 ### Job Parameters
 
@@ -94,8 +96,13 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 ### LimitedCapacity::Worker
 
 - Implement `perform_work`, `remaining_work_count`, and `max_running_jobs` when using `LimitedCapacity::Worker`.
-- Schedule `LimitedCapacity::Worker` subclasses via `perform_with_capacity`, not `perform_async`.
+- Schedule `LimitedCapacity::Worker` subclasses via `perform_with_capacity`, not `perform_async`; always pass the same `*args` on every invocation.
 - Handle all exceptions inside `perform_work`; DO NOT let the job raise, as retries are disabled and failures reduce running capacity until the cron worker refills slots.
+- Use a separate cron worker to call `perform_with_capacity` periodically when the worker consumes a workload stored outside Sidekiq (for example, in PostgreSQL).
+
+### Deduplication TTL
+
+- Configure a custom `ttl:` on `deduplicate` only for jobs that can tolerate some duplication; the default is 10 minutes, during which duplicate jobs are suppressed even if the first job never ran.
 
 ### Tests
 

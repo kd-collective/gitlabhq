@@ -14,7 +14,7 @@ title: Code Review Flow
 
 {{< collapsible title="Model information" >}}
 
-- LLM: Anthropic [Claude Sonnet 4.6 Vertex](https://console.cloud.google.com/vertex-ai/publishers/anthropic/model-garden/claude-sonnet-4-6)
+- LLM: Anthropic [Claude Sonnet 4 Vertex](https://console.cloud.google.com/vertex-ai/publishers/anthropic/model-garden/claude-sonnet-4)
 - Available on [GitLab Duo with self-hosted models](../../../../administration/gitlab_duo_self_hosted/_index.md)
 
 {{< /collapsible >}}
@@ -80,6 +80,45 @@ your merge request.
 
 Feedback provided to GitLab Duo does not influence later reviews of other merge requests.
 There is a feature request to add this functionality, see [issue 560116](https://gitlab.com/gitlab-org/gitlab/-/issues/560116).
+
+## Contextual awareness
+
+Code Review Flow runs in two stages:
+
+1. Pre-scan: The flow inspects the merge request diffs and uses them to identify related
+   context to fetch from the project repository. The pre-scan typically includes directory
+   listings and the contents of related files, such as tests and dependencies referenced by the
+   changes. The exact context fetched depends on the diff analysis.
+1. Review: The flow runs the review with the following data in the large language model. The review stage cannot fetch additional context on demand.
+
+   - Results from the pre-scan step.
+   - Merge request title.
+   - Merge request description.
+   - Merge request diffs.
+   - Original versions of the files.
+   - Filenames.
+   - Custom review instructions.
+
+To specify content to exclude, see
+[exclude context from GitLab Duo](../../context.md#exclude-context-from-gitlab-duo).
+
+### File and context limits
+
+Code Review Flow applies two limits to keep the prompt within a workable size:
+
+- For files longer than 10,000 lines, only the diff is sent to the model. The full file contents are not included.
+- The total context that the pre-scan gathers is capped at approximately 1 MiB. When the cap is
+  exceeded, the context is truncated to approximately 800 KiB before the review stage runs.
+
+These limits apply to the data the flow gathers and are separate from the
+[selected model's](../../model_selection.md) context window.
+
+For very large merge requests, the review might miss context that was truncated. To reduce the
+risk:
+
+- Split the merge request into smaller merge requests.
+- [Exclude context](../../context.md#exclude-context-from-gitlab-duo) for files that are not
+  relevant to the review.
 
 ## Custom code review instructions
 
@@ -264,6 +303,23 @@ You might get an error that states
 This error occurs when GitLab Duo Agent Platform is unable to start Code Review Flow due to an internal error.
 
 Try to restart the review. If the error persists, contact your administrator.
+
+### Missing context in large merge request reviews
+
+Code Review Flow might miss context when a merge request contains many large changed files.
+
+This can occur when the pre-scan results exceed the
+[file and context limits](#file-and-context-limits) and the data is truncated before the review
+stage runs.
+
+To improve the review:
+
+- Split the merge request into smaller merge requests.
+- [Exclude context](../../context.md#exclude-context-from-gitlab-duo) for files that are not
+  relevant to the review.
+- Ask a Maintainer or Owner to
+  [select Claude Sonnet 4.6 Vertex](../../../gitlab_duo/model_selection.md#select-a-model-for-a-feature)
+  for Code Review. Sonnet 4.6 Vertex has a larger context window than the default model.
 
 ### Configuration diagnostic script
 

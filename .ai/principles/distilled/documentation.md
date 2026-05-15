@@ -1,14 +1,15 @@
 ---
-source_checksum: 937c6fc044681507
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: c0a83b7c5451fe50
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Documentation Principles
 
 ## Checklist
 
 ### Voice and Tone
+
 - Write in US English with US grammar.
 - Use active voice instead of passive voice; use passive only when the subject is awkward (e.g., "The report is exported").
 - Write from the customer perspective; DO NOT use "allows you to" or "enables you to" — address the user directly with "you".
@@ -18,6 +19,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT use possessives (`'s`) for product or organization names (e.g., use "the Docker CLI", not "Docker's CLI").
 
 ### Language and Grammar
+
 - Spell out acronyms on first use per page; DO NOT spell them out more than once.
 - DO NOT make acronyms plural with an apostrophe (use `APIs`, not `API's`).
 - Spell out zero through nine; use numerals for 10 and above.
@@ -30,6 +32,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Break up noun strings (e.g., use "custom settings for project integrations", not "project integration custom settings").
 
 ### Capitalization
+
 - Use sentence case for topic titles and table headers.
 - Keep feature names lowercase unless they are listed as exceptions in markdownlint or the word list.
 - Capitalize GitLab product tiers (e.g., GitLab Free, GitLab Ultimate), third-party product names, and methodology names.
@@ -37,12 +40,14 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use the same capitalization as displayed in the UI when referring to UI elements.
 
 ### Fake Data and Tokens
+
 - DO NOT use real usernames, email addresses, or tokens in documentation.
 - Use diverse or non-gendered names (e.g., `Sidney Jones`, `Zhang Wei`) and `example.com` email addresses.
 - Use `example.com` for generic domains and `gitlab.example.com` for self-managed references.
 - Use only the approved fake token values from the token table in the style guide.
 
 ### Markdown and Formatting
+
 - DO NOT add an `H1` heading in Markdown; use the `title` metadata attribute instead.
 - DO NOT skip heading levels (e.g., `##` directly to `####`).
 - DO NOT use heading levels greater than `H5`; move content to a new page instead.
@@ -59,6 +64,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `<!-- comment -->` HTML comments for author notes; DO NOT use comments to hide documentation.
 
 ### Text Formatting
+
 - Use **bold** only for UI elements with visible labels and navigation paths; DO NOT use bold for keywords or emphasis.
 - Use inline code (backticks) for user input, filenames, configuration parameters, keywords, API/HTTP methods, HTTP status codes, and short error messages.
 - Use code blocks for CLI/cURL commands and multi-line inputs/outputs; add a syntax name for highlighting.
@@ -67,6 +73,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `<` and `>` to denote placeholder text in code blocks.
 
 ### Lists
+
 - Make all list items parallel (same grammatical structure).
 - Start all list items with a capital letter.
 - DO NOT end list items with a period unless the item is a complete sentence.
@@ -76,6 +83,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT use list items to complete an introductory phrase (e.g., "You can do this by: - Copying..."); rewrite as a full sentence introducing the list.
 
 ### Tables
+
 - DO NOT leave table cells empty; use **N/A** or **None** instead.
 - Make the header row and delimiter row the same length; DO NOT use shortened delimiters like `|-|-|-|`.
 - Use sentence case for table headers.
@@ -85,6 +93,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `<sup>` tags for table footnotes; place footnotes below the table under `**Footnotes**:` as an ordered list.
 
 ### Links
+
 - DO NOT duplicate links on the same page.
 - DO NOT use links in headings.
 - DO NOT hard-wrap lines within a link.
@@ -99,6 +108,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT link to the `/development` directory from any other directory within the GitLab repository.
 
 ### Images and Screenshots
+
 - Resize wide or tall screenshots (width ≤ 1000 px, height ≤ 500 px).
 - Compress all PNG images to 100 KB or less on disk.
 - Use descriptive lowercase filenames; append the GitLab version in the format `_vX_Y` (e.g., `pipelines_v11_1.png`).
@@ -112,6 +122,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT link to externally-hosted images; download and store them in the appropriate `img/` directory.
 
 ### Diagrams
+
 - Prefer Mermaid for diagrams; use Draw.io for complex layouts where Mermaid produces unclear results.
 - Add `accTitle` and `accDescr` accessibility fields immediately after the diagram type declaration in Mermaid.
 - DO NOT use color alone to differentiate diagram elements (must work in both light and dark modes).
@@ -120,6 +131,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Save Draw.io diagrams with the `.drawio.svg` extension.
 
 ### Alert Boxes and Special Elements
+
 - Use alert boxes sparingly; DO NOT place two alert boxes consecutively.
 - Use `> [!note]`, `> [!warning]`, `> [!flag]`, and `> [!disclaimer]` for alert types.
 - DO NOT use blockquotes in product documentation; use code blocks, alert boxes, or plain text instead.
@@ -130,6 +142,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - When using SVG icons, place the icon after the label text in parentheses (e.g., `Select **Edit** ({{< icon name="pencil" >}})`).
 
 ### Videos and Demos
+
 - DO NOT upload videos to product repositories; link or embed them instead.
 - Embed only videos from the official GitLab YouTube channel; link to videos from other sources.
 - Include the video publication date as a comment below every video link or embed.
@@ -137,6 +150,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Follow the same guidelines for click-through demo links as for videos.
 
 ### Navigation and UI References
+
 - Write navigation steps as location then action (e.g., "From the **Visibility** dropdown list, select **Public**").
 - Use **left sidebar** instead of "the Explore menu" or "the Your work sidebar".
 - Bold all UI element names; DO NOT bold the `>` separator in navigation paths.
@@ -144,18 +158,13 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Start optional steps with "Optional." followed by a period.
 - Start recommended steps with "Recommended." followed by a period.
 
-### Feature Flags in Documentation
-- Follow the [policy for documenting feature-flagged issues](https://docs.gitlab.com/development/documentation/feature_flags/) when a feature has a flag.
-- Use the `flag` alert type to describe feature availability.
+### Documentation Workflow
 
-### Content Scope and Accuracy
-- Only include information grounded in the existing codebase, linked documentation, or content already on the page.
-- DO NOT speculate or infer how a feature works.
-- DO NOT invent command syntax, API parameters, or UI element names.
-- DO NOT promise work in future milestones; instead say work is being proposed (e.g., "Support for improvements is proposed in [issue 12345](link)").
-- DO NOT create a new page for a single concept, term, or procedure step.
-- DO NOT copy and paste content from other sources without citation; rephrase or link instead.
-- Delete documentation that was added prematurely rather than hiding it with HTML comments.
+- Include documentation in the same MR as the feature code whenever possible; DO NOT merge a feature that exposes UI, API endpoints, or user-facing behaviour without accompanying documentation.
+- Ensure AI-generated documentation is reviewed by a Technical Writer and passes a Vale lint check before submission.
+- Delete documentation added prematurely rather than hiding it with HTML comments; add a link to the original MR in the removal MR.
+- When moving content to a new location and editing it in the same MR, use separate commits (first commit moves only, subsequent commits edit).
+- DO NOT promise to deliver features in a future release; instead reference the proposing issue (e.g., "Support for improvements is proposed in [issue 12345](link)").
 
 ### Common Mistakes - Repetition
 

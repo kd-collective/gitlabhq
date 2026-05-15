@@ -19,6 +19,7 @@ import {
 } from '~/rapid_diffs/utils/linked_file';
 import createEventHub from '~/helpers/event_hub_factory';
 import { renderGFM } from '~/behaviors/markdown/render_gfm';
+import InternalEvents from '~/tracking/internal_events';
 import BlobForkSuggestion from './blob/blob_fork_suggestion';
 import Diff from './diff';
 import { initDiffStatsDropdown } from './init_diff_stats_dropdown';
@@ -365,6 +366,9 @@ export default class MergeRequestTabs {
         action in pageBundles &&
         !skipPageBundle
       ) {
+        if (this.isDiffAction(action)) {
+          this.trackSpaVisit('legacy_diffs');
+        }
         toggleLoader(true);
         pageBundles[action]()
           .then(({ default: init }) => {
@@ -396,6 +400,9 @@ export default class MergeRequestTabs {
       } else if (this.isDiffAction(action)) {
         if (this.createRapidDiffsApp) {
           if (!this.rapidDiffsApp) {
+            if (!this.loadedPages[action]) {
+              this.trackSpaVisit('rapid_diffs');
+            }
             this.rapidDiffsApp = await this.createRapidDiffsApp();
             this.rapidDiffsApp.init();
           } else {
@@ -652,6 +659,13 @@ export default class MergeRequestTabs {
 
   isDiffAction(action) {
     return action === 'diffs' || action === 'new/diffs';
+  }
+
+  trackSpaVisit(label) {
+    InternalEvents.trackEvent('view_merge_request_diffs', {
+      label,
+      property: 'spa_navigation',
+    });
   }
 
   expandViewContainer() {

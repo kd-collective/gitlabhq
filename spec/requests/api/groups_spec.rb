@@ -4065,7 +4065,11 @@ RSpec.describe API::Groups, :with_current_organization, feature_category: :group
         context 'when the transfer succeeds' do
           before do
             # Added this to https://gitlab.com/gitlab-org/gitlab/-/work_items/595305
-            allow(Gitlab::QueryLimiting::Transaction).to receive(:threshold).and_return(106)
+            # Bumped by ~6 to accommodate the secrets manager deprovision walk
+            # added in MR !236024 (snapshot capture of self_and_descendants +
+            # all_projects for the SM deprovision hook). Performance work is
+            # tracked in gitlab-org/gitlab#600129.
+            allow(Gitlab::QueryLimiting::Transaction).to receive(:threshold).and_return(112)
           end
 
           it 'returns success', :aggregate_failures do

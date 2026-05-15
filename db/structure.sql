@@ -770,6 +770,31 @@ BEGIN
 END
 $$;
 
+CREATE FUNCTION gen_random_uuid_v7() RETURNS uuid
+    LANGUAGE plpgsql PARALLEL SAFE
+    AS $$
+DECLARE
+  ts_ms bigint;
+  sub_ms int;
+  unix_ts_ms bytea;
+  uuid_bytes bytea;
+  now_epoch double precision;
+BEGIN
+  now_epoch := extract(epoch from clock_timestamp()) * 1000;
+  ts_ms := floor(now_epoch)::bigint;
+  sub_ms := floor((now_epoch - ts_ms) * 4096)::int;
+
+  unix_ts_ms := substring(int8send(ts_ms) from 3);
+  uuid_bytes := uuid_send(gen_random_uuid());
+  uuid_bytes := overlay(uuid_bytes placing unix_ts_ms from 1 for 6);
+
+  uuid_bytes := set_byte(uuid_bytes, 6, ((sub_ms >> 8) & x'0F'::int) | x'70'::int);
+  uuid_bytes := set_byte(uuid_bytes, 7, sub_ms & x'FF'::int);
+
+  RETURN encode(uuid_bytes, 'hex')::uuid;
+END
+$$;
+
 CREATE FUNCTION gitlab_schema_prevent_write() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
@@ -17417,7 +17442,8 @@ CREATE TABLE ci_partitions (
     status smallint DEFAULT 0 NOT NULL,
     current_from timestamp with time zone,
     current_until timestamp with time zone,
-    builds_id_range int8range
+    builds_id_range int8range,
+    pipelines_id_range int8range
 );
 
 CREATE TABLE ci_pending_builds (
@@ -39098,6 +39124,9 @@ ALTER TABLE group_import_states
 
 ALTER TABLE ONLY ci_partitions
     ADD CONSTRAINT check_ci_partitions_builds_id_range_no_overlap EXCLUDE USING gist (builds_id_range WITH &&) WHERE ((builds_id_range IS NOT NULL));
+
+ALTER TABLE ONLY ci_partitions
+    ADD CONSTRAINT check_ci_partitions_pipelines_id_range_no_overlap EXCLUDE USING gist (pipelines_id_range WITH &&) WHERE ((pipelines_id_range IS NOT NULL));
 
 ALTER TABLE work_item_custom_statuses
     ADD CONSTRAINT check_custom_status_name_characters CHECK ((name !~ '^["''`]|["''`]$|[\x00-\x1F\x7F]'::text)) NOT VALID;

@@ -179,15 +179,21 @@ To make your group or project use the latest version of an agent or flow:
 
 {{< /history >}}
 
-In a top-level group, you can restrict the AI Catalog visibility so that users in that group:
+In a top-level group, you can restrict the AI Catalog so that, for a project in that group hierarchy, users can
+see, enable, and run only:
 
-- Can see and use:
-  - Foundational agents and flows maintained by GitLab.
-  - Agents, external agents, and flows created by projects in this hierarchy.
-- Cannot see or use agents, external agents, or flows that were created by projects not in this hierarchy.
+- Foundational agents and flows maintained by GitLab.
+- Public agents and flows owned by projects in the same top-level group hierarchy.
+- Private agents and flows owned by the project itself.
 
-You can configure this setting only on a top-level group.
-Changes to this setting are recorded in the audit log.
+Agents and flows owned by projects outside the hierarchy are:
+
+- Hidden from the AI Catalog.
+- Blocked from being enabled.
+- Blocked from running, even if a project previously enabled them.
+
+You can configure this setting only on a top-level group. It applies to all projects
+in that hierarchy. Changes to this setting are recorded in the audit log.
 
 Prerequisites:
 

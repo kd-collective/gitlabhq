@@ -80,15 +80,14 @@ in the user interface, and you can also resolve conflicts using the following me
 
 {{< history >}}
 
-- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/230512) in GitLab 19.0
-  [with a feature flag](../../../administration/feature_flags/_index.md) named `mr_ai_resolve_conflicts`. Disabled by default.
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/235919) in GitLab 19.0
+  [with a feature flag](../../../administration/feature_flags/_index.md) named `mr_ai_resolve_conflicts`. Enabled by default.
 
 {{< /history >}}
 
 > [!flag]
 > The availability of this feature is controlled by a feature flag.
 > For more information, see the history.
-> This feature is available for testing, but not ready for production use.
 
 GitLab Duo can autonomously analyze merge conflicts, edit the conflicting files,
 create a commit, and push to the source branch.

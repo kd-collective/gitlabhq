@@ -1,8 +1,8 @@
 ---
-source_checksum: 002952603fc1e25e
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 4a7e89bf9054dabc
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 > **Prerequisite:** If you haven't already, also read .ai/principles/distilled/database-fundamentals.md - it contains foundational rules that apply to all database work.
 

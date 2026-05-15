@@ -226,6 +226,8 @@ Supported attributes:
 |-----------|-------------------|----------|-------------|
 | `id`      | integer or string | Yes      | The ID or [URL-encoded path](rest/_index.md#namespaced-paths) of a project. |
 
+Example response:
+
 ```json
 [
   {
@@ -390,6 +392,12 @@ Supported attributes:
   }
 ]
 ```
+
+Each object in the response includes an `eligible_approvers` array.
+The array lists the users who can approve a merge request the rule applies to.
+Eligible approvers depend on the rule's configuration and on project and group membership.
+For more information, see
+[eligible approvers](../user/project/merge_requests/approvals/rules.md#eligible-approvers).
 
 ### Retrieve an approval rule for a project
 

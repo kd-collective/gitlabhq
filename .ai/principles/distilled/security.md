@@ -1,8 +1,8 @@
 ---
-source_checksum: c534f466f0226a61
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: be71c57927b2a703
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Security Principles
 
@@ -21,7 +21,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT cascade permissions through non-private intermediate abilities; add each permission directly to the appropriate role YAML file. Exception: private (underscore-prefixed) permissions may cascade exactly one level deep (private permission + condition enables public permission).
 - Enable a permission unconditionally for a role, then use a separate `prevent` rule to restrict it when a condition is not met — DO NOT combine role checks and settings/flag checks in a single `rule { role & condition }`.
 - DO NOT write `rule { admin | owner }` — `admin` already satisfies `condition(:owner)`.
-- DO NOT define permissions dynamically using constructs like `readonly_features.each { |f| prevent :"create_#{f}" }`; declare each prevention explicitly.
+- Use role YAML files (`config/authz/roles/*.yml`) as the single source of truth for which permissions each role has; DO NOT use `enable` rules in policy files to grant permissions based on role conditions.
 
 ### Regular Expressions (Ruby)
 

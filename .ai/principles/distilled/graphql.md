@@ -1,14 +1,15 @@
 ---
-source_checksum: 95b92d88737098ed
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 3c85628c6d7cae8a
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # GraphQL Principles
 
 ## Checklist
 
 ### Breaking Changes
+
 - DO NOT remove, rename, or change the type of a field, argument, enum value, or mutation without following the deprecation process.
 - DO NOT change an argument from optional (`required: false`) to required (`required: true`) without deprecation.
 - DO NOT change a field from nullable (`null: true`) to non-nullable (`null: false`) without deprecation.
@@ -24,18 +25,21 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT deprecate Global ID fields (only arguments); field Global ID changes are considered backwards-compatible.
 
 ### Experiments
+
 - Mark new schema items under a feature flag with `experiment: { milestone: '...' }`.
 - DO NOT mark existing (already public) schema items as experiments.
 - Remove the `experiment:` property when the feature flag is removed to make the item public.
 - Include a changelog entry for all public-facing changes not marked as experiments.
 
 ### Multi-version Compatibility
+
 - Ensure frontend and backend code for the same GraphQL feature are NOT shipped in the same release (deploy backend before frontend on GitLab.com).
 - Use the `@gl_introduced` directive on fields for Self-Managed/Dedicated to strip future nodes from queries hitting older backend versions.
 - DO NOT use `@gl_introduced` on arguments, fragments, or single future fields that are the only selection in a query or object.
 - Treat non-nullable fields with `@gl_introduced` as still requiring null-checks on the frontend.
 
 ### Descriptions
+
 - Ensure every field and argument has a `description:` value ending with a period (`.`).
 - DO NOT start descriptions with `The` or `A`.
 - Use `{x} of the {y}` phrasing for field descriptions where possible.
@@ -48,6 +52,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Add subscription tier information inline in the description (for example, `Premium and Ultimate only.`) for fields restricted to higher tiers.
 
 ### Types and Fields
+
 - Prefer nullable fields (`null: true`) over non-nullable ones; reserve non-nullable for fields that are required, unlikely to become optional, and cheap to compute (for example, `id`).
 - Use `Types::GlobalIDType[Model]` (not plain `ID` or database primary key integers) for all Global ID inputs and outputs.
 - Convert non-`id`-named fields that expose Global IDs manually using `Gitlab::GlobalId.build` or `#to_global_id`.
@@ -67,6 +72,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Expose permissions using `expose_permissions` with a type inheriting `BasePermissionType`.
 
 ### Arguments
+
 - DO NOT use the `loads:` option in argument definitions; accept the Global ID and load the object manually with `authorized_find!`.
 - Use `required: :nullable` when an argument must be provided but its value can be `null`.
 - Add `validates: { allow_null: false }` for optional arguments where `null` is not a valid value.
@@ -76,6 +82,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Ensure all GraphQL mutations that accept file content use Workhorse-assisted uploads.
 
 ### Resolvers and Mutations
+
 - Write resolvers as thin declarative wrappers around finders and services; DO NOT put business logic directly in resolvers.
 - DO NOT instantiate resolvers or mutations directly in application code; let the framework manage their lifecycle.
 - DO NOT use batching in mutations; mutations execute serially and batching adds unnecessary overhead.
@@ -95,6 +102,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT close over instance state in batch loader blocks; pass all needed data through the `for(data)` call.
 
 ### Authorization
+
 - Apply `authorize :ability` on types, resolvers, or fields using `DeclarativePolicy` abilities.
 - Use `authorizes_object!` when a resolver should authorize against the parent object.
 - Use field-level `authorize:` for scalar fields with different access levels or to avoid expensive per-object checks.
@@ -103,6 +111,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Load only what the current user is allowed to see using finders first; DO NOT rely solely on authorization to filter records after loading.
 
 ### Performance and N+1
+
 - Check for N+1 queries using `development.log`, the performance bar, or request specs with `QueryRecorder`.
 - Use `BatchLoader::GraphQL` for batching queries in resolvers; pass all needed data through `for(data)` and DO NOT close over instance state in batch blocks.
 - DO NOT sync lazy values early; queue all lazy requests before calling `#sync`.
@@ -111,6 +120,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT build queries through association proxies before applying `includes()`; build at the class level to avoid `Arel::Nodes::LeadingJoin` errors.
 
 ### Testing
+
 - Use request (integration) specs in `spec/requests/api/graphql` as the primary test vehicle; DO NOT rely on resolver unit specs for behavior testing.
 - DO NOT unit test resolvers beyond statically verifying fields, arguments, or `authorize` declarations.
 - Use `post_graphql` / `post_graphql_mutation` helpers and `GraphqlHelpers` methods in integration specs.

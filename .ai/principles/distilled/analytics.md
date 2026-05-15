@@ -1,8 +1,8 @@
 ---
-source_checksum: 0498b00494abe9f8
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: aa26a2b36c085845
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Analytics Instrumentation Principles
 
@@ -12,7 +12,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 
 - Ensure every fired event has a corresponding definition file in `config/events` or `ee/config/events`.
 - Verify the [event definition file](https://docs.gitlab.com/development/internal_analytics/internal_event_instrumentation/event_definition_guide/) is correct and complete.
-- Ensure tracking parameters DO NOT contain any [sensitive information](https://handbook.gitlab.com/handbook/security/data-classification-standard/).
+- DO NOT include sensitive information (per the [data classification standard](https://handbook.gitlab.com/handbook/security/data-classification-standard/)) in tracking parameters.
 - DO NOT use deprecated analytics methods.
 
 ### Metric Definitions

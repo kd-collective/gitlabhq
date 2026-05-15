@@ -97,7 +97,7 @@ On-Demand credits are consumed at the list price of $1 per credit used.
 
 On-Demand credits can be used after you have accepted usage billing terms.
 You can accept these terms when you purchase your monthly commitment,
-or directly in the GitLab Credits dashboard.
+or directly in the GitLab Credits dashboard in the Customers Portal.
 By accepting usage billing terms, you agree to pay for all On-Demand charges already accrued
 in the current monthly billing period, and any On-Demand charges incurred going forward.
 
@@ -230,7 +230,7 @@ On the Free tier:
 
 {{< /tabs >}}
 
-Your GitLab Credits are displayed in the subscription card in Customers Portal, and in the GitLab Credits dashboard.
+Your GitLab Credits are displayed in the Customers Portal in the subscription card and the GitLab Credits dashboard.
 
 ## Credit multipliers
 
@@ -322,10 +322,6 @@ The pricing depends on the selected model.
 The GitLab Credits dashboard displays information about your usage of GitLab Credits.
 Use the dashboard to monitor credit consumption, track trends, and identify usage patterns.
 
-On the dashboard, used credits represent deductions from available credits.
-For overages (On-Demand credits), used credits represent on-demand usage that will be paid later,
-if you have agreed to the usage billing terms.
-
 To help you manage credit consumption, GitLab emails the following information to
 administrators and subscription owners:
 
@@ -343,6 +339,10 @@ You can access the dashboard in the Customers Portal and in GitLab.
 
 The GitLab Credits dashboard in the Customers Portal provides the most detailed view of your usage and costs.
 
+On the dashboard, used credits represent deductions from available credits.
+For overages (On-Demand credits), used credits represent on-demand usage that will be paid later,
+if you have agreed to the usage billing terms.
+
 The dashboard displays summary cards of key metrics:
 
 - Current month usage: Total GitLab Credits used in the current month (if you have a monthly commitment)
@@ -357,23 +357,19 @@ The dashboard displays summary cards of key metrics:
 
 ### In GitLab
 
+> [!note]
+> This dashboard displays usage of all GitLab Duo Agent Platform features, including non-billable
+> beta and experiment features. For billable usage only, view the dashboard in Customers Portal.
+
 The GitLab Credits dashboard in GitLab provides operational visibility into the usage of credits in your organization.
 Use the dashboard to understand which users, groups, or projects are driving usage, and make informed decisions about resource allocation.
 
 The dashboard displays the following information:
 
 - **Organization usage**: Total credit usage across your GitLab instance or group
-- **Usage trends**: Cumulative number of credits consumed over the current billing period, displayed as a cumulative area chart. Dashed threshold lines indicate the total credits available for each
-credit type.
-- **Usage overview**: Daily credit consumption broken down by credit type, displayed as a stacked bar chart
+- **Total credit consumption**: Daily credit consumption over all products, displayed as a bar chart
 - **Usage by user**: Number of credits used by each user
 - **User drill-down view**: Individual usage events for each user, with links to GitLab Duo Agent Platform session details
-
-> [!note]
-> The **Usage trends** chart is available only if you:
->
-> - Don't have temporary evaluation credits.
-> - Have a Monthly Commitment Pool, monthly waivers, or On-Demand credits.
 
 ### View the GitLab Credits dashboard
 

@@ -55,6 +55,11 @@ module Types
         null: false,
         description: 'Root path in the context of the organization.',
         experiment: { milestone: '18.5' }
+      field :state,
+        Types::Organizations::OrganizationStateEnum,
+        null: false,
+        description: 'State of the organization.',
+        experiment: { milestone: '19.0' }
       field :visibility,
         GraphQL::Types::String,
         null: true,

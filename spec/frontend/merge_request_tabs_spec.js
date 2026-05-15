@@ -7,12 +7,15 @@ import { stubPerformanceWebAPI } from 'helpers/performance';
 import setWindowLocation from 'helpers/set_window_location_helper';
 import { scrollTo } from '~/lib/utils/scroll_utils';
 import axios from '~/lib/utils/axios_utils';
-import MergeRequestTabs, { getActionFromHref } from '~/merge_request_tabs';
+import MergeRequestTabs, { getActionFromHref, pageBundles } from '~/merge_request_tabs';
+import * as domUtils from '~/lib/utils/dom_utils';
 import Diff from '~/diff';
 import { visitUrl } from '~/lib/utils/url_utility';
 import { NO_SCROLL_TO_HASH_CLASS } from '~/lib/utils/constants';
 import { useMergeRequestVersions } from '~/merge_request/stores/merge_request_versions';
 import { useDiffsList } from '~/rapid_diffs/stores/diffs_list';
+import InternalEvents from '~/tracking/internal_events';
+import { useMockInternalEventsTracking } from 'helpers/tracking_internal_events_helper';
 
 jest.mock('~/lib/utils/webpack', () => ({
   resetServiceWorkersPublicPath: jest.fn(),
@@ -467,6 +470,8 @@ describe('MergeRequestTabs', () => {
     });
 
     describe('switching to the diffs tab', () => {
+      useMockInternalEventsTracking();
+
       describe('Rapid Diffs', () => {
         let createRapidDiffsApp;
         let init;
@@ -541,6 +546,33 @@ describe('MergeRequestTabs', () => {
           expect(show).toHaveBeenCalledTimes(1);
         });
 
+        it('tracks the Rapid Diffs SPA visit once', async () => {
+          testContext.class = new MergeRequestTabs({ stubLocation, createRapidDiffsApp });
+
+          await testContext.class.tabShown('diffs', 'not-a-vue-page');
+          await testContext.class.tabShown('new', 'not-a-vue-page');
+          await testContext.class.tabShown('diffs', 'not-a-vue-page');
+
+          expect(InternalEvents.trackEvent).toHaveBeenCalledTimes(1);
+          expect(InternalEvents.trackEvent).toHaveBeenCalledWith('view_merge_request_diffs', {
+            label: 'rapid_diffs',
+            property: 'spa_navigation',
+          });
+        });
+
+        it('does not track Rapid Diffs when the diffs tab was the backend-rendered page', async () => {
+          testContext.class = new MergeRequestTabs({
+            action: 'diffs',
+            stubLocation,
+            createRapidDiffsApp,
+          });
+
+          await testContext.class.tabShown('diffs', '/diffs');
+
+          expect(createRapidDiffsApp).toHaveBeenCalledTimes(1);
+          expect(InternalEvents.trackEvent).not.toHaveBeenCalled();
+        });
+
         describe('when diff refs are missing', () => {
           let rdAppNoDiffs;
 
@@ -585,6 +617,55 @@ describe('MergeRequestTabs', () => {
           });
         });
       });
+
+      describe('legacy diffs', () => {
+        let originalDiffsBundle;
+
+        beforeEach(() => {
+          originalDiffsBundle = pageBundles.diffs;
+          pageBundles.diffs = jest.fn(() => Promise.resolve({ default: jest.fn() }));
+          jest.spyOn(domUtils, 'isInVueNoteablePage').mockReturnValue(true);
+        });
+
+        afterEach(() => {
+          pageBundles.diffs = originalDiffsBundle;
+        });
+
+        it('tracks the legacy diffs SPA visit when the bundle loads', async () => {
+          testContext.class = new MergeRequestTabs({ action: 'show', stubLocation });
+
+          await testContext.class.tabShown('diffs', '/diffs');
+
+          expect(InternalEvents.trackEvent).toHaveBeenCalledWith('view_merge_request_diffs', {
+            label: 'legacy_diffs',
+            property: 'spa_navigation',
+          });
+        });
+
+        it('does not track when the bundle is already loaded', async () => {
+          testContext.class = new MergeRequestTabs({ action: 'diffs', stubLocation });
+
+          await testContext.class.tabShown('diffs', '/diffs');
+
+          expect(InternalEvents.trackEvent).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('trackSpaVisit', () => {
+      useMockInternalEventsTracking();
+
+      it.each(['rapid_diffs', 'legacy_diffs'])(
+        'fires view_merge_request_diffs internal event with %s label',
+        (label) => {
+          testContext.class.trackSpaVisit(label);
+
+          expect(InternalEvents.trackEvent).toHaveBeenCalledWith('view_merge_request_diffs', {
+            label,
+            property: 'spa_navigation',
+          });
+        },
+      );
     });
 
     describe('destroyPipelines', () => {

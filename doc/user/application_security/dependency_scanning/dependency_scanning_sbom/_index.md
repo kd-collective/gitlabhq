@@ -435,6 +435,7 @@ These variables can replace spec inputs and are also compatible with the beta `l
 | `DS_API_TIMEOUT`                               | Dependency scanning SBOM API request timeout in seconds (minimum: `5`, maximum: `300`) Default: `10`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `DS_API_SCAN_DOWNLOAD_DELAY`                   | Initial delay in seconds before downloading scan results (minimum: 1, maximum: 120) Default: `3`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `DS_ENABLE_MANIFEST_FALLBACK`                  | Enable manifest fallback when no lockfile or dependency graph export is available. See [Manifest fallback](#manifest-fallback). Default: `"true"`.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `DS_SKIP_IF_NO_SUPPORTED_FILES`                | When set to `"true"`, skips the dependency scanning job if no [supported file](#supported-languages-and-files) is detected in the project. See [Skip the job when no supported file is present](#skip-the-job-when-no-supported-file-is-present). Default: `"false"`.                                                                                                                                                                                                                                                                                                                             |
 | `SECURE_LOG_LEVEL`                             | Log level. Default: `"info"`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `DS_DISABLED_RESOLUTION_JOBS`                  | Comma-separated list of resolution jobs to disable (for example, `"maven, python"`). By default, all available resolution jobs are enabled. Possible values are: `maven`,`gradle`,`python`.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `DS_MAVEN_RESOLUTION_IMAGE`                    | The image used by the Maven dependency resolution job.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
@@ -449,6 +450,24 @@ merge request pipelines. If your project does not use merge request pipelines fo
 can cause two pipelines to run for each merge request, with other jobs running in a separate branch
 pipeline. To disable this behavior, set the spec input `enable_mr_pipelines: false` or CI/CD
 variable `AST_ENABLE_MR_PIPELINES: "false"`.
+
+### Skip the job when no supported file is present
+
+By default, the dependency scanning job runs in every pipeline that includes the template, even
+when the project does not contain a [supported file](#supported-languages-and-files). To skip the
+job when no supported file is detected, set `DS_SKIP_IF_NO_SUPPORTED_FILES` to `"true"`:
+
+```yaml
+include:
+  - template: Jobs/Dependency-Scanning.v2.gitlab-ci.yml
+
+variables:
+  DS_SKIP_IF_NO_SUPPORTED_FILES: "true"
+```
+
+When the variable is set, the dependency scanning job runs only if the project contains at least
+one file in the [supported files list](#supported-languages-and-files), or a custom pattern is set
+with `DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN`, `DS_PIP_MANIFEST_FILE_NAME_PATTERN`, or `PIP_REQUIREMENTS_FILE` (deprecated).
 
 ### Custom TLS certificate authority
 

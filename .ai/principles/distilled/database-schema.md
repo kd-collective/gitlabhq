@@ -1,8 +1,8 @@
 ---
-source_checksum: c9105aae28dd859f
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 6fe8057bc1c8d386
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 > **Prerequisite:** If you haven't already, also read .ai/principles/distilled/database-fundamentals.md - it contains foundational rules that apply to all database work.
 
@@ -25,14 +25,19 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - For expression indexes used before a batched background migration, run `ANALYZE` explicitly in the post-deployment migration (only for non-large tables)
 - Use `prepare_async_index` / `prepare_partitioned_async_index` for very large tables to schedule index creation during low-traffic windows
 - Provide an explicit `name:` argument for any index created with `where`, `using`, `order`, `length`, `type`, or `opclass` options
-- Follow the [constraint naming convention](https://docs.gitlab.com/development/database/constraint_naming_convention/): `index_<table>_on_<column>[_and_<column>]*`
-- Ensure index names are all lowercase
+- Follow the constraint naming convention for indexes: `index_<table>_on_<column>[_and_<column>]*`; keep names all lowercase
 - Use `index_name_exists?` (or `index_exists?` with `name:`) to test for index existence by name
 - For unique indexes on existing tables, use multiple post-deployment migrations across multiple releases to remove duplicates before adding the constraint
 - Ensure all unique indexes are scoped per Cells requirements
 - Use `nulls_not_distinct: true` on unique indexes when you need to enforce full uniqueness including `NULL` values, instead of combining two separate indexes
 - When dropping a composite index, verify that queries filtering only on non-leading columns have another suitable index
 - For large tables, use `prepare_async_index_removal` to schedule index removal asynchronously, then add a synchronous follow-up migration after verifying removal in production
+
+### Index Removal
+
+- Before removing an index, verify queries can use other existing indexes efficiently
+- Confirm the index is unused on GitLab.com and Self-Managed
+- For investigating index usage, check Grafana dashboards for index usage data
 
 ### Foreign Keys
 
@@ -51,6 +56,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `_id` suffix only for columns referencing another table; use `_xid` for third-party platform IDs
 - Add columns with `_id` suffix to `ignored_fk_columns_map` in `spec/db/schema_spec.rb` only when they meet the documented criteria (cross-schema, loose FK, polymorphic, or non-reference)
 - For FK validation on very large tables, use `prepare_async_foreign_key_validation` / `prepare_partitioned_async_foreign_key_validation` to schedule validation during low-traffic windows
+- When adding two foreign keys to a new table, split them into different migrations to avoid locking more than one table at a time
 
 ### NOT NULL Constraints
 
@@ -58,12 +64,12 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - For new tables, define `NOT NULL` directly in `create_table`
 - For existing columns, use a multi-release process: add `NOT VALID` constraint → fix existing records → validate in next release
 - Use `add_not_null_constraint` helper (not raw `ALTER TABLE`) for adding constraints to existing columns
-- For `belongs_to` associations requiring presence, use `optional: false` instead of a separate `validates :field, presence: true`
-- Ensure `config.active_record.belongs_to_required_by_default = false` is set in GitLab; mark required associations explicitly with `optional: false`
+- For `belongs_to` associations requiring presence, use `optional: false` instead of a separate `validates :field, presence: true`; note that `config.active_record.belongs_to_required_by_default = false` is set in GitLab, so mark required associations explicitly
 - DO NOT combine DDL (schema changes) and DML (data modifications) in a single migration
 - For large tables, use a batched background migration to fix records, finalize it, then add the `NOT NULL` constraint in a subsequent release
 - For very large tables, add the constraint with `validate: false` first, then use `prepare_async_check_constraint_validation` for asynchronous validation
 - DO NOT drop a `NOT NULL` constraint from an individual partition; drop it from the parent table so it cascades
+- Use `add_multi_column_not_null_constraint` when enforcing that a specific number of columns across a set must be non-null (e.g., exactly one of `project_id` or `group_id` must be present)
 
 ### Text Columns and Limits
 
@@ -81,6 +87,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Define all enum key/value pairs in FOSS, even for EE-only values
 - DO NOT define EE-only enum values in a separate module with an offset workaround
 - Fill gaps in enum integer sequences before appending new values at the end
+- Consider using a fixed items model instead of a database-backed enum when data is static, never changes at runtime, and must have consistent IDs across Cells
 
 ### Column Ordering
 
@@ -101,6 +108,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT add new types to existing STI tables; consider splitting into separate tables
 - Disable STI (`self.inheritance_column = :_type_disabled`) when using models in migrations
 - Use `define_batchable_model` helper in migrations instead of defining a model class when only STI disabling or `EachBatch` is needed
+- If STI is unavoidable, use an enum type with the `EnumInheritance` concern instead of storing the class name string
 
 ### Check Constraints
 
@@ -113,12 +121,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Follow the naming conventions: `pk_<table>`, `fk_<table>_<col>_<foreign_table>`, `index_<table>_on_<col>`, `unique_<table>_<col>`, `check_<table>_<col>[_<suffix>]`, `excl_<table>_<col>[_<suffix>]`
 - Keep constraint names under PostgreSQL's 63-character limit; abbreviate or omit `_and_` joiners if needed
 - Check `db/structure.sql` for naming conflicts before adding new constraints
-
-### Index Removal
-
-- Before removing an index, verify queries can use other existing indexes efficiently
-- Confirm the index is unused on GitLab.com and Self-Managed
-- For investigating index usage, check Grafana dashboards for index usage data
+- Use prefixes over suffixes for constraint names to enable quick type identification and alphabetical grouping
 
 ## Authoritative sources
 

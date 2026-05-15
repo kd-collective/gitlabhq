@@ -106,6 +106,36 @@ RSpec.describe Gitlab::Tracking::EventValidator, feature_category: :service_ping
       end
     end
 
+    context 'when a property value is an instance of a subclass' do
+      context 'for a kwargs property' do
+        let(:kwargs) { { user: Class.new(User).new } }
+
+        it 'does not raise an error' do
+          expect { validate }.not_to raise_error
+        end
+      end
+
+      context 'for a base String additional property' do
+        let(:additional_properties) do
+          { label: Class.new(String).new('sub_label'), property: 'test_property', value: 1, lang: 'eng' }
+        end
+
+        it 'does not raise an error' do
+          expect { validate }.not_to raise_error
+        end
+      end
+
+      context 'for a custom String additional property' do
+        let(:additional_properties) do
+          { label: 'test_label', property: 'test_property', value: 1, lang: Class.new(String).new('sub_eng') }
+        end
+
+        it 'does not raise an error' do
+          expect { validate }.not_to raise_error
+        end
+      end
+    end
+
     context 'when custom additional properties are not defined in event definition' do
       let(:additional_properties) { { custom_property: 'value' } }
 

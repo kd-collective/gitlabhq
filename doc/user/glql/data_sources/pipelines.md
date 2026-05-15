@@ -22,14 +22,19 @@ title: Pipelines
 > [!note]
 > Pipelines do not support sorting.
 
-## Query fields
+## Allowed scopes
 
-The following fields are required: [Project](#pipeline-project)
+| Scope     | Description                              |
+| --------- | ---------------------------------------- |
+| `project` | Query pipelines in a specific project.   |
+
+For more information, see [scopes](_index.md#scopes).
+
+## Query fields
 
 | Field                                          | Name (and alias)                             | Operators                  |
 | ---------------------------------------------- | -------------------------------------------- | -------------------------- |
 | [Author](#pipeline-author)                     | `author`                                     | `=`                        |
-| [Project](#pipeline-project)                   | `project`                                    | `=`                        |
 | [Ref](#pipeline-ref)                           | `ref`                                        | `=`                        |
 | [Scope](#pipeline-scope)                       | `scope`                                      | `=`                        |
 | [SHA](#pipeline-sha)                           | `sha`                                        | `=`                        |
@@ -45,12 +50,6 @@ The following fields are required: [Project](#pipeline-project)
 
 - `String`
 - `User` (for example, `@username`)
-
-### Project {#pipeline-project}
-
-**Description**: Specify the project to query pipelines from. This field is **required**.
-
-**Allowed value types**: `String`
 
 ### Ref {#pipeline-ref}
 

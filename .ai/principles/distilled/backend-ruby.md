@@ -1,8 +1,8 @@
 ---
-source_checksum: 2b22433c4282c567
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: af6511ee022c5ef5
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Backend Ruby/Rails Principles
 
@@ -13,20 +13,18 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Order methods by level of abstraction (high-level orchestrator methods before helper methods) within each visibility section.
 - DO NOT nest beyond two levels of method calls in the stepdown pattern; refactor into separate classes if needed.
 - Use `attr_reader` for public attributes only when accessed outside the class; maintain consistency for internal access.
-- Separate code with newlines only to group related logic together; add a newline before blocks.
-- DO NOT add a newline when a code block starts or ends right inside another code block.
+- Separate code with newlines only to group related logic together; add a newline before blocks. Exception: do not add a newline when a code block starts or ends right inside another code block.
 - Use `for_` prefix for scopes filtering by `belongs_to` associations (e.g., `scope :for_project`).
 - Use `with_` prefix for scopes using `joins`, `includes`, or filtering by `has_one`/`has_many`/boolean conditions.
+- Use `including_` prefix for scopes that eager-load associations via `includes` without changing the result set; use `preload_` when loading multiple `has_many` associations or when a separate subquery is explicitly required.
 - Use `order_by_` prefix for scopes that apply `order`.
 - Freeze constants (`CONSTANT = 'value'.freeze`).
 - DO NOT call application logic (database queries, service calls, I18n helpers) when defining class-level constants; use a method instead so the logic runs at call time.
 
 ### ActiveRecord / Rails
 
-- DO NOT add new lifecycle logic via ActiveRecord callbacks; put it in a service class instead.
-- Use callbacks only when no superior alternative exists (e.g., overriding dependency callbacks, incrementing cache counts, data normalization on the current model only).
+- DO NOT add new lifecycle logic via ActiveRecord callbacks; put it in a service class instead. Exception: callbacks are acceptable when overriding a dependency's callback, incrementing cache counts, or normalizing data that only relates to the current model.
 - DO NOT override `has_many through:` or `has_one through:` associations; overriding changes `destroy()` behavior and can cause data loss.
-- DO NOT put business logic in controllers; use service objects.
 - DO NOT open database connections or issue queries from Rails initializers.
 - DO NOT issue database queries in routes.
 
@@ -38,7 +36,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 ### Logging
 
 - DO NOT use `Rails.logger`; use a structured JSON logger instead.
-- DO NOT use `$stdout.puts`, `$stderr.puts`, `$stdout.print`, `$stderr.print`, or equivalent `STDOUT`/`STDERR` calls in application code.
+- DO NOT use `$stdout.puts`, `$stderr.puts`, `$stdout.print`, `$stderr.print`, or equivalent `STDOUT`/`STDERR` calls in application code; use a structured JSON logger or existing wrapper methods (e.g., `SystemCheck::Helpers`) for Rake/CLI output.
 - Use a subclass of `Gitlab::JsonLogger` for new log files; call `exclude_context!` if the logger is used outside of a request context.
 - Pass log messages as key-value hashes, not interpolated strings (e.g., `logger.info(message: "...", project_id: id)`).
 - Ensure field value types are consistent across all log calls for the same field key; DO NOT mix types (e.g., integer vs. string for the same field).
@@ -81,6 +79,13 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `Gitlab::Redis::SharedState` for data that must persist until its expiration; always set a TTL.
 - DO NOT use `Rails.cache` for data that must be reliably persisted; use `Gitlab::Redis::SharedState` instead.
 - DO NOT use query parameters in endpoints where ETag caching is enabled; include all parameters in the request path.
+- Use `RedisCommands::Recorder` in tests to detect Redis N+1 call problems and assert expected call counts.
+
+### Polling
+
+- DO NOT add new features that require polling and hit the database; use ETag caching in Redis instead.
+- Register polled endpoints in `Gitlab::EtagCaching::Router`, set the polling interval header via `Gitlab::PollingInterval.set_header`, and invalidate ETags via `Gitlab::EtagCaching::Store` on resource changes.
+- DO NOT use query parameters on endpoints where ETag caching is enabled; include all parameters in the request path.
 
 ### Routing
 
@@ -88,7 +93,12 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Place every project route under the `/-/` scope, except where a Git client or other external software requires otherwise.
 - Use organization-scoped routes (`/o/:organization_path/*path`) for organization-level resources.
 - DO NOT change an existing URL without providing a redirect; support both old and new URLs for at least one major release for script-facing URLs, and add a redirect for user-facing URLs until the next major release.
-- Use `Gitlab::Routing.redirect_legacy_paths` when adding `/-/` scope to previously unscoped routes.
+- Use `Gitlab::Routing.redirect_legacy_paths` when adding `/-/` scope to previously unscoped routes, and create a technical debt issue to remove deprecated routes in a later release.
+
+### Rails Initializers
+
+- DO NOT open database connections or issue queries from Rails initializers; tasks like `db:drop` and `db:test:prepare` will fail if an active session is held.
+- Place initializers that must run before Zeitwerk loads (e.g., those modifying `config.autoload_paths` or Zeitwerk inflections) in `config/initializers_before_autoloader` instead of `config/initializers`.
 
 ### Code Comments
 
@@ -102,7 +112,6 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT read files from `app/assets` in application code; use `lib/assets` for assets that must be accessed by application code but not served directly.
 - DO NOT assert against the absolute value of a sequence-generated factory attribute in specs; set the attribute explicitly with a value that does not match the sequence pattern.
 - DO NOT use `expect_any_instance_of` or `allow_any_instance_of` in RSpec; use `expect_next_instance_of`, `allow_next_instance_of`, `expect_next_found_instance_of`, or `allow_next_found_instance_of` instead.
-- Use `expect_next_found_instance_of` / `allow_next_found_instance_of` (not `expect_next_instance_of`) for objects returned by ActiveRecord query/finder methods.
 - DO NOT `rescue Exception`; rescue specific exception classes.
 - DO NOT use inline JavaScript in Haml views (`:javascript` filter).
 
@@ -110,7 +119,9 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 
 - DO NOT disable RuboCop rules inline without providing a reason as a code comment on the same line.
 - Use `rubocop:todo` (not `rubocop:disable`) for temporary inline disables, and link the follow-up issue or epic.
+- When adding a new cop that could apply to multiple applications, add it to the `gitlab-styles` gem; if it only applies to the main GitLab application, add it to the GitLab repository.
 - Include RDoc-style docs with "good" and "bad" examples when creating new internal RuboCop cops.
+- Generate TODOs for new cops using `bundle exec rake rubocop:todo:generate` rather than adding inline disables throughout the codebase.
 
 ## Authoritative sources
 

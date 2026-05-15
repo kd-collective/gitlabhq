@@ -1,8 +1,8 @@
 ---
-source_checksum: bc7c64954cfe4971
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 4fcb3e4127a73961
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Frontend Principles
 
@@ -15,6 +15,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT use Apollo and Vuex together
 - DO NOT create new Vuex stores; migrate existing ones to Pinia or Apollo
 - Follow the standard feature directory structure: `components/`, `graphql/`, `utils/`, `router/`, `constants.js`, `index.js`
+- Have as few Vue applications per page as possible; prefer Ruby ViewComponents for simple pages to avoid Vue overhead
 
 ### Vue Component Basics
 
@@ -76,7 +77,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 
 ### Design Patterns
 
-- DO NOT use Shared Global Objects (instances accessible from anywhere with no clear owner)
+- DO NOT use Shared Global Objects (instances accessible from anywhere with no clear owner); export a factory function instead so the caller manages the lifecycle
 - DO NOT use the Singleton pattern; prefer utility functions or dependency injection
 - Use Vue `provide`/`inject` or constructor parameters for dependency injection instead of singletons
 

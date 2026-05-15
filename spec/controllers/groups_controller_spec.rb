@@ -1195,7 +1195,14 @@ RSpec.describe GroupsController, factory_default: :keep, feature_category: :code
       let!(:new_parent_group_member) { create(:group_member, :owner, group: new_parent_group, user: user) }
 
       before do
-        allow_any_instance_of(::Groups::TransferService).to receive(:proceed_to_transfer).and_raise(Gitlab::UpdatePathError, 'namespace directory cannot be moved')
+        # `proceed_to_transfer` is overridden in the prepended EE module
+        # (EE::Groups::TransferService), so `allow_any_instance_of` can't
+        # see it on the base class. Use `expect_next_instance_of` which
+        # walks the prepended chain correctly.
+        expect_next_instance_of(::Groups::TransferService) do |svc|
+          allow(svc).to receive(:proceed_to_transfer)
+            .and_raise(Gitlab::UpdatePathError, 'namespace directory cannot be moved')
+        end
 
         put :transfer,
           params: {

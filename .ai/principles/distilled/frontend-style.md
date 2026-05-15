@@ -1,8 +1,8 @@
 ---
-source_checksum: 2da0586e173da47d
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: ddd3c634219676db
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 > **Prerequisite:** If you haven't already, also read .ai/principles/distilled/frontend-vue.md - it contains foundational rules that apply to all frontend work.
 
@@ -33,7 +33,13 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `@max-*:gl-hidden` on components instead of `gl-hidden` + overriding `display` on larger containers, to avoid assuming the component's internal display value.
 - Use `@apply gl-mt-3 @lg:gl-mt-5` pattern in SCSS component classes for responsive styles.
 - Use `scripts/frontend/migrate_to_container_queries.mjs` when migrating existing media queries to container queries.
-- Use CSS custom properties (not SCSS variables) for colors in `app/assets/stylesheets/page_bundles` to support dark mode without separate `*_dark.css` variants.
+
+### Dark Mode
+
+- Use Tailwind classes or `@apply` with design token classes (e.g., `gl-text-subtle`) for dark mode color support.
+- Prefer CSS custom properties over SCSS variables for color mode support.
+- Use CSS custom properties (not SCSS variables) for any colors within `page_bundles` stylesheets.
+- Create bespoke CSS custom properties only when design tokens cannot be used with Tailwind utilities or existing custom properties.
 
 ### Naming
 
@@ -53,13 +59,6 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT concatenate strings to create class names in SCSS.
 - DO NOT use utility CSS classes (e.g., `gl-mb-5`) as selectors in stylesheets.
 - DO NOT use ARIA attribute selectors (e.g., `[aria-expanded=false]`) for styling; use state classes like `.is-collapsed` instead.
-
-### Dark Mode
-
-- Use Tailwind classes or `@apply` with design token classes (e.g., `gl-text-subtle`) for dark mode color support.
-- Prefer CSS custom properties over SCSS variables for color mode support.
-- Use CSS custom properties (not SCSS variables) for any colors within `page_bundles` stylesheets.
-- Create bespoke CSS custom properties only when design tokens cannot be used with Tailwind utilities or existing custom properties.
 
 ### Prohibited Patterns
 

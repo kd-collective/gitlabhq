@@ -10,6 +10,7 @@ import {
 } from '~/rapid_diffs/utils/line_utils';
 import { createAlert } from '~/alert';
 import { pinia } from '~/pinia/instance';
+import { apolloProvider } from '~/graphql_shared/issuable_client';
 
 function mountDiscussionRow({ lineRow, parallel, appData, store, trigger, id }) {
   if (lineRow.nextElementSibling?.dataset.discussionRow === 'true') return;
@@ -19,6 +20,7 @@ function mountDiscussionRow({ lineRow, parallel, appData, store, trigger, id }) 
   const instance = new Vue({
     el: placeholder,
     pinia,
+    apolloProvider,
     name: 'DiffDiscussionRowRoot',
     provide() {
       return {
@@ -38,6 +40,7 @@ function mountDiscussionRow({ lineRow, parallel, appData, store, trigger, id }) 
         suggestionsHelpPath: appData.suggestionsHelpPath,
         defaultSuggestionCommitMessage: appData.defaultSuggestionCommitMessage,
         linkedFileData: appData.linkedFileData,
+        newCommentTemplatePaths: appData.newCommentTemplatePaths || [],
       };
     },
     render(h) {

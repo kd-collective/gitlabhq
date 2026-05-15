@@ -15951,7 +15951,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_3501db4c2af7"
+              "$ref": "#/components/schemas/RequestBody_a1ab34e8cb8e"
   "/api/v4/service_accounts":
     post:
       operationId: postApiV4ServiceAccounts
@@ -78083,6 +78083,8 @@ components:
           type: string
         security_scan_stale_after_days:
           type: string
+        vac_project_ids_raw:
+          type: string
         enable_member_promotion_management:
           type: string
         external_auth_client_cert:
@@ -90207,7 +90209,7 @@ components:
           nullable: true
       required:
       - avatar
-    RequestBody_3501db4c2af7:
+    RequestBody_a1ab34e8cb8e:
       type: object
       properties:
         admin_mode:
@@ -92507,6 +92509,9 @@ components:
           type: string
           nullable: true
         security_mr_report_cache_lifetime_minutes:
+          type: string
+          nullable: true
+        vac_project_ids_raw:
           type: string
           nullable: true
         enable_member_promotion_management:

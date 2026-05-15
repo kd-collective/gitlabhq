@@ -81,6 +81,22 @@ No compatible file found in <directory>.
 To resolve this issue, add a supported lockfile or dependency graph export to your project. For instructions, see
 [Create lockfile or dependency graph export manually](_index.md#create-lockfile-or-dependency-graph-export-manually).
 
+## Dependency scanning job does not run when `DS_SKIP_IF_NO_SUPPORTED_FILES` is set
+
+If `DS_SKIP_IF_NO_SUPPORTED_FILES` is set to `"true"` and the `dependency-scanning` job does not
+appear in the pipeline, a [supported file](_index.md#supported-languages-and-files) was not detected in the project.
+
+Some files that trigger a [dependency resolution](_index.md#dependency-resolution) job might not
+trigger the dependency scanning job because they are not supported. For example, `settings.gradle`,
+`setup.cfg`, `pyproject.toml`, or `requirements.in` are not supported directly.
+
+To resolve this issue, do one of the following:
+
+- Set `DS_SKIP_IF_NO_SUPPORTED_FILES` to `"false"` or leave it unset so the dependency scanning
+  job runs unconditionally.
+- Commit a [supported file](_index.md#supported-languages-and-files) to the repository, for example
+  a generated lockfile or dependency graph export.
+
 ## Error: `failed to verify certificate: x509: certificate signed by unknown authority`
 
 When the dependency scanning analyzer connects to a host the following error might occur. The cause of this

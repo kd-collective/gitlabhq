@@ -1,14 +1,15 @@
 ---
-source_checksum: c98fe74c43c57ea0
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 99b50b89f9d48318
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 # Code Review Principles
 
 ## Checklist
 
 ### Approval Requirements
+
 - Ensure `~backend` changes are approved by a Backend maintainer (note: specs other than JS specs are `~backend`; Ruby code in Haml templates is `~backend`).
 - Ensure `~database` migrations or expensive query changes are approved by a Database maintainer.
 - Ensure `~workhorse` changes are approved by a Workhorse maintainer.
@@ -30,17 +31,20 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Ensure the milestone is set before merging.
 
 ### Haml Template Reviews
+
 - Request backend review for Haml changes containing Ruby logic, method calls, variable assignments, conditionals, loops, data preparation, or security checks.
 - Request frontend review for Haml changes affecting DOM structure, CSS classes, HTML attributes, accessibility, user interactions, or visual presentation.
 - Request both backend and frontend reviews when backend serves data consumed by Vue or JavaScript components.
 
 ### MR Size and Structure
+
 - Guide authors to split MRs that are too large, fix more than one issue, implement more than one feature, or have high complexity.
 - Target approximately 200 lines per MR to reduce cognitive load and review time.
 - Ensure UI with mocked data is behind a feature flag.
 - Use stacked diffs for sequential MRs; have dependent MR branches target each other instead of `master`.
 
 ### Pre-Merge Checks
+
 - Resolve or justify warnings and errors from Danger bot, code quality, and other reports before merging; post a comment if merging with any failed job.
 - DO NOT merge when the default branch is broken, except for specific approved cases.
 - Start a new pipeline if the latest pipeline was created before the MR was approved (skip only if no backend changes).
@@ -50,6 +54,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT approve your own MR or approve an MR you have added commits to.
 
 ### GitLab-Specific Compatibility
+
 - Ensure database migrations are reversible and performant at GitLab.com scale.
 - Ensure regular migrations run before new code is deployed; use post-deployment migrations for code that runs after deploy; use batched background migrations for long-running data migrations.
 - Ensure Sidekiq workers do not change in a backwards-incompatible way; accept both old and new arguments across two releases when changing method signatures.
@@ -59,21 +64,26 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Add new settings only as a last resort (convention over configuration).
 
 ### Query and Database Performance
+
 - Ensure query changes are tested for performance at GitLab.com scale; request query plans from GitLab.com for validation.
 - Encourage database maintainer consultation for potentially expensive queries; comment on the relevant line with the SQL query.
 
 ### Backwards Compatibility
+
 - Ensure changes are backwards compatible across updates, or explicitly document why this does not apply.
 - Ensure EE content is properly separated from FOSS.
 
 ### Observability and Instrumentation
+
 - Ensure sufficient instrumentation (feature flags, logging, metrics) is included to facilitate debugging and proactive performance improvements.
 
 ### Changelog and Documentation
+
 - Ensure changelog trailers are included or explicitly decided unnecessary.
 - Ensure documentation is added or updated, or explicitly decided unnecessary.
 
 ### Community Contributions
+
 - Review all changes thoroughly for malicious code before starting a merged results pipeline on fork MRs.
 - Pay particular attention to new or updated dependencies (`Gemfile.lock`, `yarn.lock`, Node packages) in community MRs.
 - Review links and images in documentation MRs
@@ -81,6 +91,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Only set the milestone when the MR is likely to be included in the current milestone
 
 ### Review Process
+
 - Use the Reviewer functionality in the sidebar; stay listed as Reviewer even after completing review.
 - Ensure open threads are resolved by the reviewer, not the author, unless fully addressed.
 - Push feedback-based commits as isolated commits; DO NOT squash until the branch is ready to merge.
@@ -89,6 +100,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - DO NOT pick reviewers or maintainers who have OOO/PTO status or have reached their review limit.
 - Prefer domain-specific approvals before generic approvals for efficiency.
 - Ensure the MR author (or DRI) remains as the Assignee throughout the review lifecycle.
+- Address all GitLab Duo automated review comments before requesting human review; leave Duo discussion threads unresolved so reviewers can verify responses.
 
 ## Authoritative sources
 

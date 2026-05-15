@@ -13,6 +13,7 @@ title: Remote execution environment sandbox
 - [Generally available](https://gitlab.com/gitlab-org/gitlab/-/work_items/585273) in GitLab 18.8.
 - `network_policy` setting [introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/590021) in GitLab 18.10.
 - `allow_all_unix_sockets` network policy setting [introduced](https://gitlab.com/gitlab-org/gitlab/-/work_items/590871) in GitLab 18.11.
+- Instance-level and group-level network access controls [introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/229531) in GitLab 18.11 [with feature flags](../../administration/feature_flags/_index.md) named `dap_instance_network_access_controls` and `dap_group_network_access_controls`. Disabled by default.
 
 {{< /history >}}
 
@@ -160,9 +161,11 @@ reachable from the runner.
 
 #### Administrator network policy controls
 
-When a top-level group owner on GitLab.com or instance administrator on GitLab Self-Managed configures network access
-controls, those settings define the baseline policy for all flows. The **Allow projects to extend network sandbox settings**
-checkbox determines which settings are applied when project owners configure them in `agent-config.yml`.
+When a top-level group owner on GitLab.com or instance administrator on GitLab
+Self-Managed configures network access controls, those settings define the
+baseline policy for all flows. The **Allow projects to extend network sandbox
+settings** checkbox determines which settings are applied when project owners
+configure them in `agent-config.yml`.
 
 **Flexible mode** (**Allow projects to extend network sandbox settings** enabled):
 
@@ -201,6 +204,86 @@ the host. This is disabled by default.
 
 > [!warning]
 > Enabling `allow_all_unix_sockets` grants access to all Unix sockets. Enable this only when necessary and only in trusted environments.
+
+### Configure network access controls for your instance or group
+
+{{< history >}}
+
+- [Introduced](https://gitlab.com/gitlab-org/gitlab/-/merge_requests/229531) in GitLab 18.11 [with feature flags](../../administration/feature_flags/_index.md) named `dap_instance_network_access_controls` and `dap_group_network_access_controls`. Disabled by default.
+
+{{< /history >}}
+
+> [!flag]
+> The availability of this feature is controlled by a feature flag.
+> For more information, see the history.
+> This feature is available for testing, but not ready for production use.
+
+In addition to [project-level `agent-config.yml` settings](#configure-a-network-policy),
+administrators and top-level group owners can manage network access controls through the GitLab UI.
+These settings are stored at the instance level (GitLab Self-Managed) or top-level group level
+(GitLab.com) and are inherited by all projects underneath.
+
+For a description of how these settings combine with project-level `agent-config.yml`,
+see [Administrator network policy controls](#administrator-network-policy-controls).
+
+#### Configure instance-level network access controls
+
+Prerequisites:
+
+- You must be an administrator.
+
+To configure instance-level network access controls:
+
+1. In the upper-right corner, select **Admin**.
+1. In the left sidebar, select **GitLab Duo**.
+1. Select **Change configuration**.
+1. Under **Data and privacy**, in the **Network access** section, configure the
+   following settings:
+   - **Include recommended domains in the allowlist**: When enabled, a curated
+     list of commonly needed domains is automatically included in the allowlist.
+   - **Allow all Unix sockets**: When enabled, all Unix socket connections are
+     permitted for agent platform operations.
+   - **Allow projects to extend network sandbox settings**: When enabled, project
+     maintainers can add additional domains to the allowlist, allow all Unix
+     sockets, and include recommended domains through their `agent-config.yml`
+     file.
+1. Optional. Use the **Allowed domains** card to add or remove specific domains
+   from the allowlist.
+1. Optional. Use the **Blocked domains** card to add or remove specific domains
+   from the denylist.
+1. Select **Save changes**.
+
+#### Configure top-level group network access controls (GitLab.com)
+
+Prerequisites:
+
+- You must have the Owner role for the top-level group.
+- The group must be a top-level group on GitLab.com. Subgroups inherit the
+  settings from their top-level group.
+
+To configure group-level network access controls:
+
+1. On the top bar, select **Search or go to** and find your top-level group.
+1. In the left sidebar, select **Settings**, then **GitLab Duo**.
+1. Select **Change configuration**.
+1. Under **Data and privacy**, in the **Network access** section, configure the
+   same settings as described in
+   [Configure instance-level network access controls](#configure-instance-level-network-access-controls).
+1. Select **Save changes**.
+
+#### Related API resources
+
+- Instance-level booleans:
+  [`duoSettingsUpdate`](../../api/graphql/reference/_index.md#mutationduosettingsupdate)
+  GraphQL mutation.
+- Group-level booleans:
+  [Update group attributes](../../api/groups.md#update-group-attributes) REST API, using the
+  `ai_settings_attributes` parameter.
+- Domain allowlist and denylist:
+  [`aiDomainSettingsInstanceUpdate`](../../api/graphql/reference/_index.md#mutationaidomainsettingsinstanceupdate)
+  and
+  [`aiDomainSettingsNamespaceUpdate`](../../api/graphql/reference/_index.md#mutationaidomainsettingsnamespaceupdate)
+  GraphQL mutations.
 
 ### Turn on allowed domains
 

@@ -22,6 +22,12 @@ RSpec.describe RapidDiffs::MergeRequestAppComponent, feature_category: :code_rev
   let(:versions) { { 'source_versions' => [], 'target_versions' => [] } }
   let(:suggestions_help_path) { '/help/suggestions' }
   let(:default_suggestion_commit_message) { 'Apply suggestion' }
+  let(:new_comment_template_paths) do
+    [{
+      text: 'Your comment templates',
+      href: ::Gitlab::Routing.url_helpers.profile_comment_templates_path
+    }]
+  end
 
   let(:presenter) do
     double( # rubocop:disable RSpec/VerifiedDoubles -- preparing? is delegated via SimpleDelegator at runtime
@@ -45,6 +51,7 @@ RSpec.describe RapidDiffs::MergeRequestAppComponent, feature_category: :code_rev
       versions: versions,
       suggestions_help_path: suggestions_help_path,
       default_suggestion_commit_message: default_suggestion_commit_message,
+      new_comment_template_paths: new_comment_template_paths,
       linked_file: nil,
       preparing?: false
     )
@@ -77,6 +84,7 @@ RSpec.describe RapidDiffs::MergeRequestAppComponent, feature_category: :code_rev
         markdown_docs_path: markdown_docs_path,
         suggestions_help_path: suggestions_help_path,
         default_suggestion_commit_message: default_suggestion_commit_message,
+        new_comment_template_paths: new_comment_template_paths,
         versions: versions
       }
     )

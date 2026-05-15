@@ -406,6 +406,14 @@ RSpec.describe ::RapidDiffs::MergeRequestPresenter, feature_category: :code_revi
     it { is_expected.to eq('/-/abuse_reports/add_category') }
   end
 
+  describe '#new_comment_template_paths' do
+    subject(:method) { presenter.new_comment_template_paths }
+
+    it 'returns the user comment templates entry' do
+      expect(method).to match_array([{ text: 'Your comment templates', href: '/-/profile/comment_templates' }])
+    end
+  end
+
   describe '#versions' do
     let(:request_params) { { diff_id: '10', start_sha: 'abc123' } }
 

@@ -18,6 +18,15 @@ Work items include the types:
 > [!note]
 > Querying epics is available only on the Premium and Ultimate tier.
 
+## Allowed scopes
+
+| Scope     | Description                                      |
+| --------- | ------------------------------------------------ |
+| `project` | Query work items in a specific project.          |
+| `group`   | Query work items across all projects in a group, including subgroups. |
+
+For more information, see [scopes](_index.md#scopes).
+
 ## Query fields
 
 | Field                                                          | Name (and alias)                             | Operators                  | Types              |
@@ -31,7 +40,6 @@ Work items include the types:
 | [Custom field](#workitem-custom-field)                         | `customField("Field name")`                  | `=`                        | All                |
 | [Due date](#workitem-due-date)                                 | `due`, `dueDate`                             | `=`, `>`, `<`, `>=`, `<=`  | All                |
 | [Epic](#workitem-epic)                                         | `epic`                                       | `=`, `!=`                  | All except Epic    |
-| [Group](#workitem-group)                                       | `group`                                      | `=`                        | All                |
 | [Health status](#workitem-health-status)                       | `health`, `healthStatus`                     | `=`, `!=`                  | All                |
 | [ID](#workitem-identifier)                                     | `id`                                         | `=`, `in`                  | All                |
 | [Include subgroups](#workitem-include-subgroups)               | `includeSubgroups`                           | `=`, `!=`                  | All                |
@@ -40,7 +48,6 @@ Work items include the types:
 | [Milestone](#workitem-milestone)                               | `milestone`                                  | `=`, `in`, `!=`            | All                |
 | [My reaction emoji](#workitem-my-reaction-emoji)               | `myReaction`, `myReactionEmoji`              | `=`, `!=`                  | All                |
 | [Parent](#workitem-parent)                                     | `parent`                                     | `=`, `!=`                  | All except Epic    |
-| [Project](#workitem-project)                                   | `project`                                    | `=`                        | All except Epic    |
 | [State](#workitem-state)                                       | `state`                                      | `=`                        | All                |
 | [Status](#workitem-status)                                     | `status`                                     | `=`                        | All except Epic    |
 | [Subscribed](#workitem-subscribed)                             | `subscribed`                                 | `=`, `!=`                  | All                |
@@ -236,22 +243,6 @@ Work items include the types:
 - `String` (containing an epic reference like `&123`)
 - `Epic` (for example, `&123`, `gitlab-org&123`)
 
-### Group {#workitem-group}
-
-**Description**: Query work items in all projects in a given group.
-
-**Allowed value types**: `String`
-
-**Notes**:
-
-- Only one group can be queried at a time.
-- The `group` cannot be used together with the `project` field.
-- If omitted when using inside an embedded view in a group object (like an epic), `group` is assumed to
-  be the current group.
-- Using the `group` field queries all objects in that group, all its subgroups, and child projects.
-- By default, work items are searched in all descendant projects across all subgroups.
-  To query only the direct child projects of the group, set the [`includeSubgroups` field](#workitem-include-subgroups) to `false`.
-
 ### Health status {#workitem-health-status}
 
 {{< details >}}
@@ -307,7 +298,7 @@ Work items include the types:
 
 **Notes**:
 
-- This field can only be used with the `group` field.
+- This field can only be used with a `group` scope.
 - The value of this field defaults to `false`.
 
 ### Iteration {#workitem-iteration}
@@ -408,18 +399,6 @@ Work items include the types:
 - `String` (containing a reference like `#123`)
 - `WorkItem` (for example, `#123`, `gitlab-org/gitlab#123`)
 - `Epic` (for example, `&123`, `gitlab-org&123`)
-
-### Project {#workitem-project}
-
-**Description**: Query work items, except epics, in a particular project.
-
-**Allowed value types**: `String`
-
-**Notes**:
-
-- Only one project can be queried at a time.
-- The `project` field cannot be used together with the `group` field.
-- If omitted when using inside an embedded view, `project` is assumed to be the current project.
 
 ### State {#workitem-state}
 

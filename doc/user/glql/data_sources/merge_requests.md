@@ -18,6 +18,15 @@ title: Merge requests
 
 {{< /history >}}
 
+## Allowed scopes
+
+| Scope     | Description                                           |
+| --------- | ----------------------------------------------------- |
+| `project` | Query merge requests in a specific project.           |
+| `group`   | Query merge requests across all projects in a group, including subgroups. |
+
+For more information, see [scopes](_index.md#scopes).
+
 ## Query fields
 
 | Field                                                    | Name (and alias)                             | Operators                  |
@@ -29,7 +38,6 @@ title: Merge requests
 | [Created at](#mr-created-at)                             | `created`, `createdAt`, `opened`, `openedAt` | `=`, `>`, `<`, `>=`, `<=`  |
 | [Draft](#mr-draft)                                       | `draft`                                      | `=`, `!=`                  |
 | [Environment](#mr-environment)                           | `environment`                                | `=`                        |
-| [Group](#mr-group)                                       | `group`                                      | `=`                        |
 | [ID](#mr-identifier)                                     | `id`                                         | `=`, `in`                  |
 | [Include subgroups](#mr-include-subgroups)               | `includeSubgroups`                            | `=`, `!=`                  |
 | [Labels](#mr-labels)                                     | `label`, `labels`                            | `=`, `!=`                  |
@@ -37,7 +45,6 @@ title: Merge requests
 | [Merged by user](#mr-merged-by-user)                     | `merger`, `mergedBy`                         | `=`                        |
 | [Milestone](#mr-milestone)                               | `milestone`                                  | `=`, `!=`                  |
 | [My reaction emoji](#mr-my-reaction-emoji)               | `myReaction`, `myReactionEmoji`              | `=`, `!=`                  |
-| [Project](#mr-project)                                   | `project`                                    | `=`                        |
 | [Reviewers](#mr-reviewers)                               | `reviewer`, `reviewers`, `reviewedBy`        | `=`, `!=`                  |
 | [Source branch](#mr-source-branch)                       | `sourceBranch`                               | `=`, `in`, `!=`            |
 | [State](#mr-state)                                       | `state`                                      | `=`                        |
@@ -163,20 +170,6 @@ title: Merge requests
 
 **Allowed value types**: `String`
 
-### Group {#mr-group}
-
-**Description**: Query merge requests in all projects in a given group.
-
-**Allowed value types**: `String`
-
-**Notes**:
-
-- Only one group can be queried at a time.
-- The `group` cannot be used together with the `project` field.
-- Using the `group` field queries all merge requests in that group, all its subgroups, and child projects.
-- By default, merge requests are searched in all descendant projects across all subgroups.
-  To query only the direct child projects of the group, set the [`includeSubgroups` field](#mr-include-subgroups) to `false`.
-
 ### ID {#mr-identifier}
 
 **Description**: Query merge requests by their IDs.
@@ -196,7 +189,7 @@ title: Merge requests
 
 **Notes**:
 
-- This field can only be used with the `group` field.
+- This field can only be used with a `group` scope.
 - The value of this field defaults to `false`.
 
 ### Labels {#mr-labels}
@@ -273,18 +266,6 @@ title: Merge requests
 **Description**: Query merge requests by the current user's [emoji reaction](../../emoji_reactions.md) on it.
 
 **Allowed value types**: `String`
-
-### Project {#mr-project}
-
-**Description**: Query merge requests in a particular project.
-
-**Allowed value types**: `String`
-
-**Notes**:
-
-- Only one project can be queried at a time.
-- The `project` field cannot be used together with the `group` field.
-- If omitted when using inside an embedded view, `project` is assumed to be the current project.
 
 ### Reviewers {#mr-reviewers}
 

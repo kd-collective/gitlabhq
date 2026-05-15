@@ -24,3 +24,7 @@ Load the following instruction files based on your current task:
 - GitLab has extensive CI/CD pipelines; be patient with pipeline results
 - Danger bot will comment on MRs with warnings; these are often non-blocking
 - This repository is very large; use targeted searches and glob patterns
+
+## Fix Pipeline merge requests
+
+When opening a merge request as part of the Fix Pipeline flow (the title contains `[FixPipeline]`), apply the `pipeline::tier-1` label. This makes the MR run the cheaper tier-1 pipeline instead of the full default pipeline. Read .ai/ci-cd.md#pipeline-tier for what each tier means.

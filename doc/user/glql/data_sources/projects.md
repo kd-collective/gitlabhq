@@ -18,14 +18,19 @@ title: Projects
 
 {{< /history >}}
 
-## Query fields
+## Allowed scopes
 
-The following fields are required: [Namespace](#project-group)
+| Scope       | Description                                                                              |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| `namespace` | Query projects in a specific namespace. You can use `group` as an alias for `namespace`. |
+
+For more information, see [scopes](_index.md#scopes).
+
+## Query fields
 
 | Field                                                    | Name (and alias)       | Operators  |
 | -------------------------------------------------------- | ---------------------- | ---------- |
 | [Archived only](#project-archived-only)                  | `archivedOnly`         | `=`, `!=`  |
-| [Group / Namespace](#project-group)                      | `namespace`, `group`   | `=`        |
 | [Has code coverage](#project-has-code-coverage)          | `hasCodeCoverage`      | `=`, `!=`  |
 | [Has vulnerabilities](#project-has-vulnerabilities)      | `hasVulnerabilities`   | `=`, `!=`  |
 | [Include archived](#project-include-archived)            | `includeArchived`      | `=`, `!=`  |
@@ -42,13 +47,6 @@ The following fields are required: [Namespace](#project-group)
 **Notes**:
 
 - Cannot be used together with `includeArchived`.
-
-### Group / Namespace {#project-group}
-
-**Description**: Specify the group namespace to query projects from. This field is required.
-You can use either `namespace` or `group` as the field name.
-
-**Allowed value types**: `String`
 
 ### Has code coverage {#project-has-code-coverage}
 
@@ -81,8 +79,8 @@ You can use either `namespace` or `group` as the field name.
 
 **Notes**:
 
-- This field can only be used with the `namespace` or `group` field.
-- Defaults to `true` when a `namespace` or `group` is specified.
+- This field can only be used with a `namespace` scope.
+- Defaults to `true` when a `namespace` scope is specified.
 
 ### Issues enabled {#project-issues-enabled}
 

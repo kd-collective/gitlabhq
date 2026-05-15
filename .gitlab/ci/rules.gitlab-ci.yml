@@ -2736,11 +2736,11 @@
     - <<: *if-default-refs
       changes: *code-backstage-patterns
 
-# Used by jobs that should run in tier-2, when changes match setup-test-env-patterns
-.rails:rules:tier-2-with-test-env:
+# Used by tier-2 test jobs that run when changes match backend-spec-patterns
+.rails:rules:tier-2-with-backend-spec:
   rules:
     - <<: *if-merge-request-tier-2
-      changes: *setup-test-env-patterns
+      changes: *backend-spec-patterns
 
 # Used by jobs that should run in tier-3, when changes match setup-test-env-patterns
 .rails:rules:tier-3-with-test-env:

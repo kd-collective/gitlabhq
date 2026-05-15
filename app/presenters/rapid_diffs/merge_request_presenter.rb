@@ -115,6 +115,13 @@ module RapidDiffs
       add_category_abuse_reports_path
     end
 
+    def new_comment_template_paths
+      [{
+        text: _('Your comment templates'),
+        href: profile_comment_templates_path
+      }]
+    end
+
     def code_review_enabled
       !!@current_user
     end
@@ -175,3 +182,5 @@ module RapidDiffs
     strong_memoize_attr :resolved_diff_id
   end
 end
+
+RapidDiffs::MergeRequestPresenter.prepend_mod

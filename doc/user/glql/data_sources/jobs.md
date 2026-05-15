@@ -24,15 +24,20 @@ title: Jobs
 > [!note]
 > Jobs do not support sorting.
 
-## Query fields
+## Allowed scopes
 
-The following fields are required: [Project](#job-project)
+| Scope     | Description                           |
+| --------- | ------------------------------------- |
+| `project` | Query jobs in a specific project.     |
+
+For more information, see [scopes](_index.md#scopes).
+
+## Query fields
 
 | Field                                          | Name                | Operators  |
 | ---------------------------------------------- | ------------------- | ---------- |
 | [Kind](#job-kind)                              | `kind`              | `=`        |
 | [Pipeline](#job-pipeline)                      | `pipeline`          | `=`        |
-| [Project](#job-project)                        | `project`           | `=`        |
 | [Status](#job-status)                          | `status`            | `=`        |
 | [With artifacts](#job-with-artifacts)          | `withArtifacts`     | `=`, `!=`  |
 
@@ -54,12 +59,6 @@ The following fields are required: [Project](#job-project)
 **Description**: Filter jobs by the pipeline they belong to, using the pipeline IID.
 
 **Allowed value types**: `Number` (pipeline IID)
-
-### Project {#job-project}
-
-**Description**: Specify the project to query jobs from. This field is **required**.
-
-**Allowed value types**: `String`
 
 ### Status {#job-status}
 

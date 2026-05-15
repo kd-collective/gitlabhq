@@ -1,8 +1,8 @@
 ---
-source_checksum: e6492c5bb0eacc33
-distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
+source_checksum: 1d9f35bb1b585b6b
+distilled_at_sha: 52964caf288c3d9936b8ce4a3d2242c1f92567fa
 ---
-<!-- Auto-generated from docs.gitlab.com by scripts/ai/sync_principles.rb — do not edit manually -->
+<!-- Auto-generated from docs.gitlab.com by gitlab-ai-principles-distiller — do not edit manually -->
 
 > **Prerequisite:** If you haven't already, also read .ai/principles/distilled/database-fundamentals.md - it contains foundational rules that apply to all database work.
 
@@ -36,7 +36,7 @@ distilled_at_sha: 9ab16c7588f7d32fdb6d509a70bae72309346826
 - Use `WHERE EXISTS` instead of `WHERE IN` wherever possible
 - Check all query variants (`.exists?`, `.count`, pagination) for query plan flip issues when using complex scopes with `IN` subqueries
 - Use a CTE (via `Gitlab::SQL::CTE`) to stabilize query plans when `.exists?` causes plan flips, but only as a last resort
-- DO NOT use CTEs with `UPDATE` or `DELETE` — the CTE is dropped and the operation affects the entire table
+- DO NOT use CTEs with `UPDATE` or `DELETE` — the CTE is dropped and the operation affects the entire table. Exception: when using CTEs with `update_all`, first pluck IDs from the CTE result and scope the update to those IDs
 - DO NOT update large volumes of unbounded data without batching; use `iterating_tables_in_batches` patterns
 - Prefer `ORDER BY id` over `ORDER BY created_at` unless accurate creation-date ordering is required
 - Use `ORDER BY created_at, id` (with appropriate composite index) when accurate creation-date ordering is required, especially in Cells architecture
