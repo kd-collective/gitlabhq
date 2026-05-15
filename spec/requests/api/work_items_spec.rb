@@ -69,6 +69,41 @@ RSpec.describe API::WorkItems, feature_category: :portfolio_management do
             personal_access_token: pat)
         end
       end
+
+      describe 'hierarchy feature N+1 prevention' do
+        let_it_be(:hierarchy_parent) { create(:work_item, project: project) }
+        let_it_be(:child_task) { create(:work_item, :task, project: project) }
+
+        # Pair hierarchy with web_url so the project / namespace preloads are also active,
+        # isolating the assertion to the hierarchy preload rather than unrelated lookups
+        let(:request_params) { { features: 'hierarchy', fields: 'web_url' } }
+
+        before do
+          create(:parent_link, work_item: child_task, work_item_parent: hierarchy_parent)
+        end
+
+        it 'preloads the parent association so adding children does not cause N+1 queries' do
+          api_path = "/namespaces/#{CGI.escape(namespace_record.full_path)}/-/work_items"
+
+          # Warmup so first-request lazy writes don't skew the baseline.
+          get api(api_path, user), params: request_params
+
+          baseline = ActiveRecord::QueryRecorder.new(skip_cached: false) do
+            get api(api_path, user), params: request_params
+          end
+
+          extra_parent = create(:work_item, project: project)
+          extra_child = create(:work_item, :task, project: project)
+          create(:parent_link, work_item: extra_child, work_item_parent: extra_parent)
+
+          expect { get api(api_path, user), params: request_params }.to issue_same_number_of_queries_as(baseline)
+
+          expect(response).to have_gitlab_http_status(:ok)
+          expect(features_json_for(child_task)).to include(
+            'hierarchy' => a_hash_including('parent' => a_hash_including('id' => hierarchy_parent.id))
+          )
+        end
+      end
     end
 
     context 'when namespace is not a group or project' do
@@ -189,6 +224,37 @@ RSpec.describe API::WorkItems, feature_category: :portfolio_management do
         get api("/projects/#{public_project.id}/-/work_items/#{confidential_work_item.iid}", non_member_user)
 
         expect(response).to have_gitlab_http_status(:not_found)
+      end
+    end
+
+    context 'when the hierarchy feature is requested' do
+      let_it_be(:other_project) { create(:project, :private) }
+
+      context 'with a parent the user cannot read' do
+        let_it_be(:hidden_parent) { create(:work_item, project: other_project) }
+        let_it_be(:visible_task) { create(:work_item, :task, project: project) }
+
+        before_all do
+          create(:parent_link, work_item: visible_task, work_item_parent: hidden_parent)
+        end
+
+        it 'hides parent details' do
+          get api("/projects/#{project.id}/-/work_items/#{visible_task.iid}", user),
+            params: { features: 'hierarchy' }
+
+          expect(response).to have_gitlab_http_status(:ok)
+          expect(json_response['features']['hierarchy']).to include('parent' => nil)
+        end
+
+        it 'exposes parent details once the user gains read access' do
+          other_project.add_reporter(user)
+
+          get api("/projects/#{project.id}/-/work_items/#{visible_task.iid}", user),
+            params: { features: 'hierarchy' }
+
+          expect(response).to have_gitlab_http_status(:ok)
+          expect(json_response['features']['hierarchy']['parent']).to include('id' => hidden_parent.id)
+        end
       end
     end
 

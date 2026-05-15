@@ -7838,6 +7838,9 @@ msgstr ""
 msgid "AiPowered|Allow custom flows in projects. Users with the Maintainer or Owner role can create new flows."
 msgstr ""
 
+msgid "AiPowered|Allow developers in this instance to use GitLab Duo CLI. Duo CLI is billed as consumption against this instance."
+msgstr ""
+
 msgid "AiPowered|Allow users to approve tools for a session in the IDE and CLI."
 msgstr ""
 
@@ -8045,6 +8048,9 @@ msgstr ""
 msgid "AiPowered|GitLab Duo Agent Platform"
 msgstr ""
 
+msgid "AiPowered|GitLab Duo CLI"
+msgstr ""
+
 msgid "AiPowered|GitLab Duo Chat conversations"
 msgstr ""
 
@@ -8201,6 +8207,9 @@ msgstr ""
 msgid "AiPowered|These settings are disabled because GitLab Duo Agent Platform is turned off."
 msgstr ""
 
+msgid "AiPowered|These settings are disabled because GitLab Duo Core is turned off."
+msgstr ""
+
 msgid "AiPowered|These settings are disabled because GitLab Duo availability is set to always off."
 msgstr ""
 
@@ -8210,10 +8219,16 @@ msgstr ""
 msgid "AiPowered|This setting applies to the entire instance. By turning on these features, you accept the %{termsLinkStart}GitLab Duo AI Terms%{termsLinkEnd} unless your organization has a separate agreement with GitLab that governs AI usage. %{prerequisitesLinkStart}What are the prerequisites for the GitLab Duo Agent Platform%{prerequisitesLinkEnd}?"
 msgstr ""
 
+msgid "AiPowered|This setting applies to the entire instance. Turning this off blocks Duo CLI usage across all groups and projects."
+msgstr ""
+
 msgid "AiPowered|This setting applies to the top-level group. By turning on these features, you accept the %{termsLinkStart}GitLab Duo AI Terms%{termsLinkEnd} unless your organization has a separate agreement with GitLab that governs AI usage."
 msgstr ""
 
 msgid "AiPowered|This setting applies to the top-level group. By turning on these features, you accept the %{termsLinkStart}GitLab Duo AI Terms%{termsLinkEnd} unless your organization has a separate agreement with GitLab that governs AI usage. %{prerequisitesLinkStart}What are the prerequisites for the GitLab Duo Agent Platform%{prerequisitesLinkEnd}?"
+msgstr ""
+
+msgid "AiPowered|This setting only applies when GitLab Duo Agent Platform is enabled."
 msgstr ""
 
 msgid "AiPowered|This setting only applies when GitLab Duo is available."
@@ -8259,6 +8274,9 @@ msgid "AiPowered|Turn on GitLab Duo Agent Platform access"
 msgstr ""
 
 msgid "AiPowered|Turn on GitLab Duo Agentic Chat, agents, and flows"
+msgstr ""
+
+msgid "AiPowered|Turn on GitLab Duo CLI access"
 msgstr ""
 
 msgid "AiPowered|Turn on experiment and beta GitLab Duo features"

@@ -69,7 +69,6 @@ RSpec.shared_examples 'work item API field parity' do
         current_user_todos
         development
         email_participants
-        hierarchy
         linked_items
         linked_resources
         notes
@@ -82,8 +81,10 @@ RSpec.shared_examples 'work item API field parity' do
     # field sets don't match the dedicated GraphQL widget types. Skip them until REST exposes
     # feature-specific entities and the payloads can be aligned.
     # error_tracking exposes only identifier, stack_trace and status require external API calls.
+    # hierarchy exposes only parent / has_parent. children, ancestors, and rolled-up counts
+    # require separate paginated endpoints.
     let(:skipped_feature_comparison) do
-      Set.new(%w[assignees milestone error_tracking]).merge(extra_skipped_feature_comparison)
+      Set.new(%w[assignees milestone error_tracking hierarchy]).merge(extra_skipped_feature_comparison)
     end
 
     it 'keeps feature payloads aligned with known differences' do

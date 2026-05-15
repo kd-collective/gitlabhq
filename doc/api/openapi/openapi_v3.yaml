@@ -64575,7 +64575,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/RequestBody_a9a057b49e5d"
+              "$ref": "#/components/schemas/RequestBody_a035b1aeb571"
     get:
       operationId: getApiV4GroupsId
       summary: Get a single group, with containing projects.
@@ -70994,6 +70994,10 @@ components:
           type: string
         duo_namespace_access_rules:
           type: string
+        built_in_project_templates_enabled:
+          type: boolean
+        lock_built_in_project_templates_enabled:
+          type: boolean
     APIEntitiesMergeRequestApprovalRuleSourceRule:
       type: object
       properties:
@@ -84711,6 +84715,10 @@ components:
           type: string
         duo_namespace_access_rules:
           type: string
+        built_in_project_templates_enabled:
+          type: boolean
+        lock_built_in_project_templates_enabled:
+          type: boolean
         shared_with_groups:
           type: array
           items:
@@ -106074,7 +106082,7 @@ components:
       required:
       - name
       - path
-    RequestBody_a9a057b49e5d:
+    RequestBody_a035b1aeb571:
       type: object
       properties:
         name:
@@ -106583,6 +106591,14 @@ components:
                 nullable: true
             required:
             - features
+          nullable: true
+        built_in_project_templates_enabled:
+          type: boolean
+          description: Enable built-in project templates for project creation
+          nullable: true
+        lock_built_in_project_templates_enabled:
+          type: boolean
+          description: Enforce the built-in project templates setting for all subgroups
           nullable: true
     RequestBody_885d0044fcba:
       type: object

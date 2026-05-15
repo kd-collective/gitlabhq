@@ -21,6 +21,7 @@ fragment BaseWorkItemFeatures on WorkItemFeatures {
   }
   assignees {
     allowsMultipleAssignees
+    canInviteMembers
     assignees {
       nodes {
         id
@@ -47,9 +48,7 @@ fragment BaseWorkItemFeatures on WorkItemFeatures {
     dueDate
   }
   timeTracking {
-    humanReadableAttributes {
-      timeEstimate
-    }
+    type
   }
   notes {
     discussionLocked

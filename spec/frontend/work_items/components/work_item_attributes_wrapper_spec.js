@@ -294,6 +294,24 @@ describe('WorkItemAttributesWrapper component', () => {
 
       expect(findWorkItemTimeTracking().exists()).toBe(exists);
     });
+
+    it('renders when features.timeTracking is present', () => {
+      createComponent({
+        workItem: {
+          ...workItemResponseFactory({ timeTrackingWidgetPresent: false }).data.workItem,
+          features: {
+            timeTracking: {
+              timeEstimate: 0,
+              humanReadableAttributes: { timeEstimate: '' },
+              timelogs: { nodes: [] },
+              totalTimeSpent: 0,
+            },
+          },
+        },
+      });
+
+      expect(findWorkItemTimeTracking().exists()).toBe(true);
+    });
   });
 
   describe('CRM contacts widget', () => {

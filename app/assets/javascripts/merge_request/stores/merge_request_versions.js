@@ -33,10 +33,14 @@ export const useMergeRequestVersions = defineStore('mergeRequestVersions', {
         };
       }
 
+      // Default "compare with master" view anchors start_sha at source.base_sha;
+      // target.start_sha drifts with master and would not match stored positions.
+      const startSha = target.version_index == null ? source.base_sha : target.start_sha;
+
       return {
         base_sha: source.base_sha,
         head_sha: source.head_sha,
-        start_sha: target.start_sha,
+        start_sha: startSha,
       };
     },
   },

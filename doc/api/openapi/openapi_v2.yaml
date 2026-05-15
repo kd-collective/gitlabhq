@@ -48720,6 +48720,10 @@ definitions:
         type: string
       duo_namespace_access_rules:
         type: string
+      built_in_project_templates_enabled:
+        type: boolean
+      lock_built_in_project_templates_enabled:
+        type: boolean
     required:
     - id
     - web_url
@@ -49606,6 +49610,12 @@ definitions:
                 type: string
           required:
           - features
+      built_in_project_templates_enabled:
+        type: boolean
+        description: Enable built-in project templates for project creation
+      lock_built_in_project_templates_enabled:
+        type: boolean
+        description: Enforce the built-in project templates setting for all subgroups
     description: Update a group. Available only for users who can administrate groups.
   API_Entities_GroupDetail:
     type: object
@@ -49748,6 +49758,10 @@ definitions:
         type: string
       duo_namespace_access_rules:
         type: string
+      built_in_project_templates_enabled:
+        type: boolean
+      lock_built_in_project_templates_enabled:
+        type: boolean
       shared_with_groups:
         type: array
         items:

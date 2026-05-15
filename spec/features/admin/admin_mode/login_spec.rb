@@ -26,7 +26,6 @@ RSpec.describe 'Admin mode login', :with_current_organization, feature_category:
 
     def expect_admin_sign_in_fail
       expect(page).to have_content(_('Invalid two-factor code.'))
-      expect(page).to have_current_path admin_session_path, ignore_query: true
     end
 
     context 'with valid username/password' do

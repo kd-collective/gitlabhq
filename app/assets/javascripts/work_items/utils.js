@@ -150,6 +150,7 @@ export const findStatusWidget = (workItem) =>
   workItem?.widgets?.find((widget) => widget.type === WIDGET_TYPE_STATUS);
 
 export const findTimeTrackingWidget = (workItem) =>
+  workItem?.features?.timeTracking ||
   workItem?.widgets?.find((widget) => widget.type === WIDGET_TYPE_TIME_TRACKING);
 
 export const findVulnerabilitiesWidget = (workItem) =>

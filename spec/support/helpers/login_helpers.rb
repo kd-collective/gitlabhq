@@ -55,10 +55,10 @@ module LoginHelpers
     click_oauth_provider(provider)
   end
 
-  def gitlab_enable_admin_mode_sign_in_via(provider, user, uid, saml_response: nil, additional_info: {})
+  def gitlab_enable_admin_mode_sign_in_via(provider, user, uid, saml_response: nil, expect_fail: false, additional_info: {})
     response_object = saml_xml(saml_response) if saml_response.present?
     mock_auth_hash(provider, uid, user.email, response_object: response_object, additional_info: additional_info)
-    click_oauth_provider(provider, sign_in_path: new_admin_session_path)
+    click_oauth_provider(provider, sign_in_path: new_admin_session_path, expect_fail: expect_fail)
   end
 
   # Requires Javascript driver.
@@ -110,23 +110,68 @@ module LoginHelpers
   end
 
   # The remember_me functionality requires Javascript driver.
-  def click_oauth_provider(provider, remember_me: false, sign_in_path: new_user_session_path)
-    3.times do
+  def click_oauth_provider(provider, remember_me: false, sign_in_path: new_user_session_path, expect_fail: false)
+    wait = expect_fail ? 3 : 10
+    attempts = 3
+    attempts.times do
       visit sign_in_path
       expect(page).to have_button(Gitlab::Auth::OAuth::Provider.label_for(provider))
 
-      if remember_me
-        within('body.page-initialised') do
-          check 'js-remember-me-omniauth'
-        end
-        find("form[action='/users/auth/#{provider}?remember_me=1']")
-      end
+      check_remember_me_omniauth(provider) if remember_me
 
+      navigated = click_oauth_provider_button(provider, sign_in_path, wait)
+      break if expect_fail ? !navigated : navigated
+    rescue CsrfRetry
+      # retry
+    end
+
+    expect_oauth_provider_navigation(sign_in_path, expect_fail)
+  end
+
+  def check_remember_me_omniauth(provider)
+    within('body.page-initialised') do
+      check 'js-remember-me-omniauth'
+    end
+    find("form[action='/users/auth/#{provider}?remember_me=1']")
+  end
+
+  # Clicks the OAuth provider button and returns whether navigation occurred.
+  # Raises CsrfRetry if the session cookie is missing (Chrome intermittent bug), signalling the caller to retry.
+  def click_oauth_provider_button(provider, sign_in_path, wait)
+    if javascript_test?
+      click_oauth_provider_button_js(provider, sign_in_path, wait)
+    else
       click_button Gitlab::Auth::OAuth::Provider.label_for(provider)
-      # Chrome intermittently fails to send cookies on the POST request, causing a silent
-      # CSRF failure that redirects back to sign-in. Wait for navigation, then retry if needed.
-      page.has_no_current_path?(sign_in_path, wait: 10, ignore_query: true)
-      break unless page.has_current_path?(sign_in_path, wait: 0, ignore_query: true)
+
+      # Wait for navigation, then retry if needed.
+      page.has_no_current_path?(sign_in_path, ignore_query: true, wait: wait)
+    end
+  end
+
+  CsrfRetry = Class.new(StandardError)
+
+  def click_oauth_provider_button_js(provider, sign_in_path, wait)
+    navigated = false
+    reqs = inspect_requests do
+      click_button Gitlab::Auth::OAuth::Provider.label_for(provider)
+
+      # Wait for navigation, then retry if needed.
+      navigated = page.has_no_current_path?(sign_in_path, ignore_query: true, wait: wait)
+    end
+
+    # Chrome intermittently fails to send cookies on the POST request, causing a silent
+    # CSRF failure that redirects back to sign-in.
+    post_request = reqs.find { |r| r.url&.include?("/users/auth/#{provider}") }
+    raise CsrfRetry unless post_request&.request_headers&.fetch('Cookie', '')&.include?('_gitlab_session')
+
+    navigated
+  end
+
+  def expect_oauth_provider_navigation(sign_in_path, expect_fail)
+    if expect_fail
+      expect(page).to have_current_path(sign_in_path, ignore_query: true)
+    else
+      expect(page).to have_no_current_path(sign_in_path, ignore_query: true)
     end
   end
 

@@ -294,12 +294,36 @@ export default {
         clearDraft(this.autosaveKeyInternalNote);
         this.cancelEditing();
         this.doFullPageReloadIfUnsupportedTypeChange(commentText);
+        this.refetchTimeTrackingIfQuickActionApplied(commentText, {
+          errorMessages,
+          messages,
+        });
       } catch (error) {
         this.$emit('error', error.message);
         Sentry.captureException(error);
       } finally {
         this.isSubmitting = false;
       }
+    },
+    // The time tracking widget is loaded via its own dedicated query and isn't part of
+    // the main work item query. When a time-tracking-related quick action runs successfully,
+    // refetch the dedicated query so the widget reflects the latest values.
+    refetchTimeTrackingIfQuickActionApplied(commentText, { errorMessages, messages }) {
+      const timeTrackingQuickActionRegex =
+        /\/(spend|spent|estimate|remove_estimate|remove_time_spent)(?!\S)/im;
+      const quickActionRanSuccessfully =
+        (!errorMessages || errorMessages.length === 0) && messages?.length > 0;
+
+      if (!quickActionRanSuccessfully || !timeTrackingQuickActionRegex.test(commentText)) {
+        return;
+      }
+
+      this.$apollo
+        .getClient()
+        .refetchQueries({
+          include: ['workItemTimeTracking'],
+        })
+        .catch((error) => Sentry.captureException(error));
     },
     // Until incidents and Service Desk issues are fully migrated to work items
     // we need to browse to the detail page again

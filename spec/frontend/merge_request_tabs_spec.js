@@ -813,7 +813,7 @@ describe('MergeRequestTabs', () => {
         testContext.class.rapidDiffsApp = { scrollToDiffNote: jest.fn() };
         useMergeRequestVersions().$patch({
           sourceVersions: [{ selected: true, base_sha: 'abc', head_sha: 'def' }],
-          targetVersions: [{ selected: true, start_sha: 'ghi' }],
+          targetVersions: [{ selected: true, version_index: 1, start_sha: 'ghi' }],
         });
         jest.spyOn(testContext.class, 'tabShown').mockResolvedValue();
         const disc = { ...discussion, active: false };

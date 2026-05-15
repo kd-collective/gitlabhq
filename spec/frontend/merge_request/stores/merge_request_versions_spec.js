@@ -99,16 +99,31 @@ describe('mergeRequestVersions store', () => {
       });
     });
 
-    it('combines source and target refs when target is not head', () => {
+    it('uses target start_sha when comparing against a specific target version', () => {
       store.setVersions({
         sourceVersions: [{ selected: true, base_sha: 'base000', head_sha: 'head222' }],
-        targetVersions: [{ selected: true, head: false, start_sha: 'start111' }],
+        targetVersions: [{ selected: true, head: false, version_index: 2, start_sha: 'start111' }],
       });
 
       expect(store.diffRefs).toEqual({
         base_sha: 'base000',
         head_sha: 'head222',
         start_sha: 'start111',
+      });
+    });
+
+    it('uses source base_sha as start_sha in the default "compare with master" view', () => {
+      store.setVersions({
+        sourceVersions: [{ selected: true, base_sha: 'base000', head_sha: 'head222' }],
+        targetVersions: [
+          { selected: true, head: false, version_index: null, start_sha: 'master_tip' },
+        ],
+      });
+
+      expect(store.diffRefs).toEqual({
+        base_sha: 'base000',
+        head_sha: 'head222',
+        start_sha: 'base000',
       });
     });
 

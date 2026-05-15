@@ -1,6 +1,5 @@
 <script>
 import { GlLoadingIcon, GlTableLite, GlButton, GlTooltipDirective } from '@gitlab/ui';
-import produce from 'immer';
 import { createAlert } from '~/alert';
 import { TYPENAME_ISSUE, TYPENAME_MERGE_REQUEST } from '~/graphql_shared/constants';
 import { convertToGraphQLId } from '~/graphql_shared/utils';
@@ -13,8 +12,6 @@ import {
   stringifyTime,
 } from '~/lib/utils/datetime_utility';
 import { __, s__ } from '~/locale';
-import workItemByIidQuery from '~/work_items/graphql/work_item_by_iid.query.graphql';
-import { findTimeTrackingWidget } from '~/work_items/utils';
 import { timelogQueries } from '../../queries/constants';
 import deleteTimelogMutation from '../../queries/delete_timelog.mutation.graphql';
 
@@ -32,9 +29,6 @@ export default {
   },
   mixins: [glFeatureFlagsMixin()],
   inject: {
-    fullPath: {
-      default: null,
-    },
     issuableType: {
       default: null,
     },
@@ -61,6 +55,7 @@ export default {
       default: '',
     },
   },
+  emits: ['timelog-deleted'],
   data() {
     return {
       report: this.timelogs ?? [],
@@ -87,29 +82,16 @@ export default {
         createAlert({ message: __('Something went wrong. Please try again.') });
       },
       skip() {
-        return Boolean(this.timelogs);
-      },
-    },
-    // eslint-disable-next-line @gitlab/vue-no-undef-apollo-properties
-    workItem: {
-      query: workItemByIidQuery,
-      variables() {
-        return {
-          fullPath: this.fullPath,
-          iid: this.workItemIid,
-        };
-      },
-      update(data) {
-        return data.namespace.workItem ?? {};
-      },
-      skip() {
-        return !this.workItemIid;
+        // In the work-item context, `timelogs` is provided by the parent
+        // `WorkItemTimeTracking` component (which has its own apollo query).
+        // For legacy issue/MR sidebar use, we fetch via `timelogQueries[issuableType]`.
+        return Boolean(this.timelogs) || Boolean(this.workItemIid);
       },
     },
   },
   computed: {
     isLoading() {
-      return this.$apollo.queries.report.loading || this.$apollo.queries.workItem.loading;
+      return this.$apollo.queries.report.loading;
     },
     totalTimeSpent() {
       const seconds = this.report.reduce((acc, item) => acc + item.timeSpent, 0);
@@ -147,31 +129,14 @@ export default {
         .mutate({
           mutation: deleteTimelogMutation,
           variables: { input: { id: timelogId } },
-          update: (store) => {
-            if (!this.workItemIid) {
-              return;
-            }
-            store.updateQuery(
-              {
-                query: workItemByIidQuery,
-                variables: { fullPath: this.fullPath, iid: this.workItemIid },
-              },
-              (sourceData) =>
-                produce(sourceData, (draftState) => {
-                  const timeTrackingWidget = findTimeTrackingWidget(draftState.namespace.workItem);
-                  const timelogs = timeTrackingWidget.timelogs.nodes;
-                  const index = timelogs.findIndex((timelog) => timelog.id === timelogId);
-
-                  timeTrackingWidget.totalTimeSpent -= timelogs[index].timeSpent;
-                  timelogs.splice(index, 1);
-                }),
-            );
-          },
         })
         .then(({ data }) => {
           if (data.timelogDelete?.errors?.length) {
             throw new Error(data.timelogDelete.errors[0]);
           }
+          // Notify the parent so it can update its own cache (e.g. the work-item
+          // time tracking widget query) with the authoritative server response.
+          this.$emit('timelog-deleted', { timelogId, data });
         })
         .catch((error) => {
           createAlert({

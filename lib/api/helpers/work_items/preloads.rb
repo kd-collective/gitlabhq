@@ -4,6 +4,12 @@ module API
   module Helpers
     module WorkItems
       module Preloads
+        WORK_ITEM_REFERENCE_PRELOADS = [
+          :author,
+          { project: { namespace: :route } },
+          { namespace: { parent: :route } }
+        ].freeze
+
         FEATURE_PRELOADS = {
           description: [:last_edited_by],
           assignees: [:assignees],
@@ -11,7 +17,8 @@ module API
           milestone: [:milestone],
           start_and_due_date: [:dates_source],
           time_tracking: [{ timelogs: :user }],
-          error_tracking: [:sentry_issue]
+          error_tracking: [:sentry_issue],
+          hierarchy: [{ work_item_parent: WORK_ITEM_REFERENCE_PRELOADS }]
         }.freeze
 
         PROJECT_FEATURE_PRELOADS = {
@@ -67,6 +74,29 @@ module API
           end
 
           (field_preloads + feature_preloads).uniq
+        end
+
+        def preload_hierarchy_authorization(work_items, feature_keys)
+          return unless current_user
+          return unless feature_keys.include?(:hierarchy)
+          return if work_items.blank?
+
+          parents = work_items.filter_map do |work_item|
+            next unless work_item.has_widget?(:hierarchy)
+
+            work_item.get_widget(:hierarchy).parent
+          end
+
+          return if parents.empty?
+
+          projects = parents.filter_map(&:project)
+          ::Preloaders::UserMaxAccessLevelInProjectsPreloader.new(projects, current_user).execute if projects.any?
+
+          group_namespaces = (parents.map(&:namespace) + projects.map(&:namespace))
+            .select { |namespace| namespace.type == ::Group.sti_name }
+          return if group_namespaces.empty?
+
+          ::Preloaders::GroupPolicyPreloader.new(group_namespaces, current_user).execute
         end
 
         def build_work_items_relation(resource_parent, preloads: [])

@@ -57,6 +57,12 @@ module API
               using: ::API::Entities::WorkItems::Features::ErrorTracking,
               documentation: { type: 'Entities::WorkItems::Features::ErrorTracking' },
               expose_nil: true
+
+            expose_feature :hierarchy,
+              widget_name: :hierarchy,
+              using: ::API::Entities::WorkItems::Features::Hierarchy,
+              documentation: { type: 'Entities::WorkItems::Features::Hierarchy' },
+              expose_nil: true
           end
         end
       end

@@ -598,6 +598,33 @@ export const updateWorkItemMutationErrorResponse = {
   },
 };
 
+export const updateWorkItemTimeTrackingMutationResponse = {
+  data: {
+    workItemUpdate: {
+      __typename: 'WorkItemUpdatePayload',
+      errors: [],
+      workItem: {
+        __typename: 'WorkItem',
+        id: 'gid://gitlab/WorkItem/1',
+        widgets: [
+          {
+            __typename: 'WorkItemWidgetTimeTracking',
+            type: 'TIME_TRACKING',
+            timeEstimate: 0,
+            humanReadableAttributes: {
+              __typename: 'WorkItemTimeTrackingHumanReadableAttributes',
+              timeEstimate: '',
+            },
+            timelogs: { __typename: 'WorkItemTimelogConnection', nodes: [] },
+            totalTimeSpent: 0,
+          },
+        ],
+        features: null,
+      },
+    },
+  },
+};
+
 export const workItemHierarchyAddChildrenMutationResponse = {
   data: {
     workItemHierarchyAddChildrenItems: {
@@ -1914,6 +1941,7 @@ export const mockWorkItemFeaturesData = ({ discussionLocked = false } = {}) => (
   },
   assignees: {
     allowsMultipleAssignees: true,
+    canInviteMembers: false,
     assignees: { nodes: [], __typename: 'UserCoreConnection' },
   },
   awardEmoji: { upvotes: 0, downvotes: 0 },
@@ -1931,7 +1959,10 @@ export const mockWorkItemFeaturesData = ({ discussionLocked = false } = {}) => (
     labels: { nodes: [], __typename: 'LabelConnection' },
     __typename: 'WorkItemWidgetLabels',
   },
-  timeTracking: { humanReadableAttributes: { timeEstimate: '' } },
+  timeTracking: {
+    type: 'TIME_TRACKING',
+    __typename: 'WorkItemWidgetTimeTracking',
+  },
   notes: { discussionLocked, __typename: 'WorkItemWidgetNotes' },
   development: { closingMergeRequests: { count: 0 } },
   hierarchy: { parent: null },
@@ -11382,9 +11413,7 @@ export const workItemsQueryResponseWithFeatures = {
                 },
               },
               timeTracking: {
-                humanReadableAttributes: {
-                  timeEstimate: '',
-                },
+                type: 'TIME_TRACKING',
               },
               healthStatus: {
                 healthStatus: null,
@@ -11480,9 +11509,7 @@ export const workItemsQueryResponseWithFeatures = {
                 },
               },
               timeTracking: {
-                humanReadableAttributes: {
-                  timeEstimate: '',
-                },
+                type: 'TIME_TRACKING',
               },
               healthStatus: {
                 healthStatus: null,

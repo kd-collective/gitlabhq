@@ -20,8 +20,8 @@ import CreateTimelogForm from '~/sidebar/components/time_tracking/create_timelog
 import createTimelogMutation from '~/sidebar/queries/create_timelog.mutation.graphql';
 import { TYPENAME_ISSUE, TYPENAME_MERGE_REQUEST } from '~/graphql_shared/constants';
 import { SUMMARY_MAX_LENGTH } from '~/sidebar/components/time_tracking/constants';
-import updateWorkItemMutation from '~/work_items/graphql/update_work_item.mutation.graphql';
-import { updateWorkItemMutationResponse } from 'jest/work_items/mock_data';
+import updateWorkItemTimeTrackingMutation from '~/work_items/graphql/update_work_item_time_tracking.mutation.graphql';
+import { updateWorkItemTimeTrackingMutationResponse } from 'jest/work_items/mock_data';
 
 import {
   WORK_ITEM_TYPE_NAME_EPIC,
@@ -71,7 +71,9 @@ const resolvedMutationWithErrorsMock = jest.fn().mockResolvedValue({
 const rejectedMutationMock = jest.fn().mockRejectedValue();
 const modalCloseMock = jest.fn();
 
-const updateWorkItemMutationHandler = jest.fn().mockResolvedValue(updateWorkItemMutationResponse);
+const updateWorkItemTimeTrackingMutationHandler = jest
+  .fn()
+  .mockResolvedValue(updateWorkItemTimeTrackingMutationResponse);
 
 describe('Create Timelog Form', () => {
   Vue.use(VueApollo);
@@ -107,7 +109,7 @@ describe('Create Timelog Form', () => {
       },
       apolloProvider: createMockApollo([
         [createTimelogMutation, mutationResolverMock],
-        [updateWorkItemMutation, updateWorkItemMutationHandler],
+        [updateWorkItemTimeTrackingMutation, updateWorkItemTimeTrackingMutationHandler],
       ]),
       stubs: {
         GlFormGroup,
@@ -408,7 +410,7 @@ describe('Create Timelog Form', () => {
       submitForm();
       await waitForPromises();
 
-      expect(updateWorkItemMutationHandler).toHaveBeenCalledWith({
+      expect(updateWorkItemTimeTrackingMutationHandler).toHaveBeenCalledWith({
         input: {
           id: 'gid://gitlab/WorkItem/1',
           timeTrackingWidget: {
@@ -429,7 +431,7 @@ describe('Create Timelog Form', () => {
       submitForm();
       await waitForPromises();
 
-      expect(updateWorkItemMutationHandler).toHaveBeenCalledWith({
+      expect(updateWorkItemTimeTrackingMutationHandler).toHaveBeenCalledWith({
         input: {
           id: 'gid://gitlab/WorkItem/1',
           timeTrackingWidget: {
@@ -441,6 +443,31 @@ describe('Create Timelog Form', () => {
           },
         },
         useWorkItemFeatures: false,
+      });
+    });
+
+    it('passes useWorkItemFeatures as true to mutation when workItemFeaturesField feature flag is enabled', async () => {
+      mountComponent({
+        props: { workItemId: 'gid://gitlab/WorkItem/1', workItemType: 'Task' },
+        providedProps: { issuableType: null, glFeatures: { workItemFeaturesField: true } },
+      });
+
+      findGlFormInput().vm.$emit('input', '2d');
+      submitForm();
+      await waitForPromises();
+
+      expect(updateWorkItemTimeTrackingMutationHandler).toHaveBeenCalledWith({
+        input: {
+          id: 'gid://gitlab/WorkItem/1',
+          timeTrackingWidget: {
+            timelog: {
+              spentAt: null,
+              summary: '',
+              timeSpent: '2d',
+            },
+          },
+        },
+        useWorkItemFeatures: true,
       });
     });
   });

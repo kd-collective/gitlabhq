@@ -110,7 +110,6 @@ RSpec.describe 'Group step-up authentication', :with_current_organization, :js, 
       context 'for different initial sign-in methods' do
         shared_examples 'successful group step-up auth process' do
           before do
-            wait_for_requests
             expect(page).to have_current_path(root_path, ignore_query: true) # rubocop:disable RSpec/ExpectInHook -- Just to ensure our setup is correct
 
             # Try to access group - should redirect to step-up auth
@@ -147,7 +146,7 @@ RSpec.describe 'Group step-up authentication', :with_current_organization, :js, 
         context 'when user signed in initially with another omniauth provider (github)' do
           let(:provider_github) { 'github' }
           let(:provider_github_config) { GitlabSettings::Options.new(name: provider_github) }
-          let(:provider_github_extern_uid) { "github_user_uid" }
+          let(:provider_github_extern_uid) { 'github_user_uid' }
 
           before do
             # Add both github and openid_connect identities to user

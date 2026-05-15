@@ -33,6 +33,7 @@ import {
   WORK_ITEM_TYPE_NAME_TICKET,
   WIDGET_TYPE_MILESTONE,
   WIDGET_TYPE_START_AND_DUE_DATE,
+  WIDGET_TYPE_TIME_TRACKING,
 } from '~/work_items/constants';
 import {
   autocompleteDataSources,
@@ -48,6 +49,7 @@ import {
   findLabelsWidget,
   findLinkedResourcesWidget,
   findStartAndDueDateWidget,
+  findTimeTrackingWidget,
   formatLabelForListbox,
   formatUserForListbox,
   newWorkItemPath,
@@ -1322,6 +1324,41 @@ describe('findLabelsWidget', () => {
 
   it('returns undefined when neither exists', () => {
     expect(findLabelsWidget({ widgets: [] })).toBeUndefined();
+  });
+});
+
+describe('findTimeTrackingWidget', () => {
+  const timeTrackingWidget = {
+    type: WIDGET_TYPE_TIME_TRACKING,
+    timeEstimate: 0,
+    humanReadableAttributes: { timeEstimate: '' },
+    timelogs: { nodes: [] },
+    totalTimeSpent: 0,
+  };
+  const featuresTimeTracking = {
+    timeEstimate: 3600,
+    humanReadableAttributes: { timeEstimate: '1h' },
+    timelogs: { nodes: [] },
+    totalTimeSpent: 1800,
+  };
+
+  it('returns features.timeTracking when present', () => {
+    const workItem = {
+      features: { timeTracking: featuresTimeTracking },
+      widgets: [timeTrackingWidget],
+    };
+
+    expect(findTimeTrackingWidget(workItem)).toBe(featuresTimeTracking);
+  });
+
+  it('falls back to widgets when features not present', () => {
+    const workItem = { widgets: [timeTrackingWidget] };
+
+    expect(findTimeTrackingWidget(workItem)).toBe(timeTrackingWidget);
+  });
+
+  it('returns undefined when neither exists', () => {
+    expect(findTimeTrackingWidget({ widgets: [] })).toBeUndefined();
   });
 });
 

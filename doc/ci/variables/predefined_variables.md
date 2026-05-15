@@ -126,6 +126,7 @@ Predefined variables become available at three different phases of pipeline exec
 | `CI_PROJECT_PATH`                               | Pre-pipeline | The project namespace with the project name included. |
 | `CI_PROJECT_REPOSITORY_LANGUAGES`               | Pre-pipeline | A comma-separated, lowercase list of the languages used in the repository. For example `ruby,javascript,html,css`. The maximum number of languages is limited to 5. An issue [proposes to increase the limit](https://gitlab.com/gitlab-org/gitlab/-/issues/368925). |
 | `CI_PROJECT_ROOT_NAMESPACE`                     | Pre-pipeline | The root project namespace (username or group name) of the job. For example, if `CI_PROJECT_NAMESPACE` is `root-group/child-group/grandchild-group`, `CI_PROJECT_ROOT_NAMESPACE` is `root-group`. |
+| `CI_PROJECT_ROOT_NAMESPACE_SLUG`                | Pre-pipeline | `$CI_PROJECT_ROOT_NAMESPACE` in lowercase with characters that are not `a-z` or `0-9` replaced with - and shortened to 63 bytes. |
 | `CI_PROJECT_TITLE`                              | Pre-pipeline | The human-readable project name as displayed in the GitLab web interface. |
 | `CI_PROJECT_DESCRIPTION`                        | Pre-pipeline | The project description as displayed in the GitLab web interface. Introduced in GitLab 15.1. |
 | `CI_PROJECT_TOPICS`                             | Pre-pipeline | A comma-separated, lowercase list of [topics](../../user/project/project_topics.md) (limited to the first 20) assigned to the project. Introduced in GitLab 18.3 |

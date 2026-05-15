@@ -13,7 +13,6 @@ import {
   WIDGET_TYPE_MILESTONE,
   WIDGET_TYPE_PARTICIPANTS,
   WIDGET_TYPE_PROGRESS,
-  WIDGET_TYPE_TIME_TRACKING,
   WIDGET_TYPE_WEIGHT,
   WIDGET_TYPE_COLOR,
   WORK_ITEM_TYPE_NAME_EPIC,
@@ -27,6 +26,7 @@ import {
   findHierarchyWidgetDefinition,
   findLabelsWidget,
   findStartAndDueDateWidget,
+  findTimeTrackingWidget,
 } from '../utils';
 import workItemParticipantsQuery from '../graphql/work_item_participants.query.graphql';
 import workItemAllowedParentTypesQuery from '../graphql/work_item_allowed_parent_types.query.graphql';
@@ -197,7 +197,7 @@ export default {
       return this.allowedParentTypes.length > 0 && this.workItemHierarchy && this.isParentEnabled;
     },
     workItemTimeTracking() {
-      return this.isWidgetPresent(WIDGET_TYPE_TIME_TRACKING);
+      return findTimeTrackingWidget(this.workItem);
     },
     workItemColor() {
       return this.isWidgetPresent(WIDGET_TYPE_COLOR);
@@ -367,9 +367,7 @@ export default {
       v-if="workItemTimeTracking"
       class="work-item-attributes-item"
       :can-update="canUpdateMetadata"
-      :time-estimate="workItemTimeTracking.timeEstimate"
-      :timelogs="workItemTimeTracking.timelogs.nodes"
-      :total-time-spent="workItemTimeTracking.totalTimeSpent"
+      :full-path="fullPath"
       :work-item-id="workItem.id"
       :work-item-iid="workItem.iid"
       :work-item-type="workItemType"

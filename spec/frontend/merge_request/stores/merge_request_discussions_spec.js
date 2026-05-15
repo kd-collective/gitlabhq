@@ -74,7 +74,7 @@ describe('mergeRequestDiscussions store', () => {
     useNotes.mockReturnValue(mockNotesStore);
     useMergeRequestVersions().setVersions({
       sourceVersions: [{ selected: true, base_sha: 'base000', head_sha: 'head222' }],
-      targetVersions: [{ selected: true, start_sha: 'start111' }],
+      targetVersions: [{ selected: true, version_index: 1, start_sha: 'start111' }],
     });
     store = useMergeRequestDiscussions();
   });
