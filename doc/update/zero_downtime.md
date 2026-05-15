@@ -555,5 +555,5 @@ Finally, head back to the primary site and finish the upgrade by running the pos
    1. Verify Geo status:
 
        ```shell
-       sudo gitlab-rake geo:status
+       sudo gitlab-rake gitlab:geo:status
        ```

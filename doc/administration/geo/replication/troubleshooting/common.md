@@ -211,7 +211,7 @@ node running Rails (Puma, Sidekiq, or Geo Log Cursor) on the Geo **secondary** s
 GitLab does **not** verify objects that are stored in Object Storage. If you are using Object Storage, you will see all of the "verified" checks showing 0 successes. This is expected and not a cause for concern.
 
 ```shell
-sudo gitlab-rake geo:status
+sudo gitlab-rake gitlab:geo:status
 ```
 
 The output includes:

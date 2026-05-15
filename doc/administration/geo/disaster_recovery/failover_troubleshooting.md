@@ -23,7 +23,7 @@ When [promoting a **secondary** site](_index.md#step-2-promoting-a-secondary-sit
 you might encounter the following error message:
 
 ```plaintext
-Running gitlab-rake geo:set_secondary_as_primary...
+Running gitlab-rake gitlab:geo:set_secondary_as_primary...
 
 rake aborted!
 ActiveRecord::RecordInvalid: Validation failed: Name has already been taken
@@ -31,19 +31,19 @@ ActiveRecord::RecordInvalid: Validation failed: Name has already been taken
 /opt/gitlab/embedded/service/gitlab-rails/ee/lib/tasks/geo.rake:221:in `block (2 levels) in <top (required)>'
 /opt/gitlab/embedded/bin/bundle:23:in `load'
 /opt/gitlab/embedded/bin/bundle:23:in `<main>'
-Tasks: TOP => geo:set_secondary_as_primary
+Tasks: TOP => gitlab:geo:set_secondary_as_primary
 (See full trace by running task with --trace)
 
 You successfully promoted this node!
 ```
 
-If you encounter this message when running `gitlab-rake geo:set_secondary_as_primary`
+If you encounter this message when running `gitlab-rake gitlab:geo:set_secondary_as_primary`
 or `gitlab-ctl promote-to-primary-node`, enter a Rails console and run:
 
   ```ruby
   Rails.application.load_tasks; nil
   Gitlab::Geo.expire_cache!
-  Rake::Task['geo:set_secondary_as_primary'].invoke
+  Rake::Task['gitlab:geo:set_secondary_as_primary'].invoke
   ```
 
 ### Message: ``NoMethodError: undefined method `secondary?' for nil:NilClass``
@@ -52,7 +52,7 @@ When [promoting a **secondary** site](_index.md#step-2-promoting-a-secondary-sit
 you might encounter the following error message:
 
 ```plaintext
-sudo gitlab-rake geo:set_secondary_as_primary
+sudo gitlab-rake gitlab:geo:set_secondary_as_primary
 
 rake aborted!
 NoMethodError: undefined method `secondary?' for nil:NilClass
@@ -60,7 +60,7 @@ NoMethodError: undefined method `secondary?' for nil:NilClass
 /opt/gitlab/embedded/service/gitlab-rails/ee/lib/tasks/geo.rake:221:in `block (2 levels) in <top (required)>'
 /opt/gitlab/embedded/bin/bundle:23:in `load'
 /opt/gitlab/embedded/bin/bundle:23:in `<main>'
-Tasks: TOP => geo:set_secondary_as_primary
+Tasks: TOP => gitlab:geo:set_secondary_as_primary
 (See full trace by running task with --trace)
 ```
 

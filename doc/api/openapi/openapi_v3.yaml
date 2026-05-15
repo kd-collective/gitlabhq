@@ -1451,7 +1451,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_39c987677cfb"
+              "$ref": "#/components/schemas/RequestBody_ce398b1ce62b"
       x-gitlab-lifecycle: experiment
   "/api/v4/ai/duo_workflows/workflows/agent_privileges":
     get:
@@ -15951,7 +15951,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/RequestBody_e58b9549fa19"
+              "$ref": "#/components/schemas/RequestBody_a93ab8d99e3b"
   "/api/v4/service_accounts":
     post:
       operationId: postApiV4ServiceAccounts
@@ -77967,6 +77967,8 @@ components:
           type: string
         duo_agent_platform_enabled:
           type: string
+        duo_cli_enabled:
+          type: string
         duo_namespace_access_rules:
           type: string
         duo_remote_flows_enabled:
@@ -86040,9 +86042,14 @@ components:
           description: The ID or path of the project
           example: '1'
           nullable: true
-    RequestBody_39c987677cfb:
+    RequestBody_ce398b1ce62b:
       type: object
       properties:
+        requires_duo_cli_enabled:
+          type: boolean
+          description: Whether this workflow requires Duo CLI to be enabled
+          example: true
+          nullable: true
         project_id:
           type: string
           description: The ID or path of the workflow project
@@ -90190,7 +90197,7 @@ components:
           nullable: true
       required:
       - avatar
-    RequestBody_e58b9549fa19:
+    RequestBody_a93ab8d99e3b:
       type: object
       properties:
         admin_mode:
@@ -92340,6 +92347,9 @@ components:
           type: string
           nullable: true
         duo_agent_platform_enabled:
+          type: string
+          nullable: true
+        duo_cli_enabled:
           type: string
           nullable: true
         duo_remote_flows_availability:

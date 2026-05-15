@@ -372,6 +372,7 @@
   - "doc-locale/.markdownlint/.markdownlint-cli2.yaml"
   - "scripts/i18n_lint_doc.sh"
   - "scripts/i18n_verify_paths.sh"
+  - "scripts/i18n_fix_alert_box.sh"
 
 .docs-ja-jp-patterns: &docs-ja-jp-patterns
   - ".gitlab/ci/docs.gitlab-ci.yml"

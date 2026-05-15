@@ -149,6 +149,9 @@ variables:
 # Main Dependency Scanning job
 # This job is mandatory and responsible for doing the complete dependency analysis
 
+.ds-supported-files: &ds_supported_files
+  - '**/{*.csproj,*.vbproj,build.gradle,build.gradle.kts,build.sbt,Cargo.lock,composer.lock,conan.lock,conda-lock.yml,dependencies-compile.dot,dependencies.lock,Gemfile.lock,gems.locked,go.graph,go.mod,gradle.lockfile,ivy-report.xml,maven.graph.json,npm-shrinkwrap.json,package-lock.json,Package.resolved,Pipfile,Pipfile.lock,pipenv.graph.json,pipdeptree.json,pnpm-lock.yaml,Podfile.lock,poetry.lock,pom.xml,pubspec.lock,requirements.pip,requirements.txt,requires.txt,setup.py,uv.lock,yarn.lock}'
+
 "$[[ inputs.job_name ]]":
   variables:
     DS_ANALYZER_IMAGE: $[[ inputs.analyzer_image_prefix ]]/$[[ inputs.analyzer_image_name ]]:$[[ inputs.analyzer_image_version ]]
@@ -181,19 +184,32 @@ variables:
       cyclonedx: "**/gl-sbom-*.cdx.json"
       dependency_scanning: 'gl-dependency-scanning-report.json'
   rules:
-    # The following 3 blocks of rules define whether the job runs in a an *MR pipeline* or a *branch pipeline*
+    # The following 3 blocks of rules define whether the job runs in an *MR pipeline* or a *branch pipeline*
     # when an MR exists. If the job has additional rules to observe they should be added in the blocks 1 and 3
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
 
     # 1. Run the job in an *MR pipeline* if MR pipelines for AST are enabled and there's an open merge request.
-    - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
+    # 1.1. When a custom file pattern is configured, run the job
+    - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event" &&
+          ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE || $DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN)'
+    # 1.2 When $DS_SKIP_IF_NO_SUPPORTED_FILES is set, only run the job when a compatible file is found
+    - if: '$DS_SKIP_IF_NO_SUPPORTED_FILES == "true" && ($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
+      exists: *ds_supported_files
+    # 1.3 Otherwise, always run the job.
+    - if: '$DS_SKIP_IF_NO_SUPPORTED_FILES != "true" && ($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
 
     # 2. Don't run the job in a *branch pipeline* if *MR pipelines* for AST are enabled and there's an open merge request.
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_OPEN_MERGE_REQUESTS'
       when: never
 
     # 3. Finally, run the job in a *branch pipeline* (When MR pipelines are disabled for AST, or it is enabled but no open MRs exist for the branch).
-    - if: $CI_COMMIT_BRANCH
+    # 3.1. When a custom file pattern is configured, run the job
+    - if: $CI_COMMIT_BRANCH && ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE || $DS_PIPCOMPILE_LOCKFILE_FILE_NAME_PATTERN)
+    # 3.2 When $DS_SKIP_IF_NO_SUPPORTED_FILES is set, only run the job when a compatible file is found
+    - if: '$DS_SKIP_IF_NO_SUPPORTED_FILES == "true" && $CI_COMMIT_BRANCH'
+      exists: *ds_supported_files
+    # 3.3 Otherwise, always run the job.
+    - if: '$DS_SKIP_IF_NO_SUPPORTED_FILES != "true" && $CI_COMMIT_BRANCH'
 
 # ----------------------------------------------------------------
 # Dependency Resolution jobs
@@ -266,7 +282,7 @@ variables:
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
 
     # 1. Run the job in an *MR pipeline* if MR pipelines for AST are enabled and there's an open merge request.
-    # With default file detection
+    # Only run the job when a compatible file is found
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
       exists:
         - '**/pom.xml'
@@ -274,7 +290,7 @@ variables:
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_OPEN_MERGE_REQUESTS'
       when: never
     # 3. Finally, run the job in a *branch pipeline* (When MR pipelines are disabled for AST, or it is enabled but no open MRs exist for the branch).
-    # With default file detection
+    # Only run the job when a compatible file is found
     - if: $CI_COMMIT_BRANCH
       exists:
         - '**/pom.xml'
@@ -346,25 +362,25 @@ variables:
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
 
     # 1. Run the job in an *MR pipeline* if MR pipelines for AST are enabled and there's an open merge request.
-    # With default file detection
+    # 1.1. When a custom file pattern is configured, run the job
+    - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event" &&
+          ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE)'
+    # 1.2 Otherwise, only run the job when a compatible file is found
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
       exists:
         - '**/{requirements.txt,requirements.in,requirements.pip,requires.txt,setup.py,setup.cfg,pyproject.toml}'
-    # When $DS_PIP_MANIFEST_FILE_NAME_PATTERN or $PIP_REQUIREMENTS_FILE are set
-    - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event" &&
-          ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE)'
 
     # 2. Don't run the job in a *branch pipeline* if *MR pipelines* for AST are enabled and there's an open merge request.
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_OPEN_MERGE_REQUESTS'
       when: never
 
     # 3. Finally, run the job in a *branch pipeline* (When MR pipelines are disabled for AST, or it is enabled but no open MRs exist for the branch).
-    # With default file detection
+    # 3.1. When a custom file pattern is configured, run the job
+    - if: $CI_COMMIT_BRANCH && ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE)
+    # 3.2 Otherwise, only run the job when a compatible file is found
     - if: $CI_COMMIT_BRANCH
       exists:
         - '**/{requirements.txt,requirements.in,requirements.pip,requires.txt,setup.py,setup.cfg,pyproject.toml}'
-    # When $DS_PIP_MANIFEST_FILE_NAME_PATTERN or $PIP_REQUIREMENTS_FILE are set
-    - if: $CI_COMMIT_BRANCH && ($DS_PIP_MANIFEST_FILE_NAME_PATTERN || $PIP_REQUIREMENTS_FILE)
 
 # ----------------------------------------------------------------
 # Dependency Resolution for Gradle
@@ -430,7 +446,7 @@ variables:
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
 
     # 1. Run the job in an *MR pipeline* if MR pipelines for AST are enabled and there's an open merge request.
-    # With default file detection
+    # Only run the job when a compatible file is found
     - if: '($AST_ENABLE_MR_PIPELINES == "true" || $AST_ENABLE_MR_PIPELINES == null) && $CI_PIPELINE_SOURCE == "merge_request_event"'
       exists:
         - '**/{build.gradle,build.gradle.kts,settings.gradle,settings.gradle.kts}'
@@ -440,7 +456,7 @@ variables:
       when: never
 
     # 3. Finally, run the job in a *branch pipeline* (When MR pipelines are disabled for AST, or it is enabled but no open MRs exist for the branch).
-    # With default file detection
+    # Only run the job when a compatible file is found
     - if: $CI_COMMIT_BRANCH
       exists:
         - '**/{build.gradle,build.gradle.kts,settings.gradle,settings.gradle.kts}'

@@ -405,7 +405,7 @@ changing Git remotes and API URLs.
 1. Execute the command below to update the newly promoted **primary** site URL:
 
    ```shell
-   gitlab-rake geo:update_primary_node_url
+   gitlab-rake gitlab:geo:update_primary_node_url
    ```
 
    This command uses the changed `external_url` configuration defined
@@ -570,7 +570,7 @@ must disable the **primary** site:
 1. Promote the secondary:
 
    ```shell
-   kubectl --namespace gitlab exec -ti gitlab-geo-toolbox-XXX -- gitlab-rake geo:set_secondary_as_primary
+   kubectl --namespace gitlab exec -ti gitlab-geo-toolbox-XXX -- gitlab-rake gitlab:geo:set_secondary_as_primary
    ```
 
    Environment variables can be provided to modify the behavior of the task. The

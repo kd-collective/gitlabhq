@@ -731,7 +731,7 @@ Metrics are gathered by `Geo::MetricsUpdateWorker`, persisted in `GeoNodeStatus`
   | `geo_cool_widgets_verification_failed` | Gauge | XX.Y | Number of Cool Widgets that failed verification on secondary | `url` |
   | `geo_cool_widgets_oldest_unsynced_time` | Gauge | XX.Y | Timestamp of the last update to the oldest unsynchronized object | `url` |
   ```
-- [ ] Run the rake task `geo:dev:ssf_metrics` and commit the changes to `ee/config/metrics/object_schemas/geo_node_usage.json`
+- [ ] Run the rake task `gitlab:geo:dev:ssf_metrics` and commit the changes to `ee/config/metrics/object_schemas/geo_node_usage.json`
 
 Cool Widget replication and verification metrics should now be available in the API, the `Admin > Geo > Sites` view, and Prometheus.
 

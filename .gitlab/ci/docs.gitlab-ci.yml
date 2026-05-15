@@ -272,3 +272,26 @@ docs-i18n-lint paths:
     - source ./scripts/utils.sh
     - install_gitlab_gem
     - scripts/i18n_verify_paths.sh
+
+# Auto-fix GLFM alert-box callouts (e.g. [!note], [!warning]) in localized
+# markdown files. Runs on files changed in the MR; commits fixes back as
+# the GitLab Argo Bot. See: gitlab-com/localization/docs-site-localization#912
+docs-i18n-fix-alert-boxes:
+  extends:
+    - .default-retry
+    - .docs-markdown-lint-image
+  stage: prepare
+  needs: []
+  variables:
+    GIT_DEPTH: 1
+    GIT_SUBMODULE_STRATEGY: none
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
+      when: never
+    - !reference [.docs:rules:docs-i18n-lint, rules]
+  before_script:
+    - apk add --no-cache perl
+    - git fetch --depth=20 origin "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+    - git fetch --depth=20 origin "$CI_MERGE_REQUEST_DIFF_BASE_SHA"
+  script:
+    - scripts/i18n_fix_alert_box.sh --ci
