@@ -31,7 +31,15 @@ module RapidDiffs
       commit = merge_request.project.commit(options[:commit_id])
       next unless commit
 
-      ::RapidDiffs::CommitEntity.represent(commit, type: :full, request: merge_request)
+      next_commit_id, prev_commit_id = *commit_neighbors(merge_request, commit.id)
+
+      ::RapidDiffs::CommitEntity.represent(
+        commit,
+        type: :full,
+        request: merge_request,
+        prev_commit_id: prev_commit_id,
+        next_commit_id: next_commit_id
+      )
     end
 
     private
@@ -50,6 +58,24 @@ module RapidDiffs
       strong_memoize_with(:viewable_recent_merge_request_diffs, merge_request.id) do
         merge_request.viewable_recent_merge_request_diffs
       end
+    end
+
+    def commit_ids(merge_request)
+      strong_memoize_with(:commit_ids, merge_request.id) do
+        latest_diff = merge_request.latest_merge_request_diff
+        next [] unless latest_diff
+
+        latest_diff.commit_shas
+      end
+    end
+
+    def commit_neighbors(merge_request, commit_id)
+      ids = commit_ids(merge_request)
+      index = ids.index(commit_id)
+
+      return [] unless index
+
+      [(index > 0 ? ids[index - 1] : nil), ids[index + 1]]
     end
   end
 end

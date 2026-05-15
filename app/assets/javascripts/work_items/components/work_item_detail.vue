@@ -126,6 +126,8 @@ export default {
     GlSprintf,
     LocalStorageSync,
     WorkItemActions,
+    WorkItemAgentSessions: () =>
+      import('ee_component/work_items/components/agent_sessions/index.vue'),
     TodosToggle,
     WorkItemNotificationsWidget,
     WorkItemCreatedUpdated,
@@ -1327,6 +1329,8 @@ export default {
               </design-widget>
 
               <slot name="widgets" :work-item="workItem"></slot>
+
+              <work-item-agent-sessions v-if="workItem" :work-item-id="workItem.id" />
 
               <work-item-tree
                 v-if="showWorkItemTree"

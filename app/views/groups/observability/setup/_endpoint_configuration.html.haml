@@ -161,7 +161,6 @@
   %p.gl-text-sm.gl-text-subtle.gl-mt-4
     = safe_format(s_('Observability|%{code_start}service.version%{code_end} and %{code_start}deployment.environment.name%{code_end} are OpenTelemetry semantic conventions. The %{code_start}gitlab.*%{code_end} attributes use a vendor namespace for GitLab-specific context.'), tag_pair(tag.code, :code_start, :code_end))
 
--# TODO: Vue quick-start component to be mounted here - https://gitlab.com/gitlab-org/gitlab/-/merge_requests/233707
 #js-observability-quick-start{ data: { endpoint: configuration_settings.otel_https_endpoint } }
 
 .gl-border-t.gl-border-subtle.gl-pt-5

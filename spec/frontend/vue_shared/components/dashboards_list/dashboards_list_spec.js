@@ -19,7 +19,7 @@ const mockDashboards = [
     isStarred: false,
     isEditable: true,
     shareLink: '/fake/link/to/share',
-    updatedAt: '2025-09-10',
+    updatedAt: '2020-07-01',
     dashboardUrl: '/fake/url/1',
   },
   {
@@ -39,7 +39,7 @@ const mockDashboards = [
     isStarred: false,
     isEditable: true,
     shareLink: '/fake/link/to/share',
-    updatedAt: '2025-10-28',
+    updatedAt: '2020-06-01',
     dashboardUrl: '/fake/url/2',
   },
 ];
@@ -109,11 +109,15 @@ describe('DashboardsList', () => {
         });
       });
 
-      it('renders last edited dates', () => {
+      it('renders last edited dates as relative time', () => {
         mockDashboards.forEach((dashboard, index) => {
           const row = findTableRows().at(index);
-          expect(row.text()).toContain(dashboard.updatedAt);
+          const updatedAt = row.find('[data-testid="dashboard-updated-at"]');
+          expect(updatedAt.exists()).toBe(true);
         });
+
+        expect(findTableRows().at(0).text()).toContain('5 days ago');
+        expect(findTableRows().at(1).text()).toContain('1 month ago');
       });
 
       it('renders action dropdowns for each dashboard', () => {
@@ -184,6 +188,11 @@ describe('DashboardsList', () => {
           .map(({ label }) => label);
 
         expect(fields).toEqual(expectedFields);
+      });
+
+      it('does not render the last edited time for system dashboards', () => {
+        const updatedAt = findTableRows().at(0).find('[data-testid="dashboard-updated-at"]');
+        expect(updatedAt.exists()).toBe(false);
       });
     });
   });

@@ -6,7 +6,7 @@ import PageHeading from '~/vue_shared/components/page_heading.vue';
 import DashboardListTab from '../components/dashboard_list_tab.vue';
 import NewDashboardButton from '../components/new_dashboard_button.vue';
 
-const DEFAULT_ACTIVE_TAB_INDEX = 2; // Defaults to the 'All' tab
+const DEFAULT_ACTIVE_TAB_INDEX = 0; // Defaults to the 'All' tab
 const MIN_SEARCH_TEXT_LENGTH = 3;
 
 export default {
@@ -47,6 +47,11 @@ export default {
       </div>
 
       <dashboard-list-tab
+        :title="s__('AnalyticsDashboards|All')"
+        :sr-text="s__('AnalyticsDashboards|All available dashboards')"
+        :search="searchText"
+      />
+      <dashboard-list-tab
         :title="s__('AnalyticsDashboards|Created by me')"
         :sr-text="s__('AnalyticsDashboards|Dashboards created by me')"
         scope="USER"
@@ -56,11 +61,6 @@ export default {
         :title="s__('AnalyticsDashboards|Created by GitLab')"
         :sr-text="s__('AnalyticsDashboards|Dashboards created by GitLab')"
         scope="GITLAB"
-        :search="searchText"
-      />
-      <dashboard-list-tab
-        :title="s__('AnalyticsDashboards|All')"
-        :sr-text="s__('AnalyticsDashboards|All available dashboards')"
         :search="searchText"
       />
     </gl-tabs>

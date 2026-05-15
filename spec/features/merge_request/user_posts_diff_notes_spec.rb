@@ -224,14 +224,18 @@ RSpec.describe 'Merge request > User posts diff notes', :js, feature_category: :
     line_holder.find(:xpath, './following-sibling::*[@data-discussion-row][1]')
   end
 
-  # Hovering the line-number link is what a user does to reveal the new
-  # discussion toggle on this row. The link is `display: block` (fills the
-  # cell), so it's a wide, full-row-height hover target -- much more reliable
-  # than the `display: inline` <pre>. The toggle controller's `onEnter` then
-  # settles the toggle on this row.
+  # Hovers the row's line-number link until the new-discussion toggle actually
+  # lands inside the row, then clicks it. Retrying the hover guards against
+  # the toggle controller not having attached its listeners yet -- the first
+  # hover can be dropped silently if the rapid-diffs init has not finished.
+  # The retry is what a human would do when nothing happens on first move.
   def click_diff_line(line_holder, diff_side = nil)
     scroll_to_center(line_holder)
-    line_link(line_holder, diff_side).hover
+    link = line_link(line_holder, diff_side)
+    wait_for('new-discussion toggle to appear on the row') do
+      link.hover
+      has_testid?('new_discussion_toggle', context: line_holder, wait: 0.2)
+    end
     find_by_testid('new_discussion_toggle', context: line_holder).click
   end
 

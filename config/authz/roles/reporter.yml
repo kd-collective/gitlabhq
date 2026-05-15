@@ -147,6 +147,7 @@ group:
   - read_secret
   - read_timelog_category
   - reopen_issue
+  - rollover_issues
   - update_epic
   - update_issue
   - update_secret

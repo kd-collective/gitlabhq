@@ -65,6 +65,7 @@ group:
   - admin_group_credentials_inventory
   - admin_group_member
   - admin_group_model_selection
+  - admin_group_saml
   - admin_integrations
   - admin_licensed_seat
   - admin_member_access_request
@@ -74,6 +75,7 @@ group:
   - admin_package
   - admin_protected_environments
   - admin_runners
+  - admin_saml_group_links
   - admin_service_account_member
   - admin_service_accounts
   - admin_setting_to_allow_resource_access_token_creation

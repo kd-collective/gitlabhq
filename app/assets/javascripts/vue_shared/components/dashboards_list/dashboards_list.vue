@@ -9,6 +9,7 @@ import {
   GlTooltipDirective,
 } from '@gitlab/ui';
 import { __ } from '~/locale';
+import { getTimeago } from '~/lib/utils/datetime/timeago_utility';
 import DashboardsListNameCell from './dashboards_list_name_cell.vue';
 
 export default {
@@ -81,6 +82,11 @@ export default {
     avatarUrl: GITLAB_LOGO_SVG_URL,
     label: __('GitLab'),
   },
+  methods: {
+    formatUpdatedAt(updatedAt) {
+      return getTimeago().format(updatedAt);
+    },
+  },
 };
 </script>
 <template>
@@ -114,6 +120,11 @@ export default {
           fallback-on-error
         />
       </gl-avatar-link>
+    </template>
+    <template #cell(updatedAt)="{ item: { system, updatedAt } }">
+      <span v-if="!system" data-testid="dashboard-updated-at">{{
+        formatUpdatedAt(updatedAt)
+      }}</span>
     </template>
     <template #cell(actions)="{ field }">
       <gl-disclosure-dropdown

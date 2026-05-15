@@ -7,7 +7,6 @@ export default {
     'app/assets/javascripts/admin/abuse_report/components/report_actions.vue',
     'app/assets/javascripts/admin/application_settings/runner_token_expiration/components/chronic_duration_input.vue',
     'app/assets/javascripts/admin/topics/components/topic_select.vue',
-    'app/assets/javascripts/admin/users/components/user_type/user_type_selector.vue',
     'app/assets/javascripts/alerts_settings/components/alert_mapping_builder.vue',
     'app/assets/javascripts/alerts_settings/components/alerts_integrations_list.vue',
     'app/assets/javascripts/alerts_settings/components/alerts_settings_form.vue',

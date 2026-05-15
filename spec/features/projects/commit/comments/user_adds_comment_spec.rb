@@ -181,30 +181,39 @@ RSpec.describe "User adds a comment on a commit", :js, feature_category: :source
     private
 
     def click_diff_line(old_pos, new_pos)
-      find(
-        [
-          ".line_holder[id$='#{old_pos}_#{new_pos}'] td:nth-of-type(1)",
-          "[data-testid='hunk-lines-inline'][id$='_#{old_pos}']"
-        ].join(',')
-      ).hover
-      find(".line_holder[id$='#{old_pos}_#{new_pos}'] button, [data-testid='new_discussion_toggle']").click
+      if rapid_diffs_enabled # rubocop:disable RSpec/AvoidConditionalStatements -- Rapid Diffs page has a vastly different markup from a legacy one
+        click_rapid_diffs_line("[data-testid='hunk-lines-inline'][id$='_#{old_pos}']")
+      else
+        find(".line_holder[id$='#{old_pos}_#{new_pos}'] td:nth-of-type(1)").hover
+        find(".line_holder[id$='#{old_pos}_#{new_pos}'] button").click
+      end
     end
 
     def click_parallel_diff_line(old_pos, new_pos)
-      cell = if rapid_diffs_enabled # rubocop:disable RSpec/AvoidConditionalStatements -- Rapid Diffs page has a vastly different markup from a legacy one
-               find("[data-testid='hunk-lines-parallel'][id$='_#{old_pos}'] td:first-child")
-             else
-               find(".line_holder.parallel td[id$='#{old_pos}_#{new_pos}']")
-                 .find(:xpath, 'preceding-sibling::*[1][self::td]')
-             end
+      if rapid_diffs_enabled # rubocop:disable RSpec/AvoidConditionalStatements -- Rapid Diffs page has a vastly different markup from a legacy one
+        click_rapid_diffs_line("[data-testid='hunk-lines-parallel'][id$='_#{old_pos}']")
+      else
+        find(".line_holder.parallel td[id$='#{old_pos}_#{new_pos}']")
+          .find(:xpath, 'preceding-sibling::*[1][self::td]').hover
+        find(".line_holder.parallel button[data-line-code$='#{old_pos}_#{new_pos}']").click
+      end
+    end
 
-      cell.hover
-      find(
-        [
-          ".line_holder.parallel button[data-line-code$='#{old_pos}_#{new_pos}']",
-          "[data-testid='new_discussion_toggle']"
-        ].join(',')
-      ).click
+    # Activates the new-discussion toggle on a Rapid Diffs row. Hovers the
+    # row's line-number link until the toggle actually lands inside the row,
+    # then clicks it. Retrying the hover guards against the toggle controller
+    # not having attached its listeners yet -- the first hover can be dropped
+    # silently if the rapid-diffs init has not finished. The retry is what a
+    # human would do when nothing happens on first move.
+    def click_rapid_diffs_line(row_selector)
+      row = find(row_selector)
+      page.execute_script("arguments[0].scrollIntoView({ block: 'center' })", row.native)
+      link = row.find('[data-line-number]', match: :first)
+      wait_for('new-discussion toggle to appear on the row') do
+        link.hover
+        has_testid?('new_discussion_toggle', context: row, wait: 0.2)
+      end
+      find_by_testid('new_discussion_toggle', context: row).click
     end
   end
 end

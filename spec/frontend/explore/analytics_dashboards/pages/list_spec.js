@@ -55,19 +55,19 @@ describe('ExploreAnalyticsDashboardsList', () => {
       createComponent();
     });
 
-    it('renders the "Created by me" tab with USER scope', () => {
+    it('renders the "All" tab first without scope filter', () => {
       const tabs = findDashboardListTabs();
-      expect(tabs.at(0).props('scope')).toBe('USER');
+      expect(tabs.at(0).props('scope')).toBeNull();
     });
 
-    it('renders the "Created by GitLab" tab with GITLAB scope', () => {
+    it('renders the "Created by me" tab second with USER scope', () => {
       const tabs = findDashboardListTabs();
-      expect(tabs.at(1).props('scope')).toBe('GITLAB');
+      expect(tabs.at(1).props('scope')).toBe('USER');
     });
 
-    it('renders the "All" tab without scope filter', () => {
+    it('renders the "Created by GitLab" tab third with GITLAB scope', () => {
       const tabs = findDashboardListTabs();
-      expect(tabs.at(2).props('scope')).toBeNull();
+      expect(tabs.at(2).props('scope')).toBe('GITLAB');
     });
   });
 
@@ -119,13 +119,13 @@ describe('ExploreAnalyticsDashboardsList', () => {
     });
 
     it('defaults to the "All" tab', () => {
-      expect(findTabs().props('value')).toBe(2);
+      expect(findTabs().props('value')).toBe(0);
     });
 
     it('updates the active tab when changed', async () => {
-      await findTabs().vm.$emit('input', 0);
+      await findTabs().vm.$emit('input', 1);
 
-      expect(findTabs().props('value')).toBe(0);
+      expect(findTabs().props('value')).toBe(1);
     });
   });
 });

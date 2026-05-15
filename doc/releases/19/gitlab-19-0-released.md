@@ -338,6 +338,26 @@ Top-level group Owners can now restrict the AI Catalog to show only agents and f
 
 Free tier users on GitLab Self-Managed can now unlock the full power of GitLab Duo Agent Platform, no Premium or Ultimate subscription required. Choose your monthly credit amount, commit to an annual term, and get instant access to AI-powered development tools. Credits refresh automatically each month, so your team always has what it needs to build faster and smarter.
 
+### Admin-defined network access controls for Agent Platform remote flows
+
+<!-- categories: Duo Agent Platform -->
+
+{{< details >}}
+
+- Tier: Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated
+- Links: [Documentation](../../user/duo_agent_platform/environment_sandbox.md#configure-a-network-policy), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/593149)
+
+{{< /details >}}
+
+Administrators can now define centralized network policies for GitLab Duo Agent Platform remote flows
+directly in Settings. Top-level group administrators on GitLab.com, and instance administrators on
+GitLab Self-Managed and Dedicated, can configure organization-wide domain denylists and allowlists
+that projects inherit automatically. An additional setting controls whether projects can
+extend the approved domain list with custom entries. Policies are enforced at runtime
+across all remote flows, giving security and platform teams a consistent governance layer
+for agent network egress.
+
 ## Scale and Deployments
 
 ### PostgreSQL 17 minimum requirement
@@ -705,3 +725,33 @@ Rapid Diffs is in beta. Some features from the classic diff experience aren't ye
 
 [Watch the overview video](https://www.youtube.com/watch?v=S-IzJnhoH6U) and share your
 experience in the [feedback issue](https://gitlab.com/gitlab-org/gitlab/-/issues/596236).
+
+### GitLab Runner 19.0
+
+<!-- categories: GitLab Runner Core -->
+
+{{< details >}}
+
+- Tier: Free, Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed, GitLab Dedicated, GitLab Dedicated for Government
+- Links: [Documentation](https://docs.gitlab.com/runner)
+
+{{< /details >}}
+
+We’re also releasing GitLab Runner 19.0 today! GitLab Runner is the highly-scalable build agent that runs your CI/CD jobs and sends the results back to a GitLab instance. GitLab Runner works in conjunction with GitLab CI/CD, the open-source continuous integration service included with GitLab.
+
+#### What's New
+
+- [Runner instrumentation: Feature negotiation, OTLP export client, and first `job_execution` span](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39231)
+- [Add configurable prepare stage timeout to runner configuration](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/26583)
+
+#### Bug Fixes
+
+- [Comprehensive fixes for `FF_SCRIPTS_TO_STEPS` feature flag implementation](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39403)
+- [`SignatureDoesNotMatch` error when downloading S3 cache](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39402)
+- [Runtime error when GitLab Runner runs in AWS with S3 cache](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39386)
+- [Broken RPM S3 download links for `amd64`, `arm64`, `arm`, and `armhf` in GitLab Runner 18.9.0 and later](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39362)
+- [Negative exit codes are reported incorrectly on Windows](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39292)
+- [Incorrect Kubernetes executor service container naming documentation](https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39235)
+        
+The list of all changes is in the GitLab Runner [CHANGELOG](https://gitlab.com/gitlab-org/gitlab-runner/blob/19-0-stable/CHANGELOG.md).

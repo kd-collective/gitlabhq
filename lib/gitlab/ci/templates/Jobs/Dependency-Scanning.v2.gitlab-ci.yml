@@ -184,6 +184,9 @@ variables:
       cyclonedx: "**/gl-sbom-*.cdx.json"
       dependency_scanning: 'gl-dependency-scanning-report.json'
   rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED == 'true' || $DEPENDENCY_SCANNING_DISABLED == '1'
+      when: never
+
     # The following 3 blocks of rules define whether the job runs in an *MR pipeline* or a *branch pipeline*
     # when an MR exists. If the job has additional rules to observe they should be added in the blocks 1 and 3
     # to cover both the *MR pipeline* and the *branch pipeline* workflows.
@@ -274,6 +277,9 @@ variables:
       - '**/maven.graph.json'
     when: always
   rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED == 'true' || $DEPENDENCY_SCANNING_DISABLED == '1'
+      when: never
+
     - if: '"$[[ inputs.disabled_resolution_jobs ]]" =~ /\bmaven\b/ || $DS_DISABLED_RESOLUTION_JOBS =~ /\bmaven\b/'
       when: never
 
@@ -354,6 +360,9 @@ variables:
       - '**/pipcompile.lock.txt'
     when: always
   rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED == 'true' || $DEPENDENCY_SCANNING_DISABLED == '1'
+      when: never
+
     - if: '"$[[ inputs.disabled_resolution_jobs ]]" =~ /\bpython\b/ || $DS_DISABLED_RESOLUTION_JOBS =~ /\bpython\b/'
       when: never
 
@@ -438,6 +447,9 @@ variables:
       - '**/gradle.graph.txt'
     when: always
   rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED == 'true' || $DEPENDENCY_SCANNING_DISABLED == '1'
+      when: never
+
     - if: '"$[[ inputs.disabled_resolution_jobs ]]" =~ /\bgradle\b/ || $DS_DISABLED_RESOLUTION_JOBS =~ /\bgradle\b/'
       when: never
 

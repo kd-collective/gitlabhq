@@ -106,6 +106,68 @@ RSpec.describe RapidDiffs::DiffCompareVersionsEntity, feature_category: :code_re
         expect(serialized[:commit]).to have_key(:authored_date)
         expect(serialized[:commit]).to have_key(:diff_refs)
       end
+
+      context 'with commit neighbors' do
+        let(:commit_shas) do
+          project.repository.commits('master', limit: 3).map(&:id)
+        end
+
+        before do
+          allow(entity).to receive(:commit_ids).and_return(commit_shas)
+
+          commit_shas.each do |sha|
+            allow(merge_request).to receive(:commit_exists?).with(sha).and_return(true)
+          end
+        end
+
+        context 'when commit is in the middle' do
+          let(:commit) { project.commit(commit_shas[1]) }
+
+          it 'includes both prev_commit_id and next_commit_id' do
+            expect(serialized[:commit]).to include(
+              next_commit_id: commit_shas[0],
+              prev_commit_id: commit_shas[2]
+            )
+          end
+        end
+
+        context 'when commit is the newest (first in list)' do
+          let(:commit) { project.commit(commit_shas[0]) }
+
+          it 'has no next_commit_id' do
+            expect(serialized[:commit]).to include(
+              next_commit_id: nil,
+              prev_commit_id: commit_shas[1]
+            )
+          end
+        end
+
+        context 'when commit is the oldest (last in list)' do
+          let(:commit) { project.commit(commit_shas[2]) }
+
+          it 'has no prev_commit_id' do
+            expect(serialized[:commit]).to include(
+              next_commit_id: commit_shas[1],
+              prev_commit_id: nil
+            )
+          end
+        end
+
+        context 'when commit is not in the diff commits' do
+          let(:commit) { project.commit(commit_shas[1]) }
+
+          before do
+            allow(entity).to receive(:commit_ids).and_return([])
+          end
+
+          it 'has nil for both neighbor IDs' do
+            expect(serialized[:commit]).to include(
+              next_commit_id: nil,
+              prev_commit_id: nil
+            )
+          end
+        end
+      end
     end
 
     context 'when commit_id does not belong to the MR' do

@@ -3239,6 +3239,9 @@ msgstr ""
 msgid "AICatalog|There was a problem fetching flows."
 msgstr ""
 
+msgid "AICatalog|This %{itemType} is already enabled."
+msgstr ""
+
 msgid "AICatalog|This %{itemType} is private and can only be enabled in the project it was created in or its top-level group. Duplicate the agent to use the same configuration in other projects."
 msgstr ""
 
@@ -7817,6 +7820,9 @@ msgstr ""
 msgid "AiPowered|Allow GitLab to process your code and project data for AI-native features in this group. Your data is sent to GitLab Duo. Groups, subgroups, and projects can opt out individually."
 msgstr ""
 
+msgid "AiPowered|Allow all Unix sockets"
+msgstr ""
+
 msgid "AiPowered|Allow custom agents"
 msgstr ""
 
@@ -7830,6 +7836,9 @@ msgid "AiPowered|Allow custom flows in projects. Users with the Maintainer or Ow
 msgstr ""
 
 msgid "AiPowered|Allow developers in this instance to use GitLab Duo CLI. Duo CLI is billed as consumption against this instance."
+msgstr ""
+
+msgid "AiPowered|Allow projects to extend network sandbox settings"
 msgstr ""
 
 msgid "AiPowered|Allow users to approve tools for a session in the IDE and CLI."
@@ -7935,6 +7944,9 @@ msgid "AiPowered|Control whether GitLab can process your code and project data f
 msgstr ""
 
 msgid "AiPowered|Control whether users can approve tools for a session in the IDE and CLI."
+msgstr ""
+
+msgid "AiPowered|Control which external network resources Duo Agent Platform can access."
 msgstr ""
 
 msgid "AiPowered|Control who can access AI-native features executed with or without CI/CD pipelines."
@@ -8069,6 +8081,9 @@ msgstr ""
 msgid "AiPowered|Hosting"
 msgstr ""
 
+msgid "AiPowered|Include recommended domains in the allowlist"
+msgstr ""
+
 msgid "AiPowered|Increase credits"
 msgstr ""
 
@@ -8115,6 +8130,9 @@ msgid "AiPowered|Monthly commitments offer significant discounts off list price.
 msgstr ""
 
 msgid "AiPowered|Network access"
+msgstr ""
+
+msgid "AiPowered|Network access controls"
 msgstr ""
 
 msgid "AiPowered|Never allow GitLab to process your code and project data for AI-native features in this group. Your data is not sent to GitLab Duo."
@@ -8310,6 +8328,15 @@ msgid "AiPowered|When GitLab Duo is not available, experiment and beta features 
 msgstr ""
 
 msgid "AiPowered|When GitLab Duo is not available, prompt caching cannot be turned on."
+msgstr ""
+
+msgid "AiPowered|When enabled, a curated list of commonly needed domains is automatically included in the allowlist."
+msgstr ""
+
+msgid "AiPowered|When enabled, all Unix socket connections are permitted for agent platform operations."
+msgstr ""
+
+msgid "AiPowered|When enabled, project maintainers can add additional domains to the allowlist, allow all unix sockets, and include recommended domain settings."
 msgstr ""
 
 msgid "AiPowered|When turned on, users can access features included in the GitLab Duo Core add-on. %{linkStart}Which features are included%{linkEnd}?"
@@ -26875,6 +26902,9 @@ msgstr ""
 msgid "DuoAgentPlatform|Allow foundational flows"
 msgstr ""
 
+msgid "DuoAgentPlatform|Awaiting your input"
+msgstr ""
+
 msgid "DuoAgentPlatform|Created session"
 msgstr ""
 
@@ -26887,11 +26917,22 @@ msgstr ""
 msgid "DuoAgentPlatform|Error occurred when starting the flow."
 msgstr ""
 
+msgid "DuoAgentPlatform|Failed to load agent sessions for this merge request."
+msgstr ""
+
+msgid "DuoAgentPlatform|Failed to load agent sessions for this work item."
+msgstr ""
+
 msgid "DuoAgentPlatform|Flow"
 msgstr ""
 
 msgid "DuoAgentPlatform|Foundational GitLab Duo Flows"
 msgstr ""
+
+msgid "DuoAgentPlatform|Hide %d inactive session"
+msgid_plural "DuoAgentPlatform|Hide %d inactive sessions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "DuoAgentPlatform|Image registry"
 msgstr ""
@@ -26914,6 +26955,9 @@ msgstr ""
 msgid "DuoAgentPlatform|Review the %{linkStart}most recent job%{linkEnd} for details on what went wrong."
 msgstr ""
 
+msgid "DuoAgentPlatform|Session"
+msgstr ""
+
 msgid "DuoAgentPlatform|Session ID"
 msgstr ""
 
@@ -26928,6 +26972,14 @@ msgstr ""
 
 msgid "DuoAgentPlatform|Session triggered"
 msgstr ""
+
+msgid "DuoAgentPlatform|Sessions"
+msgstr ""
+
+msgid "DuoAgentPlatform|Show %d inactive session"
+msgid_plural "DuoAgentPlatform|Show %d inactive sessions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "DuoAgentPlatform|Show tool details"
 msgstr ""
@@ -26951,6 +27003,9 @@ msgid "DuoAgentPlatform|This session started but failed before completing."
 msgstr ""
 
 msgid "DuoAgentPlatform|User messaged agent"
+msgstr ""
+
+msgid "DuoAgentPlatform|View details"
 msgstr ""
 
 msgid "DuoAgenticChat|%{count} character over limit."
@@ -32255,6 +32310,12 @@ msgid "FoundationalFlow|Fix CI/CD Pipeline"
 msgstr ""
 
 msgid "FoundationalFlow|Migrate your Jenkins pipelines to GitLab CI/CD."
+msgstr ""
+
+msgid "FoundationalFlow|Recommend Reviewers"
+msgstr ""
+
+msgid "FoundationalFlow|Recommend reviewers for merge requests based on availability, workload, and timezone."
 msgstr ""
 
 msgid "FoundationalFlow|Resolve SAST Vulnerability"
@@ -48862,6 +48923,9 @@ msgstr ""
 msgid "Observability|Add OpenTelemetry with Duo"
 msgstr ""
 
+msgid "Observability|Add this to your application to start sending traces to GitLab. The CI/CD variables are automatically available in your pipeline."
+msgstr ""
+
 msgid "Observability|Advanced analytics"
 msgstr ""
 
@@ -48932,6 +48996,12 @@ msgid "Observability|Configuring authentication"
 msgstr ""
 
 msgid "Observability|Connect your application"
+msgstr ""
+
+msgid "Observability|Copied!"
+msgstr ""
+
+msgid "Observability|Copy"
 msgstr ""
 
 msgid "Observability|Copy HTTP endpoint"
@@ -49052,6 +49122,9 @@ msgid "Observability|Explore your data"
 msgstr ""
 
 msgid "Observability|External APIs"
+msgstr ""
+
+msgid "Observability|Failed to copy snippet"
 msgstr ""
 
 msgid "Observability|Failed to create O11y service settings"
@@ -49316,6 +49389,9 @@ msgid "Observability|Provisioning databases"
 msgstr ""
 
 msgid "Observability|Provisioning time"
+msgstr ""
+
+msgid "Observability|Quick start"
 msgstr ""
 
 msgid "Observability|Ready to collect telemetry"
@@ -63969,10 +64045,22 @@ msgstr ""
 msgid "Secrets manager"
 msgstr ""
 
+msgid "SecretsManagerPermissions|Allow the secrets manager to be enabled in any project or subgroup in this group."
+msgstr ""
+
+msgid "SecretsManagerPermissions|An error occurred while disabling the secrets manager for this namespace."
+msgstr ""
+
 msgid "SecretsManagerPermissions|An error occurred while disabling the secrets manager."
 msgstr ""
 
+msgid "SecretsManagerPermissions|An error occurred while enabling the secrets manager for this namespace."
+msgstr ""
+
 msgid "SecretsManagerPermissions|An error occurred while enabling the secrets manager."
+msgstr ""
+
+msgid "SecretsManagerPermissions|An error occurred while fetching the secrets manager enrollment status. Please refresh the page."
 msgstr ""
 
 msgid "SecretsManagerPermissions|An error occurred while fetching the secrets manager status."
@@ -63993,10 +64081,7 @@ msgstr ""
 msgid "SecretsManagerPermissions|Can read secret metadata but not the secret value."
 msgstr ""
 
-msgid "SecretsManagerPermissions|Enable the secrets manager to securely store and manage sensitive information for this group."
-msgstr ""
-
-msgid "SecretsManagerPermissions|Enable the secrets manager to securely store and manage sensitive information for this project."
+msgid "SecretsManagerPermissions|Enable secrets manager for this group"
 msgstr ""
 
 msgid "SecretsManagerPermissions|Failed to create secrets manager permission. Please try again."
@@ -64006,6 +64091,12 @@ msgid "SecretsManagerPermissions|Failed to delete secrets manager permissions. P
 msgstr ""
 
 msgid "SecretsManagerPermissions|Failed to fetch secrets manager permissions. Please try again later."
+msgstr ""
+
+msgid "SecretsManagerPermissions|GitLab Secrets Manager is disabled for this namespace."
+msgstr ""
+
+msgid "SecretsManagerPermissions|GitLab Secrets Manager is enabled for this namespace."
 msgstr ""
 
 msgid "SecretsManagerPermissions|Group names must start and end with letters or numbers, and can only contain letters, numbers, periods, hyphens and underscores. Separate subgroups with slashes."
@@ -64039,6 +64130,12 @@ msgid "SecretsManagerPermissions|Secrets manager user permissions"
 msgstr ""
 
 msgid "SecretsManagerPermissions|Select the access scopes to grant to this user for the secrets manager and related API endpoints."
+msgstr ""
+
+msgid "SecretsManagerPermissions|Store secrets in the secrets manager, which can then be fetched by any project in this group and its subgroups."
+msgstr ""
+
+msgid "SecretsManagerPermissions|Store secrets in the secrets manager, which can then be fetched by this project."
 msgstr ""
 
 msgid "SecretsManagerPermissions|The full path to the group to add. For example, %{example}."

@@ -175,7 +175,6 @@ export default {
     'ee/app/assets/javascripts/product_analytics/onboarding/constants.js',
     'ee/app/assets/javascripts/project_quality_summary/app.vue',
     'ee/app/assets/javascripts/roadmap/mixins/filtered_search_mixin.js',
-    'ee/app/assets/javascripts/saml_providers/scim_token_service.js',
     'ee/app/assets/javascripts/security_dashboard/components/agent/agent_vulnerability_report.vue',
     'ee/app/assets/javascripts/security_dashboard/components/agent/constants.js',
     'ee/app/assets/javascripts/security_dashboard/components/shared/charts/risk_score_by_project.vue',

@@ -38,7 +38,7 @@ You can use self-hosted models with different deployment options.
 
 Use GitLab Duo Agent Platform Self-Hosted for on-premise models or private cloud-hosted models in the GitLab Duo Agent Platform.
 
-For customers with an offline license, billing is seat based and you must have the [GitLab Duo Agent Platform Self-Hosted](../../subscriptions/subscription-add-ons.md#gitlab-duo-agent-platform-self-hosted) add-on.
+For customers with an offline license, billing uses an Enterprise License Agreement for GitLab Duo, and you must have the [GitLab Duo Agent Platform Self-Hosted](../../subscriptions/subscription-add-ons.md#gitlab-duo-agent-platform-self-hosted) add-on.
 
 For customers with an online license, billing is [usage based](../../subscriptions/gitlab_credits.md). You can also use GitLab-managed models in a hybrid deployment.
 
