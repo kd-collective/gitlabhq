@@ -66,7 +66,7 @@ Prerequisites:
 
 - Administrator access.
 - GitLab 18.8 or later.
-- For installing OpenBao on the same host as a Linux package instance, GitLab 19.0 or later.
+- For installing OpenBao alongside a Linux package instance, GitLab 19.0 or later.
 - A Kubernetes cluster.
 - For Cloud Native GitLab deployments, an external (non-Omnibus) PostgreSQL instance.
   The external PostgreSQL instance is required by the GitLab Helm chart for Cloud Native deployments,
@@ -76,8 +76,9 @@ Choose the installation method based on your GitLab deployment:
 
 - **Cloud Native GitLab**: Use this if you deploy GitLab to Kubernetes.
   For more information, see [OpenBao Helm chart documentation](https://docs.gitlab.com/charts/charts/openbao/).
-- **Linux package**: Use this if you deploy GitLab with the Linux package on a single node. For more information, see
-  [install OpenBao on a Linux package instance host](linux_package_integration.md).
+- **Linux package**: Use this if you deploy GitLab with the Linux package, on a single node or
+  across multiple nodes. For more information, see
+  [install OpenBao for a Linux package instance](linux_package_integration.md).
 
 After installation, verify that OpenBao is working by following the
 [GitLab Secrets Manager user documentation](../../ci/secrets/secrets_manager/_index.md).

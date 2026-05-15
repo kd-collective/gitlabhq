@@ -8,6 +8,7 @@ module WorkItems
           class << self
             def widgets
               %w[
+                agent_plan
                 ai_session
                 assignees
                 award_emoji

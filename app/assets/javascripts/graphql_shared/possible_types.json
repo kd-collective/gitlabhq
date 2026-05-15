@@ -412,6 +412,7 @@
     "WorkItemTextFieldValue"
   ],
   "WorkItemWidget": [
+    "WorkItemWidgetAgentPlan",
     "WorkItemWidgetAiSession",
     "WorkItemWidgetAssignees",
     "WorkItemWidgetAwardEmoji",

@@ -2,7 +2,7 @@
 stage: Sec
 group: Pipeline Security
 info: To determine the technical writer assigned to the Stage/Group associated with this page, see <https://handbook.gitlab.com/handbook/product/ux/technical-writing/#assignments>
-title: Install OpenBao on a Linux package instance host
+title: Install OpenBao for a Linux package deployment of GitLab
 ---
 
 {{< details >}}
@@ -24,24 +24,56 @@ title: Install OpenBao on a Linux package instance host
 > and subject to change without notice.
 > This feature is not ready for public testing or production use.
 
-Install OpenBao on the same host as your Linux package installation of GitLab by
-using a local Kubernetes distribution. In this setup:
+Use a Kubernetes cluster to run OpenBao alongside a GitLab instance installed
+with the Linux package. OpenBao runs in the cluster and connects to a PostgreSQL
+database. GitLab Rails and Sidekiq connect to OpenBao over HTTPS.
 
-- OpenBao runs in a local Kubernetes distribution on the same host.
-- GitLab built-in NGINX acts as the TLS-terminating reverse proxy for the OpenBao external URL.
-- The GitLab application connects to OpenBao internal URL using the endpoint that Kubernetes exposes.
+Run OpenBao in one of two ways:
+
+- **Colocated cluster**: A local Kubernetes distribution (for example, k3s) runs on the same host
+  as your Linux package instance. Linux package-bundled NGINX acts as the TLS-terminating reverse proxy
+  for the OpenBao external URL. The GitLab application connects to OpenBao through the endpoint
+  that Kubernetes exposes on the shared network.
+- **External Kubernetes cluster**: OpenBao runs in a separate Kubernetes cluster. You design the
+  cluster Ingress and TLS termination. GitLab Rails and Sidekiq connect to the OpenBao URL you
+  expose. Consider this approach if you have a multi-node Linux package deployment or if you prefer
+  to use a managed Kubernetes service from your cloud provider.
+
+> [!note]
+> The Linux package-managed [PostgreSQL cluster](../postgresql/replication_and_failover.md) is not supported as the OpenBao database backend.
+> If you use such cluster for GitLab, provision a separate PostgreSQL instance for OpenBao,
+> either self-managed or as a managed cloud database service.
+> For more information, see [issue 7292](https://gitlab.com/gitlab-org/omnibus-gitlab/-/work_items/7292).
 
 ## Prerequisites
 
-Prerequisites:
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
 
 - GitLab 19.0 or later installed with the Linux package, with administrator access.
-- A local Kubernetes distribution installed on the same host. See
-  [requirements](#requirements).
+- A local Kubernetes distribution installed on the same host.
 - `helm` and `kubectl` available on the host.
 - A DNS record that points the OpenBao domain to the host's public IP address.
 
+{{< /tab >}}
+
+{{< tab title="External cluster" >}}
+
+- A GitLab instance installed with the Linux package, with administrator access.
+- An external Kubernetes cluster accessible from your Linux package instance nodes.
+- `helm` and `kubectl` configured to access the cluster.
+- A DNS record that points the OpenBao domain to the cluster Ingress IP address.
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
 ## Requirements
+
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
 
 Before you install OpenBao, verify your Kubernetes distribution meets these requirements:
 
@@ -55,18 +87,64 @@ Before you install OpenBao, verify your Kubernetes distribution meets these requ
   from it. Your Linux package instance does not care whether the service is exposed through a Kubernetes
   `LoadBalancer` or `NodePort`, as long as both are reachable within the shared network.
 
+{{< /tab >}}
+
+{{< tab title="External cluster" >}}
+
+Before you install OpenBao, verify your setup meets these requirements:
+
+- [OpenBao sizing recommendations](_index.md#sizing-recommendations) must be satisfied by your
+  Kubernetes cluster.
+- Network connectivity must exist between OpenBao pods in the cluster and your Linux package
+  instance nodes. How you establish this connectivity depends on your infrastructure. For example,
+  you might use VPC peering, shared VPC, or firewall rules. GitLab Rails and Sidekiq must be able
+  to reach the OpenBao URL you expose from the cluster.
+- If you use Linux package-managed PostgreSQL as the OpenBao database, the PostgreSQL node must accept
+  TCP connections from the cluster pod CIDR. Configure firewall or security group rules to allow
+  this traffic on the database port.
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
 ## Before you begin
+
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
 
 Before you begin:
 
 1. Collect the CIDR of your Kubernetes CNI (pod network). You need it later to configure PostgreSQL
    authentication.
-1. Collect the IP address of the network interface shared between your Linux package instance and Kubernetes
-   (`<SHARED_NETWORK_IP>`). You need later for several configuration values.
+1. Collect the IP address of the network interface shared between your Linux package instance and
+   Kubernetes (`<SHARED_NETWORK_IP>`). You need it later for several configuration values.
 1. Confirm that your Kubernetes distribution is fully running before you attempt to install OpenBao.
 1. Confirm that your `kubectl` context is set to this cluster (`KUBECONFIG` is configured correctly).
 
+{{< /tab >}}
+
+{{< tab title="External cluster" >}}
+
+Before you begin:
+
+1. Collect the CIDR of your Kubernetes pod network. You need it later to configure PostgreSQL
+   authentication.
+1. Collect the address of the PostgreSQL instance that OpenBao uses (`<POSTGRES_ADDRESS>`).
+   This is either the IP address of your Linux package PostgreSQL node, or the endpoint of your
+   external or managed PostgreSQL instance.
+1. Confirm that your Kubernetes cluster is fully running before you attempt to install OpenBao.
+1. Confirm that your `kubectl` context is set to this cluster (`KUBECONFIG` is configured correctly).
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
 ## Provision the OpenBao PostgreSQL database
+
+> [!note]
+> `gitlab-psql` is only available when using the Linux package-managed PostgreSQL.
+> If you use an external or managed PostgreSQL instance instead, run equivalent SQL commands on that instance. The user and database creation logic is the same.
 
 `gitlab-psql` connects over the Unix socket and does not require TCP listeners,
 so you can run these commands before `gitlab-ctl reconfigure`.
@@ -102,6 +180,10 @@ To provision the OpenBao PostgreSQL database:
    ```
 
 ## Install OpenBao by using Helm
+
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
 
 To install OpenBao by using Helm:
 
@@ -153,37 +235,100 @@ To install OpenBao by using Helm:
    after `gitlab-ctl reconfigure`. For now, pods are in a `CrashLoopBackOff`
    state.
 
+   For all available chart options, see the
+   [OpenBao Helm chart documentation](https://docs.gitlab.com/charts/charts/openbao/).
+
+1. Define the internal URL to use for the OpenBao service. You have multiple options:
+
+   - Load balancer. If using an internal load balancer on your colocated Kubernetes cluster, you can
+     set the `oak['components']['openbao']['internal_url']` setting of your `gitlab.rb` file to the
+     internal URL of your load balancer to route the requests to the OpenBao Kubernetes service. In this
+     case, you must configure DNS to make sure the internal URL gets resolved to the internal load balancer IP.
+   - Cluster `nodePort`. If you customize your OpenBao chart service to run on a Kubernetes service type
+     `nodePort`, the internal URL can also be configured to that.
+   - Service `clusterIP`. This option is likely the simplest. You can also skip a load balancer completely for your
+     colocated cluster by informing the OpenBao internal URL to talk directly to the OpenBao service `clusterIP`.
+     This option saves you from having to install one more load balancer in your machine because the Linux
+     package-managed NGINX is already there.
+
+   You can find the OpenBao service's `clusterIP` by running:
+
+   ```shell
+   kubectl -n openbao get svc openbao-active \
+     -o jsonpath='{.spec.clusterIP}'
+   ```
+
+   Remember that the IP of the internal URL must be accessible by the host machine outside of your Kubernetes cluster.
+   Configure your cluster to allocate IPs from your chosen `<SHARED_NETWORK_IP>`.
+
+{{< /tab >}}
+
+{{< tab title="External cluster" >}}
+
+To install OpenBao by using Helm:
+
+1. Add the GitLab Helm repository:
+
+   ```shell
+   helm repo add gitlab https://charts.gitlab.io
+   helm repo update
+   ```
+
+1. Create an `openbao-values.yaml` file with the following content, replacing the
+   placeholder values with your actual domains and PostgreSQL address:
+
+   ```yaml
+   config:
+     ui: false
+     storage:
+       postgresql:
+         haEnabled: true
+         connection:
+           host: "<POSTGRES_ADDRESS>"
+           port: 5432
+           database: openbao
+           username: openbao
+           password:
+             secret: openbao-db-secret
+             key: password
+     initialize:
+       enabled: true
+       oidcDiscoveryUrl: "https://<GITLAB_DOMAIN>"
+       boundIssuer: "https://<GITLAB_DOMAIN>"
+       boundAudiences: '"https://<OPENBAO_DOMAIN>"'
+
+   # The chart deploys a Kubernetes Ingress resource by default, which you need to provide the hostname to be reachable for GitLab Rails and Sidekiq
+   # Alternatively, you could configure it to deploy an HTTPRoute resource, if you prefer to deploy a Gateway API controller.
+   # 
+   # For available network ingress and TLS configuration options, see:
+   # https://docs.gitlab.com/charts/charts/openbao/#ingress-and-tls-configuration-options
+   ingress:
+     enabled: true
+     hostname: "<OPENBAO_DOMAIN>"
+   ```
+
+1. Install OpenBao:
+
+   ```shell
+   helm upgrade --install openbao gitlab/openbao \
+     --namespace openbao \
+     --values openbao-values.yaml
+   ```
+
 For all available chart options, see the
 [OpenBao Helm chart documentation](https://docs.gitlab.com/charts/charts/openbao/).
 
-## Define the OpenBao internal URL
+{{< /tab >}}
 
-You have multiple options for defining the OpenBao internal URL:
-
-- Load balancer. If using an internal load balancer on your collocated Kubernetes cluster, you can
-  set the `oak['components']['openbao']['internal_url']` setting of your `gitlab.rb` file to the
-  internal URL of your load balancer to route the requests to the OpenBao Kubernetes service. In this
-  case, you must configure DNS to make sure the internal URL gets resolved to the internal load balancer IP.
-- Cluster `nodePort`. If you customize your OpenBao chart service to run on a Kubernetes service type
-  `nodePort`, the internal URL can also be configured to that.
-- Service `clusterIP`. This option is likely the simplest. You can also skip a load balancer completely for your
-  collocated cluster by informing the OpenBao internal URL to talk directly to the OpenBao service `clusterIP`.
-  This option saves you from having to install one more load balancer in your machine because the Linux
-  package-managed NGINX is already there.
-
-You can find the OpenBao service's `clusterIp` by running:
-
-```shell
-kubectl -n openbao get svc openbao-active \
-  -o jsonpath='{.spec.clusterIP}'
-```
-
-Remember that the IP of the internal URL must be accessible by the host machine outside of your Kubernetes cluster.
-Configure your cluster to allocate IPs from your chosen `<SHARED_NETWORK_IP>`.
+{{< /tabs >}}
 
 ## Configure GitLab
 
-Add the following to `/etc/gitlab/gitlab.rb`, replacing the placeholder values
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
+
+Add the following to `/etc/gitlab/gitlab.rb` on your GitLab host, replacing the placeholder values
 with your actual IP addresses and domain:
 
 ```ruby
@@ -205,18 +350,23 @@ oak['network_address'] = '<SHARED_NETWORK_IP>'
 
 oak['components']['openbao']['enable'] = true
 
-# Replace 'https://openbao.example.com' by the URL with the DNS record
-# you configured for OpenBao which resolves to your host's public IP address
+# Replace 'https://openbao.example.com' with the URL of the DNS record
+# you configured for OpenBao, which resolves to your host's public IP address.
 oak['components']['openbao']['external_url'] = 'https://openbao.example.com'
 
 # Example of service clusterIP. Replace <CLUSTER_IP> with the IP taken
 # from the previous step.
 #
-# A nodePort would look similar. You could just specify the Cluster node
-# IP with the port of your choosing when you deployed OpenBao.
+# A nodePort would look similar: specify the cluster node IP with the port
+# you chose when you deployed OpenBao.
 #
-# If behind a load balancer, it would look more like: 'http://openbao-internal.example.com'
+# If behind a load balancer: 'http://openbao-internal.example.com'
 oak['components']['openbao']['internal_url'] = 'http://<CLUSTER_IP>:8200'
+
+# The URL that the GitLab application uses to connect to OpenBao.
+gitlab_rails['openbao'] = {
+  'url' => 'https://openbao.example.com'
+}
 ```
 
 In this configuration:
@@ -231,8 +381,7 @@ In this configuration:
 - `oak['network_address']` is the shared network IP. Used by NGINX listen directives.
 - `oak['components']['openbao']['internal_url']` is the URL used by the GitLab application
   to talk to OpenBao.
-
-### TLS configuration
+- `gitlab_rails['openbao']['url']` is the OpenBao URL used by the GitLab application.
 
 If your GitLab `external_url` setting uses `https://`, Let's Encrypt is already enabled.
 Setting the OpenBao `external_url` scheme to `https://` is sufficient. GitLab
@@ -246,7 +395,48 @@ oak['components']['openbao']['ssl_certificate']     = '/etc/gitlab/ssl/openbao.e
 oak['components']['openbao']['ssl_certificate_key'] = '/etc/gitlab/ssl/openbao.example.com.key'
 ```
 
+{{< /tab >}}
+
+{{< tab title="External cluster" >}}
+
+Add the following to `/etc/gitlab/gitlab.rb` on each GitLab application node, replacing the placeholder
+values with your actual addresses and domain:
+
+```ruby
+# The URL GitLab Rails uses to connect to OpenBao.
+gitlab_rails['openbao'] = {
+  'url' => 'https://openbao.example.com'
+}
+```
+
+If you have separate Sidekiq nodes, add the same `gitlab_rails['openbao']` setting to
+`/etc/gitlab/gitlab.rb` on each Sidekiq node. Sidekiq workers that provision secrets also
+require access to OpenBao.
+
+If you use the Linux package-managed PostgreSQL as the OpenBao database, also add the following to
+`/etc/gitlab/gitlab.rb` on the PostgreSQL node:
+
+```ruby
+# PostgreSQL: accept TCP connections from Kubernetes pods.
+postgresql['listen_address'] = '<POSTGRES_ADDRESS>'
+
+# Local connections (GitLab Rails and other services) continue without a password.
+postgresql['trust_auth_cidr_addresses'] = %w[127.0.0.1/32 ::1/128]
+
+# Kubernetes pods authenticate with a password.
+# Replace 10.0.0.0/14 with the CIDR of your Kubernetes pod network.
+postgresql['md5_auth_cidr_addresses'] = %w[10.0.0.0/14]
+```
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
 ## Apply configuration changes
+
+{{< tabs >}}
+
+{{< tab title="Colocated cluster" >}}
 
 Apply configuration changes:
 
@@ -261,9 +451,24 @@ This command applies all configuration in a single pass:
   and HTTP to HTTPS redirect.
 - The Let's Encrypt certificate is issued or renewed, if applicable.
 
-## Wait for OpenBao to become ready
+{{< /tab >}}
 
-The pods previously in a `CrashLoopBackOff` state should now be healthy after reconfigure.
+{{< tab title="External cluster" >}}
+
+Apply configuration changes on each node where you updated `gitlab.rb`:
+
+```shell
+sudo gitlab-ctl reconfigure
+```
+
+On the PostgreSQL node, this makes PostgreSQL accept TCP connections from the cluster pod network.
+On Rails and Sidekiq nodes, this applies the OpenBao URL configuration.
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
+## Wait for OpenBao to become ready
 
 Wait for the rollout to complete:
 
@@ -271,11 +476,14 @@ Wait for the rollout to complete:
 kubectl -n openbao rollout status deployment openbao
 ```
 
+For colocated clusters, pods previously in a `CrashLoopBackOff` state become healthy
+after `gitlab-ctl reconfigure` completes.
+
 ## Verify the installation
 
 To verify the installation:
 
-1. Verify that OpenBao is reachable through the HTTPS proxy:
+1. Verify that OpenBao is reachable:
 
    ```shell
    curl "https://openbao.example.com/v1/sys/health"

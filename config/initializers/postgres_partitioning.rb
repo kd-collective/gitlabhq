@@ -144,4 +144,7 @@ Gitlab::Application.config.to_prepare do
   )
 end
 
-Gitlab::Database::Partitioning.sync_partitions_ignore_db_error
+# Sync partitions after models/tables are registered when `to_prepare` is executed
+Gitlab::Application.config.after_initialize do
+  Gitlab::Database::Partitioning.sync_partitions_ignore_db_error
+end
