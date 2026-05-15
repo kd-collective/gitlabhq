@@ -32,8 +32,6 @@ class Projects::RawController < Projects::ApplicationController
   # Override to render plain text instead of HTML template
   # since RawController serves raw file content, not HTML pages
   def handle_gitaly_error(exception)
-    raise exception unless Feature.enabled?(:graceful_gitaly_degradation, current_user)
-
     Gitlab::ErrorTracking.track_exception(exception)
 
     render plain: gitaly_unavailable_message, status: :service_unavailable

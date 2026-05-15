@@ -192,6 +192,26 @@ without having to go to individual projects.
 For example, searching for `def authenticate repo:my-group/my-project` returns results
 only from that repository. You can also use partial paths or patterns to match multiple repositories.
 
+### Merge request ready event trigger
+
+<!-- categories: Duo Agent Platform -->
+
+{{< details >}}
+
+- Tier: Premium, Ultimate
+- Offering: GitLab.com, GitLab Self-Managed
+- Links: [Documentation](../../user/duo_agent_platform/triggers/_index.md), [Related issue](https://gitlab.com/gitlab-org/gitlab/-/work_items/592454)
+
+{{< /details >}}
+
+You can now configure flows and external agents to run on the **Merge request ready** event.
+
+When a draft merge request is marked as ready for review, GitLab Duo automatically runs the flow or external agent. 
+
+To configure a trigger, go to **AI** > **Triggers** in your project.
+
+This feature is behind the `merge_request_ready_flow_trigger` feature flag, disabled by default.
+
 ### Claude Opus 4.7 now available in GitLab Duo Agent Platform
 
 <!-- categories: Duo Agent Platform -->
@@ -289,6 +309,20 @@ disabled by default.
 {{< /details >}}
 
 Top-level group Owners can now restrict the AI Catalog to show only agents and flows owned by projects within their group hierarchy. This blocks agents, external agents, or flows not in this hierarchy from being visible or enabled by any user in that group.
+
+### Purchase credits on the Free tier on GitLab Self-Managed
+
+<!-- categories: Subscription Management -->
+
+{{< details >}}
+
+- Tier: Free
+- Offering: GitLab Self-Managed
+- Links: [Documentation](../../subscriptions/gitlab_credits.md#buy-gitlab-credits), [Related issue](https://gitlab.com/groups/gitlab-org/-/work_items/20892)
+
+{{< /details >}}
+
+Free tier users on GitLab Self-Managed can now unlock the full power of GitLab Duo Agent Platform, no Premium or Ultimate subscription required. Choose your monthly credit amount, commit to an annual term, and get instant access to AI-powered development tools. Credits refresh automatically each month, so your team always has what it needs to build faster and smarter.
 
 ## Scale and Deployments
 

@@ -821,36 +821,18 @@ RSpec.describe Projects::BranchesController, feature_category: :source_code_mana
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503 and sets gitaly_unavailable' do
+        get :index, format: :html, params: { namespace_id: project.namespace, project_id: project }
 
-        it 'returns 503 and sets gitaly_unavailable' do
-          get :index, format: :html, params: { namespace_id: project.namespace, project_id: project }
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-          expect(assigns(:gitaly_unavailable)).to be true
-        end
-
-        it 'tracks the exception' do
-          expect(Gitlab::ErrorTracking).to receive(:track_exception)
-            .with(instance_of(Gitlab::Git::CommandError))
-
-          get :index, format: :html, params: { namespace_id: project.namespace, project_id: project }
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
+        expect(assigns(:gitaly_unavailable)).to be true
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'tracks the exception' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception)
+          .with(instance_of(Gitlab::Git::CommandError))
 
-        it 'raises the error' do
-          expect do
-            get :index, format: :html, params: { namespace_id: project.namespace, project_id: project }
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        get :index, format: :html, params: { namespace_id: project.namespace, project_id: project }
       end
     end
   end
@@ -922,48 +904,26 @@ RSpec.describe Projects::BranchesController, feature_category: :source_code_mana
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503 and JSON error message' do
+        get :diverging_commit_counts, format: :json, params: {
+          namespace_id: project.namespace,
+          project_id: project,
+          names: %w[fix]
+        }
 
-        it 'returns 503 and JSON error message' do
-          get :diverging_commit_counts, format: :json, params: {
-            namespace_id: project.namespace,
-            project_id: project,
-            names: %w[fix]
-          }
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-          expect(json_response['error']).to be_present
-        end
-
-        it 'tracks the exception' do
-          expect(Gitlab::ErrorTracking).to receive(:track_exception)
-            .with(instance_of(Gitlab::Git::CommandError))
-
-          get :diverging_commit_counts, format: :json, params: {
-            namespace_id: project.namespace,
-            project_id: project,
-            names: %w[fix]
-          }
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
+        expect(json_response['error']).to be_present
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'tracks the exception' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception)
+          .with(instance_of(Gitlab::Git::CommandError))
 
-        it 'raises the error' do
-          expect do
-            get :diverging_commit_counts, format: :json, params: {
-              namespace_id: project.namespace,
-              project_id: project,
-              names: %w[fix]
-            }
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        get :diverging_commit_counts, format: :json, params: {
+          namespace_id: project.namespace,
+          project_id: project,
+          names: %w[fix]
+        }
       end
     end
   end

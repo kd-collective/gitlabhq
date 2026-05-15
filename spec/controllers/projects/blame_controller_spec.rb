@@ -215,34 +215,16 @@ RSpec.describe Projects::BlameController, feature_category: :source_code_managem
         .and_raise(Gitlab::Git::CommandError, 'Gitaly unavailable')
     end
 
-    context 'when graceful_gitaly_degradation is enabled' do
-      before do
-        stub_feature_flags(graceful_gitaly_degradation: true)
-      end
+    it 'returns 503' do
+      get :show, params: { namespace_id: project.namespace, project_id: project, id: id }
 
-      it 'returns 503' do
-        get :show, params: { namespace_id: project.namespace, project_id: project, id: id }
-
-        expect(response).to have_gitlab_http_status(:service_unavailable)
-      end
-
-      it 'tracks the exception' do
-        expect(Gitlab::ErrorTracking).to receive(:track_exception).with(instance_of(Gitlab::Git::CommandError))
-
-        get :show, params: { namespace_id: project.namespace, project_id: project, id: id }
-      end
+      expect(response).to have_gitlab_http_status(:service_unavailable)
     end
 
-    context 'when graceful_gitaly_degradation is disabled' do
-      before do
-        stub_feature_flags(graceful_gitaly_degradation: false)
-      end
+    it 'tracks the exception' do
+      expect(Gitlab::ErrorTracking).to receive(:track_exception).with(instance_of(Gitlab::Git::CommandError))
 
-      it 'raises the error' do
-        expect do
-          get :show, params: { namespace_id: project.namespace, project_id: project, id: id }
-        end.to raise_error(Gitlab::Git::CommandError)
-      end
+      get :show, params: { namespace_id: project.namespace, project_id: project, id: id }
     end
   end
 end

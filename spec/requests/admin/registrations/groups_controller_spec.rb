@@ -22,6 +22,19 @@ RSpec.describe Admin::Registrations::GroupsController, feature_category: :onboar
       end
     end
 
+    context 'when on a Dedicated instance' do
+      before do
+        stub_application_setting(gitlab_dedicated_instance: true)
+        sign_in(admin)
+      end
+
+      it 'returns not found', :enable_admin_mode do
+        get_new
+
+        expect(response).to have_gitlab_http_status(:not_found)
+      end
+    end
+
     context 'when the feature flag is enabled' do
       context 'with an unauthenticated user' do
         it 'redirects to sign in' do

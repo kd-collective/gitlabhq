@@ -12,7 +12,6 @@ RSpec.describe 'Gitaly unavailable graceful degradation', feature_category: :sou
 
   before do
     sign_in(user)
-    stub_feature_flags(graceful_gitaly_degradation: true)
   end
 
   describe 'Projects::BlobController' do

@@ -20,8 +20,6 @@ module HandlesGitalyErrors
 
   # rubocop:disable Gitlab/ModuleWithInstanceVariables -- Allows us to pass gitaly availability to frontend
   def handle_gitaly_error(exception)
-    raise exception unless Feature.enabled?(:graceful_gitaly_degradation, current_user)
-
     Gitlab::ErrorTracking.track_exception(exception)
 
     @gitaly_unavailable = true

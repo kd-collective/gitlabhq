@@ -178,75 +178,39 @@ RSpec.describe Projects::GraphsController, feature_category: :source_code_manage
     end
 
     describe 'GET #show' do
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503' do
+        get :show, params: params
 
-        it 'returns 503' do
-          get :show, params: params
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-        end
-
-        it 'sets @gitaly_unavailable' do
-          get :show, params: params
-
-          expect(assigns[:gitaly_unavailable]).to be(true)
-        end
-
-        context 'with JSON format' do
-          it 'returns 503 with JSON error' do
-            get :show, params: params.merge(format: :json)
-
-            expect(response).to have_gitlab_http_status(:service_unavailable)
-            expect(json_response['error']).to be_present
-          end
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'sets @gitaly_unavailable' do
+        get :show, params: params
 
-        it 'raises the error' do
-          expect do
-            get :show, params: params
-          end.to raise_error(Gitlab::Git::CommandError)
+        expect(assigns[:gitaly_unavailable]).to be(true)
+      end
+
+      context 'with JSON format' do
+        it 'returns 503 with JSON error' do
+          get :show, params: params.merge(format: :json)
+
+          expect(response).to have_gitlab_http_status(:service_unavailable)
+          expect(json_response['error']).to be_present
         end
       end
     end
 
     describe 'GET #charts' do
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503' do
+        get :charts, params: params
 
-        it 'returns 503' do
-          get :charts, params: params
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-        end
-
-        it 'sets @gitaly_unavailable' do
-          get :charts, params: params
-
-          expect(assigns[:gitaly_unavailable]).to be(true)
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'sets @gitaly_unavailable' do
+        get :charts, params: params
 
-        it 'raises the error' do
-          expect do
-            get :charts, params: params
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        expect(assigns[:gitaly_unavailable]).to be(true)
       end
     end
 
@@ -261,34 +225,16 @@ RSpec.describe Projects::GraphsController, feature_category: :source_code_manage
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503' do
+        get :show, params: params
 
-        it 'returns 503' do
-          get :show, params: params
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-        end
-
-        it 'sets @gitaly_unavailable' do
-          get :show, params: params
-
-          expect(assigns[:gitaly_unavailable]).to be(true)
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'sets @gitaly_unavailable' do
+        get :show, params: params
 
-        it 'raises the error' do
-          expect do
-            get :show, params: params
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        expect(assigns[:gitaly_unavailable]).to be(true)
       end
     end
   end

@@ -68,42 +68,24 @@ RSpec.describe Projects::TagsController, feature_category: :source_code_manageme
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      where(:format) do
+        [:html, :atom]
+      end
 
-        where(:format) do
-          [:html, :atom]
-        end
+      with_them do
+        it 'returns 503 and sets gitaly_unavailable' do
+          get :index, params: { namespace_id: project.namespace.to_param, project_id: project }, format: format
 
-        with_them do
-          it 'returns 503 and sets gitaly_unavailable' do
-            get :index, params: { namespace_id: project.namespace.to_param, project_id: project }, format: format
-
-            expect(response).to have_gitlab_http_status(:service_unavailable)
-            expect(assigns(:gitaly_unavailable)).to be true
-          end
-        end
-
-        it 'tracks the exception' do
-          expect(Gitlab::ErrorTracking).to receive(:track_exception)
-            .with(instance_of(Gitlab::Git::CommandError))
-
-          get :index, params: { namespace_id: project.namespace.to_param, project_id: project }
+          expect(response).to have_gitlab_http_status(:service_unavailable)
+          expect(assigns(:gitaly_unavailable)).to be true
         end
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'tracks the exception' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception)
+          .with(instance_of(Gitlab::Git::CommandError))
 
-        it 'raises the error' do
-          expect do
-            get :index, params: { namespace_id: project.namespace.to_param, project_id: project }
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        get :index, params: { namespace_id: project.namespace.to_param, project_id: project }
       end
     end
 
@@ -212,36 +194,18 @@ RSpec.describe Projects::TagsController, feature_category: :source_code_manageme
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503 and sets gitaly_unavailable' do
+        get :show, params: { namespace_id: project.namespace.to_param, project_id: project, id: 'v1.0.0' }
 
-        it 'returns 503 and sets gitaly_unavailable' do
-          get :show, params: { namespace_id: project.namespace.to_param, project_id: project, id: 'v1.0.0' }
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-          expect(assigns(:gitaly_unavailable)).to be true
-        end
-
-        it 'tracks the exception' do
-          expect(Gitlab::ErrorTracking).to receive(:track_exception)
-            .with(instance_of(Gitlab::Git::CommandError))
-
-          get :show, params: { namespace_id: project.namespace.to_param, project_id: project, id: 'v1.0.0' }
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
+        expect(assigns(:gitaly_unavailable)).to be true
       end
 
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
+      it 'tracks the exception' do
+        expect(Gitlab::ErrorTracking).to receive(:track_exception)
+          .with(instance_of(Gitlab::Git::CommandError))
 
-        it 'raises the error' do
-          expect do
-            get :show, params: { namespace_id: project.namespace.to_param, project_id: project, id: 'v1.0.0' }
-          end.to raise_error(Gitlab::Git::CommandError)
-        end
+        get :show, params: { namespace_id: project.namespace.to_param, project_id: project, id: 'v1.0.0' }
       end
     end
   end

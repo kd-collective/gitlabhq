@@ -185,6 +185,20 @@ RSpec.describe SessionsController, type: :request, feature_category: :system_acc
       end
     end
 
+    context 'when on a Dedicated instance' do
+      before do
+        stub_application_setting(gitlab_dedicated_instance: true)
+        stub_application_setting(admin_mode: false)
+        allow(Group).to receive(:exists?).and_return(false)
+      end
+
+      it 'redirects to root path' do
+        sign_in_as(admin)
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     context 'when :self_managed_welcome_onboarding flag is disabled' do
       before do
         stub_feature_flags(self_managed_welcome_onboarding: false)

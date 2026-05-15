@@ -383,26 +383,10 @@ RSpec.describe Projects::RawController, feature_category: :source_code_managemen
         end
       end
 
-      context 'when graceful_gitaly_degradation is enabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: true)
-        end
+      it 'returns 503' do
+        get_show
 
-        it 'returns 503' do
-          get_show
-
-          expect(response).to have_gitlab_http_status(:service_unavailable)
-        end
-      end
-
-      context 'when graceful_gitaly_degradation is disabled' do
-        before do
-          stub_feature_flags(graceful_gitaly_degradation: false)
-        end
-
-        it 'raises the error' do
-          expect { get_show }.to raise_error(Gitlab::Git::CommandError)
-        end
+        expect(response).to have_gitlab_http_status(:service_unavailable)
       end
     end
   end

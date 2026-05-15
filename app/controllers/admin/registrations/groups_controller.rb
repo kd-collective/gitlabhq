@@ -50,7 +50,8 @@ module Admin
       private
 
       def verify_available!
-        render_404 unless Feature.enabled?(:self_managed_welcome_onboarding, :instance)
+        render_404 unless Feature.enabled?(:self_managed_welcome_onboarding, :instance) &&
+          !Gitlab::CurrentSettings.gitlab_dedicated_instance?
       end
 
       def group_params
