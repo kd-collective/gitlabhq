@@ -94,7 +94,7 @@ export default {
         :disabled="stepTag === 'button' && isDisabled(step) ? true : null"
         :aria-disabled="isDisabled(step) ? 'true' : null"
         :aria-invalid="isError(step) ? 'true' : null"
-        :aria-errormessage="isError(step) ? errorMessageId(step) : null"
+        :aria-describedby="isError(step) ? errorMessageId(step) : null"
         :data-testid="`step-${step.id}`"
         class="gl-flex gl-items-center gl-gap-2"
         :class="stepRootClasses(step)"

@@ -3,8 +3,11 @@
 module Admin
   module Registrations
     class ProfilesController < Admin::ApplicationController
+      include Gitlab::InternalEventsTracking
+
       skip_before_action :set_confirm_warning
       before_action :verify_available!
+      before_action :track_setup_profile_page_view, only: :new
 
       layout 'minimal'
 
@@ -19,6 +22,12 @@ module Admin
       def update
         result = ::Users::UpdateService.new(current_user, user: current_user, **profile_params).execute
 
+        track_internal_event(
+          'submit_setup_profile_form',
+          user: current_user,
+          additional_properties: { label: result[:status].to_s }
+        )
+
         if result[:status] == :success
           redirect_to post_onboarding_redirect_path
         else
@@ -29,10 +38,16 @@ module Admin
       end
 
       def skip
+        track_internal_event('click_skip_setup_profile', user: current_user)
+
         redirect_to post_onboarding_redirect_path
       end
 
       private
+
+      def track_setup_profile_page_view
+        track_internal_event('view_setup_profile_page', user: current_user)
+      end
 
       def verify_available!
         render_404 unless Feature.enabled?(:self_managed_welcome_onboarding, :instance) &&

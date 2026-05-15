@@ -933,6 +933,10 @@
   - 2
 - - repositories_cache_tag_signatures
   - 1
+- - repositories_create_branch
+  - 1
+- - repositories_create_branches_finish
+  - 1
 - - repositories_leave_pool_repository
   - 1
 - - repositories_post_receive

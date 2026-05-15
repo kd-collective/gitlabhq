@@ -25,7 +25,7 @@ module Gitlab
           state: pool_repository.state,
           reason_codes: reason_codes,
           reasons: reason_texts,
-          member_projects_count: pool_repository.member_projects.count,
+          member_projects_count: pool_repository.member_projects.size,
           shard_name: pool_repository.shard_name
         }
       end

@@ -132,7 +132,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::BitmapWindow, feature_
     let(:engine_class) do
       Gitlab::Database::Aggregation::ClickHouse::Engine.build do
         self.table_name = 'events'
-        self.table_primary_key = %w[id]
 
         dimensions do
           column :event_date, :date

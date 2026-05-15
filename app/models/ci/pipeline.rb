@@ -1234,18 +1234,18 @@ module Ci
     end
 
     def builds_in_self_and_project_descendants
-      latest_pipelines = self_and_project_descendants.preload(:source_bridge)
-      latest_pipelines = latest_pipelines.reject { |pipeline| pipeline&.source_bridge&.retried? }
+      latest_pipelines = self_and_project_descendants.preload(source_pipeline: :source_bridge)
+      latest_pipelines = latest_pipelines.reject { |pipeline| pipeline.source_pipeline&.source_bridge&.retried? }
 
-      Ci::Build.in_partition(self).latest.where(pipeline: latest_pipelines)
+      in_pipelines_and_partitions(Ci::Build.latest, latest_pipelines)
     end
 
     def bridges_in_self_and_project_descendants
-      Ci::Bridge.in_partition(self).latest.where(pipeline: self_and_project_descendants)
+      in_pipelines_and_partitions(Ci::Bridge.latest, self_and_project_descendants)
     end
 
     def jobs_in_self_and_project_descendants
-      Ci::Processable.in_partition(self).latest.where(pipeline: self_and_project_descendants)
+      in_pipelines_and_partitions(Ci::Processable.latest, self_and_project_descendants)
     end
 
     def environments_in_self_and_project_descendants(deployment_status: nil)
@@ -1400,7 +1400,7 @@ module Ci
         .with_job
         .where(job_id: hierarchy_builds.select(:id))
         .downloadable
-        .in_partition(self)
+        .in_partition(hierarchy_builds.where_values_hash['partition_id'] || self)
 
       non_expired = artifacts.not_expired
 
@@ -1899,6 +1899,20 @@ module Ci
 
       variables_attributes = Gitlab::Json.safe_parse(artifact.file.read)
       variables_attributes.map { |var_attrs| Ci::PipelineVariableItem.new(pipeline: self, **var_attrs) }
+    end
+
+    def in_pipelines_and_partitions(scope, pipelines)
+      # We need explicit partition_id values to apply partition pruning
+      partition_ids =
+        if pipelines.is_a?(ActiveRecord::Relation)
+          pipelines.distinct.pluck(:partition_id)
+        else
+          pipelines.pluck(:partition_id).uniq
+        end
+
+      scope
+        .in_pipelines(pipelines)
+        .in_partition(partition_ids)
     end
   end
 end

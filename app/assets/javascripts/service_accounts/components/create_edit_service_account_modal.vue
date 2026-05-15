@@ -1,7 +1,6 @@
 <script>
 import { mapState } from 'pinia';
 import { GlModal, GlButton, GlForm, GlFormFields, GlAlert } from '@gitlab/ui';
-import glFeatureFlagsMixin from '~/vue_shared/mixins/gl_feature_flags_mixin';
 import { s__, __ } from '~/locale';
 
 import { useServiceAccounts } from '../stores/service_accounts';
@@ -15,7 +14,6 @@ export default {
     GlFormFields,
     GlAlert,
   },
-  mixins: [glFeatureFlagsMixin()],
   props: {
     serviceAccount: {
       type: Object,
@@ -51,15 +49,6 @@ export default {
     },
     onCancel() {
       this.$emit('cancel');
-    },
-    featureFlaggedFields() {
-      const { email, ...fieldsWithoutEmail } = this.$options.fields;
-
-      if (this.glFeatures.editServiceAccountEmail) {
-        return { ...fieldsWithoutEmail, email };
-      }
-
-      return fieldsWithoutEmail;
     },
   },
   fields: {
@@ -110,7 +99,7 @@ export default {
       <gl-form-fields
         v-model="values"
         form-id="create-edit-service-account"
-        :fields="featureFlaggedFields()"
+        :fields="$options.fields"
         @submit="onSubmit"
       >
         <template #group(username)-description>

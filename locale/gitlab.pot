@@ -2449,22 +2449,7 @@ msgstr ""
 msgid "AI-generated summary"
 msgstr ""
 
-msgid "AIAgents|Agent Settings"
-msgstr ""
-
-msgid "AIAgents|An error has occurred when deleting the agent."
-msgstr ""
-
 msgid "AIAgents|An error has occurred when saving the agent."
-msgstr ""
-
-msgid "AIAgents|The requested agent was not found."
-msgstr ""
-
-msgid "AIAgents|Update the name and prompt for this agent."
-msgstr ""
-
-msgid "AIAgent|AI Agent %{codeStart}%{agentName}%{codeEnd} will be permanently deleted. Are you sure?"
 msgstr ""
 
 msgid "AIAgent|Agent name"
@@ -2473,25 +2458,10 @@ msgstr ""
 msgid "AIAgent|Create agent"
 msgstr ""
 
-msgid "AIAgent|Delete Agent"
-msgstr ""
-
-msgid "AIAgent|Delete agent?"
-msgstr ""
-
-msgid "AIAgent|Delete this agent"
-msgstr ""
-
 msgid "AIAgent|Edit Ai Agent"
 msgstr ""
 
 msgid "AIAgent|Prompt"
-msgstr ""
-
-msgid "AIAgent|This action permanently deletes the %{codeStart}%{agentName}%{codeEnd} AI Agent."
-msgstr ""
-
-msgid "AIAgent|Update agent"
 msgstr ""
 
 msgid "AICatalog|%d agent"
@@ -11636,6 +11606,12 @@ msgstr ""
 msgid "Automatically close associated incident when a recovery alert notification resolves an alert"
 msgstr ""
 
+msgid "Automatically detects new container vulnerabilities based on SBOM data when new security advisories are ingested."
+msgstr ""
+
+msgid "Automatically detects new dependency vulnerabilities based on SBOM data when new security advisories are ingested."
+msgstr ""
+
 msgid "Automatically resolved"
 msgstr ""
 
@@ -14747,7 +14723,22 @@ msgstr ""
 msgid "CVS|Container Scanning for Registry is enabled"
 msgstr ""
 
+msgid "CVS|Continuous Vulnerability Scanning for Container Scanning is disabled"
+msgstr ""
+
+msgid "CVS|Continuous Vulnerability Scanning for Container Scanning is enabled"
+msgstr ""
+
+msgid "CVS|Continuous Vulnerability Scanning for Dependency Scanning is disabled"
+msgstr ""
+
+msgid "CVS|Continuous Vulnerability Scanning for Dependency Scanning is enabled"
+msgstr ""
+
 msgid "CVS|Only security managers, maintainers, and owners can toggle this feature."
+msgstr ""
+
+msgid "CVS|Something went wrong. Please try again."
 msgstr ""
 
 msgid "CWE ID"
@@ -21279,6 +21270,12 @@ msgstr ""
 msgid "Continuous Integration and Deployment"
 msgstr ""
 
+msgid "Continuous Vulnerability Scanning for Container Scanning"
+msgstr ""
+
+msgid "Continuous Vulnerability Scanning for Dependency Scanning"
+msgstr ""
+
 msgid "Contribute to GitLab"
 msgstr ""
 
@@ -27071,9 +27068,6 @@ msgstr ""
 msgid "DuoAgenticChat|No credits remain for this billing period"
 msgstr ""
 
-msgid "DuoAgenticChat|No credits remain on your trial"
-msgstr ""
-
 msgid "DuoAgenticChat|No credits remaining"
 msgstr ""
 
@@ -27162,9 +27156,6 @@ msgid "DuoAgenticChat|Unable to connect to workflow service. Please try again."
 msgstr ""
 
 msgid "DuoAgenticChat|Upgrade to Premium"
-msgstr ""
-
-msgid "DuoAgenticChat|Upgrade to a paid subscription or turn off the Agentic toggle to start a new conversation."
 msgstr ""
 
 msgid "DuoAgenticChat|Your GitLab Duo Agent Platform subscription has been cancelled"
@@ -64531,6 +64522,9 @@ msgid_plural "SecurityConfiguration|%d vulnerabilities"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "SecurityConfiguration|Action unavailable"
+msgstr ""
+
 msgid "SecurityConfiguration|An error occurred while creating the merge request."
 msgstr ""
 
@@ -64622,6 +64616,9 @@ msgid "SecurityConfiguration|Not enabled"
 msgstr ""
 
 msgid "SecurityConfiguration|Once you've enabled a scan for the default branch, any subsequent feature branch you create will include the scan. An enabled scanner will not be reflected as such until the pipeline has been successfully executed and it has generated valid artifacts."
+msgstr ""
+
+msgid "SecurityConfiguration|Only security managers, maintainers, and owners can toggle this feature."
 msgstr ""
 
 msgid "SecurityConfiguration|Profile-based scanner configuration"
@@ -79097,6 +79094,9 @@ msgstr ""
 msgid "UsageBilling|GitLab Credits dashboard"
 msgstr ""
 
+msgid "UsageBilling|GitLab Credits dashboard is not available."
+msgstr ""
+
 msgid "UsageBilling|GitLab Credits usage"
 msgstr ""
 
@@ -79212,6 +79212,9 @@ msgid "UsageBilling|Sorting by total credits used displays only users with prior
 msgstr ""
 
 msgid "UsageBilling|This dashboard displays usage of all GitLab Duo Agent Platform features, including non-billable beta and experiment features. For billable usage only, view the %{linkStart}dashboard in Customers Portal%{linkEnd}."
+msgstr ""
+
+msgid "UsageBilling|This dashboard may not display all GitLab Credits usage data. For complete visibility, please upgrade to the latest version of GitLab or visit the %{linkStart}Customer Portal%{linkEnd} for billable usage data."
 msgstr ""
 
 msgid "UsageBilling|This dashboard may not display all current subscription data. For complete visibility, please upgrade to the latest version of GitLab or visit the %{linkStart}Customer Portal%{linkEnd}."
@@ -79417,6 +79420,12 @@ msgstr ""
 msgid "UsageQuota|Hash cache"
 msgstr ""
 
+msgid "UsageQuota|Hide details"
+msgstr ""
+
+msgid "UsageQuota|Hide details for %{name}"
+msgstr ""
+
 msgid "UsageQuota|Hosted runner duration"
 msgstr ""
 
@@ -79574,6 +79583,12 @@ msgid "UsageQuota|Seat utilization"
 msgstr ""
 
 msgid "UsageQuota|Shared bits of code and text."
+msgstr ""
+
+msgid "UsageQuota|Show details"
+msgstr ""
+
+msgid "UsageQuota|Show details for %{name}"
 msgstr ""
 
 msgid "UsageQuota|Something went wrong while fetching compute usage"

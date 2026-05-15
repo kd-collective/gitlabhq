@@ -5500,6 +5500,52 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
     it 'includes partition_id filter' do
       expect(builds.where_values_hash).to match(a_hash_including('partition_id' => pipeline.partition_id))
     end
+
+    context 'when pipelines span multiple partitions' do
+      let_it_be(:child_pipeline) { create(:ci_pipeline, child_of: pipeline) }
+      let_it_be(:cross_partition_pipeline) { create(:ci_pipeline, partition_id: 101, child_of: child_pipeline) }
+
+      it 'returns builds from all partitions' do
+        child_build = create(:ci_build, pipeline: child_pipeline)
+        cross_partition_build = create(:ci_build, pipeline: cross_partition_pipeline)
+
+        expect(builds).to include(build, child_build, cross_partition_build)
+      end
+    end
+  end
+
+  describe '#bridges_in_self_and_project_descendants' do
+    subject(:bridges) { pipeline.bridges_in_self_and_project_descendants }
+
+    let_it_be(:pipeline) { create(:ci_pipeline) }
+
+    context 'when pipeline is standalone' do
+      it 'returns an empty relation' do
+        expect(bridges).to be_empty
+      end
+    end
+
+    context 'when pipeline has child pipelines with trigger bridges' do
+      let_it_be(:child_pipeline) { create(:ci_pipeline, child_of: pipeline) }
+
+      it 'returns bridge jobs from the hierarchy' do
+        bridge = child_pipeline.source_pipeline.source_job
+
+        expect(bridges).to contain_exactly(bridge)
+      end
+    end
+
+    context 'when pipelines span multiple partitions' do
+      let_it_be(:child_pipeline) { create(:ci_pipeline, child_of: pipeline) }
+      let_it_be(:cross_partition_pipeline) { create(:ci_pipeline, partition_id: 101, child_of: child_pipeline) }
+
+      it 'returns bridges from all partitions' do
+        child_bridge = child_pipeline.source_pipeline.source_job
+        cross_partition_bridge = cross_partition_pipeline.source_pipeline.source_job
+
+        expect(bridges).to include(child_bridge, cross_partition_bridge)
+      end
+    end
   end
 
   describe '#build_with_artifacts_in_self_and_project_descendants' do
@@ -5570,6 +5616,19 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
 
     context 'when job is bridge' do
       it_behaves_like 'fetches jobs in self and project descendant pipelines', :ci_bridge
+    end
+
+    context 'when pipelines span multiple partitions' do
+      let_it_be(:child_pipeline) { create(:ci_pipeline, child_of: pipeline) }
+      let_it_be(:cross_partition_pipeline) { create(:ci_pipeline, partition_id: 101, child_of: child_pipeline) }
+
+      it 'returns jobs from all partitions' do
+        job = create(:ci_build, pipeline: pipeline)
+        child_job = create(:ci_build, pipeline: child_pipeline)
+        cross_partition_job = create(:ci_build, pipeline: cross_partition_pipeline)
+
+        expect(jobs).to include(job, child_job, cross_partition_job)
+      end
     end
   end
 
@@ -5675,6 +5734,25 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
 
       expect(pipeline.latest_report_builds_in_self_and_project_descendants).to contain_exactly(grandchild_build)
     end
+
+    context 'when pipelines span multiple partitions' do
+      let_it_be(:grandchild_pipeline) { create(:ci_pipeline, partition_id: 101, child_of: child_pipeline) }
+
+      it 'returns builds from all partitions' do
+        parent_build = create(:ci_build, :test_reports, pipeline: pipeline)
+        child_build = create(:ci_build, :coverage_reports, pipeline: child_pipeline)
+        grandchild_build = create(:ci_build, :codequality_reports, pipeline: grandchild_pipeline)
+
+        expect(pipeline.latest_report_builds_in_self_and_project_descendants).to contain_exactly(parent_build, child_build, grandchild_build)
+      end
+
+      it 'filters builds by scope across partitions' do
+        create(:ci_build, :test_reports, pipeline: pipeline)
+        grandchild_build = create(:ci_build, :codequality_reports, pipeline: grandchild_pipeline)
+
+        expect(pipeline.latest_report_builds_in_self_and_project_descendants(Ci::JobArtifact.of_report_type(:codequality))).to contain_exactly(grandchild_build)
+      end
+    end
   end
 
   describe '#downloadable_artifacts_in_self_and_project_descendants' do
@@ -5718,6 +5796,17 @@ RSpec.describe Ci::Pipeline, :mailer, factory_default: :keep, feature_category: 
         it 'returns expired artifact' do
           expect(subject).to contain_exactly(parent_artifact, child_artifact, grandchild_artifact)
         end
+      end
+    end
+
+    context 'when pipelines span multiple partitions' do
+      let_it_be(:cross_partition_pipeline) { create(:ci_pipeline, :unlocked, partition_id: 101, child_of: child_pipeline) }
+      let_it_be(:cross_partition_build) { create(:ci_build, :codequality_reports, pipeline: cross_partition_pipeline) }
+
+      let(:cross_partition_artifact) { cross_partition_build.job_artifacts.first }
+
+      it 'returns downloadable artifacts from all partitions' do
+        expect(subject).to contain_exactly(parent_artifact, child_artifact, grandchild_artifact, cross_partition_artifact)
       end
     end
   end

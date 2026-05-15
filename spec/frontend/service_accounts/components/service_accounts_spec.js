@@ -116,52 +116,34 @@ describe('Service accounts', () => {
 
     describe('cells', () => {
       describe('name', () => {
-        describe('editServiceAccountEmail feature flag off', () => {
-          it('shows the service account name and username and never shows email', () => {
-            expect(findName().at(0).text()).toBe('Service Account 1');
-            expect(findUsername().at(0).text()).toBe('@test_user');
-            expect(findEmail().exists()).toBe(false);
-
-            expect(findName().at(1).text()).toBe('Service Account 1');
-            expect(findUsername().at(1).text()).toBe('@test_user');
-            expect(findEmail().exists()).toBe(false);
-          });
-        });
-
-        describe('editServiceAccountEmail feature flag on', () => {
-          beforeEach(() => {
-            createComponent({ glFeatures: { editServiceAccountEmail: true } });
-          });
-
-          it.each([
-            {
-              description:
-                'shows the service account name and username and hides server generated email',
-              index: 0,
-              expectedName: 'Service Account 1',
-              expectedUsername: '@test_user',
-              expectedEmail: '',
-            },
-            {
-              description: 'shows the service account name and username and custom email',
-              index: 1,
-              expectedName: 'Service Account 1',
-              expectedUsername: '@test_user',
-              expectedEmail: 'custom@gmail.com',
-            },
-            {
-              description: 'shows the service account name and username and unconfirmed email',
-              index: 2,
-              expectedName: 'Service Account 1',
-              expectedUsername: '@test_user',
-              expectedEmail: 'unconfirmed_custon@gmail.com - unconfirmed',
-            },
-          ])('$description', ({ index, expectedName, expectedUsername, expectedEmail }) => {
-            expect(findName().at(index).text()).toBe(expectedName);
-            expect(findUsername().at(index).text()).toBe(expectedUsername);
-            expect(findEmail().at(index).text()).toBe(expectedEmail);
-            expect(findEmail().at(index).exists()).toBe(true);
-          });
+        it.each([
+          {
+            description:
+              'shows the service account name and username and hides server generated email',
+            index: 0,
+            expectedName: 'Service Account 1',
+            expectedUsername: '@test_user',
+            expectedEmail: '',
+          },
+          {
+            description: 'shows the service account name and username and custom email',
+            index: 1,
+            expectedName: 'Service Account 1',
+            expectedUsername: '@test_user',
+            expectedEmail: 'custom@gmail.com',
+          },
+          {
+            description: 'shows the service account name and username and unconfirmed email',
+            index: 2,
+            expectedName: 'Service Account 1',
+            expectedUsername: '@test_user',
+            expectedEmail: 'unconfirmed_custon@gmail.com - unconfirmed',
+          },
+        ])('$description', ({ index, expectedName, expectedUsername, expectedEmail }) => {
+          expect(findName().at(index).text()).toBe(expectedName);
+          expect(findUsername().at(index).text()).toBe(expectedUsername);
+          expect(findEmail().at(index).text()).toBe(expectedEmail);
+          expect(findEmail().at(index).exists()).toBe(true);
         });
       });
 

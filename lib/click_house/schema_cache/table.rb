@@ -33,6 +33,10 @@ module ClickHouse
         @sorting_key ||= resolve_key(@sorting_key_raw)
       end
 
+      def engine_params
+        @engine_params ||= parse_engine_params
+      end
+
       def to_h
         {
           'name' => name,
@@ -57,6 +61,54 @@ module ClickHouse
         return [] if raw.blank?
 
         split_top_level_commas(raw).map { |part| column(part) || part }
+      end
+
+      def parse_engine_params
+        return [] if engine_full.blank?
+
+        open_idx = engine_full.index('(')
+        return [] unless open_idx
+
+        prefix = engine_full[0...open_idx].strip
+        return [] unless prefix == engine || prefix == "`#{engine}`"
+
+        inner = engine_full[(open_idx + 1)..]
+        closing_idx = find_closing_paren(inner)
+        return [] unless closing_idx
+
+        split_top_level_commas(inner[0...closing_idx])
+      end
+
+      def find_closing_paren(str)
+        depth = 1
+        string_char = nil
+        escape = false
+        result = nil
+
+        str.each_char.with_index do |char, idx|
+          if string_char
+            if escape
+              escape = false
+            elsif char == '\\'
+              escape = true
+            elsif char == string_char
+              string_char = nil
+            end
+          else
+            case char
+            when "'", '`' then string_char = char
+            when '(' then depth += 1
+            when ')'
+              depth -= 1
+              if depth == 0
+                result = idx
+                break
+              end
+            end
+          end
+        end
+
+        result
       end
 
       # resolves complex key like (column1, myFunc1(param1, param2), column2)

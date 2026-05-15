@@ -10,20 +10,35 @@ module Gitlab
           INNER_QUERY_NAME = 'ch_aggregation_inner_query'
           DEDUP_QUERY_NAME = 'ch_aggregation_dedup_query'
           COLUMN_PREFIX = 'aeq_'
+          SCHEMA_CACHE_DATABASE = :main
 
           class << self
-            attr_accessor :table_name, :table_primary_key, :table_columns
+            attr_reader :table_name, :versioning_config, :table_primary_key
 
-            def versioned_by(column, deleted_marker: nil)
-              if table_columns.blank?
+            def table_name=(name)
+              table = ::ClickHouse::SchemaCache[SCHEMA_CACHE_DATABASE].table(name)
+              unless table
                 raise ArgumentError,
-                  'Full table columns list must be defined in `table_columns` before calling `versioned_by`'
+                  "Table '#{name}' was not found in the ClickHouse schema cache; " \
+                    "ensure the table exists in `db/click_house/schema_cache/#{SCHEMA_CACHE_DATABASE}/`"
               end
 
+              @table_name = name
+              @table_primary_key = table.primary_key.filter_map { |part| part.respond_to?(:name) ? part.name : nil }
+              apply_replacing_merge_tree_versioning(table)
+            end
+
+            def versioned_by(column, deleted_marker: nil)
               @versioning_config = { column: column.to_s, deleted_marker: deleted_marker&.to_s }.freeze
             end
 
-            attr_reader :versioning_config
+            def table_primary_key=(*columns)
+              @table_primary_key = columns.map(&:to_s).freeze
+            end
+
+            def table_columns
+              schema_cache_table.column_names
+            end
 
             def dimensions_mapping
               {
@@ -51,6 +66,23 @@ module Gitlab
                 metric_exact_match: MetricExactMatchFilter,
                 metric_range: MetricRangeFilter
               }
+            end
+
+            private
+
+            def schema_cache_table
+              raise ArgumentError, "`table_name` must be set on #{self}" unless table_name
+
+              ::ClickHouse::SchemaCache[SCHEMA_CACHE_DATABASE].table(table_name)
+            end
+
+            def apply_replacing_merge_tree_versioning(table)
+              return unless table.engine == 'ReplacingMergeTree'
+
+              version, deleted_marker = table.engine_params
+              return unless version
+
+              versioned_by(version, deleted_marker: deleted_marker)
             end
           end
 

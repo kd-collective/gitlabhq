@@ -11,7 +11,6 @@ import {
   GlButton,
 } from '@gitlab/ui';
 import { mapActions, mapState } from 'pinia';
-import glFeatureFlagsMixin from '~/vue_shared/mixins/gl_feature_flags_mixin';
 import { s__, sprintf } from '~/locale';
 
 import PageHeading from '~/vue_shared/components/page_heading.vue';
@@ -37,7 +36,6 @@ export default {
     DeleteServiceAccountModal,
     CreateEditServiceAccountModal,
   },
-  mixins: [glFeatureFlagsMixin()],
   inject: [
     'serviceAccountsEnabled',
     'serviceAccountsPath',
@@ -98,10 +96,7 @@ export default {
       });
     },
     showEmail(serviceAccount) {
-      return (
-        this.glFeatures.editServiceAccountEmail &&
-        (Boolean(serviceAccount.email) || Boolean(serviceAccount.unconfirmed_email))
-      );
+      return Boolean(serviceAccount.email) || Boolean(serviceAccount.unconfirmed_email);
     },
     email(addresses) {
       if (addresses.unconfirmed_email) {

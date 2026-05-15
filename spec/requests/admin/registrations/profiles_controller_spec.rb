@@ -78,6 +78,12 @@ RSpec.describe Admin::Registrations::ProfilesController, feature_category: :onbo
 
           expect(response).to have_gitlab_http_status(:ok)
         end
+
+        it 'tracks the view event' do
+          expect { get_new }
+            .to trigger_internal_events('view_setup_profile_page')
+            .with(user: admin, additional_properties: {})
+        end
       end
     end
   end
@@ -145,6 +151,12 @@ RSpec.describe Admin::Registrations::ProfilesController, feature_category: :onbo
           expect { patch_update }.to change { admin.reload.user_detail.company }.to('Acme Corp')
         end
 
+        it 'tracks the submit event with success label' do
+          expect { patch_update }
+            .to trigger_internal_events('submit_setup_profile_form')
+            .with(user: admin, additional_properties: { label: 'success' })
+        end
+
         context 'when a project id is in the session' do
           let_it_be(:project) { create(:project) }
 
@@ -178,6 +190,16 @@ RSpec.describe Admin::Registrations::ProfilesController, feature_category: :onbo
 
           expect(response).to have_gitlab_http_status(:unprocessable_entity)
         end
+
+        it 'tracks the submit event with error label' do
+          expect { patch_update }
+            .to trigger_internal_events('submit_setup_profile_form')
+            .with(user: admin, additional_properties: { label: 'error' })
+        end
+
+        it 'does not track the view event on re-render' do
+          expect { patch_update }.not_to trigger_internal_events('view_setup_profile_page')
+        end
       end
 
       context 'when the update service fails' do
@@ -191,6 +213,16 @@ RSpec.describe Admin::Registrations::ProfilesController, feature_category: :onbo
           patch_update
 
           expect(response).to have_gitlab_http_status(:unprocessable_entity)
+        end
+
+        it 'tracks the submit event with error label' do
+          expect { patch_update }
+            .to trigger_internal_events('submit_setup_profile_form')
+            .with(user: admin, additional_properties: { label: 'error' })
+        end
+
+        it 'does not track the view event on re-render' do
+          expect { patch_update }.not_to trigger_internal_events('view_setup_profile_page')
         end
       end
     end
@@ -226,6 +258,12 @@ RSpec.describe Admin::Registrations::ProfilesController, feature_category: :onbo
 
           expect(response).to redirect_to(root_path)
         end
+      end
+
+      it 'tracks the skip event' do
+        expect { get_skip }
+          .to trigger_internal_events('click_skip_setup_profile')
+          .with(user: admin)
       end
     end
   end

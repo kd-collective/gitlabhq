@@ -91,6 +91,8 @@ export const initSecurityConfiguration = (el) => {
         'validityChecksAvailable',
         'validityChecksEnabled',
         'userIsProjectAdmin',
+        'cvsForContainerScanningEnabled',
+        'cvsForDependencyScanningEnabled',
       ]),
     },
     render(createElement) {

@@ -11,7 +11,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::FilterDefinition, feat
     let(:engine_definition) do
       Gitlab::Database::Aggregation::ClickHouse::Engine.build do
         self.table_name = 'agent_platform_sessions'
-        self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
         metrics do
           count

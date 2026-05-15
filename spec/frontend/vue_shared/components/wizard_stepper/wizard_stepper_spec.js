@@ -174,8 +174,8 @@ describe('WizardStepper', () => {
       expect(findStepRoot(1).attributes('aria-invalid')).toBe('true');
     });
 
-    it('sets aria-errormessage referencing an sr-only error description element', () => {
-      const errorMessageId = findStepRoot(1).attributes('aria-errormessage');
+    it('sets aria-describedby referencing an sr-only error description element', () => {
+      const errorMessageId = findStepRoot(1).attributes('aria-describedby');
       expect(errorMessageId).toMatch(/^wizard-stepper-\d+-error-1$/);
 
       const errorEl = findStepErrorMessage(1);
@@ -191,8 +191,8 @@ describe('WizardStepper', () => {
       const wrapperA = mount(WizardStepper, { propsData: { steps: stepsA, currentStep: 1 } });
       const wrapperB = mount(WizardStepper, { propsData: { steps: stepsB, currentStep: 1 } });
 
-      const idA = wrapperA.find('[data-testid="step-1"]').attributes('aria-errormessage');
-      const idB = wrapperB.find('[data-testid="step-1"]').attributes('aria-errormessage');
+      const idA = wrapperA.find('[data-testid="step-1"]').attributes('aria-describedby');
+      const idB = wrapperB.find('[data-testid="step-1"]').attributes('aria-describedby');
 
       expect(idA).not.toBe(idB);
     });

@@ -135,7 +135,6 @@ The ClickHouse engine (`Gitlab::Database::Aggregation::ClickHouse::Engine`) gene
 ```ruby
 class SessionAnalyticsEngine < Gitlab::Database::Aggregation::ClickHouse::Engine
   self.table_name = 'sessions'
-  self.table_primary_key = %i[user_id session_id] # must match table primary key.
 
   filters do
     exact_match :flow_type, :string, description: 'Filter by flow type'

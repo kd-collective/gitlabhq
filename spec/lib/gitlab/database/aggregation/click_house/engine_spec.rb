@@ -8,7 +8,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
   let(:engine_definition) do
     described_class.build do
       self.table_name = 'agent_platform_sessions'
-      self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
       filters do
         exact_match :user_id, :integer
@@ -275,15 +274,72 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
     end
   end
 
-  describe '.versioned_by' do
-    it 'raises ArgumentError when table_columns is not defined' do
+  describe '.table_name=' do
+    it 'raises ArgumentError when the table is not in the ClickHouse schema cache' do
       expect do
         described_class.build do
-          self.table_name = 'some_table'
-          self.table_primary_key = %w[id]
-          versioned_by :version
+          self.table_name = 'some_unknown_table'
         end
-      end.to raise_error(ArgumentError, /`table_columns`.*`versioned_by`/)
+      end.to raise_error(ArgumentError, /not found in the ClickHouse schema cache/)
+    end
+
+    it 'auto-configures versioning for ReplacingMergeTree tables with version and deleted_marker' do
+      klass = described_class.build { self.table_name = 'ci_finished_builds' }
+
+      expect(klass.versioning_config).to eq(column: 'version', deleted_marker: 'deleted')
+    end
+
+    it 'does not configure versioning for non-ReplacingMergeTree tables' do
+      klass = described_class.build { self.table_name = 'agent_platform_sessions' }
+
+      expect(klass.versioning_config).to be_nil
+    end
+
+    it 'allows an explicit versioned_by call to override auto-detection' do
+      klass = described_class.build do
+        self.table_name = 'ci_finished_builds'
+        versioned_by :version
+      end
+
+      expect(klass.versioning_config).to eq(column: 'version', deleted_marker: nil)
+    end
+  end
+
+  describe '.table_primary_key' do
+    it 'returns the primary key column names from the ClickHouse schema cache' do
+      klass = described_class.build { self.table_name = 'agent_platform_sessions' }
+
+      expect(klass.table_primary_key).to eq(%w[namespace_path user_id session_id flow_type])
+    end
+
+    it 'returns nil when `table_name` is not set' do
+      klass = described_class.build {} # rubocop:disable Lint/EmptyBlock -- block is required
+
+      expect(klass.table_primary_key).to be_nil
+    end
+
+    it 'allows an explicit table_primary_key= call to override auto-detection' do
+      klass = described_class.build do
+        self.table_name = 'agent_platform_sessions'
+        self.table_primary_key = 'user_id'
+      end
+
+      expect(klass.table_primary_key).to eq(%w[user_id])
+    end
+  end
+
+  describe '.table_columns' do
+    it 'returns all column names from the ClickHouse schema cache' do
+      klass = described_class.build { self.table_name = 'agent_platform_sessions' }
+
+      expect(klass.table_columns).to include('namespace_path', 'user_id', 'session_id', 'flow_type',
+        'created_event_at', 'finished_event_at')
+    end
+
+    it 'raises when `table_name` is not set' do
+      klass = described_class.build {} # rubocop:disable Lint/EmptyBlock -- block is required
+
+      expect { klass.table_columns }.to raise_error(ArgumentError, /`table_name` must be set/)
     end
   end
 
@@ -321,8 +377,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
     let(:dedup_engine_definition) do
       described_class.build do
         self.table_name = 'ci_finished_builds'
-        self.table_primary_key = %w[status runner_type project_id finished_at id]
-        self.table_columns = %w[name]
 
         versioned_by :version, deleted_marker: :deleted
 
@@ -417,8 +471,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
       let(:dedup_engine_definition) do
         described_class.build do
           self.table_name = 'ci_finished_builds'
-          self.table_primary_key = %w[status runner_type project_id finished_at id]
-          self.table_columns = %w[name deleted]
 
           versioned_by :version
 
@@ -455,7 +507,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
     let(:engine_definition) do
       described_class.build do
         self.table_name = 'agent_platform_sessions'
-        self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
         dimensions do
           column :user_id, :integer
@@ -541,7 +592,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
       let(:engine_definition) do
         described_class.build do
           self.table_name = 'agent_platform_sessions'
-          self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
           dimensions do
             column :user_id, :integer
@@ -574,7 +624,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
       let(:engine_definition) do
         described_class.build do
           self.table_name = 'agent_platform_sessions'
-          self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
           dimensions do
             column :user_id, :integer
@@ -608,7 +657,6 @@ RSpec.describe Gitlab::Database::Aggregation::ClickHouse::Engine, :click_house, 
       let(:engine_definition) do
         described_class.build do
           self.table_name = 'agent_platform_sessions'
-          self.table_primary_key = %w[namespace_path user_id session_id flow_type]
 
           filters do
             exact_match :flow_type, :string

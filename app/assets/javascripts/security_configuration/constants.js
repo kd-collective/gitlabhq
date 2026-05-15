@@ -44,6 +44,10 @@ export const SECRET_DETECTION = 'secret_detection';
 
 export const LICENSE_INFORMATION_SOURCE = 'license_information_source';
 
+export const CVS_CONTAINER_SCANNING = 'cvs_for_container_scanning';
+
+export const CVS_DEPENDENCY_SCANNING = 'cvs_for_dependency_scanning';
+
 export const featureToMutationMap = {
   [REPORT_TYPE_SAST]: {
     mutationId: 'configureSast',

@@ -66,3 +66,5 @@ columns:
   type: Int16
   default_kind: DEFAULT
   default_expression: '0'
+- name: context_unaware_uuid
+  type: UUID

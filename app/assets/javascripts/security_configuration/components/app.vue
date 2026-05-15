@@ -19,6 +19,8 @@ import {
   SECRET_PUSH_PROTECTION,
   SECRET_DETECTION,
   LICENSE_INFORMATION_SOURCE,
+  CVS_CONTAINER_SCANNING,
+  CVS_DEPENDENCY_SCANNING,
 } from '../constants';
 import AutoDevOpsAlert from './auto_dev_ops_alert.vue';
 import AutoDevOpsEnabledAlert from './auto_dev_ops_enabled_alert.vue';
@@ -58,6 +60,14 @@ export default {
     ContainerScanningForRegistryFeatureCard: () =>
       import(
         'ee_component/security_configuration/components/container_scanning_for_registry_feature_card.vue'
+      ),
+    CvsContainerScanningFeatureCard: () =>
+      import(
+        'ee_component/security_configuration/components/cvs_container_scanning_feature_card.vue'
+      ),
+    CvsDependencyScanningFeatureCard: () =>
+      import(
+        'ee_component/security_configuration/components/cvs_dependency_scanning_feature_card.vue'
       ),
     PageHeading,
     VulnerabilityArchives: () =>
@@ -180,7 +190,12 @@ export default {
       if (feature.type === LICENSE_INFORMATION_SOURCE) {
         return 'license-information-source-feature-card';
       }
-
+      if (feature.type === CVS_CONTAINER_SCANNING) {
+        return 'cvs-container-scanning-feature-card';
+      }
+      if (feature.type === CVS_DEPENDENCY_SCANNING) {
+        return 'cvs-dependency-scanning-feature-card';
+      }
       return 'feature-card';
     },
     dismissAutoDevopsEnabledAlert() {

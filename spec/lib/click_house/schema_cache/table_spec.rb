@@ -83,6 +83,74 @@ RSpec.describe ClickHouse::SchemaCache::Table, feature_category: :database do
     end
   end
 
+  describe '#engine_params' do
+    def build_table(engine:, engine_full:)
+      described_class.new(
+        name: 'users', engine: engine, engine_full: engine_full,
+        partition_key: '', primary_key: '', sorting_key: '',
+        sampling_key: '', settings: {}, columns: []
+      )
+    end
+
+    it 'returns an empty array when there are no params' do
+      table = build_table(
+        engine: 'ReplacingMergeTree',
+        engine_full: 'ReplacingMergeTree ORDER BY id SETTINGS index_granularity = 8192'
+      )
+      expect(table.engine_params).to eq([])
+    end
+
+    it 'returns an empty array when params are empty' do
+      table = build_table(
+        engine: 'MergeTree',
+        engine_full: 'MergeTree() ORDER BY id'
+      )
+      expect(table.engine_params).to eq([])
+    end
+
+    it 'returns the params when present' do
+      table = build_table(
+        engine: 'ReplacingMergeTree',
+        engine_full: 'ReplacingMergeTree(version, deleted) ORDER BY id'
+      )
+      expect(table.engine_params).to eq(%w[version deleted])
+    end
+
+    it 'returns a single param' do
+      table = build_table(
+        engine: 'ReplacingMergeTree',
+        engine_full: 'ReplacingMergeTree(updated_at) ORDER BY workflow_id'
+      )
+      expect(table.engine_params).to eq(['updated_at'])
+    end
+
+    it 'does not split inside nested parens or quoted strings' do
+      table = build_table(
+        engine: 'Distributed',
+        engine_full: "Distributed(cluster, db, table, cityHash64(a, b), 'x, y')"
+      )
+      expect(table.engine_params).to eq(['cluster', 'db', 'table', 'cityHash64(a, b)', "'x, y'"])
+    end
+
+    it 'returns an empty array when engine_full has no parens after the engine name' do
+      table = build_table(
+        engine: 'MergeTree',
+        engine_full: 'MergeTree ORDER BY tuple(a, b)'
+      )
+      expect(table.engine_params).to eq([])
+    end
+
+    it 'returns an empty array when engine_full is blank' do
+      table = build_table(engine: 'MergeTree', engine_full: '')
+      expect(table.engine_params).to eq([])
+    end
+
+    it 'handles backtick-quoted engine names' do
+      table = build_table(engine: 'Null', engine_full: '`Null`')
+      expect(table.engine_params).to eq([])
+    end
+  end
+
   describe '#column' do
     it 'returns the column by name' do
       expect(table.column('id')).to eq(column_id)

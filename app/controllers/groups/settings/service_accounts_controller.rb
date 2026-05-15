@@ -7,10 +7,6 @@ module Groups
 
       before_action :authorize_read_service_accounts!, only: [:index]
 
-      before_action do
-        push_frontend_feature_flag(:edit_service_account_email, group)
-      end
-
       # Explicitly defined to satisfy Rails/LexicallyScopedActionFilter.
       # Renders the default template (index.html.haml).
       def index; end
