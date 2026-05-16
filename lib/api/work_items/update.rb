@@ -2,16 +2,17 @@
 
 module API
   module WorkItems
-    class Create < ::API::Base
+    class Update < ::API::Base
       before { authenticate! }
 
       feature_category :portfolio_management
       urgency :low
 
-      helpers ::API::Helpers::WorkItems::CreateParams
+      helpers ::API::Helpers::WorkItems::UpdateParams
       helpers ::API::Helpers::WorkItems::ShowParams
-      helpers ::API::Helpers::WorkItems::Creation
+      helpers ::API::Helpers::WorkItems::Update
       helpers ::API::Helpers::WorkItems::Rendering
+      helpers ::API::Helpers::WorkItems::Preloads
       helpers ::API::Helpers::WorkItems::WidgetValidation
 
       resource :namespaces do
@@ -20,28 +21,32 @@ module API
         end
 
         namespace ':id/-/work_items', requirements: { id: FULL_PATH_ID_REQUIREMENT } do
-          desc 'Create a work item.' do
-            detail 'Create a work item in a namespace. Project and group namespaces are supported.'
+          desc 'Update a work item.' do
+            detail 'Update a work item in a namespace. Project and group namespaces are supported.'
             hidden true
             success Entities::WorkItemBasic
             failure FAILURE_RESPONSES
             tags WORK_ITEMS_TAGS
           end
           params do
-            use :work_items_create_params
+            requires :work_item_iid, type: Integer, desc: 'The internal ID of the work item'
+            use :work_items_update_params
             use :work_items_fields_param
           end
           route_setting :lifecycle, :experiment
           route_setting :authorization,
-            permissions: :create_work_item,
+            permissions: :update_work_item,
             boundaries: [{ boundary_type: :group }, { boundary_type: :project }]
-          post do
+          patch ':work_item_iid' do
             namespace = find_namespace_by_path!(params[:id].to_s, allow_project_namespaces: true)
             not_found!('Namespace') if namespace.is_a?(::Namespaces::UserNamespace)
             resource_parent = namespace.is_a?(::Namespaces::ProjectNamespace) ? namespace.project : namespace
 
-            result = execute_work_item_creation(resource_parent)
-            render_work_item_creation(result)
+            work_item = find_work_item_by_iid(resource_parent, params[:work_item_iid])
+            not_found!('Work Item') unless work_item
+
+            result = execute_work_item_update(work_item)
+            render_work_item_update(result)
           end
         end
       end
@@ -52,26 +57,30 @@ module API
         end
 
         namespace ':id/-/work_items', requirements: { id: FULL_PATH_ID_REQUIREMENT } do
-          desc 'Create a work item in a project.' do
-            detail 'Create a work item in a project.'
+          desc 'Update a work item in a project.' do
+            detail 'Update a work item in a project.'
             hidden true
             success Entities::WorkItemBasic
             failure FAILURE_RESPONSES
             tags WORK_ITEMS_TAGS
           end
           params do
-            use :work_items_create_params
+            requires :work_item_iid, type: Integer, desc: 'The internal ID of the work item'
+            use :work_items_update_params
             use :work_items_fields_param
           end
           route_setting :lifecycle, :experiment
           route_setting :authorization,
-            permissions: :create_work_item,
+            permissions: :update_work_item,
             boundary_type: :project
-          post do
+          patch ':work_item_iid' do
             project = find_project!(params[:id])
 
-            result = execute_work_item_creation(project)
-            render_work_item_creation(result)
+            work_item = find_work_item_by_iid(project, params[:work_item_iid])
+            not_found!('Work Item') unless work_item
+
+            result = execute_work_item_update(work_item)
+            render_work_item_update(result)
           end
         end
       end
@@ -82,26 +91,30 @@ module API
         end
 
         namespace ':id/-/work_items', requirements: { id: FULL_PATH_ID_REQUIREMENT } do
-          desc 'Create a work item in a group.' do
-            detail 'Create a work item in a group.'
+          desc 'Update a work item in a group.' do
+            detail 'Update a work item in a group.'
             hidden true
             success Entities::WorkItemBasic
             failure FAILURE_RESPONSES
             tags WORK_ITEMS_TAGS
           end
           params do
-            use :work_items_create_params
+            requires :work_item_iid, type: Integer, desc: 'The internal ID of the work item'
+            use :work_items_update_params
             use :work_items_fields_param
           end
           route_setting :lifecycle, :experiment
           route_setting :authorization,
-            permissions: :create_work_item,
+            permissions: :update_work_item,
             boundary_type: :group
-          post do
+          patch ':work_item_iid' do
             group = find_group!(params[:id])
 
-            result = execute_work_item_creation(group)
-            render_work_item_creation(result)
+            work_item = find_work_item_by_iid(group, params[:work_item_iid])
+            not_found!('Work Item') unless work_item
+
+            result = execute_work_item_update(work_item)
+            render_work_item_update(result)
           end
         end
       end

@@ -110,19 +110,30 @@ module API
           work_items_relation.preload(*preloads) # rubocop:disable CodeReuse/ActiveRecord -- Preloading associations for API response
         end
 
+        def find_work_item_by_iid(resource_parent, iid)
+          ::WorkItems::WorkItemsFinder.new(
+            current_user,
+            work_items_parent_params(resource_parent).merge(iids: [iid])
+          ).execute.first
+        end
+
         private
 
-        def work_items_finder_params(resource_parent)
-          base_params = if resource_parent.is_a?(::Project)
-                          { project_id: resource_parent.id }
-                        else
-                          { group_id: resource_parent.id }
-                        end
+        def work_items_parent_params(resource_parent)
+          if resource_parent.is_a?(::Project)
+            { project_id: resource_parent.id }
+          else
+            { group_id: resource_parent.id }
+          end
+        end
 
+        def work_items_finder_params(resource_parent)
           transformer = ::API::Helpers::WorkItemsFilterParams.new(params, resource_parent: resource_parent)
           filter_params = transformer.transform
 
-          base_params.merge(filter_params).merge(sort: "#{params[:order_by]}_#{params[:sort]}")
+          work_items_parent_params(resource_parent)
+            .merge(filter_params)
+            .merge(sort: "#{params[:order_by]}_#{params[:sort]}")
         end
       end
     end

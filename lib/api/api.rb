@@ -373,6 +373,7 @@ module API
         mount ::API::WebCommits
         mount ::API::WorkItems::Delete
         mount ::API::WorkItems::Create
+        mount ::API::WorkItems::Update
         mount ::API::WorkItems::List
         mount ::API::WorkItems::Show
         mount ::API::Wikis

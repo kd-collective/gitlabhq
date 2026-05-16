@@ -165,11 +165,7 @@ module Ci
     end
 
     def refspec_for_persistent_ref
-      if Feature.enabled?(:runner_refspec_use_sha_instead_of_persistent_ref, project)
-        "+#{sha}:#{pipeline.persistent_ref.path}"
-      else
-        "+#{pipeline.persistent_ref.path}:#{pipeline.persistent_ref.path}"
-      end
+      "+#{sha}:#{pipeline.persistent_ref.path}"
     end
 
     def git_depth_value

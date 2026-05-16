@@ -36,6 +36,21 @@ module API
             resource_parent: resource_parent
         end
 
+        def render_work_item_response(result, status:)
+          if result[:status] == :success
+            feature_keys = requested_feature_keys(params[:features]&.keys&.join(','))
+
+            present result[:work_item],
+              with: Entities::WorkItemBasic,
+              current_user: current_user,
+              requested_features: feature_keys,
+              fields: requested_field_keys(params[:fields]),
+              status: status
+          else
+            render_api_error!(Array(result[:message]).join(', '), result[:http_status] || :unprocessable_entity)
+          end
+        end
+
         def render_work_item_for(resource_parent, work_item_iid)
           check_work_item_rest_api_feature_flag!
 

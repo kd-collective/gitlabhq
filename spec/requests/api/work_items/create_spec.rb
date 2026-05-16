@@ -367,6 +367,7 @@ RSpec.describe API::WorkItems::Create, feature_category: :portfolio_management d
         }
 
         expect(response).to have_gitlab_http_status(:not_found)
+        expect(json_response['message']).to include("Parent work item #{non_existing_record_id}")
       end
     end
 

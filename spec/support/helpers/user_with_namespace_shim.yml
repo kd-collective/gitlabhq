@@ -314,6 +314,7 @@
 - spec/features/breadcrumbs_schema_markup_spec.rb
 - spec/features/calendar_spec.rb
 - spec/features/canonical_link_spec.rb
+- spec/features/ci/catalog/catalog_settings_spec.rb
 - spec/features/commits_spec.rb
 - spec/features/dashboard/datetime_on_tooltips_spec.rb
 - spec/features/dashboard/issuables_counter_spec.rb
@@ -325,7 +326,6 @@
 - spec/features/discussion_comments/merge_request_spec.rb
 - spec/features/discussion_comments/snippets_spec.rb
 - spec/features/expand_collapse_diffs_spec.rb
-- spec/features/explore/catalog/catalog_settings_spec.rb
 - spec/features/file_uploads/project_import_spec.rb
 - spec/features/file_uploads/user_avatar_spec.rb
 - spec/features/frequently_visited_projects_and_groups_spec.rb

@@ -24,18 +24,7 @@ module API
         end
 
         def render_work_item_creation(result)
-          if result.success?
-            feature_keys = requested_feature_keys(params[:features]&.keys&.join(','))
-
-            present result[:work_item],
-              with: Entities::WorkItemBasic,
-              current_user: current_user,
-              requested_features: feature_keys,
-              fields: requested_field_keys(params[:fields]),
-              status: 201
-          else
-            render_api_error!(Array(result.message).join(', '), result.http_status || :unprocessable_entity)
-          end
+          render_work_item_response(result, status: 201)
         end
 
         private
@@ -70,27 +59,12 @@ module API
             if key == :hierarchy && value.key?(:parent_id)
               parent_id = value.delete(:parent_id)
               parent = ::WorkItem.find_by_id(parent_id)
-              not_found!('Work item') if parent.nil?
+              not_found!("Parent work item #{parent_id}") if parent.nil?
               value[:parent] = parent
             end
 
             hash[widget_key] = value
           end
-        end
-
-        def validate_supported_widgets!(work_item_type, resource_parent, widget_params)
-          unsupported = widget_params.keys - work_item_type.widget_classes(resource_parent).map(&:api_symbol)
-          return if unsupported.blank?
-
-          message = "Following widget keys are not supported by #{work_item_type.name} type: #{unsupported.join(', ')}"
-
-          render_structured_api_error!(
-            {
-              error: message,
-              unsupported_widgets: unsupported
-            },
-            :bad_request
-          )
         end
       end
     end
