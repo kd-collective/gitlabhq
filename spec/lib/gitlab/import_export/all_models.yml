@@ -563,11 +563,13 @@ merge_access_levels:
 - protected_branch
 - user
 - group
+- member_role
 push_access_levels:
 - protected_branch
 - user
 - group
 - deploy_key
+- member_role
 create_access_levels:
 - user
 - protected_tag
@@ -990,6 +992,7 @@ unprotect_access_levels:
 - user
 - protected_branch
 - group
+- member_role
 epic_issues:
 - issue
 - epic

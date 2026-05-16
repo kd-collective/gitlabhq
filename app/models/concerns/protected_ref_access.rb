@@ -62,6 +62,7 @@ module ProtectedRefAccess
 
   def humanize
     # humanize_role
+    # humanize_member_role
     # humanize_user
     # humanize_group
     # humanize_deploy_key
@@ -76,6 +77,7 @@ module ProtectedRefAccess
     return current_user.admin? if admin_access?
 
     # role_access_allowed?
+    # member_role_access_allowed?
     # user_access_allowed?
     # group_access_allowed?
     # deploy_key_access_allowed?

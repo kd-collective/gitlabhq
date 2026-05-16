@@ -18,3 +18,6 @@ module ProtectedBranchAccess
     end
   end
 end
+
+ProtectedBranchAccess.include_mod_with('ProtectedBranchAccess::Scopes')
+ProtectedBranchAccess.prepend_mod_with('ProtectedBranchAccess')

@@ -84,6 +84,7 @@ RSpec.describe 'organization transfer support tracking', :aggregate_failures, fe
       user_upload_states
       vulnerability_export_part_uploads
       vulnerability_export_parts
+      vulnerability_export_upload_states
       vulnerability_export_uploads
       work_item_custom_types
       work_item_settings

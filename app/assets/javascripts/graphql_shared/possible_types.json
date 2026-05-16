@@ -287,7 +287,8 @@
     "TerraformStateVersionRegistry",
     "UploadRegistry",
     "UserUploadRegistry",
-    "VulnerabilityArchiveExportUploadRegistry"
+    "VulnerabilityArchiveExportUploadRegistry",
+    "VulnerabilityExportUploadRegistry"
   ],
   "RegistryInterface": [
     "ContainerRegistry",

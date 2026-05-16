@@ -762,6 +762,11 @@ msgstr[1] ""
 msgid "%{count} files touched"
 msgstr ""
 
+msgid "%{count} filter applied"
+msgid_plural "%{count} filters applied"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "%{count} fork"
 msgid_plural "%{count} forks"
 msgstr[0] ""
@@ -16308,6 +16313,9 @@ msgid "Click to hide"
 msgstr ""
 
 msgid "Click to reveal"
+msgstr ""
+
+msgid "Click to view image in full screen"
 msgstr ""
 
 msgid "Client registration failed: %{error}"
@@ -33460,6 +33468,12 @@ msgid "Geo|Vulnerability Archive Export Upload"
 msgstr ""
 
 msgid "Geo|Vulnerability Archive Export Uploads"
+msgstr ""
+
+msgid "Geo|Vulnerability Export Upload"
+msgstr ""
+
+msgid "Geo|Vulnerability Export Uploads"
 msgstr ""
 
 msgid "Geo|Whether this site's database is connected to the primary database directly or through data replication"
@@ -63872,6 +63886,9 @@ msgstr ""
 msgid "Searching by both author and message is currently not supported."
 msgstr ""
 
+msgid "Searching by both date and message is currently not supported."
+msgstr ""
+
 msgid "Seat control"
 msgstr ""
 
@@ -65271,6 +65288,9 @@ msgstr ""
 msgid "SecurityOrchestration|%{state} and %{statuses}"
 msgstr ""
 
+msgid "SecurityOrchestration|%{strongStart}Block packages%{strongEnd} with copyleft licenses such as GPL-3.0 from being downloaded."
+msgstr ""
+
 msgid "SecurityOrchestration|%{strongStart}Run a DAST scan%{strongEnd} with Scan Profile A and Site Profile A %{strongStart}when a pipeline runs against the main branch%{strongEnd}."
 msgstr ""
 
@@ -66158,6 +66178,9 @@ msgstr ""
 msgid "SecurityOrchestration|Dependency firewall"
 msgstr ""
 
+msgid "SecurityOrchestration|Dependency firewall policy"
+msgstr ""
+
 msgid "SecurityOrchestration|Deploy AI security agent to create fix MRs with code suggestions"
 msgstr ""
 
@@ -66240,6 +66263,9 @@ msgid "SecurityOrchestration|Edit denylist"
 msgstr ""
 
 msgid "SecurityOrchestration|Edit denylist (%{variablesCount} %{variables})"
+msgstr ""
+
+msgid "SecurityOrchestration|Edit dependency firewall policy"
 msgstr ""
 
 msgid "SecurityOrchestration|Edit merge request approval policy"
@@ -66858,6 +66884,9 @@ msgid "SecurityOrchestration|New Policy"
 msgstr ""
 
 msgid "SecurityOrchestration|New compliance and security policy group"
+msgstr ""
+
+msgid "SecurityOrchestration|New dependency firewall policy"
 msgstr ""
 
 msgid "SecurityOrchestration|New merge request approval policy"
@@ -68107,6 +68136,9 @@ msgid "SecurityOrchestration|Update security policies"
 msgstr ""
 
 msgid "SecurityOrchestration|Update via merge request"
+msgstr ""
+
+msgid "SecurityOrchestration|Use a dependency firewall policy to %{strongStart}control which packages%{strongEnd} can be downloaded based on %{strongStart}license%{strongEnd} rules."
 msgstr ""
 
 msgid "SecurityOrchestration|Use a merge request approval policy to create rules that %{strongStart}check%{strongEnd} for %{strongStart}security vulnerabilities%{strongEnd} and %{strongStart}license compliance%{strongEnd} before %{strongStart}merging a merge request%{strongEnd}."
@@ -81365,9 +81397,6 @@ msgid "View group labels"
 msgstr ""
 
 msgid "View group pipeline usage quota"
-msgstr ""
-
-msgid "View image"
 msgstr ""
 
 msgid "View incident details at"

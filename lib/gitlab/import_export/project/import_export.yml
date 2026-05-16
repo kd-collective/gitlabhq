@@ -1412,6 +1412,12 @@ ee:
     approval_rules:
       - :created_at
       - :updated_at
+    merge_access_levels:
+      - :member_role_id
+    push_access_levels:
+      - :member_role_id
+    unprotect_access_levels:
+      - :member_role_id
   methods:
     approval_project_rules_protected_branches:
       - :branch_name
