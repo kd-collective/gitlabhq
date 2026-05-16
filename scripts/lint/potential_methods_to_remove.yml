@@ -111,7 +111,6 @@ app/helpers/routing/groups/members_helper.rb:
 app/helpers/routing/pipeline_schedules_helper.rb:
 - edit_pipeline_schedule_path
 - play_pipeline_schedule_path
-- take_ownership_pipeline_schedule_path
 app/helpers/routing/projects/members_helper.rb:
 - request_access_project_members_path
 - leave_project_members_path

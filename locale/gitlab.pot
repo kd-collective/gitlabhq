@@ -63966,7 +63966,10 @@ msgid_plural "SecretDetection|This %{contentType} appears to have the following 
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "SecretDetection|This feature has been disabled at the instance level. Please reach out to your instance administrator to request activation."
+msgid "SecretDetection|This feature has been enforced for all projects in the instance by an administrator."
+msgstr ""
+
+msgid "SecretDetection|This feature has been restricted for all projects in the instance. Contact an administrator to request activation."
 msgstr ""
 
 msgid "SecretDetection|Use secret detection exclusions to specify file paths, raw values, and regex that should be excluded by secret detection in this project. %{linkStart}Learn more.%{linkEnd}"
@@ -64672,6 +64675,9 @@ msgstr ""
 msgid "SecurityConfiguration|Available with Ultimate"
 msgstr ""
 
+msgid "SecurityConfiguration|Available with Ultimate. Enabled by default for all public projects."
+msgstr ""
+
 msgid "SecurityConfiguration|Configuration guide"
 msgstr ""
 
@@ -64729,6 +64735,9 @@ msgstr ""
 msgid "SecurityConfiguration|Enabled"
 msgstr ""
 
+msgid "SecurityConfiguration|Enforced by administrator"
+msgstr ""
+
 msgid "SecurityConfiguration|Learn more about our vulnerability data retention policies"
 msgstr ""
 
@@ -64769,6 +64778,9 @@ msgid "SecurityConfiguration|Project coverage"
 msgstr ""
 
 msgid "SecurityConfiguration|Quickly enable all continuous testing and compliance tools by enabling %{linkStart}Auto DevOps%{linkEnd}"
+msgstr ""
+
+msgid "SecurityConfiguration|Restricted by administrator"
 msgstr ""
 
 msgid "SecurityConfiguration|SAST configuration"
